@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio 3D Experience</title>
+  <title>MattQ's portfolio</title>
+  <link rel="icon" href="/assets/images/icon.png">
   <!-- Font moderno Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
@@ -72,7 +73,7 @@
       height: 600px; /* container quasi quadrato */
       padding: 40px;
       position: relative;
-      transition: transform 1s ease, opacity 1s ease;
+      transition: transform 0.6s ease, opacity 0.6s ease;
       transform-style: preserve-3d;
       transform: rotateY(15deg);
       opacity: 0;
@@ -85,7 +86,6 @@
     .hero-image {
       position: absolute;
       right: -100px;
-      bottom: -100px;
       width: 300px;
       height: 300px;
       border-radius: 50%;
@@ -111,7 +111,7 @@
       width: 80%;
       max-width: 800px;
       padding: 40px;
-      transition: transform 1s ease, opacity 1s ease;
+      transition: transform 0.6s ease, opacity 0.6s ease;
       transform-style: preserve-3d;
       transform: rotateY(15deg);
       opacity: 0;
@@ -181,11 +181,11 @@
     <nav>
       <ul>
         <li><a href="#section1">Home</a></li>
-        <li><a href="#section2">Chi Sono</a></li>
-        <li><a href="#section3">Progetto 1</a></li>
-        <li><a href="#section4">Progetto 2</a></li>
-        <li><a href="#section5">Progetto 3</a></li>
-        <li><a href="#section6">Contatti</a></li>
+        <li><a href="#section2">Me</a></li>
+        <li><a href="#section3">My Games</a></li>
+        <li><a href="#section4">Scripting</a></li>
+        <li><a href="#section5">Graphic Design</a></li>
+        <li><a href="#section6">Contacts</a></li>
       </ul>
     </nav>
   </div>
@@ -195,25 +195,29 @@
     <!-- Section 1: Hero -->
     <section id="section1" class="section hero-section">
       <div class="hero-card">
-        <h1 class="glow">Benvenuto nel mio Portfolio</h1>
-        <p>Un'esperienza 3D immersiva che unisce design e tecnologia.</p>
+        <h1 class="glow">Welcome to MattQ's portfolio</h1>
+        <p>Hello, I’m Matteo, a young developer with a passion for creating games on Roblox. For nearly 3 years I’ve been dedicated to scripting and game design, making engaging experiences. I have worked on projects that have gained millions of visits and I continue to refine my skills to bring innovative ideas to the world of Roblox.</p>
         <div class="hero-image">
-          <img src="assets/images/avatarwithoutbg.png" alt="La mia immagine">
+          <img src="assets/images/avatarwithoutbg.png" alt="MattQ's Roblox avatar" draggable="false">
         </div>
       </div>
     </section>
     <!-- Section 2: Chi Sono -->
     <section id="section2" class="section">
       <div class="card">
-        <h2 class="glow">Chi Sono</h2>
+        <h2 class="glow">Me</h2>
         <img src="https://via.placeholder.com/150" alt="Profilo" class="profile-img">
-        <p>Sono un designer e sviluppatore appassionato con esperienza in animazioni 3D e interfacce innovative.</p>
+        <p>
+          <ul>
+            <li> </li>
+          </ul>
+        </p>
       </div>
     </section>
     <!-- Section 3: Progetto 1 -->
     <section id="section3" class="section">
       <div class="card">
-        <h2 class="glow">Progetto 1</h2>
+        <h2 class="glow">My Games</h2>
         <img src="https://via.placeholder.com/800x400" alt="Progetto 1" class="project-image">
         <div class="project-details">
           <p>Descrizione del Progetto 1: Un'applicazione web innovativa per la gestione intelligente dei dati, caratterizzata da interfacce dinamiche e interattive.</p>
@@ -223,7 +227,7 @@
     <!-- Section 4: Progetto 2 -->
     <section id="section4" class="section">
       <div class="card">
-        <h2 class="glow">Progetto 2</h2>
+        <h2 class="glow">Scripting</h2>
         <img src="https://via.placeholder.com/800x400" alt="Progetto 2" class="project-image">
         <div class="project-details">
           <p>Descrizione del Progetto 2: Un'app mobile con un design minimalista e animazioni fluide, pensata per offrire una user experience ottimale.</p>
@@ -233,7 +237,7 @@
     <!-- Section 5: Progetto 3 -->
     <section id="section5" class="section">
       <div class="card">
-        <h2 class="glow">Progetto 3</h2>
+        <h2 class="glow">Graphic Desing</h2>
         <img src="https://via.placeholder.com/800x400" alt="Progetto 3" class="project-image">
         <div class="project-details">
           <p>Descrizione del Progetto 3: Un sito web dinamico che sfrutta effetti 3D e scroll jacking per creare un'esperienza unica e coinvolgente.</p>
@@ -243,7 +247,7 @@
     <!-- Section 6: Contatti -->
     <section id="section6" class="section">
       <div class="card">
-        <h2 class="glow">Contatti</h2>
+        <h2 class="glow">Contacts</h2>
         <p>Per collaborazioni o ulteriori informazioni, contattami tramite il modulo sottostante:</p>
         <div class="contact-form">
           <input type="text" placeholder="Nome">
@@ -261,15 +265,21 @@
     const cards = document.querySelectorAll('.card');
     let currentSection = 0;
     let isScrolling = false;
+    const scrollDelay = 1200; 
+    const scrollAnimation = 500; 
+    let scrollAccumulated = 0;
+    const scrollThreshold = 1; // Soglia per cambiare sezione
 
     function scrollToSection(index) {
       if(index < 0 || index >= sections.length) return;
-      isScrolling = true;
       sections[index].scrollIntoView({ behavior: 'smooth' });
       currentSection = index;
+      
       // Rimuovo la classe active da tutti gli elementi
       if(heroCard) heroCard.classList.remove('active');
       cards.forEach(card => card.classList.remove('active'));
+      
+      // Dopo il delay, aggiungo la classe active alla sezione giusta
       setTimeout(() => {
         if(index === 0) {
           heroCard.classList.add('active');
@@ -277,19 +287,39 @@
           // Dal momento che la Hero non fa parte di .card, l'indice dei card parte da 0 per la Section 2
           cards[index - 1].classList.add('active');
         }
-        isScrolling = false;
-      }, 1000);
+      }, scrollAnimation);
     }
 
     window.addEventListener('wheel', function(e) {
       e.preventDefault();
-      if(isScrolling) return;
-      if(e.deltaY > 0) {
+      
+      // Accumula il valore di deltaY
+      scrollAccumulated += e.deltaY;
+      
+      // Se la direzione dello scroll cambia, resetta l'accumulatore
+      if ((scrollAccumulated > 0 && e.deltaY < 0) || (scrollAccumulated < 0 && e.deltaY > 0)) {
+        scrollAccumulated = e.deltaY;
+      }
+
+      console.log(scrollAccumulated)
+      
+      if (isScrolling) return;
+      
+
+      if (scrollAccumulated >= scrollThreshold) {
+        isScrolling = true;
+        console.log("CHANGED")
         scrollToSection(currentSection + 1);
-      } else if(e.deltaY < 0) {
+        scrollAccumulated = 0;
+        setTimeout(() => { isScrolling = false; }, scrollDelay);
+      } else if (scrollAccumulated <= -scrollThreshold) {
+        isScrolling = true;
         scrollToSection(currentSection - 1);
+        scrollAccumulated = 0;
+        setTimeout(() => { isScrolling = false; }, scrollDelay);
       }
     }, { passive: false });
+
 
     document.querySelectorAll('.sidebar a').forEach(link => {
       link.addEventListener('click', function(e) {
