@@ -7,6 +7,8 @@
   <link rel="icon" href="/assets/images/icon.png">
   <!-- Font moderno Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome per le icone social -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     /* Base styles */
     html, body {
@@ -18,37 +20,45 @@
       color: #fff;
       font-family: 'Poppins', sans-serif;
     }
-    /* Sidebar moderna */
-    .sidebar {
+    /* Nuovo menu in basso */
+    .bottom-menu {
       position: fixed;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       background: linear-gradient(45deg, #222, #111);
-      padding: 20px;
-      border-radius: 10px;
+      padding: 10px 30px;
+      border-radius: 30px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
       z-index: 1000;
+      display: flex;
+      gap: 20px;
+      opacity: 0;
+      animation: fadeInUp 1s forwards;
     }
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
     }
-    .sidebar li {
-      margin: 10px 0;
-    }
-    .sidebar a {
+    .bottom-menu a {
       text-decoration: none;
       color: #fff;
       font-size: 16px;
-      padding: 5px 10px;
+      padding: 8px 12px;
       border-radius: 5px;
-      transition: background 0.3s;
-      display: block;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      display: inline-block;
     }
-    .sidebar a:hover {
-      background: rgba(255, 0, 0, 0.2);
+    .bottom-menu a:hover {
+      background: rgba(255, 0, 0, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(255,0,0,0.3);
     }
     /* Sezioni */
     .section {
@@ -62,48 +72,69 @@
       padding: 20px;
       box-sizing: border-box;
     }
-    /* Sezione Hero: container più grande e quasi quadrato */
+    /* Sezione Hero: profile card */
     .hero-section {
       height: 100vh;
     }
     .hero-card {
       background: #1a1a1a;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
       width: 90%;
       max-width: 600px;
-      height: 600px; /* container quasi quadrato */
+      height: 600px;
       padding: 40px;
       position: relative;
       transition: transform 0.6s ease, opacity 0.6s ease;
       transform-style: preserve-3d;
       transform: rotateY(15deg);
       opacity: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
     .hero-card.active {
       transform: rotateY(0deg);
       opacity: 1;
     }
-    /* Immagine animata nella Hero */
-    .hero-image {
-      position: absolute;
-      right: -100px;
-      width: 300px;
-      height: 300px;
+    .profile-img-large {
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      border: 5px solid rgba(255,0,0,0.8);
-      box-shadow: 0 0 30px rgba(255,0,0,0.8);
-      overflow: hidden;
-      animation: float 3s ease-in-out infinite;
-    }
-    .hero-image img {
-      width: 100%;
-      height: 100%;
+      border: 4px solid rgba(255,0,0,0.8);
+      box-shadow: 0 0 20px rgba(255,0,0,0.8);
       object-fit: cover;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
     }
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
+    }
+    .hero-card h1 {
+      margin: 10px 0;
+      font-size: 2.8em;
+      letter-spacing: 2px;
+    }
+    .hero-card p {
+      margin: 10px 0 30px;
+      font-size: 1.2em;
+      opacity: 0.8;
+    }
+    .social-links {
+      display: flex;
+      gap: 30px;
+      font-size: 2em;
+    }
+    .social-links a {
+      color: #fff;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .social-links a:hover {
+      color: #ff5555;
+      transform: scale(1.2);
     }
     /* Stile comune per le altre card */
     .card {
@@ -200,35 +231,47 @@
       width: 100%;
       border-radius: 5px;
     }
+    /* Stile per icone social personalizzate */
+    .social-icon {
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+      transition: transform 0.3s, filter 0.3s;
+      filter: brightness(0) invert(1);
+    }
+    .social-icon:hover {
+      transform: scale(1.1);
+      filter: brightness(1) invert(0);
+    }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar di navigazione -->
-  <div class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="#section1">Home</a></li>
-        <li><a href="#section2">Me</a></li>
-        <li><a href="#section3">My Games</a></li>
-        <li><a href="#section4">UI/UX Design</a></li>
-        <li><a href="#section5">Graphic Design</a></li>
-        <li><a href="#section6">Contacts</a></li>
-      </ul>
-    </nav>
+  <!-- Nuovo menu in basso -->
+  <div class="bottom-menu">
+    <a href="#section1">Home</a>
+    <a href="#section2">Me</a>
+    <a href="#section3">My Games</a>
+    <a href="#section4">UI/UX</a>
+    <a href="#section5">Graphics</a>
+    <a href="#section6">Contacts</a>
   </div>
 
   <!-- Contenitore delle sezioni -->
   <div id="container">
-    <!-- Section 1: Hero -->
+    <!-- Section 1: Hero/Profile Card -->
     <section id="section1" class="section hero-section">
       <div class="hero-card">
-        <h1 class="glow">🎮 MattQ Portfolio</h1>
-        <p>
-          Hello everyone, I'm Matteo, a young developer with a passion for creating games on Roblox. For nearly 3 years I've been dedicated to scripting and game design, making engaging experiences. I have worked on projects that have gained millions of visits and I continue to refine my skills to bring innovative ideas to the world of Roblox.
-        </p>
-        <div class="hero-image">
-          <img src="assets/images/avatarwithoutbg.png" alt="MattQ's Roblox avatar" draggable="false">
+        <img class="profile-img-large" src="assets/images/avatarwithoutbg.png" alt="MattQ's Avatar" draggable="false">
+        <h1 class="glow">MattQ</h1>
+        <p>Developer &amp; Creator</p>
+        <div class="social-links">
+          <a href="https://discord.gg/ETgCMSps4c" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+          <a href="mailto:mattqdevv@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+          <a href="https://x.com/mattqdev" target="_blank" title="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://www.roblox.com/users/2992118050" target="_blank" title="Roblox">
+            <img class="social-icon" src="assets/images/roblox.svg" alt="Roblox Icon">
+          </a>
         </div>
       </div>
     </section>
@@ -252,7 +295,7 @@
         </ul>
       </div>
     </section>
-
+    
     <!-- Section 3: My Games (Scripting and Game Design) -->
     <section id="section3" class="section">
       <div class="card">
@@ -360,7 +403,6 @@
         if(index === 0) {
           heroCard.classList.add('active');
         } else {
-          // Dal momento che la Hero non fa parte di .card, l'indice dei card parte da 0 per la Section 2
           cards[index - 1].classList.add('active');
         }
       }, scrollAnimation);
@@ -369,10 +411,8 @@
     window.addEventListener('wheel', function(e) {
       e.preventDefault();
       
-      // Accumula il valore di deltaY
       scrollAccumulated += e.deltaY;
       
-      // Se la direzione dello scroll cambia, resetta l'accumulatore
       if ((scrollAccumulated > 0 && e.deltaY < 0) || (scrollAccumulated < 0 && e.deltaY > 0)) {
         scrollAccumulated = e.deltaY;
       }
@@ -396,7 +436,7 @@
       }
     }, { passive: false });
 
-    document.querySelectorAll('.sidebar a').forEach(link => {
+    document.querySelectorAll('.bottom-menu a').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
