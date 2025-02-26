@@ -59,6 +59,8 @@
       justify-content: center;
       perspective: 1000px;
       position: relative;
+      padding: 20px;
+      box-sizing: border-box;
     }
     /* Sezione Hero: container più grande e quasi quadrato */
     .hero-section {
@@ -115,6 +117,7 @@
       transform-style: preserve-3d;
       transform: rotateY(15deg);
       opacity: 0;
+      overflow-y: auto;
     }
     .card.active {
       transform: rotateY(0deg);
@@ -124,7 +127,7 @@
     .glow {
       text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
     }
-    /* Stile per la sezione Chi Sono */
+    /* Stile per la sezione Me */
     .profile-img {
       width: 150px;
       height: 150px;
@@ -172,6 +175,31 @@
     .contact-form button:hover {
       background: #cc0000;
     }
+    /* Styling for lists inside cards */
+    .card ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    .card ul li {
+      margin-bottom: 8px;
+    }
+    .card a {
+      color: #ff5555;
+      text-decoration: none;
+    }
+    .card a:hover {
+      text-decoration: underline;
+    }
+    /* Simple gallery grid for graphic design images */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -183,7 +211,7 @@
         <li><a href="#section1">Home</a></li>
         <li><a href="#section2">Me</a></li>
         <li><a href="#section3">My Games</a></li>
-        <li><a href="#section4">Scripting</a></li>
+        <li><a href="#section4">UI/UX Design</a></li>
         <li><a href="#section5">Graphic Design</a></li>
         <li><a href="#section6">Contacts</a></li>
       </ul>
@@ -195,66 +223,114 @@
     <!-- Section 1: Hero -->
     <section id="section1" class="section hero-section">
       <div class="hero-card">
-        <h1 class="glow">Welcome to MattQ's portfolio</h1>
-        <p>Hello, I’m Matteo, a young developer with a passion for creating games on Roblox. For nearly 3 years I’ve been dedicated to scripting and game design, making engaging experiences. I have worked on projects that have gained millions of visits and I continue to refine my skills to bring innovative ideas to the world of Roblox.</p>
+        <h1 class="glow">🎮 MattQ Portfolio</h1>
+        <p>
+          Hello everyone, I'm Matteo, a young developer with a passion for creating games on Roblox. For nearly 3 years I've been dedicated to scripting and game design, making engaging experiences. I have worked on projects that have gained millions of visits and I continue to refine my skills to bring innovative ideas to the world of Roblox.
+        </p>
         <div class="hero-image">
           <img src="assets/images/avatarwithoutbg.png" alt="MattQ's Roblox avatar" draggable="false">
         </div>
       </div>
     </section>
-    <!-- Section 2: Chi Sono -->
+
+    <!-- Section 2: Me -->
     <section id="section2" class="section">
       <div class="card">
-        <h2 class="glow">Me</h2>
-        <img src="https://via.placeholder.com/150" alt="Profilo" class="profile-img">
-        <p>
-          <ul>
-            <li> </li>
-          </ul>
-        </p>
+        <h2 class="glow">📌 About Me</h2>
+        <ul>
+          <li>🔹 <strong>Nickname:</strong> <a href="https://www.roblox.com/users/2992118050" target="_blank">MattQ (@mattqdev)</a></li>
+          <li>🔹 <strong>Role:</strong> Scripter / Game Designer / UI Designer / Graphic Designer</li>
+          <li>🔹 <strong>Experience:</strong> 3 years</li>
+          <li>
+            🔹 <strong>Results</strong> (last update: Feb 2025):
+            <ul>
+              <li>🔹 <strong>Total Visits</strong> (only games owned by me): <strong>3.3M</strong></li>
+              <li>🔹 <strong>Total Members</strong> (only groups owned by me): <strong>88K</strong></li>
+              <li>🔹 <strong>Roblox Followers</strong> (@mattqdev): <strong>15.2K</strong></li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </section>
-    <!-- Section 3: Progetto 1 -->
+
+    <!-- Section 3: My Games (Scripting and Game Design) -->
     <section id="section3" class="section">
       <div class="card">
-        <h2 class="glow">My Games</h2>
-        <img src="https://via.placeholder.com/800x400" alt="Progetto 1" class="project-image">
-        <div class="project-details">
-          <p>Descrizione del Progetto 1: Un'applicazione web innovativa per la gestione intelligente dei dati, caratterizzata da interfacce dinamiche e interattive.</p>
-        </div>
+        <h2 class="glow">🖥️ Scripting and Game Design</h2>
+        <p>
+          This is my primary skill and my greatest passion. Having been almost exclusively a solo dev except for rare cases, I am accustomed to independently developing entire game systems. Specialized mainly in <strong>simulator</strong> and <strong>casual games</strong>, but I am ready to broaden my horizons.
+          In all these games except "Switch Color or die" I was the main creator and developer, as well as the current owner. I like to organize code in a neat and well-modularized manner.
+        </p>
+        <p><strong>Reference Projects:</strong></p>
+        <ul>
+          <li>🎮 <a href="https://www.roblox.com/games/17359625840" target="_blank">Brawl Stars Pet Simulator</a> – 3.2M Visits</li>
+          <li>🎮 <a href="https://www.roblox.com/games/18960452199" target="_blank">Brawl Stars RNG</a> – 51K Visits</li>
+          <li>🎮 <a href="https://www.roblox.com/games/18763191813" target="_blank">Cube Generator</a> – 157 Visits</li>
+          <li>🎮 <a href="https://www.roblox.com/games/17717218221" target="_blank">Switch Color or die</a> – 2.2K Visits</li>
+          <li>🎮 Sword io – coming soon</li>
+        </ul>
       </div>
     </section>
-    <!-- Section 4: Progetto 2 -->
+
+    <!-- Section 4: UI/UX Design -->
     <section id="section4" class="section">
       <div class="card">
-        <h2 class="glow">Scripting</h2>
-        <img src="https://via.placeholder.com/800x400" alt="Progetto 2" class="project-image">
-        <div class="project-details">
-          <p>Descrizione del Progetto 2: Un'app mobile con un design minimalista e animazioni fluide, pensata per offrire una user experience ottimale.</p>
-        </div>
+        <h2 class="glow">🎨 UI/UX Design (Interfaces &amp; User Experience)</h2>
+        <p>
+          I design modern and intuitive UIs, optimized for <strong>PC, Mobile, and Console</strong> devices. I have created 3 free plugins for the community that have received positive feedback, and I especially focused on their interfaces.
+        </p>
+        <p><strong>Reference Projects:</strong></p>
+        <ul>
+          <li>🎮 <a href="https://www.roblox.com/games/17359625840" target="_blank">Brawl Stars Pet Simulator</a> – 3.2M Visits</li>
+          <li>🎮 <a href="https://www.roblox.com/games/18960452199" target="_blank">Brawl Stars RNG</a> – 51K Visits</li>
+          <li>🎮 <a href="https://www.roblox.com/games/18763191813" target="_blank">Cube Generator</a> – 157 Visits</li>
+          <li>🔧 <a href="https://devforum.roblox.com/t/3193651" target="_blank">Plugin UI Assistant</a> – 600 downloads</li>
+          <li>🔧 <a href="https://devforum.roblox.com/t/3416936" target="_blank">Plugin Performance Heatmap</a> – 100 downloads</li>
+          <li>🔧 <a href="https://devforum.roblox.com/t/3260283" target="_blank">Plugin Assets Previewer</a> – 30 downloads</li>
+        </ul>
       </div>
     </section>
-    <!-- Section 5: Progetto 3 -->
+
+    <!-- Section 5: Graphic Design -->
     <section id="section5" class="section">
       <div class="card">
-        <h2 class="glow">Graphic Desing</h2>
-        <img src="https://via.placeholder.com/800x400" alt="Progetto 3" class="project-image">
-        <div class="project-details">
-          <p>Descrizione del Progetto 3: Un sito web dinamico che sfrutta effetti 3D e scroll jacking per creare un'esperienza unica e coinvolgente.</p>
+        <h2 class="glow">🖼️ Graphic Design (Icons, thumbnails, etc.)</h2>
+        <p>
+          As a solo dev, I have almost always created the graphics myself; here are some of my works:
+        </p>
+        <div class="gallery">
+          <img src="upload://a8cTYrJHrL3HWx3gPeJvcEqQkP1.png" alt="1stIcon copy">
+          <img src="upload://qLH65GhJebRzqUuoGeAkmTsuE3N.jpeg" alt="BannerPluginWide copy">
+          <img src="upload://tGxPCnnh41hi0VEdPv3OxggwjSF.jpeg" alt="Let It Snow Contest copy">
+          <img src="upload://y1rXg2S2d7E5EB7lV1WP5kQj2Es.jpeg" alt="Ollie copy">
+          <img src="upload://nXYvFDgv3zK9abfL0eyr9O6B3UC.jpeg" alt="radarpass copy">
+          <img src="upload://9ASOCSTqX5PtfYI3NymujktPZn.jpeg" alt="vippass copy">
+          <img src="upload://dDdXbdnmtbakYqq43Yvm2fZHbL0.jpeg" alt="x2 copy">
+          <img src="upload://9Elo6nj4z0DkhIRzGJdDmf68QlJ.jpeg" alt="ThumbnailChristmas copy">
         </div>
       </div>
     </section>
-    <!-- Section 6: Contatti -->
+
+    <!-- Section 6: Contacts & Work -->
     <section id="section6" class="section">
       <div class="card">
-        <h2 class="glow">Contacts</h2>
-        <p>Per collaborazioni o ulteriori informazioni, contattami tramite il modulo sottostante:</p>
-        <div class="contact-form">
-          <input type="text" placeholder="Nome">
-          <input type="email" placeholder="Email">
-          <textarea placeholder="Messaggio" rows="4"></textarea>
-          <button type="submit">Invia</button>
-        </div>
+        <h2 class="glow">💼 Work &amp; Contacts</h2>
+        <p>
+          I am available for paid commissions with negotiable prices that naturally vary based on the work required. Payment only in Robux. For longer-term collaborations, I might also accept revenue shares, but that depends on the situation.
+        </p>
+        <p>
+          <strong>Why choose me?</strong><br>
+          Since these are my first commissions, I don't ask for much: for a very modest fee, you can get a complete and well-crafted project. I am very open to revising the work if the initial result is not satisfactory, and I love what I do beyond the compensation.
+        </p>
+        <p>
+          For work inquiries or collaborations, feel free to contact me:
+        </p>
+        <ul>
+          <li>🔹 <a href="https://discord.gg/ETgCMSps4c" target="_blank">Discord Server</a>: active almost every day, DMs open @ mattqdev.</li>
+          <li>🔹 <a href="mailto:mattqdevv@gmail.com">Mail</a>: I don't check it often but I do reply.</li>
+          <li>🔹 <a href="https://x.com/mattqdev" target="_blank">Account X</a>: profile with rather casual posts, but I also reply there.</li>
+        </ul>
+        <p>Thank you very much for your attention! ❤️</p>
       </div>
     </section>
   </div>
@@ -301,25 +377,24 @@
         scrollAccumulated = e.deltaY;
       }
 
-      console.log(scrollAccumulated)
+      console.log(scrollAccumulated);
       
       if (isScrolling) return;
       
-
       if (scrollAccumulated >= scrollThreshold) {
         isScrolling = true;
-        console.log("CHANGED")
+        console.log("Changing section (down)");
         scrollToSection(currentSection + 1);
         scrollAccumulated = 0;
         setTimeout(() => { isScrolling = false; }, scrollDelay);
       } else if (scrollAccumulated <= -scrollThreshold) {
         isScrolling = true;
+        console.log("Changing section (up)");
         scrollToSection(currentSection - 1);
         scrollAccumulated = 0;
         setTimeout(() => { isScrolling = false; }, scrollDelay);
       }
     }, { passive: false });
-
 
     document.querySelectorAll('.sidebar a').forEach(link => {
       link.addEventListener('click', function(e) {
