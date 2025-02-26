@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio 3D Experience</title>
+  <!-- Font moderno Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Base styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #111;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+    }
+    /* Sidebar moderna */
+    .sidebar {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(45deg, #222, #111);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar li {
+      margin: 10px 0;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background 0.3s;
+      display: block;
+    }
+    .sidebar a:hover {
+      background: rgba(255, 0, 0, 0.2);
+    }
+    /* Sezioni */
+    .section {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+      position: relative;
+    }
+    /* Sezione Hero: container più grande e quasi quadrato */
+    .hero-section {
+      height: 100vh;
+    }
+    .hero-card {
+      background: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 600px;
+      height: 600px; /* container quasi quadrato */
+      padding: 40px;
+      position: relative;
+      transition: transform 1s ease, opacity 1s ease;
+      transform-style: preserve-3d;
+      transform: rotateY(15deg);
+      opacity: 0;
+    }
+    .hero-card.active {
+      transform: rotateY(0deg);
+      opacity: 1;
+    }
+    /* Immagine animata nella Hero */
+    .hero-image {
+      position: absolute;
+      right: -100px;
+      bottom: -100px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 5px solid rgba(255,0,0,0.8);
+      box-shadow: 0 0 30px rgba(255,0,0,0.8);
+      overflow: hidden;
+      animation: float 3s ease-in-out infinite;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    /* Stile comune per le altre card */
+    .card {
+      background: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 80%;
+      max-width: 800px;
+      padding: 40px;
+      transition: transform 1s ease, opacity 1s ease;
+      transform-style: preserve-3d;
+      transform: rotateY(15deg);
+      opacity: 0;
+    }
+    .card.active {
+      transform: rotateY(0deg);
+      opacity: 1;
+    }
+    /* Effetto glow */
+    .glow {
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    }
+    /* Stile per la sezione Chi Sono */
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,0,0,0.8);
+      box-shadow: 0 0 20px rgba(255,0,0,0.8);
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+    /* Stile per le immagini dei progetti */
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    .project-details {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    /* Stile modulo contatti */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .contact-form button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #ff0000;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .contact-form button:hover {
+      background: #cc0000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar di navigazione -->
+  <div class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="#section1">Home</a></li>
+        <li><a href="#section2">Chi Sono</a></li>
+        <li><a href="#section3">Progetto 1</a></li>
+        <li><a href="#section4">Progetto 2</a></li>
+        <li><a href="#section5">Progetto 3</a></li>
+        <li><a href="#section6">Contatti</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Contenitore delle sezioni -->
+  <div id="container">
+    <!-- Section 1: Hero -->
+    <section id="section1" class="section hero-section">
+      <div class="hero-card">
+        <h1 class="glow">Benvenuto nel mio Portfolio</h1>
+        <p>Un'esperienza 3D immersiva che unisce design e tecnologia.</p>
+        <div class="hero-image">
+          <img src="https://via.placeholder.com/300" alt="La mia immagine">
+        </div>
+      </div>
+    </section>
+    <!-- Section 2: Chi Sono -->
+    <section id="section2" class="section">
+      <div class="card">
+        <h2 class="glow">Chi Sono</h2>
+        <img src="https://via.placeholder.com/150" alt="Profilo" class="profile-img">
+        <p>Sono un designer e sviluppatore appassionato con esperienza in animazioni 3D e interfacce innovative.</p>
+      </div>
+    </section>
+    <!-- Section 3: Progetto 1 -->
+    <section id="section3" class="section">
+      <div class="card">
+        <h2 class="glow">Progetto 1</h2>
+        <img src="https://via.placeholder.com/800x400" alt="Progetto 1" class="project-image">
+        <div class="project-details">
+          <p>Descrizione del Progetto 1: Un'applicazione web innovativa per la gestione intelligente dei dati, caratterizzata da interfacce dinamiche e interattive.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Section 4: Progetto 2 -->
+    <section id="section4" class="section">
+      <div class="card">
+        <h2 class="glow">Progetto 2</h2>
+        <img src="https://via.placeholder.com/800x400" alt="Progetto 2" class="project-image">
+        <div class="project-details">
+          <p>Descrizione del Progetto 2: Un'app mobile con un design minimalista e animazioni fluide, pensata per offrire una user experience ottimale.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Section 5: Progetto 3 -->
+    <section id="section5" class="section">
+      <div class="card">
+        <h2 class="glow">Progetto 3</h2>
+        <img src="https://via.placeholder.com/800x400" alt="Progetto 3" class="project-image">
+        <div class="project-details">
+          <p>Descrizione del Progetto 3: Un sito web dinamico che sfrutta effetti 3D e scroll jacking per creare un'esperienza unica e coinvolgente.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Section 6: Contatti -->
+    <section id="section6" class="section">
+      <div class="card">
+        <h2 class="glow">Contatti</h2>
+        <p>Per collaborazioni o ulteriori informazioni, contattami tramite il modulo sottostante:</p>
+        <div class="contact-form">
+          <input type="text" placeholder="Nome">
+          <input type="email" placeholder="Email">
+          <textarea placeholder="Messaggio" rows="4"></textarea>
+          <button type="submit">Invia</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const heroCard = document.querySelector('.hero-card');
+    const cards = document.querySelectorAll('.card');
+    let currentSection = 0;
+    let isScrolling = false;
+
+    function scrollToSection(index) {
+      if(index < 0 || index >= sections.length) return;
+      isScrolling = true;
+      sections[index].scrollIntoView({ behavior: 'smooth' });
+      currentSection = index;
+      // Rimuovo la classe active da tutti gli elementi
+      if(heroCard) heroCard.classList.remove('active');
+      cards.forEach(card => card.classList.remove('active'));
+      setTimeout(() => {
+        if(index === 0) {
+          heroCard.classList.add('active');
+        } else {
+          // Dal momento che la Hero non fa parte di .card, l'indice dei card parte da 0 per la Section 2
+          cards[index - 1].classList.add('active');
+        }
+        isScrolling = false;
+      }, 1000);
+    }
+
+    window.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      if(isScrolling) return;
+      if(e.deltaY > 0) {
+        scrollToSection(currentSection + 1);
+      } else if(e.deltaY < 0) {
+        scrollToSection(currentSection - 1);
+      }
+    }, { passive: false });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetIndex = Array.from(sections).findIndex(section => section.id === targetId);
+        scrollToSection(targetIndex);
+      });
+    });
+
+    window.onload = () => {
+      if(heroCard) heroCard.classList.add('active');
+    };
+  </script>
+</body>
+</html>
