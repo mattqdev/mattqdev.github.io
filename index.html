@@ -230,6 +230,7 @@
     .gallery img {
       width: 100%;
       border-radius: 5px;
+      
     }
     /* Stile per icone social personalizzate */
     .social-icon {
@@ -403,14 +404,16 @@
           As a solo dev, I have almost always created the graphics myself; here are some of my works:
         </p>
         <div class="gallery">
-          <img src="upload://a8cTYrJHrL3HWx3gPeJvcEqQkP1.png" alt="1stIcon copy">
-          <img src="upload://qLH65GhJebRzqUuoGeAkmTsuE3N.jpeg" alt="BannerPluginWide copy">
-          <img src="upload://tGxPCnnh41hi0VEdPv3OxggwjSF.jpeg" alt="Let It Snow Contest copy">
-          <img src="upload://y1rXg2S2d7E5EB7lV1WP5kQj2Es.jpeg" alt="Ollie copy">
-          <img src="upload://nXYvFDgv3zK9abfL0eyr9O6B3UC.jpeg" alt="radarpass copy">
-          <img src="upload://9ASOCSTqX5PtfYI3NymujktPZn.jpeg" alt="vippass copy">
-          <img src="upload://dDdXbdnmtbakYqq43Yvm2fZHbL0.jpeg" alt="x2 copy">
-          <img src="upload://9Elo6nj4z0DkhIRzGJdDmf68QlJ.jpeg" alt="ThumbnailChristmas copy">
+          <img src="assets/pics/Icon.png" alt="Brawl Stars Simulator Icon" draggable="false">
+          <img src="assets/pics/RoGamesIcon.png" alt="ThumbnailChristmas" draggable="false">
+          <img src="assets/pics/1stIcon.png" alt="1stIcon" draggable="false">
+          <img src="assets/pics/Let It Snow Contest.png" alt="Let It Snow Contest" draggable="false">
+          <img src="assets/pics/Ollie.png" alt="Ollie" draggable="false">
+          <img src="assets/pics/radarpass.png" alt="radarpass" draggable="false">
+          <img src="assets/pics/vippass.png" alt="vippass" draggable="false">
+          <img src="assets/pics/x2.png" alt="x2 Power" draggable="false">
+          <img src="assets/pics/ThumbnailChristmas.png" alt="ThumbnailChristmas" draggable="false" width="200%">
+          <img src="assets/pics/BannerPluginWide.png" alt="BannerPluginWide" draggable="false" width="200%">
         </div>
       </div>
     </section>
@@ -509,6 +512,27 @@
     window.onload = () => {
       if(heroCard) heroCard.classList.add('active');
     };
+      
+      let touchStartY = 0;
+      let touchEndY = 0;
+
+      document.addEventListener("touchstart", (event) => {
+        touchStartY = event.touches[0].clientY;
+      });
+
+      document.addEventListener("touchmove", (event) => {
+        touchEndY = event.touches[0].clientY;
+      });
+
+      document.addEventListener("touchend", () => {
+        let deltaY = touchStartY - touchEndY;
+
+        if (deltaY > 50) {
+          scrollToNextSection();
+        } else if (deltaY < -50) {
+          scrollToPreviousSection();
+        }
+      });
   </script>
 </body>
 </html>
