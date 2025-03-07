@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MattQ's portfolio</title>
   <link rel="icon" href="/assets/images/icon.png">
-  <!-- Font moderno Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <!-- Font Awesome per le icone social -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     /* Base styles */
@@ -20,11 +18,13 @@
       color: #fff;
       font-family: 'Poppins', sans-serif;
     }
-    /* Nuovo menu in basso */
+    /* menu in basso */
     .bottom-menu {
       position: fixed;
-      bottom: 20px;
+      bottom: 30px;
+      height: 6vw;
       left: 50%;
+      width: 60%;
       transform: translateX(-50%);
       background: linear-gradient(45deg, #222, #111);
       padding: 10px 30px;
@@ -32,7 +32,9 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
       z-index: 1000;
       display: flex;
-      gap: 20px;
+      gap: 2.5vw;
+      justify-content: center;
+      align-items: center;
       opacity: 0;
       animation: fadeInUp 1s forwards;
     }
@@ -49,9 +51,10 @@
     .bottom-menu a {
       text-decoration: none;
       color: #fff;
-      font-size: 16px;
-      padding: 8px 12px;
+      font-size: 1.4vw;
+      padding: 8px 6px;
       border-radius: 5px;
+      text-align: center;
       transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
       display: inline-block;
     }
@@ -136,7 +139,7 @@
       color: #ff5555;
       transform: scale(1.2);
     }
-    /* Stile comune per le altre card */
+    /* Stile comune per le card */
     .card {
       background: #1a1a1a;
       border-radius: 10px;
@@ -158,7 +161,7 @@
     .glow {
       text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
     }
-    /* Stile per la sezione Me */
+    /* sezione Me */
     .profile-img {
       width: 150px;
       height: 150px;
@@ -168,7 +171,7 @@
       margin-bottom: 20px;
       object-fit: cover;
     }
-    /* Stile per le immagini dei progetti */
+    /* immagini dei progetti */
     .project-image {
       width: 100%;
       height: 200px;
@@ -206,7 +209,6 @@
     .contact-form button:hover {
       background: #cc0000;
     }
-    /* Styling for lists inside cards */
     .card ul {
       padding-left: 20px;
       margin: 10px 0;
@@ -221,7 +223,6 @@
     .card a:hover {
       text-decoration: underline;
     }
-    /* Simple gallery grid for graphic design images */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -232,7 +233,7 @@
       border-radius: 5px;
       
     }
-    /* Stile per icone social personalizzate */
+    /* icone social */
     .social-icon {
       width: 1em;
       height: 1em;
@@ -311,12 +312,12 @@
 
   <!-- Nuovo menu in basso -->
   <div class="bottom-menu">
-    <a href="#section1">Home</a>
-    <a href="#section2">Me</a>
-    <a href="#section3">My Games</a>
-    <a href="#section4">UI/UX</a>
-    <a href="#section5">Graphics</a>
-    <a href="#section6">Contacts</a>
+    <a href="#section1"><b>Home</b></a>
+    <a href="#section2"><b>Me</b></a>
+    <a href="#section3"><b>My Games</b></a>
+    <a href="#section4"><b>UI/UX</b></a>
+    <a href="#section5"><b>Graphics</b></a>
+    <a href="#section6"><b>Contacts</b></a>
   </div>
 
   <!-- Contenitore delle sezioni -->
@@ -458,11 +459,9 @@
       sections[index].scrollIntoView({ behavior: 'smooth' });
       currentSection = index;
       
-      // Rimuovo la classe active da tutti gli elementi
       if(heroCard) heroCard.classList.remove('active');
       cards.forEach(card => card.classList.remove('active'));
       
-      // Dopo il delay, aggiungo la classe active alla sezione giusta
       setTimeout(() => {
         if(index === 0) {
           heroCard.classList.add('active');
