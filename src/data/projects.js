@@ -1,7 +1,7 @@
 // src/data/projects.js
 import { 
   FaGamepad, FaLaptopCode, FaPalette, FaUsers, 
-  FaDownload, FaStar, FaEye, FaUserFriends, FaTrophy, FaCode,
+  FaDownload, FaStar, FaEye, FaUserFriends,
   FaMoneyBill,
   FaTruckMoving
 } from 'react-icons/fa';

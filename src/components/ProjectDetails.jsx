@@ -1,7 +1,7 @@
 // src/components/ProjectDetails.jsx
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { FaArrowLeft, FaExternalLinkAlt, FaGithub, FaCalendarAlt, FaCode, FaDownload, FaPlay, FaPlayCircle } from 'react-icons/fa';
+import { FaArrowLeft, FaExternalLinkAlt, FaGithub, FaCalendarAlt, FaCode, FaDownload, FaPlayCircle } from 'react-icons/fa';
 import { projects } from '../data/projects';
 import Gallery from './Gallery';
 
