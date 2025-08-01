@@ -1,28 +1,38 @@
 // src/components/ProjectDetails.jsx
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { FaArrowLeft, FaExternalLinkAlt, FaGithub, FaCalendarAlt, FaCode, FaDownload, FaPlayCircle } from 'react-icons/fa';
+import {
+  FaArrowLeft,
+  FaExternalLinkAlt,
+  FaGithub,
+  FaCalendarAlt,
+  FaCode,
+  FaDownload,
+  FaPlayCircle
+} from 'react-icons/fa';
 import { projects } from '../data/projects';
 import Gallery from './Gallery';
 
-function findPrevious(e) {
-  return projects[projects.indexOf(e) - 1]?.id;
-}
-function findNext(e) {
-  return projects[projects.indexOf(e) + 1]?.id;
+function findPrevious(project) {
+  return projects[projects.indexOf(project) - 1]?.id;
 }
 
+function findNext(project) {
+  return projects[projects.indexOf(project) + 1]?.id;
+}
+
+// include .png, .jpg, .svg and .mov files
 const context = require.context(
   "../assets/media/projects",
   true,
-  /\.(png|jpe?g|svg)$/
+  /\.(png|jpe?g|svg|mov)$/
 );
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
   const project = projects.find(p => p.id === projectId);
   const [activeTab, setActiveTab] = useState('overview');
-  
+
   if (!project) {
     return (
       <div className="project-not-found section">
@@ -36,53 +46,64 @@ const ProjectDetails = () => {
     );
   }
 
-  const images = context
+  // load all media in the project's folder
+  const media = context
     .keys()
     .filter(key => key.startsWith(`./${project.id}/`))
     .map(context);
 
+  // separate images and .mov videos
+  const images = media.filter(src => /\.(png|jpe?g|svg)$/i.test(src));
+  const videos = media.filter(src => /\.mov$/i.test(src));
+
   return (
     <section className="project-detail section">
       <div className="container">
+
         <Link to="/#projects" className="back-btn">
           <FaArrowLeft /> Back to Projects
         </Link>
-        
+
         <div className="project-header">
           <div className="project-meta">
             <h1>{project.title}</h1>
-            
+
             <div className="project-dates">
-              <FaCalendarAlt /> 
-              <span>{project.startDate} - {project.endDate || 'Present'}</span>
+              <FaCalendarAlt />
+              <span>
+                {project.startDate} - {project.endDate || 'Present'}
+              </span>
             </div>
-            
+
             <div className="project-links">
-              {project.links.map((link, index) => (
-                <a 
-                  key={index}
-                  href={link.url} 
-                  target="_blank" 
+              {project.links.map((link, idx) => (
+                <a
+                  key={idx}
+                  href={link.url}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="project-link"
                 >
-                  {link.type === 'github' ? <FaGithub /> : link.type === 'download' ? <FaDownload /> : link.type === 'play' ? <FaPlayCircle /> : <FaExternalLinkAlt />}
+                  {link.type === 'github' ? <FaGithub />
+                    : link.type === 'download' ? <FaDownload />
+                    : link.type === 'play' ? <FaPlayCircle />
+                    : <FaExternalLinkAlt />}
                   {link.label}
                 </a>
               ))}
             </div>
-            
+
             <div className="project-tags">
-              {project.tags.map((tag, index) => (
-                <span 
-                  key={index} 
+              {project.tags.map((tag, idx) => (
+                <span
+                  key={idx}
                   className="project-tag"
                   style={{ backgroundColor: tag.color }}
                 >
                   {tag.icon} {tag.name}
                 </span>
               ))}
-              
+
               {project.isOpenSource && (
                 <span className="project-tag open-source">
                   <FaCode /> Open Source
@@ -90,92 +111,95 @@ const ProjectDetails = () => {
               )}
             </div>
           </div>
-          
+
           <div className="project-image-main">
-            {images.length > 0 && <img src={project.thumbnail} alt={project.title} style={{maxHeight:300, width:"auto"}} />}
+            {project.thumbnail && (
+              <img
+                src={project.thumbnail}
+                alt={project.title}
+                style={{ maxHeight: 300, width: 'auto' }}
+              />
+            )}
           </div>
         </div>
 
-
         <div className="project-navigation">
           {findPrevious(project) && (
-            <Link to={`/project/${findPrevious(project)}`} className="nav-btn prev">
+            <Link
+              to={`/project/${findPrevious(project)}`}
+              className="nav-btn prev"
+            >
               Previous Project
             </Link>
           )}
-          
           {findNext(project) && (
-            <Link to={`/project/${findNext(project)}`} className="nav-btn next">
+            <Link
+              to={`/project/${findNext(project)}`}
+              className="nav-btn next"
+            >
               Next Project
             </Link>
           )}
         </div>
-        
+
         <div className="project-tabs">
-          <button 
+          <button
             className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
             onClick={() => setActiveTab('overview')}
           >
             Overview
           </button>
-          <button 
+          <button
             className={`tab-btn ${activeTab === 'gallery' ? 'active' : ''}`}
             onClick={() => setActiveTab('gallery')}
           >
-            Gallery ({images.length})
+            Gallery ({images.length + videos.length})
           </button>
-          <button 
+          <button
             className={`tab-btn ${activeTab === 'tech' ? 'active' : ''}`}
             onClick={() => setActiveTab('tech')}
           >
             Technologies
           </button>
-          <button 
+          <button
             className={`tab-btn ${activeTab === 'achievements' ? 'active' : ''}`}
             onClick={() => setActiveTab('achievements')}
           >
             Achievements
           </button>
         </div>
-        
+
         <div className="project-content">
           {activeTab === 'overview' && (
             <div className="project-overview">
               <h3>About this Project</h3>
               <p>{project.description}</p>
-              
+
               <div className="project-features">
                 <h4>Key Features</h4>
                 <ul>
-                  {project.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
+                  {project.features.map((feat, idx) => (
+                    <li key={idx}>{feat}</li>
                   ))}
                 </ul>
               </div>
-              
-              {/* <div className="project-challenges">
-                <h4>Challenges & Solutions</h4>
-                <ul>
-                  {project.challenges.map((challenge, index) => (
-                    <li key={index}>
-                      <strong>{challenge.challenge}:</strong> {challenge.solution}
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
             </div>
           )}
-          
-          {activeTab === 'gallery' && <Gallery images={images} />}
-          
+
+          {activeTab === 'gallery' && (
+            <Gallery images={images} videos={videos} />
+          )}
+
           {activeTab === 'tech' && (
             <div className="project-technologies">
               <h3>Technologies Used</h3>
-              
               <div className="tech-grid">
-                {project.technologies.map((tech, index) => (
-                  <div className="tech-card" key={index}>
-                    <div className="tech-icon" style={{ backgroundColor: tech.color }}>
+                {project.technologies.map((tech, idx) => (
+                  <div className="tech-card" key={idx}>
+                    <div
+                      className="tech-icon"
+                      style={{ backgroundColor: tech.color }}
+                    >
                       {tech.icon}
                     </div>
                     <h4>{tech.name}</h4>
@@ -185,23 +209,22 @@ const ProjectDetails = () => {
               </div>
             </div>
           )}
-          
+
           {activeTab === 'achievements' && (
             <div className="project-achievements">
               <h3>Project Achievements</h3>
-              
               <div className="achievements-grid">
-                {project.achievements.map((achievement, index) => (
-                  <div className="achievement-card" key={index}>
+                {project.achievements.map((ach, idx) => (
+                  <div className="achievement-card" key={idx}>
                     <div className="achievement-icon">
-                      {achievement.icon}
+                      {ach.icon}
                     </div>
                     <div>
-                      <h4>{achievement.title}</h4>
-                      <p>{achievement.description}</p>
-                      {achievement.metric && (
+                      <h4>{ach.title}</h4>
+                      <p>{ach.description}</p>
+                      {ach.metric && (
                         <div className="achievement-metric">
-                          {achievement.metric}
+                          {ach.metric}
                         </div>
                       )}
                     </div>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
 import { FaGamepad, FaLaptop, FaPalette, FaCube, FaGithub, FaExternalLinkAlt, FaCalendarAlt, FaCodeBranch } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import { FaGear } from 'react-icons/fa6';
+import { FaGear, FaHardDrive } from 'react-icons/fa6';
 
 
 const Projects = () => {
@@ -13,7 +13,9 @@ const Projects = () => {
   const getProjectIcon = (tags) => {
     if (tags.some(tag => tag.name === "Game Design")) return <FaGamepad className="project-main-icon" />;
     if (tags.some(tag => tag.name === "Plugin")) return <FaGear className="project-main-icon" />;
-    if (tags.some(tag => tag.name === "Creative")) return <FaPalette className="project-main-icon" />;
+    if (tags.some(tag => tag.name === "Arduino")) return <FaHardDrive className="project-main-icon" />;
+    if (tags.some(tag => tag.name === "Graphics")) return <FaPalette className="project-main-icon" />;
+    if (tags.some(tag => tag.name === "Website")) return <FaLaptop className="project-main-icon" />;
     return <FaCube className="project-main-icon" />;
   };
   
@@ -150,7 +152,7 @@ const Projects = () => {
                       className="project-tag"
                       style={{ 
                         backgroundColor: tag.color,
-                        boxShadow: `0 4px 12px ${tag.color}80`
+                        boxShadow: `0 0px 12px ${tag.color}`
                       }}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}

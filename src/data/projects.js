@@ -1,19 +1,145 @@
 // src/data/projects.js
 import { 
-  FaGamepad, FaLaptopCode, FaPalette, FaUsers, 
-  FaDownload, FaStar, FaEye, FaUserFriends,
+  FaGamepad, 
+  FaLaptopCode, 
+  FaPalette, 
+  FaUsers,
+  FaDownload, 
+  FaStar, 
+  FaEye, 
+  FaUserFriends,
   FaMoneyBill,
   FaTruckMoving,
   FaHeart,
-  FaTrophy
+  FaTrophy,
+  FaLightbulb,
+  FaLaptop
 } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHtml5, faJs, faReact } from '@fortawesome/free-brands-svg-icons';
+import { FaGear } from 'react-icons/fa6';
 
+// Definizione centralizzata dei tag
+const TAGS = {
+  ROBLOX: { 
+    name: "Roblox", 
+    icon: <FaGamepad />, 
+    color: "#666666" 
+  },
+  LUAU: { 
+    name: "Luau", 
+    icon: <FaLaptopCode />, 
+    color: "#4d79ff" 
+  },
+  UI_UX: { 
+    name: "UI/UX", 
+    icon: <FaPalette />, 
+    color: "#c19700" 
+  },
+  GAME_DESIGN: { 
+    name: "Game Design", 
+    icon: <FaPalette />, 
+    color: "#6a0dad" 
+  },
+  PLUGIN: { 
+    name: "Plugin", 
+    icon: <FaGear />, 
+    color: "#4d79ff" 
+  },
+  PHYSICS: { 
+    name: "Physics", 
+    icon: <FaTruckMoving />, 
+    color: "#0d68ad" 
+  },
+  ARDUINO: { 
+    name: "Arduino", 
+    icon: <FaLaptopCode />, 
+    color: "#32db70" 
+  },
+  CPP: { 
+    name: "C++", 
+    icon: <FaLaptopCode />, 
+    color: "#596588" 
+  },
+  HTML_CSS: { 
+    name: "HTML/CSS", 
+    icon: <FontAwesomeIcon icon={faHtml5} />, 
+    color: "#e09604" 
+  },
+  JAVASCRIPT: { 
+    name: "JavaScript", 
+    icon: <FontAwesomeIcon icon={faJs} />, 
+    color: "#c6a500" 
+  },
+  WEBSITE: { 
+    name: "Website", 
+    icon: <FaLaptop />, 
+    color: "#04c3e0" 
+  },
+  REACT: { 
+    name: "React", 
+    icon: <FontAwesomeIcon icon={faReact} />, 
+    color: "#61dafb" 
+  },
+};
 
-import T_BSPS from '../assets/media/projects/brawl-stars-pet-simulator/Thumbnail3.png';
-import T_BSR from '../assets/media/projects/brawl-stars-rng/Icon.png';
-import T_CG  from '../assets/media/projects/cube-generator/Thumbnail.png';
-import T_UIP  from '../assets/media/projects/plugin-ui-assistant/BannerPlugin.png';
-
+// Definizione centralizzata delle tecnologie
+const TECHNOLOGIES = {
+  ROBOX_STUDIO: { 
+    name: "Roblox Studio", 
+    icon: <FaGamepad />, 
+    color: "#ff4d5a",
+    purpose: "Game development platform" 
+  },
+  LUAU: { 
+    name: "Luau", 
+    icon: <FaLaptopCode />, 
+    color: "#4d79ff",
+    purpose: "Game scripting language" 
+  },
+  ARDUINO_SOFTWARE: { 
+    name: "Arduino (Software)", 
+    icon: <FaLaptopCode />, 
+    color: "#32db70",
+    purpose: "Programming environment for microcontrollers" 
+  },
+  ESP32: { 
+    name: "ESP32", 
+    icon: <FaLaptop />, 
+    color: "#283d7b",
+    purpose: "Microcontroller platform" 
+  },
+  CPP: { 
+    name: "C++", 
+    icon: <FaLaptopCode />, 
+    color: "#596588",
+    purpose: "Programming language" 
+  },
+  HTML_CSS: { 
+    name: "HTML/CSS", 
+    icon: <FontAwesomeIcon icon={faHtml5} />, 
+    color: "#e09604",
+    purpose: "Web Development" 
+  },
+  JAVASCRIPT: { 
+    name: "JavaScript", 
+    icon: <FontAwesomeIcon icon={faJs} />, 
+    color: "#c6a500",
+    purpose: "Programming Language" 
+  },
+  ARDUINO_NANO: { 
+    name: "Arduino Nano", 
+    icon: <FaLaptop />, 
+    color: "#283d7b",
+    purpose: "Microcontroller platform" 
+  },
+  REACT: { 
+    name: "React", 
+    icon: <FontAwesomeIcon icon={faReact} />, 
+    color: "#61dafb",
+    purpose: "JavaScript library for building user interfaces" 
+  },
+};
 
 export const projects = [
   {
@@ -28,10 +154,10 @@ export const projects = [
     startDate: "Jun 2024",
     endDate: "Jan 2025",
     tags: [
-      { name: "Roblox", icon: <FaGamepad />, color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "UI/UX", icon: <FaPalette />, color: "#c19700ff" },
-      { name: "Game Design", icon: <FaPalette />, color: "#6a0dad" },
+      TAGS.ROBLOX,
+      TAGS.LUAU,
+      TAGS.UI_UX,
+      TAGS.GAME_DESIGN
     ],
     thumbnail: null,
     links: [
@@ -45,12 +171,9 @@ export const projects = [
       "In-game economy with virtual currency",
       "And much more.",
     ],
-    challenges: [
-      // nessuna challenge per questo progetto
-    ],
     technologies: [
-      { name: "Roblox Studio", icon: <FaGamepad />, purpose: "Game development platform", color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, purpose: "Game scripting language", color: "#4d79ff" },
+      TECHNOLOGIES.ROBOX_STUDIO,
+      TECHNOLOGIES.LUAU
     ],
     achievements: [
       { icon: <FaUsers />, title: "Active Players", description: "Peak concurrent players", metric: "2000+" },
@@ -68,10 +191,10 @@ export const projects = [
     startDate: "Aug 2024",
     endDate: "Jan 2025",
     tags: [
-      { name: "Roblox", icon: <FaGamepad />, color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "UI/UX", icon: <FaPalette />, color: "#c19700ff" },
-      { name: "Game Design", icon: <FaPalette />, color: "#6a0dad" },
+      TAGS.ROBLOX,
+      TAGS.LUAU,
+      TAGS.UI_UX,
+      TAGS.GAME_DESIGN
     ],
     thumbnail: null,
     links: [
@@ -84,12 +207,9 @@ export const projects = [
       "Obby systems",
       "Potion system",
     ],
-    challenges: [
-      // nessuna challenge per questo progetto
-    ],
     technologies: [
-      { name: "Roblox Studio", icon: <FaGamepad />, purpose: "Game development platform", color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, purpose: "Game scripting language", color: "#4d79ff" },
+      TECHNOLOGIES.ROBOX_STUDIO,
+      TECHNOLOGIES.LUAU
     ],
     achievements: [
       { icon: <FaUsers />, title: "Active Players", description: "Peak concurrent players", metric: "200+" },
@@ -105,10 +225,10 @@ export const projects = [
     startDate: "Oct 2024",
     endDate: "Present",
     tags: [
-      { name: "Plugin", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "Roblox", icon: <FaGamepad />, color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "UI/UX", icon: <FaPalette />, color: "#ff6b6b" },
+      TAGS.PLUGIN,
+      TAGS.ROBLOX,
+      TAGS.LUAU,
+      TAGS.UI_UX
     ],
     thumbnail: null,
     links: [
@@ -131,16 +251,12 @@ export const projects = [
       "Slider for changing scale size",
       "And others…"
     ],
-    challenges: [
-      // nessuna challenge per questo progetto
-    ],
     technologies: [
-      { name: "Roblox Studio", icon: <FaGamepad />, purpose: "Plugin development platform", color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, purpose: "Scripting language", color: "#4d79ff" },
+      TECHNOLOGIES.ROBOX_STUDIO,
+      TECHNOLOGIES.LUAU
     ],
     achievements: [
       { icon: <FaDownload />, title: "Downloads", description: "Plugin installations", metric: "3.500+" },
-      //{ icon: <FaStar />, title: "Rating", description: "Average user rating", metric: "4.9/5"},
     ],
   },
   {
@@ -151,11 +267,11 @@ export const projects = [
     startDate: "Aug 2024",
     endDate: "8 Hours later",
     tags: [
-      { name: "Roblox", icon: <FaGamepad />, color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "UI/UX", icon: <FaPalette />, color: "#c19700ff" },
-      { name: "Game Design", icon: <FaPalette />, color: "#6a0dad" },
-      { name: "Physics", icon: <FaTruckMoving />, color: "#0d68adff" },
+      TAGS.ROBLOX,
+      TAGS.LUAU,
+      TAGS.UI_UX,
+      TAGS.GAME_DESIGN,
+      TAGS.PHYSICS
     ],
     thumbnail: null,
     links: [
@@ -167,12 +283,9 @@ export const projects = [
       "Real-time 3D generation.",
       "Customize colors, sizes and materials"
     ],
-    challenges: [
-      // nessuna challenge per questo progetto
-    ],
     technologies: [
-      { name: "Roblox Studio", icon: <FaGamepad />, purpose: "Game development platform", color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, purpose: "Game scripting language", color: "#4d79ff" },
+      TECHNOLOGIES.ROBOX_STUDIO,
+      TECHNOLOGIES.LUAU
     ],
     achievements: [
       {
@@ -191,16 +304,16 @@ export const projects = [
   },
   {
     id: "plugin-heatmap",
-    title: "Plugin Performance Heatmap",
+    title: "Performance Heatmap",
     shortDescription: "A free plugin for Roblox developers with 2.000+ downloads that help you optimize your builds in Roblox Studio.",
     description: "Plugin Performance Heatmap is a Roblox Studio plugin that helps developers quickly see which builds make the game laggy and fix them. It provides quick tools to colorize Mesh, Parts, Lights, Models and more.",
     startDate: "Jan 2025",
     endDate: "Present",
     tags: [
-      { name: "Plugin", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "Roblox", icon: <FaGamepad />, color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "UI/UX", icon: <FaPalette />, color: "#ff6b6b" },
+      TAGS.PLUGIN,
+      TAGS.ROBLOX,
+      TAGS.LUAU,
+      TAGS.UI_UX
     ],
     thumbnail: null,
     links: [
@@ -218,12 +331,9 @@ export const projects = [
       "List and Colors: Intuitive colors and list help you to understand how to optimize your game.",
       "And others…"
     ],
-    challenges: [
-      // nessuna challenge per questo progetto
-    ],
     technologies: [
-      { name: "Roblox Studio", icon: <FaGamepad />, purpose: "Plugin development platform", color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, purpose: "Scripting language", color: "#4d79ff" },
+      TECHNOLOGIES.ROBOX_STUDIO,
+      TECHNOLOGIES.LUAU
     ],
     achievements: [
       { icon: <FaDownload />, title: "Downloads", description: "Plugin installations", metric: "3.000+" },
@@ -238,10 +348,10 @@ export const projects = [
     startDate: "Jun 2025",
     endDate: "Present",
     tags: [
-      { name: "Plugin", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "Roblox", icon: <FaGamepad />, color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
-      { name: "UI/UX", icon: <FaPalette />, color: "#ff6b6b" },
+      TAGS.PLUGIN,
+      TAGS.ROBLOX,
+      TAGS.LUAU,
+      TAGS.UI_UX
     ],
     thumbnail: null,
     links: [
@@ -254,16 +364,147 @@ export const projects = [
         I recommend see the <a href="https://devforum.roblox.com/t/3750120">devforum post</a> for the full list and how to use them."
       </>
     ],
-    challenges: [
-      // nessuna challenge per questo progetto
-    ],
     technologies: [
-      { name: "Roblox Studio", icon: <FaGamepad />, purpose: "Plugin development platform", color: "#ff4d5a" },
-      { name: "Luau", icon: <FaLaptopCode />, purpose: "Scripting language", color: "#4d79ff" },
+      TECHNOLOGIES.ROBOX_STUDIO,
+      TECHNOLOGIES.LUAU
     ],
     achievements: [
       { icon: <FaDownload />, title: "Downloads", description: "Plugin installations", metric: "150+" },
-      { icon: <FaTrophy />, title: "Best Paid", description: "MattQ's Best Paid Plugin.", metric: "1#"},
+      { icon: <FaTrophy />, title: "Best Paid", description: "MattQ's Best Paid Plugin.", metric: "#1"},
+    ],
+  },
+  {
+    id: "parolora-clock",
+    title: "ParolOra Clock",
+    shortDescription: "A clock made with Arduino that shows time in words format.",
+    description: "This Clock (with a ridiculous Italian name that's definitely not AI-generated) (alternative name suggestions welcome) is a special clock that displays the time verbally. It's equipped with a Wi-Fi module, so it always keeps the time accurate and up-to-date, even during a power outage. You can also customize the colors and enter your Wi-Fi credentials from an integrated web portal.",
+    startDate: "Jul 2024",
+    endDate: "Aug 2024",
+    tags: [
+      TAGS.ARDUINO,
+      TAGS.CPP,
+      TAGS.HTML_CSS
+    ],
+    thumbnail: null,
+    links: [
+      { type: "github", url: "", label: "Soon open source" },
+    ],
+    isOpenSource: false,
+    features: [
+      "Displays time in words format",
+      "Wi-Fi connectivity and synchronization with NTP servers",
+      "Customizable colors and settings via web portal",
+      "3D printed case",
+      "It regolate led brightness based on the time of day",
+      "Auto test at the start",
+      "It can show figures"
+    ],
+    technologies: [
+      TECHNOLOGIES.ARDUINO_SOFTWARE,
+      TECHNOLOGIES.ESP32,
+      TECHNOLOGIES.CPP,
+      TECHNOLOGIES.HTML_CSS
+    ],
+    achievements: [
+      { icon: <FaLightbulb />, title: "Fun Fact", description: "There are only 2 copies of this in the whole world.", metric: "2 Exists"},
+      { icon: <FaLightbulb />, title: "Fun Fact", description: "The entire case has been printed in 3D.", metric: "MIY 3D Printed" },
+      { icon: <FaTrophy />, title: "Fun Fact", description: "One of the projects I'm most proud of.", metric: "#1" },
+    ],
+  },
+  {
+    id: "backtothefuture-clock",
+    title: "Back To The Future Clock",
+    shortDescription: "A clock made with Arduino inspired by Back To The Future.",
+    description: "This Clock is a special clock that displays the time in a unique way, inspired by the iconic Back To The Future movie. It has tre rows of displays that shows past time, present time and future time. It's very simple: It has only a RTC module and a 3D printed case, It has been made only because was cool and not because it's useful.",
+    startDate: "Mar 2023",
+    endDate: "Jun 2023",
+    tags: [
+      TAGS.ARDUINO,
+      TAGS.CPP
+    ],
+    thumbnail: null,
+    links: [
+      { type: "github", url: "", label: "Soon open source" },
+    ],
+    isOpenSource: false,
+    features: [
+      "Displays time in a unique way inspired by Back To The Future",
+      "Uses a RTC module for timekeeping",
+    ],
+    technologies: [
+      TECHNOLOGIES.ARDUINO_SOFTWARE,
+      TECHNOLOGIES.ARDUINO_NANO,
+      TECHNOLOGIES.CPP
+    ],
+    achievements: [
+      { icon: <FaLightbulb />, title: "Fun Fact", description: "My first big Arduino project.", metric: "#1"},
+      { icon: <FaLightbulb />, title: "Fun Fact", description: "The entire case has been printed in 3D.", metric: "MIY 3D Printed" },
+    ],
+  },
+  {
+    id: "first-portfolio",
+    title: "My First Portfolio",
+    shortDescription: "My First Portfolio website made in HTML/CSS and JS.",
+    description: "This is my first portfolio website, made in HTML/CSS and JS. It's a simple website that showcases my skills and projects. It's a good example of my first web development skills.",
+    startDate: "Jul 2023",
+    endDate: "Aug 2023",
+    tags: [
+      TAGS.WEBSITE,
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT
+    ],
+    thumbnail: null,
+    links: [
+      { type: "github", url: "https://github.com/mattqdev/first-portfolio", label: "Repository Link" },
+    ],
+    isOpenSource: true,
+    features: [
+      "Simple and clean design",
+      "Responsive layout",
+      "Showcases my skills and projects",
+    ],
+    technologies: [
+      TECHNOLOGIES.HTML_CSS,
+      TECHNOLOGIES.JAVASCRIPT
+    ],
+    achievements: [
+      { icon: <FaLightbulb />, title: "Fun Fact", description: "It got discontinued after:", metric: "2 Weeks"},
+    ],
+  },
+  {
+    id: "physicshub",
+    title: "PhysicsHub",
+    shortDescription: "Website that contains free physics simulations for students.",
+    description: "PhysicsHub is a website that provides free physics simulations for students. It aims to help students understand complex physics concepts through interactive simulations.",
+    startDate: "Jul 2025",
+    endDate: "Present",
+    tags: [
+      TAGS.WEBSITE,
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.PHYSICS,
+      TAGS.REACT
+    ],
+    thumbnail: null,
+    links: [
+      { type: "github", url: "https://github.com/mattqdev/physicshub", label: "Repository Link" },
+    ],
+    isOpenSource: true,
+    features: [
+      "Interactive physics simulations",
+      "Educational resources for students",
+      "User-friendly interface",
+      "Responsive design",
+      "Open source for community contributions"
+    ],
+    technologies: [
+      TECHNOLOGIES.HTML_CSS,
+      TECHNOLOGIES.JAVASCRIPT,
+      TECHNOLOGIES.REACT
+    ],
+    achievements: [
+      { icon: <FaLightbulb />, title: "Fun Fact", description: "It's a work in progress, but it's already functional.", metric: "WIP" },
+      { icon: <FaLightbulb />, title: "Fun Fact", description: "It's open source and anyone can contribute.", metric: "Open Source" },
     ],
   },
 ];
