@@ -19,8 +19,8 @@ function App() {
   const sections = [
     { id: 'hero', name: 'Home' },
     { id: 'about', name: 'About' },
-    { id: 'skills', name: 'Skills' },
     { id: 'projects', name: 'Projects' },
+    { id: 'skills', name: 'Skills' },
     { id: 'contact', name: 'Contact' },
   ];
 
@@ -95,8 +95,8 @@ function App() {
             <>
               <Hero scrollToSection={scrollToSection} />
               <About />
-              <Skills />
               <Projects />
+              <Skills />
             </>
           } />
           <Route path="/project/:projectId" element={<ProjectDetails />} />

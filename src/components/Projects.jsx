@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
 import { FaGamepad, FaLaptop, FaPalette, FaCube, FaGithub, FaExternalLinkAlt, FaCalendarAlt, FaCodeBranch } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { FaGear } from 'react-icons/fa6';
 
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
   
   const getProjectIcon = (tags) => {
-    if (tags.some(tag => tag.name === "Roblox")) return <FaGamepad className="project-main-icon" />;
-    if (tags.some(tag => tag.name === "Plugin")) return <FaLaptop className="project-main-icon" />;
+    if (tags.some(tag => tag.name === "Game Design")) return <FaGamepad className="project-main-icon" />;
+    if (tags.some(tag => tag.name === "Plugin")) return <FaGear className="project-main-icon" />;
     if (tags.some(tag => tag.name === "Creative")) return <FaPalette className="project-main-icon" />;
     return <FaCube className="project-main-icon" />;
   };
@@ -29,7 +30,7 @@ const Projects = () => {
   ))];
   
   return (
-    <section id="projects" className="section">
+    <section id="projects" className="section" style={{ background: '#0a0a10' }}>
       <div className="container">
         <div className="section-title">
           <motion.h2 
@@ -39,13 +40,13 @@ const Projects = () => {
           >
             My Projects
           </motion.h2>
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             Explore my work across different domains and technologies
-          </motion.p>
+          </motion.p> */}
         </div>
         
         {/* Filtri per categoria */}
@@ -75,7 +76,7 @@ const Projects = () => {
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5 }}
               whileHover={{ y: -5 }}
             >
               <div 
@@ -140,7 +141,6 @@ const Projects = () => {
                     )}
                   </div>
                 </div>
-                
                 <p className="project-description">{project.shortDescription}</p>
                 
                 <div className="project-tags">

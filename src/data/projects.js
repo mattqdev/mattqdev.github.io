@@ -3,13 +3,16 @@ import {
   FaGamepad, FaLaptopCode, FaPalette, FaUsers, 
   FaDownload, FaStar, FaEye, FaUserFriends,
   FaMoneyBill,
-  FaTruckMoving
+  FaTruckMoving,
+  FaHeart,
+  FaTrophy
 } from 'react-icons/fa';
 
 
 import T_BSPS from '../assets/media/projects/brawl-stars-pet-simulator/Thumbnail3.png';
 import T_BSR from '../assets/media/projects/brawl-stars-rng/Icon.png';
 import T_CG  from '../assets/media/projects/cube-generator/Thumbnail.png';
+import T_UIP  from '../assets/media/projects/plugin-ui-assistant/BannerPlugin.png';
 
 
 export const projects = [
@@ -30,7 +33,7 @@ export const projects = [
       { name: "UI/UX", icon: <FaPalette />, color: "#c19700ff" },
       { name: "Game Design", icon: <FaPalette />, color: "#6a0dad" },
     ],
-    thumbnail: T_BSPS,
+    thumbnail: null,
     links: [
       { type: "play", url: "https://www.roblox.com/games/17359625840", label: "Play Game" },
     ],
@@ -70,7 +73,7 @@ export const projects = [
       { name: "UI/UX", icon: <FaPalette />, color: "#c19700ff" },
       { name: "Game Design", icon: <FaPalette />, color: "#6a0dad" },
     ],
-    thumbnail: T_BSR,
+    thumbnail: null,
     links: [
       { type: "live", url: "https://www.roblox.com/games/18960452199", label: "Play Game" },
     ],
@@ -107,7 +110,7 @@ export const projects = [
       { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
       { name: "UI/UX", icon: <FaPalette />, color: "#ff6b6b" },
     ],
-    thumbnail: undefined,
+    thumbnail: null,
     links: [
       { type: "devforum", url: "https://devforum.roblox.com/t/3193651", label: "See more" },
       { type: "download", url: "https://create.roblox.com/store/asset/93833895690336", label: "Download Plugin" }
@@ -154,7 +157,7 @@ export const projects = [
       { name: "Game Design", icon: <FaPalette />, color: "#6a0dad" },
       { name: "Physics", icon: <FaTruckMoving />, color: "#0d68adff" },
     ],
-    thumbnail: T_CG,
+    thumbnail: null,
     links: [
       { type: "play", url: "https://www.roblox.com/games/18763191813", label: "Play Game" },
     ],
@@ -185,5 +188,82 @@ export const projects = [
         metric: "80%"
       }
     ]
-  }
+  },
+  {
+    id: "plugin-heatmap",
+    title: "Plugin Performance Heatmap",
+    shortDescription: "A free plugin for Roblox developers with 2.000+ downloads that help you optimize your builds in Roblox Studio.",
+    description: "Plugin Performance Heatmap is a Roblox Studio plugin that helps developers quickly see which builds make the game laggy and fix them. It provides quick tools to colorize Mesh, Parts, Lights, Models and more.",
+    startDate: "Jan 2025",
+    endDate: "Present",
+    tags: [
+      { name: "Plugin", icon: <FaLaptopCode />, color: "#4d79ff" },
+      { name: "Roblox", icon: <FaGamepad />, color: "#ff4d5a" },
+      { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
+      { name: "UI/UX", icon: <FaPalette />, color: "#ff6b6b" },
+    ],
+    thumbnail: null,
+    links: [
+      { type: "devforum", url: "https://devforum.roblox.com/t/3416936", label: "See more" },
+      { type: "download", url: "https://create.roblox.com/store/asset/89564204038561", label: "Download Plugin" }
+    ],
+    isOpenSource: false,
+    features: [
+      "Heatmap: With just one click see the most problematic buildings with highlights.",
+      "Density: Calculates a density estimate (part amount/volume).",
+      "Lights: Calculates a light score estimate (Brightness * Range).",
+      "Particles: Calculates a particles score estimate (Brightness * Range * AvgLifetime).",
+      "Part Amounts: Simply find the models with the highest part quantity.",
+      "Stats: Check Roblox engine’s performance.",
+      "List and Colors: Intuitive colors and list help you to understand how to optimize your game.",
+      "And others…"
+    ],
+    challenges: [
+      // nessuna challenge per questo progetto
+    ],
+    technologies: [
+      { name: "Roblox Studio", icon: <FaGamepad />, purpose: "Plugin development platform", color: "#ff4d5a" },
+      { name: "Luau", icon: <FaLaptopCode />, purpose: "Scripting language", color: "#4d79ff" },
+    ],
+    achievements: [
+      { icon: <FaDownload />, title: "Downloads", description: "Plugin installations", metric: "3.000+" },
+      { icon: <FaHeart />, title: "Likes", description: "Total likes on the post.", metric: "63+"},
+    ],
+  },
+  {
+    id: "plugin-sniper",
+    title: "Plugin Sniper",
+    shortDescription: "A plugin for Roblox developers that allows you to find multiple instances with easy syntax-rules.",
+    description: "Plugin Sniper is a Roblox Studio plugin that helps developers quickly find multiple instances with a fancy UI and a search bar. It provides quick commands and syntax-rules to reconize your instances.",
+    startDate: "Jun 2025",
+    endDate: "Present",
+    tags: [
+      { name: "Plugin", icon: <FaLaptopCode />, color: "#4d79ff" },
+      { name: "Roblox", icon: <FaGamepad />, color: "#ff4d5a" },
+      { name: "Luau", icon: <FaLaptopCode />, color: "#4d79ff" },
+      { name: "UI/UX", icon: <FaPalette />, color: "#ff6b6b" },
+    ],
+    thumbnail: null,
+    links: [
+      { type: "devforum", url: "https://devforum.roblox.com/t/3750120", label: "See more" },
+      { type: "download", url: "https://create.roblox.com/store/asset/117951076251045", label: "Download Plugin" }
+    ],
+    isOpenSource: false,
+    features: [
+      <>
+        I recommend see the <a href="https://devforum.roblox.com/t/3750120">devforum post</a> for the full list and how to use them."
+      </>
+    ],
+    challenges: [
+      // nessuna challenge per questo progetto
+    ],
+    technologies: [
+      { name: "Roblox Studio", icon: <FaGamepad />, purpose: "Plugin development platform", color: "#ff4d5a" },
+      { name: "Luau", icon: <FaLaptopCode />, purpose: "Scripting language", color: "#4d79ff" },
+    ],
+    achievements: [
+      { icon: <FaDownload />, title: "Downloads", description: "Plugin installations", metric: "150+" },
+      { icon: <FaTrophy />, title: "Best Paid", description: "MattQ's Best Paid Plugin.", metric: "1#"},
+    ],
+  },
 ];

@@ -1,107 +1,122 @@
 import React, { useState } from 'react';
 import { 
-  FaCode, FaGamepad, FaPaintBrush, FaLaptopCode, 
-  FaServer, FaAsterisk, FaExclamationTriangle, FaExclamation,
-  FaMobileAlt
+  FaCode, FaGamepad, FaPaintBrush, FaLaptopCode, FaTools
 } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faJsSquare, faReact, faHtml5, faGithub, faPhp } from "@fortawesome/free-brands-svg-icons";
+import { motion } from 'framer-motion';
 
 const Skills = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+
+  // Categorie di competenze con icone e colori
+  const skillCategories = [
+  { title: "Web Development", icon: <FaCode className="category-icon" />, color: "#44ff51", skills: ["HTML/CSS", "JavaScript", "React", "Tailwind.css", "Node.js"] },
+  { title: "Game Development", icon: <FaGamepad className="category-icon" />, color: "#ff6b6b", skills: ["Roblox Studio", "Luau", "Game Design", "GFX"] },
+  { title: "Design", icon: <FaPaintBrush className="category-icon" />, color: "#00d9c0", skills: ["UI/UX Design", "Graphic Design", "Prototyping", "GFX"] },
+  { title: "Programming", icon: <FaCode className="category-icon" />, color: "#6e44ff", skills: ["Python", "C++ (Arduino)", "React-Native", "PHP", "Swift"] },
+  { title: "Tools & Platforms", icon: <FaTools className="category-icon" />, color: "#ffb74d", skills: ["VS Code", "Roblox Studio", "Creator Hub (Roblox)", "Photopea", "Figma"] }
+];
+
+
+  const [hoveredCategory, setHoveredCategory] = useState(null);
   
-  const categories = [
-    { id: 'all', name: 'All Skills', icon: <FaAsterisk /> },
-    { id: 'programming', name: 'Languages', icon: <FaCode /> },
-    { id: 'game', name: 'Game Dev', icon: <FaGamepad /> },
-    { id: 'design', name: 'Design', icon: <FaPaintBrush /> },
-    { id: 'web', name: 'Web', icon: <FaLaptopCode /> },
-    { id: 'mobile', name: 'Mobile', icon: <FaMobileAlt /> },
-    { id: 'devops', name: 'DevOps', icon: <FaServer /> },
-  ];
-  
-  let skills = [
-    { name: "Luau (Roblox)", level: 95, categories: ['programming','game'], icon: <FaGamepad />, color: "#4da9ffff" },
-    { name: "JavaScript", level: 83, categories: ['programming','web'], icon: <FontAwesomeIcon icon={faJsSquare} />, color: "#ebbb0dff" },
-    { name: "Python", level: 65, categories: ['programming'], icon: <FaCode />, color: "#3572A5" },
-    { name: "C++ (Arduino)", level: 75, categories: ['programming'], icon: <FaCode />, color: "#51ad3fff" },
-    { name: "Roblox Studio", level: 98, categories: ['game'], icon: <FaGamepad />, color: "#ff4d5a" },
-    { name: "UI/UX Design", level: 92, categories: ['design','game'], icon: <FaPaintBrush />, color: "#6a0dad" },
-    { name: "Graphic Design", level: 81, categories: ['design','game'], icon: <FaPaintBrush />, color: "#ff6b6b" },
-    { name: "React", level: 85, categories: ['web'], icon: <FontAwesomeIcon icon={faReact} />, color: "#23c7f4ff", isActive: true },
-    { name: "React-Native", level: 60, categories: ['mobile'], icon: <FontAwesomeIcon icon={faReact} />, color: "#007596ff", isNew: true },
-    { name: "Node.js", level: 55, categories: ['web'], icon: <FaLaptopCode />, color: "#68a063" },
-    { name: "HTML/CSS", level: 95, categories: ['web'], icon: <FontAwesomeIcon icon={faHtml5} />, color: "#e34c26" },
-    { name: "Github", level: 60, categories: ['devops'], icon: <FontAwesomeIcon icon={faGithub} />, color: "#949494ff" },
-    { name: "PHP", level: 45, categories: ['programming', 'web'], icon: <FontAwesomeIcon icon={faPhp} />, color: "#7435a5ff" },
-  ];
-
-  skills = skills.sort((a, b) => b.level - a.level);
-
-  const filteredSkills = activeCategory === 'all'
-    ? skills
-    : skills.filter(skill => skill.categories.includes(activeCategory));
-
   return (
-    <section id="skills" className="section" style={{ background: '#0a0a10' }}>
+    <section id="skills" className="section">
       <div className="container">
         <div className="section-title">
           <h2>My Skills</h2>
-          <p>Filter by category to explore my skills</p>
         </div>
-        
-        <div className="skills-categories">
-          {categories.map(cat => (
-            <button
-              key={cat.id}
-              className={`skill-category-btn ${activeCategory === cat.id ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat.id)}
-            >
-              {cat.icon} {cat.name}
-            </button>
-          ))}
-        </div>
-        
-        <div className="skills-grid">
-          {filteredSkills.map((skill, i) => (
-            <div className="skill-card" key={i}>
-              {(skill.isNew || skill.isActive) && (
-                <span className={`skill-badge ${skill.isNew ? 'new' : 'active'}`}>
-                  {skill.isNew ? <FaExclamation /> : <FaExclamationTriangle />} {skill.isNew ? 'New' : 'WIP'}
-                </span>
-              )}
-              <div className="skill-header">
-                <div className="skill-icon" style={{ backgroundColor: skill.color, boxShadow: `0 0px 4px ${skill.color}` }}>
-                  {skill.icon}
+        <motion.div 
+          className="skills-visualization"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h3>My Expertise Areas</h3>
+          
+          <div className="skills-grid">
+            {skillCategories.map((category, index) => (
+              <motion.div 
+                key={index}
+                className="skill-category"
+                style={{ 
+                  borderColor: hoveredCategory === index ? category.color : '#363636ff',
+                  boxShadow: hoveredCategory === index ? `0 10px 30px ${category.color}30` : '0 5px 15px rgba(0, 0, 0, 0.05)'
+                }}
+                whileHover={{ y: -5 }}
+                onHoverStart={() => setHoveredCategory(index)}
+                onHoverEnd={() => setHoveredCategory(null)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="category-header">
+                  <div 
+                    className="category-icon-wrapper"
+                    style={{ backgroundColor: `${category.color}20` }}
+                  >
+                    {category.icon}
+                  </div>
+                  <h4 style={{ color: category.color }}>{category.title}</h4>
                 </div>
-                <h3>{skill.name}</h3>
-              </div>
-              
-              <div className="skill-bar-container">
-                <div 
-                  className="skill-bar" 
-                  style={{ width: `${skill.level}%`, backgroundColor: skill.color, boxShadow: `${skill.color} 3px 0 15px 0px` }}
-                >
-                  <span className="skill-level">{skill.level}%</span>
-                </div>
-              </div>
-              
-              <div className="skill-description">
-                <div className="skill-tags">
-                  {skill.categories.map((catId, idx) => (
-                    <span   
-                      key={idx} 
+                
+                <div className="skills-container">
+                  {category.skills.map((skill, skillIndex) => (
+                    <motion.span 
+                      key={skillIndex}
                       className="skill-tag"
-                      style={{ backgroundColor: categories.find(c => c.id === catId)?.color || '#4d79ff' }}
-                    > {categories.find(c => c.id === catId)?.icon}
-                      {categories.find(c => c.id === catId)?.name}
-                    </span>
+                      style={{ 
+                        backgroundColor: hoveredCategory === index ? `${category.color}15` : '#212121ff',
+                        borderColor: hoveredCategory === index ? category.color : '#414141ff',
+                        color: hoveredCategory === index ? category.color : '#555'
+                      }}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.1 }}
+                    >
+                      {skill}
+                    </motion.span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          <div className="progress-section">
+            <h4>Skill Proficiency</h4>
+            <div className="progress-bars">
+              {[
+                { name: "Roblox Development", level: 95, color: "#6e44ff" },
+                { name: "Web Frontend", level: 90, color: "#ff6b6b" },
+                { name: "Graphic Design", level: 80, color: "#00d9c0" },
+                { name: "Programming", level: 75, color: "#4d79ff" },
+                { name: "Mobile Development", level: 65, color: "#ffb74d" },
+                { name: "Web Backend", level: 60, color: "#ff6b6b" },
+              ].map((skill, index) => (
+                <motion.div 
+                  key={index}
+                  className="progress-bar-container"
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: "100%" }}
+                  transition={{ duration: 0.8, delay: 1 + (index * 0.1) }}
+                >
+                  <div className="progress-info">
+                    <span>{skill.name}</span>
+                    <span>{skill.level}%</span>
+                  </div>
+                  <div className="progress-background">
+                    <motion.div 
+                      className="progress-fill"
+                      style={{ backgroundColor: skill.color, boxShadow: skill.color + " 0px 0px 5px" }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${skill.level}%` }}
+                      transition={{ duration: 1.2, delay: 1.2 + (index * 0.1), ease: "easeOut" }}
+                    />
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

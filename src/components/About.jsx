@@ -1,104 +1,135 @@
 // src/components/About.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { FaChartLine, FaUsers, FaUser } from 'react-icons/fa';
+import { motion, useInView } from 'framer-motion';
+import About3D from './About3D';
 
 const About = () => {
-  // Animate stats on scroll
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [animatedStats, setAnimatedStats] = useState({ visits: 0, members: 0, followers: 0 });
+
+  // Animazione delle statistiche
   useEffect(() => {
-    const stats = document.querySelectorAll('.stat-box');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate');
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    stats.forEach(stat => observer.observe(stat));
-    
-    return () => stats.forEach(stat => observer.unobserve(stat));
-  }, []);
+    if (isInView) {
+      const animateValue = (start, end, duration, property) => {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp;
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+          const value = Math.floor(progress * (end - start) + start);
+          
+          setAnimatedStats(prev => ({ ...prev, [property]: value }));
+          
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          }
+        };
+        window.requestAnimationFrame(step);
+      };
+      
+      animateValue(0, 3400000, 2000, 'visits');
+      animateValue(0, 88000, 2000, 'members');
+      animateValue(0, 15200, 2000, 'followers');
+    }
+  }, [isInView]);
+
+  // Effetto hover per le card delle competenze
 
   return (
     <section id="about" className="section">
       <div className="container">
         <div className="section-title">
-          <h2>About Me</h2>
+          <motion.h2 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            About Me
+          </motion.h2>
         </div>
         
         <div className="about-content">
           <div className="about-text">
-            <h3>Developer & Designer with {new Date().getFullYear() - 2020}+ Years Experience</h3>
-            <p>
-              I'm a very young and passionate developer who loves create web applications and Roblox games. With a background in both programming 
-              and visual design, I love create a unique design for every project I work on.
-            </p>
-            <p>
-              My journey began in web development with basic html, css and js. Since then, I've expanded 
-              my skillset to include multiple programming languages and design disciplines.
-              From 2022 I'm developing also Roblox games, where I can express my love for videogames and full-stack programming.
-            </p>
+            <motion.h3
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Developer & Designer with {new Date().getFullYear() - 2020}+ Years Experience
+            </motion.h3>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              I'm a passionate developer who creates innovative web applications and immersive Roblox games. 
+              With expertise in both programming and visual design, I craft unique experiences for every project.
+            </motion.p>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              My journey began with web development fundamentals and has expanded to multiple programming languages 
+              and design disciplines. Since 2022, I've been developing Roblox games, combining my love for gaming 
+              with full-stack programming to create engaging experiences.
+            </motion.p>
 
-            <h4>My Roblox Achivements (last upd: Jun 2025):</h4>
-            <div className="stats">
-              <div className="stat-box">
-                <h4>3.4M+</h4>
+            <motion.h4
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="stats-title"
+            >
+              My Roblox Achievements (last update: Jun 2025):
+            </motion.h4>
+            
+            <div className="stats" ref={ref}>
+              <motion.div 
+                className="stat-box"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                <div className="stat-icon">
+                  <FaChartLine />
+                </div>
+                <h4>{animatedStats.visits.toLocaleString()}+</h4>
                 <p>Game Visits</p>
-              </div>
-              <div className="stat-box">
-                <h4>88K+</h4>
+              </motion.div>
+              
+              <motion.div 
+                className="stat-box"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.7 }}
+              >
+                <div className="stat-icon">
+                  <FaUsers />
+                </div>
+                <h4>{animatedStats.members.toLocaleString()}+</h4>
                 <p>Group Members</p>
-              </div>
-              <div className="stat-box">
-                <h4>15.2K</h4>
+              </motion.div>
+              
+              <motion.div 
+                className="stat-box"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                <div className="stat-icon">
+                  <FaUser />
+                </div>
+                <h4>{animatedStats.followers.toLocaleString()}</h4>
                 <p>Followers</p>
-              </div>
+              </motion.div>
             </div>
           </div>
-          
-          <div className="skills-visualization">
-            <h3>My Expertise Areas</h3>
-            <div className="radar-container">
-              <div className="radar-chart">
-                <div className="radar-grid radar-grid-1"></div>
-                <div className="radar-grid radar-grid-2"></div>
-                <div className="radar-grid radar-grid-3"></div>
-                <div className="radar-grid radar-grid-4"></div>
-                
-                <div className="radar-axis" style={{ transform: 'rotate(0deg)' }}></div>
-                <div className="radar-axis" style={{ transform: 'rotate(60deg)' }}></div>
-                <div className="radar-axis" style={{ transform: 'rotate(120deg)' }}></div>
-                <div className="radar-axis" style={{ transform: 'rotate(180deg)' }}></div>
-                <div className="radar-axis" style={{ transform: 'rotate(240deg)' }}></div>
-                <div className="radar-axis" style={{ transform: 'rotate(300deg)' }}></div>
-                
-                <div className="radar-label" style={{ top: '10%', left: '50%', transform: 'translateX(-50%)' }}>Lua</div>
-                <div className="radar-label" style={{ top: '50%', right: '10%' }}>JavaScript</div>
-                <div className="radar-label" style={{ bottom: '10%', left: '70%' }}>UI/UX</div>
-                <div className="radar-label" style={{ bottom: '10%', left: '30%' }}>Python</div>
-                <div className="radar-label" style={{ top: '50%', left: '10%' }}>C#</div>
-                <div className="radar-label" style={{ top: '30%', left: '20%' }}>Game Design</div>
-                
-                <div className="radar-area"></div>
-                
-                <div className="radar-point" style={{ top: '20%', left: '50%' }}></div>
-                <div className="radar-point" style={{ top: '35%', left: '70%' }}></div>
-                <div className="radar-point" style={{ top: '65%', left: '65%' }}></div>
-                <div className="radar-point" style={{ top: '70%', left: '50%' }}></div>
-                <div className="radar-point" style={{ top: '65%', left: '35%' }}></div>
-                <div className="radar-point" style={{ top: '35%', left: '30%' }}></div>
-              </div>
-            </div>
-            
-            <div className="radar-legend">
-              <div className="legend-item">
-                <div className="legend-color"></div>
-                <span>Programming</span>
-              </div>
-              <div className="legend-item">
-                <div className="legend-color" style={{ backgroundColor: '#4d79ff' }}></div>
-                <span>Design</span>
-              </div>
-            </div>
+          <div className="wrapper-3d">
+            <About3D />
           </div>
         </div>
       </div>
