@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /           # Consenti l'accesso alla homepage
+Allow: /projects/  # Cartella dei progetti (importante per SEO)
+Allow: /about/     # Pagina "Chi sono"
+Allow: /contacts/  # Pagina di contatto
+Disallow: /tmp/    # Blocca cartelle temporanee

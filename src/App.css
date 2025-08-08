@@ -276,6 +276,23 @@ a.active{
   overflow: hidden;
 }
 
+
+/* Animazione di entrata */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim {
+  animation: fade-in-up 0.8s ease-in-out 0.3s both;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
@@ -1617,3 +1634,37 @@ footer {
     height: 300px;
   }
 }
+
+
+
+
+.border-dotted {
+  position: relative;
+  padding: 10px;
+  border: 1px dotted var(--primary);
+  transition: var(--transition);
+}
+
+.border-dotted::before {
+  content: 'border-dotted';
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* Sposta 10px dentro e centra verticalmente rispetto al bordo */
+  transform: translate(-10px, 50%);
+  font-size: 0.8rem;
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 4px 8px;
+  text-align: center;
+  transition: var(--transition);
+  opacity: 0;
+}
+
+.border-dotted:hover::before {
+  opacity: 1;
+  /* Puoi aggiungere un piccolo “pop” in ingresso */
+  transform: translate(-10px, 50%) scale(1.05);
+}
+

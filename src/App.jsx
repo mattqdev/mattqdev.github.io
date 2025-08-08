@@ -9,6 +9,7 @@ import Projects from './components/Projects';
 import ProjectDetails from './components/ProjectDetails';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import SparklesPreview from './components/Particles.tsx';
 import './App.css';
 
 function App() {
@@ -94,6 +95,7 @@ function App() {
           <Route path="/" element={
             <>
               <Hero scrollToSection={scrollToSection} />
+              <SparklesPreview/>
               <About />
               <Projects />
               <Skills />

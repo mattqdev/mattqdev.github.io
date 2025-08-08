@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { 
-  FaCode, FaGamepad, FaPaintBrush, FaLaptopCode, FaTools
+  FaCode, FaGamepad, FaPaintBrush, FaTools
 } from 'react-icons/fa';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faJsSquare, faReact, faHtml5, faGithub, faPhp } from "@fortawesome/free-brands-svg-icons";
 import { motion } from 'framer-motion';
 
 const Skills = () => {

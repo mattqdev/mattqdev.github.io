@@ -4,19 +4,22 @@ import { FaDiscord, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import robloxIcon from '../assets/icons/roblox.svg';
 import avatarIcon from '../assets/icons/avatar.png';
+import {AuroraBackground} from './AuroraBackground.tsx'
+
 
 const Hero = ({ scrollToSection }) => {
   return (
-    <section id="hero" className="hero section">
-      <div className="container hero-content">
-        <div className="hero-text">
-          <h1>Hi, I'm <span>MattQ</span><br />Software Developer & Designer</h1>
+    <section id="hero" className="hero section anim">
+      <AuroraBackground />
+      <div className="container hero-content anim">
+        <div className="hero-text" anim>
+          <h1 className='border-dotted anim'>Hi, I'm <span>MattQ</span><br />Software Developer & Designer</h1>
           <p>
             I love programming and designing UI/UX. 
             Specializing in Web Development, Roblox game development and UI/UX design across various platforms.
           </p>
           
-          <div className="hero-btns">
+          <div className="hero-btns anim">
             <button 
               className="btn" 
               onClick={() => scrollToSection('projects')}
@@ -24,7 +27,7 @@ const Hero = ({ scrollToSection }) => {
               View Projects
             </button>
             <button 
-              className="btn btn-outline" 
+              className="btn btn-outline anim" 
               onClick={() => scrollToSection('contact')}
             >
               Contact Me
@@ -47,10 +50,10 @@ const Hero = ({ scrollToSection }) => {
           </div>
         </div>
         
-        <div className="hero-image">
+        <div className="hero-image anim">
           <div className="hero-img-container">
             <div className="placeholder-avatar">
-              <img draggable="false" src={avatarIcon} alt="Roblox MattQ's Avatar" style={{width:"100%", objectFit: "cover", borderRadius: "50%"}}/>
+              <img draggable="false" src={avatarIcon} title="MattQ's Roblox Avatar" alt="Roblox MattQ's Avatar" style={{width:"100%", objectFit: "cover", borderRadius: "50%"}}/>
             </div>
           </div>
         </div>

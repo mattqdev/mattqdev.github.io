@@ -4,6 +4,7 @@ import { FaChartLine, FaUsers, FaUser } from 'react-icons/fa';
 import { motion, useInView } from 'framer-motion';
 import About3D from './About3D';
 
+
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });

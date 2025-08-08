@@ -26,7 +26,6 @@ const Projects = () => {
         project.tags.some(tag => tag.name.toLowerCase() === filter)
       );
   
-  // Estrae tutte le categorie uniche per i filtri
   const allCategories = ['all', ...new Set(projects.flatMap(project => 
     project.tags.map(tag => tag.name.toLowerCase())
   ))];

@@ -1,8 +1,5 @@
 // src/data/projects.js
 import { 
-  FaGamepad, 
-  FaLaptopCode, 
-  FaPalette, 
   FaUsers,
   FaDownload, 
   FaStar, 
@@ -12,134 +9,11 @@ import {
   FaTruckMoving,
   FaHeart,
   FaTrophy,
-  FaLightbulb,
-  FaLaptop
+  FaLightbulb
 } from 'react-icons/fa';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHtml5, faJs, faReact } from '@fortawesome/free-brands-svg-icons';
-import { FaGear } from 'react-icons/fa6';
 
-// Definizione centralizzata dei tag
-const TAGS = {
-  ROBLOX: { 
-    name: "Roblox", 
-    icon: <FaGamepad />, 
-    color: "#666666" 
-  },
-  LUAU: { 
-    name: "Luau", 
-    icon: <FaLaptopCode />, 
-    color: "#4d79ff" 
-  },
-  UI_UX: { 
-    name: "UI/UX", 
-    icon: <FaPalette />, 
-    color: "#c19700" 
-  },
-  GAME_DESIGN: { 
-    name: "Game Design", 
-    icon: <FaPalette />, 
-    color: "#6a0dad" 
-  },
-  PLUGIN: { 
-    name: "Plugin", 
-    icon: <FaGear />, 
-    color: "#4d79ff" 
-  },
-  PHYSICS: { 
-    name: "Physics", 
-    icon: <FaTruckMoving />, 
-    color: "#0d68ad" 
-  },
-  ARDUINO: { 
-    name: "Arduino", 
-    icon: <FaLaptopCode />, 
-    color: "#32db70" 
-  },
-  CPP: { 
-    name: "C++", 
-    icon: <FaLaptopCode />, 
-    color: "#596588" 
-  },
-  HTML_CSS: { 
-    name: "HTML/CSS", 
-    icon: <FontAwesomeIcon icon={faHtml5} />, 
-    color: "#e09604" 
-  },
-  JAVASCRIPT: { 
-    name: "JavaScript", 
-    icon: <FontAwesomeIcon icon={faJs} />, 
-    color: "#c6a500" 
-  },
-  WEBSITE: { 
-    name: "Website", 
-    icon: <FaLaptop />, 
-    color: "#04c3e0" 
-  },
-  REACT: { 
-    name: "React", 
-    icon: <FontAwesomeIcon icon={faReact} />, 
-    color: "#61dafb" 
-  },
-};
+import { TAGS } from './tags';
 
-// Definizione centralizzata delle tecnologie
-const TECHNOLOGIES = {
-  ROBOX_STUDIO: { 
-    name: "Roblox Studio", 
-    icon: <FaGamepad />, 
-    color: "#ff4d5a",
-    purpose: "Game development platform" 
-  },
-  LUAU: { 
-    name: "Luau", 
-    icon: <FaLaptopCode />, 
-    color: "#4d79ff",
-    purpose: "Game scripting language" 
-  },
-  ARDUINO_SOFTWARE: { 
-    name: "Arduino (Software)", 
-    icon: <FaLaptopCode />, 
-    color: "#32db70",
-    purpose: "Programming environment for microcontrollers" 
-  },
-  ESP32: { 
-    name: "ESP32", 
-    icon: <FaLaptop />, 
-    color: "#283d7b",
-    purpose: "Microcontroller platform" 
-  },
-  CPP: { 
-    name: "C++", 
-    icon: <FaLaptopCode />, 
-    color: "#596588",
-    purpose: "Programming language" 
-  },
-  HTML_CSS: { 
-    name: "HTML/CSS", 
-    icon: <FontAwesomeIcon icon={faHtml5} />, 
-    color: "#e09604",
-    purpose: "Web Development" 
-  },
-  JAVASCRIPT: { 
-    name: "JavaScript", 
-    icon: <FontAwesomeIcon icon={faJs} />, 
-    color: "#c6a500",
-    purpose: "Programming Language" 
-  },
-  ARDUINO_NANO: { 
-    name: "Arduino Nano", 
-    icon: <FaLaptop />, 
-    color: "#283d7b",
-    purpose: "Microcontroller platform" 
-  },
-  REACT: { 
-    name: "React", 
-    icon: <FontAwesomeIcon icon={faReact} />, 
-    color: "#61dafb",
-    purpose: "JavaScript library for building user interfaces" 
-  },
-};
 
 export const projects = [
   {
@@ -172,8 +46,8 @@ export const projects = [
       "And much more.",
     ],
     technologies: [
-      TECHNOLOGIES.ROBOX_STUDIO,
-      TECHNOLOGIES.LUAU
+      TAGS.ROBOX_STUDIO,
+      TAGS.LUAU
     ],
     achievements: [
       { icon: <FaUsers />, title: "Active Players", description: "Peak concurrent players", metric: "2000+" },
@@ -208,8 +82,8 @@ export const projects = [
       "Potion system",
     ],
     technologies: [
-      TECHNOLOGIES.ROBOX_STUDIO,
-      TECHNOLOGIES.LUAU
+      TAGS.ROBOX_STUDIO,
+      TAGS.LUAU
     ],
     achievements: [
       { icon: <FaUsers />, title: "Active Players", description: "Peak concurrent players", metric: "200+" },
@@ -252,8 +126,8 @@ export const projects = [
       "And others…"
     ],
     technologies: [
-      TECHNOLOGIES.ROBOX_STUDIO,
-      TECHNOLOGIES.LUAU
+      TAGS.ROBOX_STUDIO,
+      TAGS.LUAU
     ],
     achievements: [
       { icon: <FaDownload />, title: "Downloads", description: "Plugin installations", metric: "3.500+" },
@@ -284,8 +158,8 @@ export const projects = [
       "Customize colors, sizes and materials"
     ],
     technologies: [
-      TECHNOLOGIES.ROBOX_STUDIO,
-      TECHNOLOGIES.LUAU
+      TAGS.ROBOX_STUDIO,
+      TAGS.LUAU
     ],
     achievements: [
       {
@@ -332,8 +206,8 @@ export const projects = [
       "And others…"
     ],
     technologies: [
-      TECHNOLOGIES.ROBOX_STUDIO,
-      TECHNOLOGIES.LUAU
+      TAGS.ROBOX_STUDIO,
+      TAGS.LUAU
     ],
     achievements: [
       { icon: <FaDownload />, title: "Downloads", description: "Plugin installations", metric: "3.000+" },
@@ -365,8 +239,8 @@ export const projects = [
       </>
     ],
     technologies: [
-      TECHNOLOGIES.ROBOX_STUDIO,
-      TECHNOLOGIES.LUAU
+      TAGS.ROBOX_STUDIO,
+      TAGS.LUAU
     ],
     achievements: [
       { icon: <FaDownload />, title: "Downloads", description: "Plugin installations", metric: "150+" },
@@ -400,10 +274,10 @@ export const projects = [
       "It can show figures"
     ],
     technologies: [
-      TECHNOLOGIES.ARDUINO_SOFTWARE,
-      TECHNOLOGIES.ESP32,
-      TECHNOLOGIES.CPP,
-      TECHNOLOGIES.HTML_CSS
+      TAGS.ARDUINO_SOFTWARE,
+      TAGS.ESP32,
+      TAGS.CPP,
+      TAGS.HTML_CSS
     ],
     achievements: [
       { icon: <FaLightbulb />, title: "Fun Fact", description: "There are only 2 copies of this in the whole world.", metric: "2 Exists"},
@@ -432,9 +306,9 @@ export const projects = [
       "Uses a RTC module for timekeeping",
     ],
     technologies: [
-      TECHNOLOGIES.ARDUINO_SOFTWARE,
-      TECHNOLOGIES.ARDUINO_NANO,
-      TECHNOLOGIES.CPP
+      TAGS.ARDUINO_SOFTWARE,
+      TAGS.ARDUINO_NANO,
+      TAGS.CPP
     ],
     achievements: [
       { icon: <FaLightbulb />, title: "Fun Fact", description: "My first big Arduino project.", metric: "#1"},
@@ -464,8 +338,8 @@ export const projects = [
       "Showcases my skills and projects",
     ],
     technologies: [
-      TECHNOLOGIES.HTML_CSS,
-      TECHNOLOGIES.JAVASCRIPT
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT
     ],
     achievements: [
       { icon: <FaLightbulb />, title: "Fun Fact", description: "It got discontinued after:", metric: "2 Weeks"},
@@ -498,13 +372,50 @@ export const projects = [
       "Open source for community contributions"
     ],
     technologies: [
-      TECHNOLOGIES.HTML_CSS,
-      TECHNOLOGIES.JAVASCRIPT,
-      TECHNOLOGIES.REACT
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.REACT
     ],
     achievements: [
       { icon: <FaLightbulb />, title: "Fun Fact", description: "It's a work in progress, but it's already functional.", metric: "WIP" },
       { icon: <FaLightbulb />, title: "Fun Fact", description: "It's open source and anyone can contribute.", metric: "Open Source" },
+    ],
+  },
+  {
+    id: "langrank",
+    title: "LangRank",
+    shortDescription: "Website that shows datas about programming languages.",
+    description: "LangRank is a website that provides data and statistics about various programming languages. It aims to help developers understand the popularity and usage trends of different languages.",
+    startDate: "Aug 2025",
+    endDate: "Present",
+    tags: [
+      TAGS.WEBSITE,
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.REACT,
+      TAGS.TAILWIND_CSS
+    ],
+    thumbnail: null,
+    links: [
+      { type: "github", url: "https://github.com/mattqdev/langrank", label: "Repository Link" },
+    ],
+    isOpenSource: true,
+    features: [
+      "Comprehensive data on programming languages",
+      "Interactive charts and graphs",
+      "Search and filter functionality",
+      "User-friendly interface",
+      "Responsive design",
+      "Open source for community contributions"
+    ],
+    technologies: [
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.REACT,
+      TAGS.TAILWIND_CSS
+    ],
+    achievements: [
+      
     ],
   },
 ];
