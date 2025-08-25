@@ -1,7 +1,9 @@
 // src/components/Contact.jsx
 import React from 'react';
 import { useForm, ValidationError } from '@formspree/react';
-import { FaDiscord, FaEnvelope, FaTwitter, FaGamepad } from 'react-icons/fa';
+import { FaDiscord, FaEnvelope, FaTwitter } from 'react-icons/fa';
+import robloxIcon from '../assets/icons/roblox.svg';
+
 
 const Contact = () => {
   const [state, handleSubmit] = useForm("mgvzyykz");
@@ -54,7 +56,7 @@ const Contact = () => {
             
             <div className="contact-item">
               <div className="contact-icon">
-                <FaGamepad />
+                <img draggable="false" src={robloxIcon} alt="Roblox Icon" className='contact-icon-svg red-filter'/>
               </div>
               <div className="contact-details">
                 <h3>Roblox</h3>

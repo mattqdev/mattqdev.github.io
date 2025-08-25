@@ -6,7 +6,6 @@ import {
   FaEye, 
   FaUserFriends,
   FaMoneyBill,
-  FaTruckMoving,
   FaHeart,
   FaTrophy,
   FaLightbulb

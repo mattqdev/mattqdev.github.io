@@ -3,16 +3,18 @@ import React from 'react';
 import { FaDiscord, FaEnvelope, FaTwitter } from 'react-icons/fa';
 import Contact from './Contact';
 import robloxIcon from '../assets/icons/roblox.svg';
+import SparklesPreview from './Particles.tsx';
 
 const Footer = () => {
   return (
     <>
+      <SparklesPreview/>
       <Contact />
       <footer>
         <div className="container">
           <div className="footer-content">
             <div className="footer-logo">Matt<span>Q</span></div>
-            <p>Developer & Designer creating engaging digital experiences</p>
+            <p>Web & Game Developer</p>
             
             <div className="footer-socials">
               <a href="https://discord.gg/ETgCMSps4c" target="_blank" rel="noopener noreferrer">
@@ -25,7 +27,7 @@ const Footer = () => {
                 <FaTwitter />
               </a>
               <a href="https://www.roblox.com/users/2992118050" target="_blank" rel="noopener noreferrer">
-                <img draggable="false" src={robloxIcon} alt="Roblox Icon" style={{width:20}}/>
+                <img draggable="false" src={robloxIcon} alt="Roblox Icon" style={{width:20}} className='red-filter-inverted'/>
               </a>
             </div>
           </div>

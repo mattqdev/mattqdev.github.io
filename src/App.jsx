@@ -97,7 +97,9 @@ function App() {
               <Hero scrollToSection={scrollToSection} />
               <SparklesPreview/>
               <About />
+              <SparklesPreview/>
               <Projects />
+              <SparklesPreview/>
               <Skills />
             </>
           } />

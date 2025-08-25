@@ -35,9 +35,6 @@ const Hero = ({ scrollToSection }) => {
           </div>
           
           <div className="social-icons">
-            <a href="https://discord.gg/ETgCMSps4c" target="_blank" rel="noopener noreferrer" className="social-icon">
-              <FaDiscord />
-            </a>
             <a href="mailto:mattqdevv@gmail.com" className="social-icon">
               <FaEnvelope />
             </a>
@@ -46,6 +43,9 @@ const Hero = ({ scrollToSection }) => {
             </a>
             <a href="https://www.roblox.com/users/2992118050" target="_blank" rel="noopener noreferrer" className="social-icon">
               <img draggable="false" src={robloxIcon} alt="Roblox Icon" style={{width:"40%"}}/>
+            </a>
+            <a href="https://discord.gg/ETgCMSps4c" target="_blank" rel="noopener noreferrer" className="social-icon">
+              <FaDiscord />
             </a>
           </div>
         </div>
