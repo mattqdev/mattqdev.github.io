@@ -1,6 +1,6 @@
 // src/components/Gallery.jsx
 import React, { useState } from 'react';
-import { FaPlay } from 'react-icons/fa';
+import { FaPlay, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const Gallery = ({ images = [], videos = [] }) => {
   // 1. Combina immagini e video in un array unico con tipo
@@ -21,7 +21,7 @@ const Gallery = ({ images = [], videos = [] }) => {
   };
 
   if (total === 0) {
-    return <p>Nessun media disponibile.</p>;
+    return <p>No media to display.</p>;
   }
 
   const { type, src } = media[currentIndex];
@@ -30,7 +30,7 @@ const Gallery = ({ images = [], videos = [] }) => {
     <div className="project-gallery">
       {/* Carosello principale */}
       <div className="gallery-main">
-        <button className="gallery-nav prev" onClick={prevItem}>&lt;</button>
+        <button className="gallery-nav" onClick={prevItem}><FaArrowLeft/></button>
         <div className="gallery-media-container">
           {type === 'image' ? (
             <img src={src} alt={`Media ${currentIndex + 1}`} />
@@ -47,7 +47,7 @@ const Gallery = ({ images = [], videos = [] }) => {
             </video>
           )}
         </div>
-        <button className="gallery-nav next" onClick={nextItem}>&gt;</button>
+        <button className="gallery-nav" onClick={nextItem}><FaArrowRight/></button>
       </div>
 
       {/* Miniature */}

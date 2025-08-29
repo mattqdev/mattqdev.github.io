@@ -45,7 +45,7 @@ export const projects = [
       "And much more.",
     ],
     technologies: [
-      TAGS.ROBOX_STUDIO,
+      TAGS.ROBLOX_STUDIO,
       TAGS.LUAU
     ],
     achievements: [
@@ -81,7 +81,7 @@ export const projects = [
       "Potion system",
     ],
     technologies: [
-      TAGS.ROBOX_STUDIO,
+      TAGS.ROBLOX_STUDIO,
       TAGS.LUAU
     ],
     achievements: [
@@ -125,7 +125,7 @@ export const projects = [
       "And others…"
     ],
     technologies: [
-      TAGS.ROBOX_STUDIO,
+      TAGS.ROBLOX_STUDIO,
       TAGS.LUAU
     ],
     achievements: [
@@ -157,7 +157,7 @@ export const projects = [
       "Customize colors, sizes and materials"
     ],
     technologies: [
-      TAGS.ROBOX_STUDIO,
+      TAGS.ROBLOX_STUDIO,
       TAGS.LUAU
     ],
     achievements: [
@@ -205,7 +205,7 @@ export const projects = [
       "And others…"
     ],
     technologies: [
-      TAGS.ROBOX_STUDIO,
+      TAGS.ROBLOX_STUDIO,
       TAGS.LUAU
     ],
     achievements: [
@@ -238,7 +238,7 @@ export const projects = [
       </>
     ],
     technologies: [
-      TAGS.ROBOX_STUDIO,
+      TAGS.ROBLOX_STUDIO,
       TAGS.LUAU
     ],
     achievements: [
@@ -360,7 +360,7 @@ export const projects = [
     ],
     thumbnail: null,
     links: [
-      { type: "github", url: "https://github.com/mattqdev/physicshub", label: "Repository Link" },
+      { type: "github", url: "https://github.com/physicshub/physicshub.github.io", label: "Repository Link" },
     ],
     isOpenSource: true,
     features: [

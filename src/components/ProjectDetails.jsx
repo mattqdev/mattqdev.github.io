@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   FaArrowLeft,
+  FaArrowRight,
   FaExternalLinkAlt,
   FaGithub,
   FaCalendarAlt,
   FaCode,
   FaDownload,
-  FaPlayCircle
+  FaPlayCircle,
 } from 'react-icons/fa';
 import { projects } from '../data/projects';
 import Gallery from './Gallery';
@@ -129,6 +130,7 @@ const ProjectDetails = () => {
               to={`/project/${findPrevious(project)}`}
               className="nav-btn prev"
             >
+              <FaArrowLeft />
               Previous Project
             </Link>
           )}
@@ -138,6 +140,7 @@ const ProjectDetails = () => {
               className="nav-btn next"
             >
               Next Project
+              <FaArrowRight />
             </Link>
           )}
         </div>
