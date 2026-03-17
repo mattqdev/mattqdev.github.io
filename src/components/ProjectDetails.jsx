@@ -1,6 +1,6 @@
 // src/components/ProjectDetails.jsx
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -10,9 +10,9 @@ import {
   FaCode,
   FaDownload,
   FaPlayCircle,
-} from 'react-icons/fa';
-import { projects } from '../data/projects';
-import Gallery from './Gallery';
+} from "react-icons/fa";
+import { projects } from "../data/projects";
+import Gallery from "./Gallery";
 
 function findPrevious(project) {
   return projects[projects.indexOf(project) - 1]?.id;
@@ -31,8 +31,8 @@ const context = require.context(
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
-  const project = projects.find(p => p.id === projectId);
-  const [activeTab, setActiveTab] = useState('overview');
+  const project = projects.find((p) => p.id === projectId);
+  const [activeTab, setActiveTab] = useState("overview");
 
   if (!project) {
     return (
@@ -50,17 +50,16 @@ const ProjectDetails = () => {
   // load all media in the project's folder
   const media = context
     .keys()
-    .filter(key => key.startsWith(`./${project.id}/`))
+    .filter((key) => key.startsWith(`./${project.id}/`))
     .map(context);
 
   // separate images and .mov videos
-  const images = media.filter(src => /\.(png|jpe?g|svg)$/i.test(src));
-  const videos = media.filter(src => /\.mov$/i.test(src));
+  const images = media.filter((src) => /\.(png|jpe?g|svg)$/i.test(src));
+  const videos = media.filter((src) => /\.mov$/i.test(src));
 
   return (
     <section className="project-detail section">
       <div className="container">
-
         <Link to="/#projects" className="back-btn">
           <FaArrowLeft /> Back to Projects
         </Link>
@@ -72,7 +71,7 @@ const ProjectDetails = () => {
             <div className="project-dates">
               <FaCalendarAlt />
               <span>
-                {project.startDate} - {project.endDate || 'Present'}
+                {project.startDate} - {project.endDate || "Present"}
               </span>
             </div>
 
@@ -85,10 +84,15 @@ const ProjectDetails = () => {
                   rel="noopener noreferrer"
                   className="project-link"
                 >
-                  {link.type === 'github' ? <FaGithub />
-                    : link.type === 'download' ? <FaDownload />
-                    : link.type === 'play' ? <FaPlayCircle />
-                    : <FaExternalLinkAlt />}
+                  {link.type === "github" ? (
+                    <FaGithub />
+                  ) : link.type === "download" ? (
+                    <FaDownload />
+                  ) : link.type === "play" ? (
+                    <FaPlayCircle />
+                  ) : (
+                    <FaExternalLinkAlt />
+                  )}
                   {link.label}
                 </a>
               ))}
@@ -118,7 +122,7 @@ const ProjectDetails = () => {
               <img
                 src={project.thumbnail}
                 alt={project.title}
-                style={{ maxHeight: 300, width: 'auto' }}
+                style={{ maxHeight: 300, width: "auto" }}
               />
             )}
           </div>
@@ -135,10 +139,7 @@ const ProjectDetails = () => {
             </Link>
           )}
           {findNext(project) && (
-            <Link
-              to={`/project/${findNext(project)}`}
-              className="nav-btn next"
-            >
+            <Link to={`/project/${findNext(project)}`} className="nav-btn next">
               Next Project
               <FaArrowRight />
             </Link>
@@ -147,33 +148,33 @@ const ProjectDetails = () => {
 
         <div className="project-tabs">
           <button
-            className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
-            onClick={() => setActiveTab('overview')}
+            className={`tab-btn ${activeTab === "overview" ? "active" : ""}`}
+            onClick={() => setActiveTab("overview")}
           >
             Overview
           </button>
           <button
-            className={`tab-btn ${activeTab === 'gallery' ? 'active' : ''}`}
-            onClick={() => setActiveTab('gallery')}
+            className={`tab-btn ${activeTab === "gallery" ? "active" : ""}`}
+            onClick={() => setActiveTab("gallery")}
           >
             Gallery ({images.length + videos.length})
           </button>
           <button
-            className={`tab-btn ${activeTab === 'tech' ? 'active' : ''}`}
-            onClick={() => setActiveTab('tech')}
+            className={`tab-btn ${activeTab === "tech" ? "active" : ""}`}
+            onClick={() => setActiveTab("tech")}
           >
             Technologies
           </button>
           <button
-            className={`tab-btn ${activeTab === 'achievements' ? 'active' : ''}`}
-            onClick={() => setActiveTab('achievements')}
+            className={`tab-btn ${activeTab === "achievements" ? "active" : ""}`}
+            onClick={() => setActiveTab("achievements")}
           >
             Achievements
           </button>
         </div>
 
         <div className="project-content">
-          {activeTab === 'overview' && (
+          {activeTab === "overview" && (
             <div className="project-overview">
               <h3>About this Project</h3>
               <p>{project.description}</p>
@@ -189,11 +190,11 @@ const ProjectDetails = () => {
             </div>
           )}
 
-          {activeTab === 'gallery' && (
+          {activeTab === "gallery" && (
             <Gallery images={images} videos={videos} />
           )}
 
-          {activeTab === 'tech' && (
+          {activeTab === "tech" && (
             <div className="project-technologies">
               <h3>Technologies Used</h3>
               <div className="tech-grid">
@@ -213,22 +214,18 @@ const ProjectDetails = () => {
             </div>
           )}
 
-          {activeTab === 'achievements' && (
+          {activeTab === "achievements" && (
             <div className="project-achievements">
               <h3>Project Achievements</h3>
               <div className="achievements-grid">
                 {project.achievements.map((ach, idx) => (
                   <div className="achievement-card" key={idx}>
-                    <div className="achievement-icon">
-                      {ach.icon}
-                    </div>
+                    <div className="achievement-icon">{ach.icon}</div>
                     <div>
                       <h4>{ach.title}</h4>
                       <p>{ach.description}</p>
                       {ach.metric && (
-                        <div className="achievement-metric">
-                          {ach.metric}
-                        </div>
+                        <div className="achievement-metric">{ach.metric}</div>
                       )}
                     </div>
                   </div>

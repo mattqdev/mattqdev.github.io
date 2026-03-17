@@ -1,7 +1,7 @@
 "use client";
 import React, { useId } from "react";
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, SingleOrMultiple } from "@tsparticles/engine";
@@ -9,11 +9,9 @@ import { loadSlim } from "@tsparticles/slim";
 import { motion, useAnimation } from "framer-motion";
 import "./styles/Sparkles.css";
 
-
 function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
-
 
 type ParticlesProps = {
   id?: string;
@@ -440,8 +438,6 @@ const SparklesCore = (props: ParticlesProps) => {
     </motion.div>
   );
 };
-
-
 
 export default function SparklesPreview() {
   return (

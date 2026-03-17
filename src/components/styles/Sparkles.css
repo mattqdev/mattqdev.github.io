@@ -8,7 +8,6 @@
   --color-transparent: transparent;
 }
 
-
 /* Container principale */
 .sparkles-container {
   position: absolute;
@@ -21,9 +20,9 @@
   z-index: -1;
 }
 
-.spark{
-    height: 100%;
-    width: 100%;
+.spark {
+  height: 100%;
+  width: 100%;
 }
 
 /* Contenitore relativo per gli elementi */
@@ -33,14 +32,17 @@
   position: relative;
 }
 
-
-
 /* Gradienti decorativi */
 .sparkles-gradient {
   position: absolute;
   left: 5rem; /* inset-x-20 */
   top: 0;
-  background: linear-gradient(to right, transparent, var(--color-indigo-500), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-indigo-500),
+    transparent
+  );
   width: 75%; /* w-3/4 */
 }
 
@@ -61,7 +63,7 @@
 .sparkles-gradient-sky-blur {
   height: 5px;
   filter: blur(4px); /* blur-sm */
-    width: 75%;
+  width: 75%;
 }
 
 /* Maschera radiale */
@@ -73,7 +75,7 @@
   background-color: #0f0f15;
   mask-image: radial-gradient(
     35% 100% at top,
-    transparent 0%, 
+    transparent 0%,
     transparent 40%,
     var(--black) 80%
   );

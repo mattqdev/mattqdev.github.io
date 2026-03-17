@@ -1,9 +1,8 @@
-import React from 'react';
-import './styles/Aurora.css';
+import React from "react";
+import "./styles/Aurora.css";
 
 export const AuroraBackground = () => {
-
-/*   function toggleDarkMode() {
+  /*   function toggleDarkMode() {
       document.body.classList.toggle('dark');
   } */
 
