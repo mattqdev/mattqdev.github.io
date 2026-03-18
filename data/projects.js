@@ -17,99 +17,6 @@ import { TAGS } from "./tags";
 
 export const projects = [
   {
-    id: "koalaz",
-    title: "Koalaz",
-    shortDescription:
-      "A fun npm package for generating koala-themed mock data — a meme-style alternative to Faker.",
-    description:
-      "Why use boring Lorem Ipsum or generic fake data when you can use koalas? Koalaz is a lightweight npm package for generating absurd, koala-themed mock data. Generate JSON objects, lorem ipsum made of koala sounds, ASCII art, fake API responses, data tables, and more. A meme-style alternative to Faker for tests, prototypes, and developers who want something more fun.",
-    startDate: "Nov 2025",
-    endDate: "Present",
-    tags: [TAGS.JAVASCRIPT, TAGS.TYPESCRIPT ?? TAGS.JAVASCRIPT],
-    thumbnail: null,
-    links: [
-      {
-        type: "github",
-        url: "https://github.com/mattqdev/koalaz",
-        label: "Repository",
-      },
-      {
-        type: "live",
-        url: "https://www.npmjs.com/package/koalaz",
-        label: "npm package",
-      },
-    ],
-    isOpenSource: true,
-    features: [
-      "Generate absurd JSON data about koalas (id, name, mood, sleepHours, eucalyptusConsumed…)",
-      "Lorem ipsum made entirely of koala sounds",
-      "ASCII koala art with multiple expressions (judging, sleeping, happy…)",
-      "Fake data tables for quick UI mockups",
-      "API response faker — mock any endpoint with koala data",
-      "Lightweight alternative to Faker with zero serious dependencies",
-      "Works with both ESM (import) and CJS (require)",
-    ],
-    technologies: [TAGS.JAVASCRIPT],
-    achievements: [
-      {
-        icon: <FaBox />,
-        title: "npm Downloads",
-        description: "Total package downloads",
-        metric: "439+",
-      },
-      {
-        icon: <FaLightbulb />,
-        title: "Fun Fact",
-        description: "MIT licensed and open to contributions.",
-        metric: "Open Source",
-      },
-    ],
-  },
-  {
-    id: "watermark-applier",
-    title: "Watermark Applier",
-    shortDescription:
-      "A smart Python script that intelligently applies watermarks to images — auto-positioning, auto-color, auto-opacity.",
-    description:
-      "A Python script that applies watermarks to images with actual intelligence. Instead of blindly pasting a logo, it analyzes the background brightness and complexity to find the calmest area, automatically inverts the watermark color (white/black) based on the background, and adjusts opacity for readability. Supports recursive folder processing and maintains the original directory hierarchy in output.",
-    startDate: "2025",
-    endDate: "Present",
-    tags: [TAGS.PYTHON ?? TAGS.JAVASCRIPT],
-    thumbnail: null,
-    links: [
-      {
-        type: "github",
-        url: "https://github.com/mattqdev/watermark-applier",
-        label: "Repository",
-      },
-    ],
-    isOpenSource: true,
-    features: [
-      "Smart positioning — analyzes pixel chaos (std deviation) to find the calmest corner",
-      "Fallback logic — if bottom-right is too busy, compares with bottom-center and picks the better one",
-      "Auto-inversion — detects light backgrounds and flips watermark to dark for contrast",
-      "Dynamic opacity — adjusts transparency based on background brightness",
-      "Recursive folder processing — maintains original directory hierarchy in output",
-      "Customizable padding, size, inversion threshold, and chaos sensitivity",
-    ],
-    technologies: [TAGS.PYTHON ?? TAGS.JAVASCRIPT],
-    achievements: [
-      {
-        icon: <FaImage />,
-        title: "License",
-        description: "Open source under MIT.",
-        metric: "MIT",
-      },
-      {
-        icon: <FaLightbulb />,
-        title: "Fun Fact",
-        description:
-          "Uses luminance analysis + std deviation to pick watermark placement.",
-        metric: "Smart AI-free",
-      },
-    ],
-  },
-  {
     id: "physicshub",
     title: "PhysicsHub",
     shortDescription:
@@ -164,57 +71,10 @@ export const projects = [
     ],
   },
   {
-    id: "stackfingerprint",
-    title: "StackFingerprint",
-    shortDescription:
-      "Scan any GitHub repo and generate embeddable SVG card of its tech stack.",
-    description:
-      "Scan any public GitHub repo and generate a beautiful, embeddable SVG card of its tech stack. Zero auth, zero config.",
-    startDate: "Mar 2026",
-    endDate: "Present",
-    tags: [
-      TAGS.WEBSITE,
-      TAGS.HTML_CSS,
-      TAGS.JAVASCRIPT,
-      TAGS.REACT,
-      TAGS.TAILWIND_CSS,
-    ],
-    thumbnail: null,
-    links: [
-      {
-        type: "github",
-        url: "https://github.com/mattqdev/stackfingerprint",
-        label: "Repository Link",
-      },
-    ],
-    isOpenSource: true,
-    features: [
-      "Generate a visually appealing SVG card showcasing the technologies used in the repository",
-      "Fully customizable beautiful cards with different themes and layouts",
-      "Zero auth and completely free.",
-      "Supports a wide range of programming languages, frameworks and dev tools",
-    ],
-    technologies: [TAGS.HTML_CSS, TAGS.JAVASCRIPT, TAGS.REACT],
-    achievements: [
-      {
-        icon: <FaLightbulb />,
-        title: "Fun Fact",
-        description: "It's a work in progress, but it's already functional.",
-        metric: "WIP",
-      },
-      {
-        icon: <FaLightbulb />,
-        title: "Fun Fact",
-        description: "It has a easy to use API without auth.",
-        metric: "Free API",
-      },
-    ],
-  },
-  {
     id: "brawl-stars-pet-simulator",
     title: "Brawl Stars Pet Simulator",
     shortDescription:
-      "A Roblox pet simulator game inspired by Brawl Stars with 3.2M+ visits.",
+      "A Roblox pet simulator game inspired by Brawl Stars with 3.4M+ visits.",
     description: (
       <>
         Brawl Stars Pet Simulator is a Roblox game that combines popular
@@ -282,6 +142,102 @@ export const projects = [
         title: "Community",
         description: "Community members",
         metric: "87.000+",
+      },
+    ],
+  },
+  {
+    id: "koalaz",
+    title: "Koalaz",
+    shortDescription:
+      "A fun npm package for generating koala-themed mock data — a meme-style alternative to Faker.",
+    description:
+      "Why use boring Lorem Ipsum or generic fake data when you can use koalas? Koalaz is a lightweight npm package for generating absurd, koala-themed mock data. Generate JSON objects, lorem ipsum made of koala sounds, ASCII art, fake API responses, data tables, and more. A meme-style alternative to Faker for tests, prototypes, and developers who want something more fun.",
+    startDate: "Nov 2025",
+    endDate: "Present",
+    tags: [TAGS.JAVASCRIPT, TAGS.TYPESCRIPT ?? TAGS.JAVASCRIPT],
+    thumbnail: null,
+    links: [
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/koalaz",
+        label: "Repository",
+      },
+      {
+        type: "live",
+        url: "https://www.npmjs.com/package/koalaz",
+        label: "npm package",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Generate absurd JSON data about koalas (id, name, mood, sleepHours, eucalyptusConsumed…)",
+      "Lorem ipsum made entirely of koala sounds",
+      "ASCII koala art with multiple expressions (judging, sleeping, happy…)",
+      "Fake data tables for quick UI mockups",
+      "API response faker — mock any endpoint with koala data",
+      "Lightweight alternative to Faker with zero serious dependencies",
+      "Works with both ESM (import) and CJS (require)",
+    ],
+    technologies: [TAGS.JAVASCRIPT],
+    achievements: [
+      {
+        icon: <FaBox />,
+        title: "npm Downloads",
+        description: "Total package downloads",
+        metric: "439+",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "MIT licensed and open to contributions.",
+        metric: "Open Source",
+      },
+    ],
+  },
+  {
+    id: "stackfingerprint",
+    title: "StackFingerprint",
+    shortDescription:
+      "Scan any GitHub repo and generate embeddable SVG card of its tech stack.",
+    description:
+      "Scan any public GitHub repo and generate a beautiful, embeddable SVG card of its tech stack. Zero auth, zero config.",
+    startDate: "Mar 2026",
+    endDate: "Present",
+    tags: [
+      TAGS.WEBSITE,
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.REACT,
+      TAGS.TAILWIND_CSS,
+    ],
+    thumbnail: null,
+    links: [
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/stackfingerprint",
+        label: "Repository Link",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Generate a visually appealing SVG card showcasing the technologies used in the repository",
+      "Fully customizable beautiful cards with different themes and layouts",
+      "Zero auth and completely free.",
+      "Supports a wide range of programming languages, frameworks and dev tools",
+    ],
+    technologies: [TAGS.HTML_CSS, TAGS.JAVASCRIPT, TAGS.REACT],
+    achievements: [
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "It's a work in progress, but it's already functional.",
+        metric: "WIP",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "It has a easy to use API without auth.",
+        metric: "Free API",
       },
     ],
   },
@@ -378,46 +334,6 @@ export const projects = [
         title: "Downloads",
         description: "Plugin installations",
         metric: "3.500+",
-      },
-    ],
-  },
-  {
-    id: "cube-generator",
-    title: "Cube Generator",
-    shortDescription:
-      "A procedural cube generator game with customizable parameters and real-time visualization.",
-    description:
-      "Cube Generator is a game-tool that creates customizable 3D cube structures with various patterns, colors and sizes. It allows users to generate unique cube designs for visualizations or just for stress your pc. This game has been created in just 8 hours (also thumbnails, icons and badges)",
-    startDate: "Aug 2024",
-    endDate: "8 Hours later",
-    tags: [TAGS.ROBLOX, TAGS.LUAU, TAGS.UI_UX, TAGS.GAME_DESIGN, TAGS.PHYSICS],
-    thumbnail: null,
-    links: [
-      {
-        type: "play",
-        url: "https://www.roblox.com/games/18763191813",
-        label: "Play Game",
-      },
-    ],
-    isOpenSource: false,
-    features: [
-      "Procedural cube generation with custom parameters",
-      "Real-time 3D generation.",
-      "Customize colors, sizes and materials",
-    ],
-    technologies: [TAGS.ROBLOX_STUDIO, TAGS.LUAU],
-    achievements: [
-      {
-        icon: <FaUsers />,
-        title: "Total Users",
-        description: "Users who played the game",
-        metric: "170+",
-      },
-      {
-        icon: <FaStar />,
-        title: "User Satisfaction",
-        description: "User rating in Roblox",
-        metric: "80%",
       },
     ],
   },
@@ -592,6 +508,90 @@ export const projects = [
         title: "Fun Fact",
         description: "The entire case has been printed in 3D.",
         metric: "MIY 3D Printed",
+      },
+    ],
+  },
+  {
+    id: "cube-generator",
+    title: "Cube Generator",
+    shortDescription:
+      "A procedural cube generator game with customizable parameters and real-time visualization.",
+    description:
+      "Cube Generator is a game-tool that creates customizable 3D cube structures with various patterns, colors and sizes. It allows users to generate unique cube designs for visualizations or just for stress your pc. This game has been created in just 8 hours (also thumbnails, icons and badges)",
+    startDate: "Aug 2024",
+    endDate: "8 Hours later",
+    tags: [TAGS.ROBLOX, TAGS.LUAU, TAGS.UI_UX, TAGS.GAME_DESIGN, TAGS.PHYSICS],
+    thumbnail: null,
+    links: [
+      {
+        type: "play",
+        url: "https://www.roblox.com/games/18763191813",
+        label: "Play Game",
+      },
+    ],
+    isOpenSource: false,
+    features: [
+      "Procedural cube generation with custom parameters",
+      "Real-time 3D generation.",
+      "Customize colors, sizes and materials",
+    ],
+    technologies: [TAGS.ROBLOX_STUDIO, TAGS.LUAU],
+    achievements: [
+      {
+        icon: <FaUsers />,
+        title: "Total Users",
+        description: "Users who played the game",
+        metric: "170+",
+      },
+      {
+        icon: <FaStar />,
+        title: "User Satisfaction",
+        description: "User rating in Roblox",
+        metric: "80%",
+      },
+    ],
+  },
+  {
+    id: "watermark-applier",
+    title: "Watermark Applier",
+    shortDescription:
+      "A smart Python script that intelligently applies watermarks to images — auto-positioning, auto-color, auto-opacity.",
+    description:
+      "A Python script that applies watermarks to images with actual intelligence. Instead of blindly pasting a logo, it analyzes the background brightness and complexity to find the calmest area, automatically inverts the watermark color (white/black) based on the background, and adjusts opacity for readability. Supports recursive folder processing and maintains the original directory hierarchy in output.",
+    startDate: "2025",
+    endDate: "Present",
+    tags: [TAGS.PYTHON ?? TAGS.JAVASCRIPT],
+    thumbnail: null,
+    links: [
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/watermark-applier",
+        label: "Repository",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Smart positioning — analyzes pixel chaos (std deviation) to find the calmest corner",
+      "Fallback logic — if bottom-right is too busy, compares with bottom-center and picks the better one",
+      "Auto-inversion — detects light backgrounds and flips watermark to dark for contrast",
+      "Dynamic opacity — adjusts transparency based on background brightness",
+      "Recursive folder processing — maintains original directory hierarchy in output",
+      "Customizable padding, size, inversion threshold, and chaos sensitivity",
+    ],
+    technologies: [TAGS.PYTHON ?? TAGS.JAVASCRIPT],
+    achievements: [
+      {
+        icon: <FaImage />,
+        title: "License",
+        description: "Open source under MIT.",
+        metric: "MIT",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description:
+          "Uses luminance analysis + std deviation to pick watermark placement.",
+        metric: "Smart AI-free",
       },
     ],
   },
