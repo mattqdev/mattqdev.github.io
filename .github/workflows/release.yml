@@ -35,7 +35,8 @@ jobs:
       # 1. Tenta la release (se non ci sono fix/feat semplicemente non crea il tag)
       - name: Semantic Release
         env:
-          NEXT_PUBLIC_GITHUB_TOKEN: ${{ secrets.NEXT_PUBLIC_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT_PUBLIC_GITHUB_TOKEN: ${{ secrets.NEXT_PUBLIC_GITHUB_TOKEN }}
         run: npx semantic-release
 
       # 2. Configura Pages (Sempre eseguito)
@@ -45,6 +46,7 @@ jobs:
       # 3. Build (Sempre eseguito)
       - name: Build with Next.js
         env:
+          NEXT_PUBLIC_GITHUB_TOKEN: ${{ secrets.NEXT_PUBLIC_GITHUB_TOKEN }}
           NEXT_PUBLIC_DISCORD_WEBHOOK_URL: ${{ secrets.NEXT_PUBLIC_DISCORD_WEBHOOK_URL }}
         run: npm run build
 
