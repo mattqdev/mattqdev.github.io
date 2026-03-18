@@ -1,0 +1,66 @@
+name: Release and Build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  release-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      # 1. Tenta la release (se non ci sono fix/feat semplicemente non crea il tag)
+      - name: Semantic Release
+        env:
+          NEXT_PUBLIC_GITHUB_TOKEN: ${{ secrets.NEXT_PUBLIC_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+      # 2. Configura Pages (Sempre eseguito)
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 3. Build (Sempre eseguito)
+      - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_DISCORD_WEBHOOK_URL: ${{ secrets.NEXT_PUBLIC_DISCORD_WEBHOOK_URL }}
+        run: npm run build
+
+      # 4. Carica Artifact (Sempre eseguito)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: release-and-build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

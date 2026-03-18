@@ -42,32 +42,75 @@ const socials = [
 ];
 
 export default function Contact() {
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [status, setStatus] = useState({
+    submitting: false,
+    succeeded: false,
+    error: null,
+  });
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("sending");
-    const form = e.target;
-    const data = new FormData(form);
+
+    // 1. Check if the URL actually exists before trying to fetch
+    const DISCORD_WEBHOOK_URL = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
+
+    if (!DISCORD_WEBHOOK_URL) {
+      console.error("Webhook URL is missing!");
+      setStatus({
+        submitting: false,
+        succeeded: false,
+        error: "Configuration error.",
+      });
+      return;
+    }
+
+    setStatus({ submitting: true, succeeded: false, error: null });
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    const discordPayload = {
+      username: "Portfolio Bot",
+      // Adding 'content' ensures you get a notification on your device
+      content: `🔔 **New portfolio message from ${data.name || "someone"}!**`,
+      embeds: [
+        {
+          title: data.subject || "No Subject",
+          color: 0x5865f2,
+          fields: [
+            { name: "👤 Name", value: data.name || "Anonymous", inline: true },
+            {
+              name: "📧 Email",
+              value: data.email || "Not provided",
+              inline: true,
+            },
+            { name: "💬 Message", value: `\`\`\`${data.message}\`\`\`` },
+          ],
+          footer: { text: "mattqdev.github.io" },
+          timestamp: new Date().toISOString(),
+        },
+      ],
+    };
 
     try {
-      // Replace with your own endpoint (Formspree, Basin, a Next.js API route, etc.)
-      // Example using a Next.js API route at /api/contact:
-      const res = await fetch("/api/contact", {
+      const response = await fetch(DISCORD_WEBHOOK_URL, {
         method: "POST",
-        body: JSON.stringify(Object.fromEntries(data)),
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(discordPayload),
       });
-      if (res.ok) {
-        setStatus("success");
-        form.reset();
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
+
+      if (!response.ok) throw new Error("Server responded with error");
+
+      setStatus({ submitting: false, succeeded: true, error: null });
+      e.target.reset(); // Clear the form
+    } catch (err) {
+      setStatus({
+        submitting: false,
+        succeeded: false,
+        error: "Could not send. Check your connection or try again later.",
+      });
     }
-  }
+  };
 
   return (
     <section id="contact" className="section-footer">
@@ -122,7 +165,7 @@ export default function Contact() {
 
           {/* Right: form */}
           <motion.div className="contact-form" variants={fadeUp}>
-            {status === "success" ? (
+            {status.succeeded ? (
               <div
                 style={{
                   display: "flex",
@@ -160,11 +203,17 @@ export default function Contact() {
                   <input
                     type="email"
                     name="email"
-                    placeholder="Your Email (optional)"
+                    placeholder="Your Email"
+                    required
                   />
                 </div>
                 <div className="form-group">
-                  <input type="text" name="subject" placeholder="Subject" />
+                  <input
+                    type="text"
+                    name="subject"
+                    placeholder="Subject"
+                    required
+                  />
                 </div>
                 <div className="form-group">
                   <textarea
@@ -173,7 +222,7 @@ export default function Contact() {
                     required
                   />
                 </div>
-                {status === "error" && (
+                {status.error && (
                   <p
                     style={{
                       color: "var(--primary)",
@@ -181,16 +230,16 @@ export default function Contact() {
                       marginBottom: 12,
                     }}
                   >
-                    Something went wrong. Try emailing me directly.
+                    {status.error}
                   </p>
                 )}
                 <button
                   type="submit"
                   className="btn"
-                  disabled={status === "sending"}
+                  disabled={status.submitting}
                   style={{ width: "100%", justifyContent: "center" }}
                 >
-                  {status === "sending" ? "Sending…" : "Send Message"}
+                  {status.submitting ? "Sending…" : "Send Message"}
                 </button>
               </form>
             )}
