@@ -1,6 +1,6 @@
 "use client";
 // components/Hero.jsx
-import { FaDiscord, FaEnvelope } from "react-icons/fa";
+import { FaDiscord, FaEnvelope, FaGithub } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
 // Images in Next.js: put avatar.png and roblox.svg in /public/icons/
@@ -75,6 +75,15 @@ export default function Hero({ scrollToSection }) {
                 alt="Roblox"
                 style={{ width: "42%" }}
               />
+            </a>
+            <a
+              href="https://github.com/mattqdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon"
+              aria-label="GitHub"
+            >
+              <FaGithub />
             </a>
             <a
               href="https://discord.gg/ETgCMSps4c"
