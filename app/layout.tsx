@@ -1,5 +1,6 @@
 // app/layout.jsx
 import { Syne, DM_Sans } from "next/font/google";
+import { Metadata } from "next";
 import "./globals.css";
 
 // Load fonts via next/font — zero layout shift, no external request at runtime
@@ -18,7 +19,7 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "MattQ — Developer & Designer",
   description:
     "Portfolio of MattQ — Web developer, Roblox game developer and UI/UX designer.",
@@ -34,6 +35,10 @@ export const metadata = {
     card: "summary_large_image",
     creator: "@mattqdev",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -46,6 +51,8 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/x-icon" href="/icon.ico" />
       </head>
       <body>{children}</body>
     </html>
