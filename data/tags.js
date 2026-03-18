@@ -7,6 +7,8 @@ import {
   SiReact,
   SiRoblox,
   SiTailwindcss,
+  SiPython,
+  SiTypescript,
 } from "@icons-pack/react-simple-icons";
 import {
   FaGear,
@@ -119,5 +121,17 @@ export const TAGS = {
     icon: <SiTailwindcss />,
     color: "#61dafb",
     purpose: "CSS framework",
+  },
+  PYTHON: {
+    name: "Python",
+    icon: <SiPython />,
+    color: "#3572a5",
+    purpose: "Programming language",
+  },
+  TYPESCRIPT: {
+    name: "TypeScript",
+    icon: <SiTypescript />,
+    color: "#3178c6",
+    purpose: "Typed JavaScript superset",
   },
 };

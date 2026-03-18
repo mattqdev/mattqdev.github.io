@@ -9,11 +9,106 @@ import {
   FaHeart,
   FaTrophy,
   FaLightbulb,
+  FaBox,
+  FaImage,
 } from "react-icons/fa";
 
 import { TAGS } from "./tags";
 
 export const projects = [
+  {
+    id: "koalaz",
+    title: "Koalaz",
+    shortDescription:
+      "A fun npm package for generating koala-themed mock data — a meme-style alternative to Faker.",
+    description:
+      "Why use boring Lorem Ipsum or generic fake data when you can use koalas? Koalaz is a lightweight npm package for generating absurd, koala-themed mock data. Generate JSON objects, lorem ipsum made of koala sounds, ASCII art, fake API responses, data tables, and more. A meme-style alternative to Faker for tests, prototypes, and developers who want something more fun.",
+    startDate: "Nov 2025",
+    endDate: "Present",
+    tags: [TAGS.JAVASCRIPT, TAGS.TYPESCRIPT ?? TAGS.JAVASCRIPT],
+    thumbnail: null,
+    links: [
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/koalaz",
+        label: "Repository",
+      },
+      {
+        type: "live",
+        url: "https://www.npmjs.com/package/koalaz",
+        label: "npm package",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Generate absurd JSON data about koalas (id, name, mood, sleepHours, eucalyptusConsumed…)",
+      "Lorem ipsum made entirely of koala sounds",
+      "ASCII koala art with multiple expressions (judging, sleeping, happy…)",
+      "Fake data tables for quick UI mockups",
+      "API response faker — mock any endpoint with koala data",
+      "Lightweight alternative to Faker with zero serious dependencies",
+      "Works with both ESM (import) and CJS (require)",
+    ],
+    technologies: [TAGS.JAVASCRIPT],
+    achievements: [
+      {
+        icon: <FaBox />,
+        title: "npm Downloads",
+        description: "Total package downloads",
+        metric: "439+",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "MIT licensed and open to contributions.",
+        metric: "Open Source",
+      },
+    ],
+  },
+  {
+    id: "watermark-applier",
+    title: "Watermark Applier",
+    shortDescription:
+      "A smart Python script that intelligently applies watermarks to images — auto-positioning, auto-color, auto-opacity.",
+    description:
+      "A Python script that applies watermarks to images with actual intelligence. Instead of blindly pasting a logo, it analyzes the background brightness and complexity to find the calmest area, automatically inverts the watermark color (white/black) based on the background, and adjusts opacity for readability. Supports recursive folder processing and maintains the original directory hierarchy in output.",
+    startDate: "2025",
+    endDate: "Present",
+    tags: [TAGS.PYTHON ?? TAGS.JAVASCRIPT],
+    thumbnail: null,
+    links: [
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/watermark-applier",
+        label: "Repository",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Smart positioning — analyzes pixel chaos (std deviation) to find the calmest corner",
+      "Fallback logic — if bottom-right is too busy, compares with bottom-center and picks the better one",
+      "Auto-inversion — detects light backgrounds and flips watermark to dark for contrast",
+      "Dynamic opacity — adjusts transparency based on background brightness",
+      "Recursive folder processing — maintains original directory hierarchy in output",
+      "Customizable padding, size, inversion threshold, and chaos sensitivity",
+    ],
+    technologies: [TAGS.PYTHON ?? TAGS.JAVASCRIPT],
+    achievements: [
+      {
+        icon: <FaImage />,
+        title: "License",
+        description: "Open source under MIT.",
+        metric: "MIT",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description:
+          "Uses luminance analysis + std deviation to pick watermark placement.",
+        metric: "Smart AI-free",
+      },
+    ],
+  },
   {
     id: "physicshub",
     title: "PhysicsHub",
@@ -356,7 +451,7 @@ export const projects = [
       "Lights: Calculates a light score estimate (Brightness * Range).",
       "Particles: Calculates a particles score estimate (Brightness * Range * AvgLifetime).",
       "Part Amounts: Simply find the models with the highest part quantity.",
-      "Stats: Check Roblox engine’s performance.",
+      "Stats: Check Roblox engine's performance.",
       "List and Colors: Intuitive colors and list help you to understand how to optimize your game.",
       "And others…",
     ],
