@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e5ef97c4.css",
-    "main.js": "/static/js/main.6d197748.js",
+    "main.css": "/static/css/main.cdb15f01.css",
+    "main.js": "/static/js/main.a3bf445c.js",
     "static/js/208.0bdf6810.chunk.js": "/static/js/208.0bdf6810.chunk.js",
     "static/js/293.92935ccd.chunk.js": "/static/js/293.92935ccd.chunk.js",
     "static/js/917.1990ff76.chunk.js": "/static/js/917.1990ff76.chunk.js",
@@ -30,7 +30,6 @@
     "static/media/ThumbnailOllie.png": "/static/media/ThumbnailOllie.26011ff70c00980f6931.png",
     "static/media/BannerPlugin.png": "/static/media/BannerPlugin.6d93f83592f0b763d752.png",
     "static/media/ThumbnailMeeple.png": "/static/media/ThumbnailMeeple.4cbb3f666d185eb0b761.png",
-    "static/media/Screenshot 2025-08-01 alle 23.41.50.png": "/static/media/Screenshot 2025-08-01 alle 23.41.50.fcce9e328a7382e95ca1.png",
     "static/media/Screenshot 2025-06-16 alle 19.45.23.png": "/static/media/Screenshot 2025-06-16 alle 19.45.23.1e971a7d82f53621beb4.png",
     "static/media/Screenshot 2025-06-16 alle 19.44.02.png": "/static/media/Screenshot 2025-06-16 alle 19.44.02.9ed5d602dce0afbc51b9.png",
     "static/media/IconBorder.png": "/static/media/IconBorder.1d2c0bfad28a20d9d362.png",
@@ -43,7 +42,6 @@
     "static/media/Screenshot 2025-06-16 alle 19.40.27.png": "/static/media/Screenshot 2025-06-16 alle 19.40.27.f39f3fcd43babeb5885b.png",
     "static/media/avatar.png": "/static/media/avatar.15534994978c681db6af.png",
     "static/media/s3.png": "/static/media/s3.2daa809d73e0685ad5d4.png",
-    "static/media/Screenshot 2025-08-01 alle 23.42.10.png": "/static/media/Screenshot 2025-08-01 alle 23.42.10.ed6014015a8be781f952.png",
     "static/media/Screenshot 2025-08-01 alle 23.22.00.png": "/static/media/Screenshot 2025-08-01 alle 23.22.00.a818f725e6252dfda858.png",
     "static/media/Screenshot 2025-06-11 alle 18.00.30.png": "/static/media/Screenshot 2025-06-11 alle 18.00.30.70f3daebf1f17053a4ee.png",
     "static/media/Screenshot 2025-06-15 alle 17.07.49.png": "/static/media/Screenshot 2025-06-15 alle 17.07.49.5b826819b9ac41154d59.png",
@@ -60,8 +58,8 @@
     "static/media/s1.png": "/static/media/s1.4de25af79c1593b832dd.png",
     "index.html": "/index.html",
     "static/media/roblox.svg": "/static/media/roblox.845e93e289e4dd48e2607787c563bd74.svg",
-    "main.e5ef97c4.css.map": "/static/css/main.e5ef97c4.css.map",
-    "main.6d197748.js.map": "/static/js/main.6d197748.js.map",
+    "main.cdb15f01.css.map": "/static/css/main.cdb15f01.css.map",
+    "main.a3bf445c.js.map": "/static/js/main.a3bf445c.js.map",
     "208.0bdf6810.chunk.js.map": "/static/js/208.0bdf6810.chunk.js.map",
     "293.92935ccd.chunk.js.map": "/static/js/293.92935ccd.chunk.js.map",
     "917.1990ff76.chunk.js.map": "/static/js/917.1990ff76.chunk.js.map",
@@ -72,7 +70,7 @@
     "23.6122d76a.chunk.js.map": "/static/js/23.6122d76a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e5ef97c4.css",
-    "static/js/main.6d197748.js"
+    "static/css/main.cdb15f01.css",
+    "static/js/main.a3bf445c.js"
   ]
 }
