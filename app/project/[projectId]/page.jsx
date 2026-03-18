@@ -1,14 +1,15 @@
 // app/project/[projectId]/page.jsx
+// Server Component — runs at build time for static export.
+// Reads the media folder here (Node fs) and passes results as props
+// to the client component, which can't use fs.
 import { projects } from "@/data/projects";
+import { getProjectMedia } from "@/lib/getProjectMedia";
 import ProjectDetails from "@/components/ProjectDetails";
 
-// Tells Next.js all valid projectId values at build time
-// so it can pre-render every project page as static HTML.
 export function generateStaticParams() {
   return projects.map((p) => ({ projectId: p.id }));
 }
 
-// Next.js 15+: params is a Promise — must be awaited
 export async function generateMetadata({ params }) {
   const { projectId } = await params;
   const project = projects.find((p) => p.id === projectId);
@@ -21,5 +22,11 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectPage({ params }) {
   const { projectId } = await params;
-  return <ProjectDetails projectId={projectId} />;
+
+  // Scan public/media/projects/[projectId]/ at build time
+  const { images, videos } = getProjectMedia(projectId);
+
+  return (
+    <ProjectDetails projectId={projectId} images={images} videos={videos} />
+  );
 }

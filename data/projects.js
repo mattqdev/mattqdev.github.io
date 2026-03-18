@@ -69,6 +69,53 @@ export const projects = [
     ],
   },
   {
+    id: "stackfingerprint",
+    title: "StackFingerprint",
+    shortDescription:
+      "Scan any GitHub repo and generate embeddable SVG card of its tech stack.",
+    description:
+      "Scan any public GitHub repo and generate a beautiful, embeddable SVG card of its tech stack. Zero auth, zero config.",
+    startDate: "Mar 2026",
+    endDate: "Present",
+    tags: [
+      TAGS.WEBSITE,
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.REACT,
+      TAGS.TAILWIND_CSS,
+    ],
+    thumbnail: null,
+    links: [
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/stackfingerprint",
+        label: "Repository Link",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Generate a visually appealing SVG card showcasing the technologies used in the repository",
+      "Fully customizable beautiful cards with different themes and layouts",
+      "Zero auth and completely free.",
+      "Supports a wide range of programming languages, frameworks and dev tools",
+    ],
+    technologies: [TAGS.HTML_CSS, TAGS.JAVASCRIPT, TAGS.REACT],
+    achievements: [
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "It's a work in progress, but it's already functional.",
+        metric: "WIP",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "It has a easy to use API without auth.",
+        metric: "Free API",
+      },
+    ],
+  },
+  {
     id: "brawl-stars-pet-simulator",
     title: "Brawl Stars Pet Simulator",
     shortDescription:

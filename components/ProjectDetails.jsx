@@ -175,7 +175,13 @@ function GitHubInfoCard({ githubUrl }) {
   );
 }
 
-export default function ProjectDetails({ projectId }) {
+// images and videos are passed from the server component (page.jsx)
+// which scanned public/media/projects/[id]/ using Node fs at build time.
+export default function ProjectDetails({
+  projectId,
+  images = [],
+  videos = [],
+}) {
   const project = projects.find((p) => p.id === projectId);
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -192,19 +198,16 @@ export default function ProjectDetails({ projectId }) {
     );
   }
 
-  // Media files live in public/media/projects/<id>/
-  // Add a `media: ['file.png', 'demo.mov']` array to each project entry.
-  const media = (project.media || []).map((filename) => ({
-    type: /\.mov$/i.test(filename) ? "video" : "image",
-    src: `/media/projects/${project.id}/${filename}`,
-  }));
-  const images = media.filter((m) => m.type === "image").map((m) => m.src);
-  const videos = media.filter((m) => m.type === "video").map((m) => m.src);
-
   const githubLink = project.links?.find(
     (l) => l.type === "github" && l.url?.includes("github.com")
   );
   const githubUrl = githubLink?.url || project.githubUrl;
+
+  // Thumbnail: project.thumbnail is a filename string like 'preview.png'
+  // File lives at public/media/projects/[id]/preview.png
+  const thumbnailSrc = project.thumbnail
+    ? `/media/projects/${project.id}/${project.thumbnail}`
+    : null;
 
   const tabs = [
     { id: "overview", label: "Overview" },
@@ -276,9 +279,9 @@ export default function ProjectDetails({ projectId }) {
           <div>
             {githubUrl ? (
               <GitHubInfoCard githubUrl={githubUrl} />
-            ) : project.thumbnail ? (
+            ) : thumbnailSrc ? (
               <img
-                src={project.thumbnail}
+                src={thumbnailSrc}
                 alt={project.title}
                 style={{ borderRadius: "var(--radius)", maxHeight: 300 }}
               />
