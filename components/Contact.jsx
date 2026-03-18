@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+"use client";
+// components/Contact.jsx
+import { useState } from "react";
 import { FaDiscord, FaEnvelope, FaTwitter } from "react-icons/fa";
 import { motion } from "framer-motion";
-import robloxIcon from "../assets/icons/roblox.svg";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -32,7 +33,7 @@ const socials = [
     href: "https://x.com/mattqdev",
   },
   {
-    icon: null,
+    // Roblox icon served from public/icons/roblox.svg — no import needed
     roblox: true,
     label: "Roblox",
     value: "MattQ Profile",
@@ -40,76 +41,33 @@ const socials = [
   },
 ];
 
-const Contact = () => {
-  const [status, setStatus] = useState({
-    submitting: false,
-    succeeded: false,
-    error: null,
-  });
+export default function Contact() {
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-
-    // 1. Check if the URL actually exists before trying to fetch
-    const DISCORD_WEBHOOK_URL = process.env.REACT_APP_DISCORD_WEBHOOK_URL;
-
-    if (!DISCORD_WEBHOOK_URL) {
-      console.error("Webhook URL is missing!");
-      setStatus({
-        submitting: false,
-        succeeded: false,
-        error: "Configuration error.",
-      });
-      return;
-    }
-
-    setStatus({ submitting: true, succeeded: false, error: null });
-
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-
-    const discordPayload = {
-      username: "Portfolio Bot",
-      // Adding 'content' ensures you get a notification on your device
-      content: `🔔 **New portfolio message from ${data.name || "someone"}!**`,
-      embeds: [
-        {
-          title: data.subject || "No Subject",
-          color: 0x5865f2,
-          fields: [
-            { name: "👤 Name", value: data.name || "Anonymous", inline: true },
-            {
-              name: "📧 Email",
-              value: data.email || "Not provided",
-              inline: true,
-            },
-            { name: "💬 Message", value: `\`\`\`${data.message}\`\`\`` },
-          ],
-          footer: { text: "mattqdev.github.io" },
-          timestamp: new Date().toISOString(),
-        },
-      ],
-    };
+    setStatus("sending");
+    const form = e.target;
+    const data = new FormData(form);
 
     try {
-      const response = await fetch(DISCORD_WEBHOOK_URL, {
+      // Replace with your own endpoint (Formspree, Basin, a Next.js API route, etc.)
+      // Example using a Next.js API route at /api/contact:
+      const res = await fetch("/api/contact", {
         method: "POST",
+        body: JSON.stringify(Object.fromEntries(data)),
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(discordPayload),
       });
-
-      if (!response.ok) throw new Error("Server responded with error");
-
-      setStatus({ submitting: false, succeeded: true, error: null });
-      e.target.reset(); // Clear the form
-    } catch (err) {
-      setStatus({
-        submitting: false,
-        succeeded: false,
-        error: "Could not send. Check your connection or try again later.",
-      });
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
     }
-  };
+  }
 
   return (
     <section id="contact" className="section-footer">
@@ -139,9 +97,9 @@ const Contact = () => {
                 <div className="contact-icon">
                   {s.roblox ? (
                     <img
-                      draggable="false"
-                      src={robloxIcon}
+                      src="/icons/roblox.svg"
                       alt="Roblox"
+                      draggable="false"
                       className="contact-icon-svg red-filter"
                     />
                   ) : (
@@ -164,7 +122,7 @@ const Contact = () => {
 
           {/* Right: form */}
           <motion.div className="contact-form" variants={fadeUp}>
-            {status.succeeded ? (
+            {status === "success" ? (
               <div
                 style={{
                   display: "flex",
@@ -206,12 +164,7 @@ const Contact = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <input
-                    type="text"
-                    name="subject"
-                    placeholder="Subject"
-                    required
-                  />
+                  <input type="text" name="subject" placeholder="Subject" />
                 </div>
                 <div className="form-group">
                   <textarea
@@ -220,24 +173,24 @@ const Contact = () => {
                     required
                   />
                 </div>
-                {status.error && (
+                {status === "error" && (
                   <p
                     style={{
-                      color: "#ff4d4d",
-                      fontSize: "0.8rem",
-                      marginBottom: "1rem",
+                      color: "var(--primary)",
+                      fontSize: ".85rem",
+                      marginBottom: 12,
                     }}
                   >
-                    {status.error}
+                    Something went wrong. Try emailing me directly.
                   </p>
                 )}
                 <button
                   type="submit"
                   className="btn"
-                  disabled={status.submitting}
+                  disabled={status === "sending"}
                   style={{ width: "100%", justifyContent: "center" }}
                 >
-                  {status.submitting ? "Sending…" : "Send Message"}
+                  {status === "sending" ? "Sending…" : "Send Message"}
                 </button>
               </form>
             )}
@@ -246,6 +199,4 @@ const Contact = () => {
       </motion.div>
     </section>
   );
-};
-
-export default Contact;
+}

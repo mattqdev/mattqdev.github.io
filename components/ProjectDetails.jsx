@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+"use client";
+// components/ProjectDetails.jsx
+import { useState } from "react";
+import Link from "next/link";
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -11,62 +13,18 @@ import {
   FaPlayCircle,
   FaExclamationCircle,
 } from "react-icons/fa";
-import { projects } from "../data/projects";
+import { projects } from "@/data/projects";
 import Gallery from "./Gallery";
 import { motion } from "framer-motion";
+import { useGitHubData } from "@/hooks/useGitHubData";
 
-/* ─── helpers ─────────────────────────────────────── */
 function findPrev(project) {
-  const index = projects.indexOf(project);
-  return index > 0 ? projects[index - 1].id : null;
+  return projects[projects.indexOf(project) - 1]?.id;
 }
 function findNext(project) {
-  const index = projects.indexOf(project);
-  return index < projects.length - 1 ? projects[index + 1].id : null;
+  return projects[projects.indexOf(project) + 1]?.id;
 }
 
-const context = require.context(
-  "../assets/media/projects",
-  true,
-  /\.(png|jpe?g|svg|webp|mov|mp4)$/
-);
-
-/* ─── GitHub hook ──────────────────────────────────── */
-function useGitHubData(githubUrl) {
-  const [repo, setRepo] = useState(null);
-  const [langs, setLangs] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (!githubUrl) return;
-    const match = githubUrl.match(/github\.com\/([^/]+\/[^/?#]+)/);
-    if (!match) return;
-    const slug = match[1];
-
-    setLoading(true);
-    setError(false);
-
-    Promise.all([
-      fetch(`https://api.github.com/repos/${slug}`).then((r) =>
-        r.ok ? r.json() : null
-      ),
-      fetch(`https://api.github.com/repos/${slug}/languages`).then((r) =>
-        r.ok ? r.json() : null
-      ),
-    ])
-      .then(([repoData, langData]) => {
-        setRepo(repoData);
-        setLangs(langData);
-      })
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, [githubUrl]);
-
-  return { repo, langs, loading, error };
-}
-
-/* ─── Language bar ─────────────────────────────────── */
 const LANG_COLORS = {
   JavaScript: "#f7df1e",
   TypeScript: "#3178c6",
@@ -124,16 +82,12 @@ function LanguageBar({ langs }) {
   );
 }
 
-/* ─── GitHub info panel ─────────────────────────────── */
 function GitHubInfoCard({ githubUrl }) {
   const { repo, langs, loading, error } = useGitHubData(githubUrl);
-
   if (!githubUrl) return null;
-
   return (
     <div className="github-info-card">
       <h4>GitHub Repository</h4>
-
       {loading && (
         <div className="github-loading">
           <div className="github-loading-dot" />
@@ -142,7 +96,6 @@ function GitHubInfoCard({ githubUrl }) {
           <span>Fetching repo data…</span>
         </div>
       )}
-
       {error && (
         <div
           style={{
@@ -157,7 +110,6 @@ function GitHubInfoCard({ githubUrl }) {
           load repo data.
         </div>
       )}
-
       {repo && !loading && (
         <>
           {repo.description && (
@@ -180,14 +132,40 @@ function GitHubInfoCard({ githubUrl }) {
               </div>
               <div className="label">Issues</div>
             </div>
+            <div className="github-stat-item">
+              <div className="value">
+                {repo.watchers_count?.toLocaleString()}
+              </div>
+              <div className="label">Watchers</div>
+            </div>
           </div>
           {langs && <LanguageBar langs={langs} />}
+          {repo.topics?.length > 0 && (
+            <div className="github-topics">
+              {repo.topics.map((t) => (
+                <span key={t} className="github-topic">
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
+          {repo.license && (
+            <div
+              style={{
+                fontSize: ".78rem",
+                color: "var(--text-muted)",
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              License: {repo.license.spdx_id}
+            </div>
+          )}
           <a
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-ghost"
-            style={{ marginTop: 12, width: "100%", justifyContent: "center" }}
+            style={{ marginTop: 4, justifyContent: "center" }}
           >
             <FaGithub /> View on GitHub
           </a>
@@ -197,9 +175,7 @@ function GitHubInfoCard({ githubUrl }) {
   );
 }
 
-/* ─── Main component ───────────────────────────────── */
-const ProjectDetails = () => {
-  const { projectId } = useParams();
+export default function ProjectDetails({ projectId }) {
   const project = projects.find((p) => p.id === projectId);
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -208,7 +184,7 @@ const ProjectDetails = () => {
       <div className="section" style={{ paddingTop: 160 }}>
         <div className="container">
           <h2>Project not found</h2>
-          <Link to="/" className="btn" style={{ marginTop: 20 }}>
+          <Link href="/" className="btn" style={{ marginTop: 20 }}>
             <FaArrowLeft /> Back to Home
           </Link>
         </div>
@@ -216,25 +192,15 @@ const ProjectDetails = () => {
     );
   }
 
-  // --- LOGICA MEDIA OTTIMIZZATA ---
-  // 1. Carichiamo i file locali dalla cartella assets
-  const localMedia = context
-    .keys()
-    .filter((k) => k.startsWith(`./${project.id}/`))
-    .map(context);
+  // Media files live in public/media/projects/<id>/
+  // Add a `media: ['file.png', 'demo.mov']` array to each project entry.
+  const media = (project.media || []).map((filename) => ({
+    type: /\.mov$/i.test(filename) ? "video" : "image",
+    src: `/media/projects/${project.id}/${filename}`,
+  }));
+  const images = media.filter((m) => m.type === "image").map((m) => m.src);
+  const videos = media.filter((m) => m.type === "video").map((m) => m.src);
 
-  // 2. Filtriamo immagini e video locali (sono stringhe URL)
-  const localImages = localMedia.filter((s) =>
-    /\.(png|jpe?g|svg|webp)$/i.test(s)
-  );
-  const localVideos = localMedia.filter((s) => /\.(mov|mp4|webm)$/i.test(s));
-
-  // 3. Uniamo con i media definiti manualmente nell'oggetto project (possono essere oggetti {src, alt})
-  // La Gallery gestirà automaticamente sia le stringhe che gli oggetti.
-  const allImages = [...localImages, ...(project.images || [])];
-  const allVideos = [...localVideos, ...(project.videos || [])];
-
-  // Identifica URL GitHub per il pannello laterale
   const githubLink = project.links?.find(
     (l) => l.type === "github" && l.url?.includes("github.com")
   );
@@ -242,10 +208,7 @@ const ProjectDetails = () => {
 
   const tabs = [
     { id: "overview", label: "Overview" },
-    {
-      id: "gallery",
-      label: `Gallery (${allImages.length + allVideos.length})`,
-    },
+    { id: "gallery", label: `Gallery (${images.length + videos.length})` },
     { id: "tech", label: "Technologies" },
     { id: "achievements", label: "Achievements" },
   ];
@@ -253,7 +216,7 @@ const ProjectDetails = () => {
   return (
     <section className="project-detail section">
       <div className="container">
-        <Link to="/#projects" className="back-btn">
+        <Link href="/#projects" className="back-btn">
           <FaArrowLeft /> Back to Projects
         </Link>
 
@@ -261,14 +224,12 @@ const ProjectDetails = () => {
           <div className="detail-hero-left">
             <div className="section-label">Project</div>
             <h1 className="detail-title">{project.title}</h1>
-
             <div className="project-dates">
               <FaCalendarAlt />
               <span>
                 {project.startDate} — {project.endDate || "Present"}
               </span>
             </div>
-
             <div className="project-links">
               {project.links.map((link, i) => (
                 <a
@@ -291,7 +252,6 @@ const ProjectDetails = () => {
                 </a>
               ))}
             </div>
-
             <div className="project-tags" style={{ marginTop: 8 }}>
               {project.tags.map((tag, i) => (
                 <span
@@ -305,22 +265,22 @@ const ProjectDetails = () => {
                   {tag.icon} {tag.name}
                 </span>
               ))}
+              {project.isOpenSource && (
+                <span className="project-tag open-source">
+                  <FaCode /> Open Source
+                </span>
+              )}
             </div>
           </div>
 
-          <div className="detail-hero-right">
+          <div>
             {githubUrl ? (
               <GitHubInfoCard githubUrl={githubUrl} />
             ) : project.thumbnail ? (
               <img
                 src={project.thumbnail}
                 alt={project.title}
-                style={{
-                  borderRadius: "var(--radius)",
-                  maxHeight: 300,
-                  width: "100%",
-                  objectFit: "cover",
-                }}
+                style={{ borderRadius: "var(--radius)", maxHeight: 300 }}
               />
             ) : null}
           </div>
@@ -328,12 +288,18 @@ const ProjectDetails = () => {
 
         <div className="project-navigation">
           {findPrev(project) && (
-            <Link to={`/project/${findPrev(project)}`} className="nav-btn prev">
+            <Link
+              href={`/project/${findPrev(project)}`}
+              className="nav-btn prev"
+            >
               <FaArrowLeft /> Previous
             </Link>
           )}
           {findNext(project) && (
-            <Link to={`/project/${findNext(project)}`} className="nav-btn next">
+            <Link
+              href={`/project/${findNext(project)}`}
+              className="nav-btn next"
+            >
               Next <FaArrowRight />
             </Link>
           )}
@@ -355,8 +321,8 @@ const ProjectDetails = () => {
           key={activeTab}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-          className="project-content"
+          transition={{ duration: 0.3 }}
+          style={{ padding: 0 }}
         >
           {activeTab === "overview" && (
             <div className="project-overview">
@@ -380,11 +346,9 @@ const ProjectDetails = () => {
               </div>
             </div>
           )}
-
           {activeTab === "gallery" && (
-            <Gallery images={allImages} videos={allVideos} />
+            <Gallery images={images} videos={videos} />
           )}
-
           {activeTab === "tech" && (
             <div className="project-technologies">
               <h3>Technologies Used</h3>
@@ -404,7 +368,6 @@ const ProjectDetails = () => {
               </div>
             </div>
           )}
-
           {activeTab === "achievements" && (
             <div className="project-achievements">
               <h3>Project Achievements</h3>
@@ -415,6 +378,9 @@ const ProjectDetails = () => {
                     <div>
                       <h4>{a.title}</h4>
                       <p>{a.description}</p>
+                      {a.metric && (
+                        <div className="achievement-metric">{a.metric}</div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -425,6 +391,4 @@ const ProjectDetails = () => {
       </div>
     </section>
   );
-};
-
-export default ProjectDetails;
+}

@@ -1,5 +1,6 @@
-// src/components/About.jsx
-import React, { useEffect, useRef, useState } from "react";
+"use client";
+// components/About.jsx
+import { useEffect, useRef, useState } from "react";
 import { FaChartLine, FaUsers, FaUser } from "react-icons/fa";
 import { motion, useInView } from "framer-motion";
 import About3D from "./About3D";
@@ -21,7 +22,6 @@ function useCounter(end, duration, trigger) {
     const step = (ts) => {
       if (!start) start = ts;
       const pct = Math.min((ts - start) / duration, 1);
-      // Ease out
       setValue(Math.floor(pct * pct * (3 - 2 * pct) * end));
       if (pct < 1) requestAnimationFrame(step);
     };
@@ -30,7 +30,7 @@ function useCounter(end, duration, trigger) {
   return value;
 }
 
-const About = () => {
+export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -68,21 +68,17 @@ const About = () => {
           </motion.h2>
           <p>Developer & designer with a love for craft across platforms.</p>
         </div>
-
         <div className="about-content">
           <motion.div className="about-text" variants={containerVariants}>
             <motion.h3 variants={fadeUp}>
-              {new Date().getFullYear() - 2020}+ Years developing stuff that
-              works (mostly)
+              {new Date().getFullYear() - 2020}+ Years Building Things That Work
             </motion.h3>
-
             <motion.p variants={fadeUp}>
               I'm a passionate developer who creates innovative web applications
               and immersive Roblox games. With expertise spanning programming
               and visual design, I craft polished experiences from first pixel
               to final deploy.
             </motion.p>
-
             <motion.p variants={fadeUp}>
               My journey started with web fundamentals and grew into multiple
               languages, platforms, and disciplines. Since 2022 I've been deep
@@ -90,7 +86,6 @@ const About = () => {
               full-stack thinking to build experiences players keep coming back
               to.
             </motion.p>
-
             <motion.p
               variants={fadeUp}
               style={{
@@ -104,7 +99,6 @@ const About = () => {
             >
               Roblox Stats · last update: Jun 2025
             </motion.p>
-
             <motion.div
               className="stats"
               ref={ref}
@@ -125,7 +119,6 @@ const About = () => {
               ))}
             </motion.div>
           </motion.div>
-
           <motion.div className="wrapper-3d" variants={fadeUp}>
             <About3D />
           </motion.div>
@@ -133,6 +126,4 @@ const About = () => {
       </motion.div>
     </section>
   );
-};
-
-export default About;
+}

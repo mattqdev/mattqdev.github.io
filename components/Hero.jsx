@@ -1,11 +1,11 @@
-// src/components/Hero.jsx
-import React from "react";
+"use client";
+// components/Hero.jsx
 import { FaDiscord, FaEnvelope } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import robloxIcon from "../assets/icons/roblox.svg";
-import avatarIcon from "../assets/icons/avatar.png";
-import { AuroraBackground } from "./AuroraBackground.tsx";
+// Images in Next.js: put avatar.png and roblox.svg in /public/icons/
+// and reference them as string paths — no import needed (or use next/image).
+import { AuroraBackground } from "./AuroraBackground";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
@@ -13,16 +13,14 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, ease: "easeOut", delay },
 });
 
-const Hero = ({ scrollToSection }) => {
+export default function Hero({ scrollToSection }) {
   return (
     <section id="hero" className="hero section">
       <AuroraBackground />
-
       <div className="container hero-content">
-        {/* Text */}
         <div className="hero-text">
           <motion.div className="hero-eyebrow" {...fadeUp(0.1)}>
-            From Italy, with <span className="heart">❤️</span>
+            Available for projects
           </motion.div>
 
           <motion.h1 className="border-dotted" {...fadeUp(0.2)}>
@@ -71,9 +69,9 @@ const Hero = ({ scrollToSection }) => {
               className="social-icon"
               aria-label="Roblox"
             >
+              {/* Put roblox.svg in /public/icons/roblox.svg */}
               <img
-                draggable="false"
-                src={robloxIcon}
+                src="/icons/roblox.svg"
                 alt="Roblox"
                 style={{ width: "42%" }}
               />
@@ -90,7 +88,6 @@ const Hero = ({ scrollToSection }) => {
           </motion.div>
         </div>
 
-        {/* Avatar */}
         <motion.div
           className="hero-image"
           initial={{ opacity: 0, scale: 0.88 }}
@@ -103,9 +100,9 @@ const Hero = ({ scrollToSection }) => {
         >
           <div className="hero-img-container">
             <div className="placeholder-avatar">
+              {/* Put avatar.png in /public/icons/avatar.png */}
               <img
-                draggable="false"
-                src={avatarIcon}
+                src="/icons/avatar.png"
                 title="MattQ's Roblox Avatar"
                 alt="MattQ's Avatar"
               />
@@ -115,6 +112,4 @@ const Hero = ({ scrollToSection }) => {
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

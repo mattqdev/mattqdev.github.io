@@ -1,21 +1,31 @@
-// src/components/Footer.jsx
-import React from "react";
+// components/Footer.jsx
+// No 'use client' needed — no hooks or browser APIs
 import { FaDiscord, FaEnvelope, FaGithub } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import robloxIcon from "../assets/icons/roblox.svg";
 
 const links = [
   { href: "mailto:mattqdevv@gmail.com", icon: <FaEnvelope />, label: "Email" },
-  { href: "https://x.com/mattqdev", icon: <FaXTwitter />, label: "Twitter" },
-  { href: "https://github.com/mattqdev", icon: <FaGithub />, label: "GitHub" },
+  {
+    href: "https://x.com/mattqdev",
+    target: "_blank",
+    icon: <FaXTwitter />,
+    label: "Twitter",
+  },
+  {
+    href: "https://github.com/mattqdev",
+    target: "_blank",
+    icon: <FaGithub />,
+    label: "GitHub",
+  },
   {
     href: "https://discord.gg/ETgCMSps4c",
+    target: "_blank",
     icon: <FaDiscord />,
     label: "Discord",
   },
 ];
 
-const Footer = () => {
+export default function Footer() {
   return (
     <footer>
       <div className="container">
@@ -24,14 +34,13 @@ const Footer = () => {
             Matt<span>Q</span>
           </div>
           <p className="footer-tagline">Developer · Designer · Game Maker</p>
-
           <div className="footer-socials">
             {links.map((l, i) => (
               <a
                 key={i}
                 href={l.href}
-                target={l.href.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
+                target={l.target}
+                rel={l.target ? "noopener noreferrer" : undefined}
                 aria-label={l.label}
               >
                 {l.icon}
@@ -54,7 +63,7 @@ const Footer = () => {
               }}
             >
               <img
-                src={robloxIcon}
+                src="/icons/roblox.svg"
                 alt="Roblox"
                 style={{ width: "44%" }}
                 className="red-filter"
@@ -63,12 +72,9 @@ const Footer = () => {
           </div>
         </div>
         <div className="copyright">
-          © {new Date().getFullYear()} MattQ (@mattqdev) · made with{" "}
-          <span>❤️</span> by MattQ
+          © {new Date().getFullYear()} MattQ · Built with Next.js
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,22 +1,22 @@
-// src/components/Header.jsx
-import React from "react";
+"use client";
+// components/Header.jsx
 import { FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Header = ({
+export default function Header({
   sections,
   activeSection,
   scrolled,
   mobileMenuOpen,
   setMobileMenuOpen,
   scrollToSection,
-}) => {
+}) {
   return (
     <header className={scrolled ? "scrolled" : ""}>
       <div className="container header-container">
         <Link
-          to="/"
+          href="/"
           className="logo"
           onClick={(e) => {
             e.preventDefault();
@@ -26,7 +26,6 @@ const Header = ({
           Matt<span>Q</span>
         </Link>
 
-        {/* Desktop nav */}
         <ul className={`nav-links ${mobileMenuOpen ? "active" : ""}`}>
           {sections.map((section) => (
             <li key={section.id}>
@@ -44,7 +43,6 @@ const Header = ({
           ))}
         </ul>
 
-        {/* Mobile toggle */}
         <button
           className="mobile-menu"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -78,6 +76,4 @@ const Header = ({
       </div>
     </header>
   );
-};
-
-export default Header;
+}

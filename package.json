@@ -1,67 +1,35 @@
 {
-  "homepage": "https://mattqdev.github.io",
   "name": "mattq-portfolio",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "next build && touch out/.nojekyll && gh-pages -d out --dotfiles",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^7.0.0",
-    "@fortawesome/free-brands-svg-icons": "^7.0.0",
-    "@fortawesome/free-solid-svg-icons": "^7.0.0",
-    "@fortawesome/react-fontawesome": "^0.2.3",
-    "@icons-pack/react-simple-icons": "^13.7.0",
+    "@icons-pack/react-simple-icons": "^13.13.0",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.10.38",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.6.4",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^13.5.0",
     "@tsparticles/engine": "^3.9.1",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "clsx": "^2.1.1",
-    "devicon": "^2.17.0",
-    "framer-motion": "^12.23.11",
-    "lib-utils-ts": "^0.0.0-test",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-icons": "^5.5.0",
-    "react-router-dom": "^7.7.1",
-    "react-scripts": "^5.0.1",
-    "tailwind-merge": "^3.3.1",
-    "tsparticles-slim": "^2.12.0",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "preview": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "framer-motion": "^12.38.0",
+    "next": "^16.1.7",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-icons": "^5.6.0",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@types/node": "25.5.0",
+    "@types/react": "19.2.14",
     "gh-pages": "^6.3.0",
     "prettier": "3.8.1",
-    "tailwindcss": "^3.4.17"
+    "typescript": "5.9.3"
   }
 }
