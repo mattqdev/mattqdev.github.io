@@ -6,50 +6,51 @@ import About3D from "./About3D";
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
-
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 28 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-const hoverScale = {
-  hover: { scale: 1.05, transition: { duration: 0.3 } },
-};
+function useCounter(end, duration, trigger) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!trigger) return;
+    let start = null;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const pct = Math.min((ts - start) / duration, 1);
+      // Ease out
+      setValue(Math.floor(pct * pct * (3 - 2 * pct) * end));
+      if (pct < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [trigger, end, duration]);
+  return value;
+}
 
 const About = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [animatedStats, setAnimatedStats] = useState({
-    visits: 0,
-    members: 0,
-    followers: 0,
-  });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-  useEffect(() => {
-    if (isInView) {
-      const animateValue = (start, end, duration, property) => {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp;
-          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-          const value = Math.floor(progress * (end - start) + start);
-          setAnimatedStats((prev) => ({ ...prev, [property]: value }));
-          if (progress < 1) window.requestAnimationFrame(step);
-        };
-        window.requestAnimationFrame(step);
-      };
-      animateValue(0, 3400000, 2000, "visits");
-      animateValue(0, 88000, 2000, "members");
-      animateValue(0, 15200, 2000, "followers");
-    }
-  }, [isInView]);
+  const visits = useCounter(3400000, 2200, isInView);
+  const members = useCounter(88000, 2000, isInView);
+  const followers = useCounter(15200, 1800, isInView);
+
+  const stats = [
+    {
+      icon: <FaChartLine />,
+      value: visits.toLocaleString() + "+",
+      label: "Game Visits",
+    },
+    {
+      icon: <FaUsers />,
+      value: members.toLocaleString() + "+",
+      label: "Group Members",
+    },
+    { icon: <FaUser />, value: followers.toLocaleString(), label: "Followers" },
+  ];
 
   return (
     <section id="about" className="section">
@@ -58,85 +59,74 @@ const About = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.15 }}
       >
         <div className="section-title">
-          <motion.h2 variants={fadeUp}>About Me</motion.h2>
+          <div className="section-label">Background</div>
+          <motion.h2 variants={fadeUp}>
+            About <em>Me</em>
+          </motion.h2>
+          <p>Developer & designer with a love for craft across platforms.</p>
         </div>
 
         <div className="about-content">
           <motion.div className="about-text" variants={containerVariants}>
             <motion.h3 variants={fadeUp}>
-              Developer & Designer with {new Date().getFullYear() - 2020}+ Years
-              Experience
+              {new Date().getFullYear() - 2020}+ Years developing stuff that
+              works (mostly)
             </motion.h3>
 
             <motion.p variants={fadeUp}>
               I'm a passionate developer who creates innovative web applications
-              and immersive Roblox games. With expertise in both programming and
-              visual design, I craft unique experiences for every project.
+              and immersive Roblox games. With expertise spanning programming
+              and visual design, I craft polished experiences from first pixel
+              to final deploy.
             </motion.p>
 
             <motion.p variants={fadeUp}>
-              My journey began with web development fundamentals and has
-              expanded to multiple programming languages and design disciplines.
-              Since 2022, I've been developing Roblox games, combining my love
-              for gaming with full-stack programming to create engaging
-              experiences.
+              My journey started with web fundamentals and grew into multiple
+              languages, platforms, and disciplines. Since 2022 I've been deep
+              in Roblox development — combining game design intuition with
+              full-stack thinking to build experiences players keep coming back
+              to.
             </motion.p>
 
-            <motion.h4 variants={fadeUp} className="stats-title">
-              My Roblox Achievements (last update: Jun 2025):
-            </motion.h4>
+            <motion.p
+              variants={fadeUp}
+              style={{
+                color: "var(--text-muted)",
+                fontSize: ".78rem",
+                fontFamily: "var(--font-mono)",
+                letterSpacing: ".1em",
+                textTransform: "uppercase",
+                marginBottom: 0,
+              }}
+            >
+              Roblox Stats · last update: Jun 2025
+            </motion.p>
 
             <motion.div
               className="stats"
               ref={ref}
               variants={containerVariants}
+              style={{ marginTop: 12 }}
             >
-              <motion.div
-                className="stat-box"
-                variants={fadeUp}
-                whileHover={hoverScale.hover}
-              >
-                <div className="stat-icon">
-                  <FaChartLine />
-                </div>
-                <h4>{animatedStats.visits.toLocaleString()}+</h4>
-                <p>Game Visits</p>
-              </motion.div>
-
-              <motion.div
-                className="stat-box"
-                variants={fadeUp}
-                whileHover={hoverScale.hover}
-              >
-                <div className="stat-icon">
-                  <FaUsers />
-                </div>
-                <h4>{animatedStats.members.toLocaleString()}+</h4>
-                <p>Group Members</p>
-              </motion.div>
-
-              <motion.div
-                className="stat-box"
-                variants={fadeUp}
-                whileHover={hoverScale.hover}
-              >
-                <div className="stat-icon">
-                  <FaUser />
-                </div>
-                <h4>{animatedStats.followers.toLocaleString()}</h4>
-                <p>Followers</p>
-              </motion.div>
+              {stats.map((s, i) => (
+                <motion.div
+                  key={i}
+                  className="stat-box animate"
+                  variants={fadeUp}
+                  whileHover={{ y: -6, borderColor: "rgba(255,77,90,.35)" }}
+                >
+                  <div className="stat-icon">{s.icon}</div>
+                  <h4>{s.value}</h4>
+                  <p>{s.label}</p>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
 
-          <motion.div
-            className="wrapper-3d"
-            variants={fadeUp}
-            whileHover={{ scale: 1.02 }}
-          >
+          <motion.div className="wrapper-3d" variants={fadeUp}>
             <About3D />
           </motion.div>
         </div>

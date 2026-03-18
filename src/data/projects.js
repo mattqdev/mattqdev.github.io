@@ -15,6 +15,60 @@ import { TAGS } from "./tags";
 
 export const projects = [
   {
+    id: "physicshub",
+    title: "PhysicsHub",
+    shortDescription:
+      "Website that contains free physics simulations for students.",
+    description:
+      "PhysicsHub is a website that provides free physics simulations for students. It aims to help students understand complex physics concepts through interactive simulations.",
+    startDate: "Jul 2025",
+    endDate: "Present",
+    tags: [
+      TAGS.WEBSITE,
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.PHYSICS,
+      TAGS.REACT,
+    ],
+    thumbnail: null,
+    links: [
+      {
+        type: "github",
+        url: "https://github.com/physicshub/physicshub.github.io",
+        label: "Repository Link",
+      },
+    ],
+    images: [
+      {
+        src: "https://github.com/PhysicsHub/physicshub.github.io/blob/main/public/screenshots/v3.24.0/main.png?raw=true",
+        alt: "PhysicsHub Preview",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Interactive physics simulations",
+      "Educational resources for students",
+      "User-friendly interface",
+      "Responsive design",
+      "Open source for community contributions",
+    ],
+    technologies: [TAGS.HTML_CSS, TAGS.JAVASCRIPT, TAGS.REACT],
+    achievements: [
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "It's a work in progress, but it's already functional.",
+        metric: "WIP",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "It's open source and anyone can contribute.",
+        metric: "Open Source",
+      },
+    ],
+  },
+  {
     id: "brawl-stars-pet-simulator",
     title: "Brawl Stars Pet Simulator",
     shortDescription:
@@ -429,54 +483,6 @@ export const projects = [
         title: "Fun Fact",
         description: "It got discontinued after:",
         metric: "2 Weeks",
-      },
-    ],
-  },
-  {
-    id: "physicshub",
-    title: "PhysicsHub",
-    shortDescription:
-      "Website that contains free physics simulations for students.",
-    description:
-      "PhysicsHub is a website that provides free physics simulations for students. It aims to help students understand complex physics concepts through interactive simulations.",
-    startDate: "Jul 2025",
-    endDate: "Present",
-    tags: [
-      TAGS.WEBSITE,
-      TAGS.HTML_CSS,
-      TAGS.JAVASCRIPT,
-      TAGS.PHYSICS,
-      TAGS.REACT,
-    ],
-    thumbnail: null,
-    links: [
-      {
-        type: "github",
-        url: "https://github.com/physicshub/physicshub.github.io",
-        label: "Repository Link",
-      },
-    ],
-    isOpenSource: true,
-    features: [
-      "Interactive physics simulations",
-      "Educational resources for students",
-      "User-friendly interface",
-      "Responsive design",
-      "Open source for community contributions",
-    ],
-    technologies: [TAGS.HTML_CSS, TAGS.JAVASCRIPT, TAGS.REACT],
-    achievements: [
-      {
-        icon: <FaLightbulb />,
-        title: "Fun Fact",
-        description: "It's a work in progress, but it's already functional.",
-        metric: "WIP",
-      },
-      {
-        icon: <FaLightbulb />,
-        title: "Fun Fact",
-        description: "It's open source and anyone can contribute.",
-        metric: "Open Source",
       },
     ],
   },

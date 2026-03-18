@@ -7,53 +7,43 @@ import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import ProjectDetails from "./components/ProjectDetails";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import SparklesPreview from "./components/Particles.tsx";
 import "./App.css";
+
+const sections = [
+  { id: "hero", name: "Home" },
+  { id: "about", name: "About" },
+  { id: "projects", name: "Projects" },
+  { id: "skills", name: "Skills" },
+  { id: "contact", name: "Contact" },
+];
 
 function App() {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const sections = [
-    { id: "hero", name: "Home" },
-    { id: "about", name: "About" },
-    { id: "projects", name: "Projects" },
-    { id: "skills", name: "Skills" },
-    { id: "contact", name: "Contact" },
-  ];
-
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 100);
-
-      const scrollPosition = window.scrollY + 200;
-
-      for (const section of sections) {
-        const element = document.getElementById(section.id);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section.id);
-            break;
-          }
+      setScrolled(window.scrollY > 80);
+      const pos = window.scrollY + 220;
+      for (const sec of sections) {
+        const el = document.getElementById(sec.id);
+        if (el && pos >= el.offsetTop && pos < el.offsetTop + el.offsetHeight) {
+          setActiveSection(sec.id);
+          break;
         }
       }
     };
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const close = (e) => {
       if (
         mobileMenuOpen &&
         !e.target.closest(".mobile-menu") &&
@@ -62,19 +52,15 @@ function App() {
         setMobileMenuOpen(false);
       }
     };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
   }, [mobileMenuOpen]);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: "smooth",
-      });
-      setActiveSection(sectionId);
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      window.scrollTo({ top: el.offsetTop, behavior: "smooth" });
+      setActiveSection(id);
       setMobileMenuOpen(false);
     }
   };
@@ -103,6 +89,7 @@ function App() {
                 <Projects />
                 <SparklesPreview />
                 <Skills />
+                <Contact />
               </>
             }
           />
