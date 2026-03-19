@@ -6,12 +6,13 @@
     "dev": "next dev",
     "build": "npm run generate && next build",
     "start": "next start",
-    "deploy": "next build && touch out/.nojekyll && gh-pages -d out --dotfiles",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generate:routes": "node scripts/routes-generator.js",
     "generate:sitemap": "node scripts/sitemap-generator.js",
-    "generate": "node scripts/routes-generator.js && node scripts/sitemap-generator.js"
+    "generate": "node scripts/routes-generator.js && node scripts/sitemap-generator.js",
+    "predeploy": "npm run build",
+    "deploy": "gh workflow run release.yml"
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^13.13.0",
