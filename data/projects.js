@@ -440,6 +440,51 @@ export const projects = [
     ],
   },
   {
+    id: "famous-roblox-users-finder",
+    title: "Famous Roblox Users Finder",
+    shortDescription:
+      "CLI tool to scan a Roblox seller report CSV and find buyers with a large following.",
+    description:
+      "A fast, production-grade Python CLI tool that takes a Roblox marketplace seller report CSV and identifies notable buyers — those who exceed a configurable follower threshold. Runs concurrent requests, handles rate limiting with exponential backoff, deduplicates user IDs, and outputs two clean CSV reports.",
+    startDate: "Mar 2026",
+    endDate: "Present",
+    tags: [TAGS.PYTHON],
+    thumbnail: null,
+    links: [
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/famous-roblox-users-finder",
+        label: "Repository",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Concurrent scanning via configurable thread pool",
+      "Exponential backoff with jitter on API failures",
+      "Deduplication of user IDs before scanning",
+      "Live progress bar via tqdm",
+      "Two output reports: famous_users.csv and full_results.csv",
+      "Graceful Ctrl+C handling — partial results are saved",
+      "Dry-run mode to preview without making requests",
+      "Fully configurable via CLI flags",
+    ],
+    technologies: [TAGS.PYTHON],
+    achievements: [
+      {
+        icon: <FaUsers />,
+        title: "Use Case",
+        description: "Identify high-follower buyers in your seller report.",
+        metric: "Seller Tool",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "MIT licensed and open to contributions.",
+        metric: "Open Source",
+      },
+    ],
+  },
+  {
     id: "parolora-clock",
     title: "ParolOra Clock",
     shortDescription:
