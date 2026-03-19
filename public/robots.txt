@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Block Next.js internals
+Disallow: /_next/
+Disallow: /api/
+
 Sitemap: https://mattqdev.github.io/sitemap.xml

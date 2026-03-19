@@ -2,8 +2,8 @@
 // Reads the already-expanded routes.js and writes sitemap.xml + robots.txt.
 // Run routes-generator.js first (or use `npm run generate`).
 //
-// All dynamic segments are already expanded in routes.js by the time this
-// runs, so this script is intentionally simple — no data files needed here.
+// All dynamic segments (project IDs + blog slugs) are already expanded
+// in routes.js by the time this runs — no data files needed here.
 
 import { SitemapStream, streamToPromise } from "sitemap";
 import { writeFileSync, existsSync } from "fs";
@@ -23,18 +23,18 @@ function writeToTargets(filename, content) {
     if (existsSync(dir)) {
       const dest = join(dir, filename);
       writeFileSync(dest, content, "utf-8");
-      console.log(`   → ${dest}`);
+      console.log("   → " + dest);
     }
   }
 }
 
 async function generateSitemap() {
-  console.log("\n🗺️  Sitemap generator starting…\n");
+  console.log("\n🗺️  Sitemap generator starting...\n");
 
   // ── 1. Load routes ──────────────────────────────────────────────────
   let routes = [];
   try {
-    const url = pathToFileURL(ROUTES_FILE).href + `?t=${Date.now()}`;
+    const url = pathToFileURL(ROUTES_FILE).href + "?t=" + Date.now();
     const mod = await import(url);
     routes = mod.routes ?? [];
   } catch (e) {
@@ -45,8 +45,23 @@ async function generateSitemap() {
     process.exit(1);
   }
 
-  console.log(`✅ Loaded ${routes.length} routes\n`);
-  routes.forEach((r) => console.log(`   ${r.path}`));
+  // Pretty summary
+  const projectRoutes = routes.filter((r) => r.path.startsWith("/project/"));
+  const blogRoutes = routes.filter((r) => r.path.startsWith("/blog/"));
+  const otherRoutes = routes.filter(
+    (r) => !r.path.startsWith("/project/") && !r.path.startsWith("/blog/")
+  );
+
+  console.log("✅ Loaded " + routes.length + " routes");
+  console.log(
+    "   Static: " +
+      otherRoutes.length +
+      "  |  /project/: " +
+      projectRoutes.length +
+      "  |  /blog/: " +
+      blogRoutes.length +
+      "\n"
+  );
 
   // ── 2. Build sitemap XML ────────────────────────────────────────────
   const stream = new SitemapStream({ hostname });
@@ -69,21 +84,25 @@ async function generateSitemap() {
   });
 
   // ── 3. Write sitemap.xml ────────────────────────────────────────────
-  console.log(`\n✅ Writing ${sitemapName}.xml:`);
-  writeToTargets(`${sitemapName}.xml`, formatted);
+  console.log("✅ Writing " + sitemapName + ".xml:");
+  writeToTargets(sitemapName + ".xml", formatted);
 
   // ── 4. Write robots.txt ─────────────────────────────────────────────
   const robotsTxt = [
     "User-agent: *",
     "Allow: /",
     "",
-    `Sitemap: ${hostname}/${sitemapName}.xml`,
+    "# Block Next.js internals",
+    "Disallow: /_next/",
+    "Disallow: /api/",
+    "",
+    "Sitemap: " + hostname + "/" + sitemapName + ".xml",
   ].join("\n");
 
-  console.log(`\n✅ Writing robots.txt:`);
+  console.log("\n✅ Writing robots.txt:");
   writeToTargets("robots.txt", robotsTxt);
 
-  console.log(`\n🎉 Done — ${routes.length} URLs in sitemap.\n`);
+  console.log("\n🎉 Done — " + routes.length + " URLs in sitemap.\n");
 }
 
 generateSitemap().catch((e) => {

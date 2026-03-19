@@ -8,6 +8,16 @@ export const routes = [
     "priority": 1
   },
   {
+    "path": "/blog",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-i-got-3m-visits",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
     "path": "/project/backtothefuture-clock",
     "changefreq": "monthly",
     "priority": 0.7
