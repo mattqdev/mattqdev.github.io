@@ -428,9 +428,13 @@ function Gallery({ images = [], videos = [] }) {
   );
 }
 
-/* ── Bookmark button ─────────── */
-function BookmarkBtn({ projectId }) {
+/* ── Bookmark button with Anti-Spam Webhook ─────────── */
+function BookmarkBtn({ projectId, projectTitle }) {
   const [saved, setSaved] = useState(false);
+  const [isCooldown, setIsCooldown] = useState(false);
+
+  const DISCORD_WEBHOOK_URL = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
+  const COOLDOWN_TIME = 60 * 1000; // 1 minute in milliseconds
 
   useEffect(() => {
     try {
@@ -441,36 +445,107 @@ function BookmarkBtn({ projectId }) {
     } catch {}
   }, [projectId]);
 
-  const toggle = () => {
+  const sendDiscordNotification = async () => {
+    if (!DISCORD_WEBHOOK_URL) return;
+
+    // --- Persistent Cooldown Check ---
+    const lastSentKey = `webhook-sent-${projectId}`;
+    const lastSent = localStorage.getItem(lastSentKey);
+    const now = Date.now();
+
+    if (lastSent && now - parseInt(lastSent) < COOLDOWN_TIME) {
+      console.log("Webhook is on cooldown for this project.");
+      return;
+    }
+
+    const clientInfo = {
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      language: navigator.language,
+      screen: `${window.screen.width}x${window.screen.height}`,
+      url: window.location.href,
+      time: new Date().toLocaleString(),
+    };
+
+    const embed = {
+      title: "📌 Project Saved!",
+      description: `A user bookmarked **${projectTitle}**`,
+      color: 0x00ffcc,
+      fields: [
+        { name: "Project ID", value: projectId, inline: true },
+        { name: "Platform", value: clientInfo.platform, inline: true },
+        { name: "Language", value: clientInfo.language, inline: true },
+        { name: "Screen", value: clientInfo.screen, inline: true },
+        { name: "User Agent", value: `\`\`\`${clientInfo.userAgent}\`\`\`` },
+      ],
+      footer: { text: `Sent at ${clientInfo.time}` },
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      const res = await fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ embeds: [embed] }),
+      });
+
+      if (res.ok) {
+        localStorage.setItem(lastSentKey, now.toString());
+      }
+    } catch (error) {
+      console.error("Webhook failed:", error);
+    }
+  };
+
+  const toggle = async () => {
+    if (isCooldown) return; // Prevent rapid-fire clicks
+
     try {
       const bookmarks = JSON.parse(
         localStorage.getItem("pd-bookmarks") || "[]"
       );
+      const isCurrentlySaved = bookmarks.includes(projectId);
+
       let next;
-      if (bookmarks.includes(projectId)) {
+      if (isCurrentlySaved) {
         next = bookmarks.filter((id) => id !== projectId);
       } else {
         next = [...bookmarks, projectId];
+
+        // Trigger Cooldown state
+        setIsCooldown(true);
+        setTimeout(() => setIsCooldown(false), 3000); // 3s UI lock
+
+        // Attempt to send webhook
+        await sendDiscordNotification();
       }
+
       localStorage.setItem("pd-bookmarks", JSON.stringify(next));
-      setSaved(!saved);
-    } catch {}
+      setSaved(!isCurrentlySaved);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
     <motion.button
-      className={`pd-bookmark-btn ${saved ? "active" : ""}`}
+      className={`pd-bookmark-btn ${saved ? "active" : ""} ${isCooldown ? "loading" : ""}`}
       onClick={toggle}
-      whileTap={{ scale: 0.88 }}
+      disabled={isCooldown}
+      style={{
+        cursor: isCooldown ? "not-allowed" : "pointer",
+        opacity: isCooldown ? 0.7 : 1,
+      }}
+      whileTap={{ scale: isCooldown ? 1 : 0.88 }}
       aria-label={saved ? "Remove bookmark" : "Bookmark project"}
     >
       <motion.span
-        animate={{ scale: saved ? [1, 1.35, 1] : 1 }}
+        animate={{ scale: saved && !isCooldown ? [1, 1.35, 1] : 1 }}
         transition={{ duration: 0.3 }}
       >
         {saved ? <FaHeart /> : <FaRegHeart />}
       </motion.span>
-      {saved ? "Saved" : "Save"}
+      {isCooldown ? "Processing..." : saved ? "Saved" : "Save"}
     </motion.button>
   );
 }
@@ -602,7 +677,10 @@ export default function ProjectDetails({
                     {link.label}
                   </a>
                 ))}
-                <BookmarkBtn projectId={projectId} />
+                <BookmarkBtn
+                  projectId={projectId}
+                  projectTitle={project.title}
+                />
               </div>
 
               <div className="pd-tags">

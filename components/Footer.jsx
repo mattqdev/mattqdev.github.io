@@ -66,13 +66,21 @@ export default function Footer() {
                 src="/icons/roblox.svg"
                 alt="Roblox"
                 style={{ width: "44%" }}
-                className="red-filter"
               />
             </a>
           </div>
         </div>
         <div className="copyright">
-          © {new Date().getFullYear()} MattQ · Built with Next.js
+          © {new Date().getFullYear()} MattQ · Built with ❤️ by MattQ · view
+          source on{" "}
+          <a
+            href="https://github.com/mattqdev/mattqdev.github.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="article-a"
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </footer>
