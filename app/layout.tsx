@@ -2,6 +2,7 @@
 import { Syne, DM_Sans } from "next/font/google";
 import { Metadata } from "next";
 import "./globals.css";
+import "./Blog.css";
 
 // Load fonts via next/font — zero layout shift, no external request at runtime
 const syne = Syne({

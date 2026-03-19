@@ -100,7 +100,12 @@ export const projects = [
       {
         type: "play",
         url: "https://www.roblox.com/games/17359625840",
-        label: "Play Game",
+        label: "Original Game (Banned)",
+      },
+      {
+        type: "play",
+        url: "https://www.roblox.com/games/131894559591295",
+        label: "Reuploaded Version",
       },
     ],
     isOpenSource: false,
