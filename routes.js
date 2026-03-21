@@ -13,9 +13,54 @@ export const routes = [
     "priority": 0.9
   },
   {
+    "path": "/blog/5-common-react-rendering-mistakes",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/discover-tailwind-css",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
     "path": "/blog/how-i-got-3m-visits",
     "changefreq": "monthly",
     "priority": 0.8
+  },
+  {
+    "path": "/blog/how-to-handle-c++-memory-like-a-pro",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-to-mae-a-good-dark-mode-design",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-to-make-datastore-more-safe-roblox-studio",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-to-make-good-roblox-games-with-ux",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-to-make-your-UIs-with-figma",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-to-write-code-like-a-pro-roblox-studio",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/make-your-player-addicted-to-your-roblox-game",
+    "changefreq": "weekly",
+    "priority": 0.9
   },
   {
     "path": "/project/backtothefuture-clock",
@@ -34,6 +79,11 @@ export const routes = [
   },
   {
     "path": "/project/cube-generator",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/project/famous-roblox-users-finder",
     "changefreq": "monthly",
     "priority": 0.7
   },
