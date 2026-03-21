@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+  <channel>
+    <title>MattQ — Blog</title>
+    <link>https://mattqdev.github.io/blog</link>
+    <description>Articles on Roblox dev, web tooling, game design, and building things that actually ship.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 21 Mar 2026 23:08:21 GMT</lastBuildDate>
+    <atom:link href="https://mattqdev.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://mattqdev.github.io/icons/avatar.png</url>
+      <title>MattQ — Blog</title>
+      <link>https://mattqdev.github.io/blog</link>
+    </image>
+
+  <item>
+    <title>C++ for JavaScript Devs: Understanding Memory Management Without Panicking</title>
+    <link>https://mattqdev.github.io/blog/how-to-handle-c++-memory-like-a-pro</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-handle-c++-memory-like-a-pro</guid>
+    <description>Pointers sound terrifying until someone explains them in plain English. A web developer&apos;s guide to the C++ concepts that actually matter — without the computer science textbook.</description>
+    <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>C++</category>
+      <category>JavaScript</category>
+      <category>Arduino</category>
+      <category>Memory Management</category>
+      <category>Hardware</category>
+    <itunes:duration>6 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Dark Mode is More Than Just #000: Designing High-Contrast Interfaces</title>
+    <link>https://mattqdev.github.io/blog/how-to-mae-a-good-dark-mode-design</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-mae-a-good-dark-mode-design</guid>
+    <description>Inverting colors isn&apos;t dark mode — it&apos;s eye strain with a dark background. Here&apos;s how elevation, gray scales, and WCAG ratios combine to make a genuinely accessible dark UI.</description>
+    <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Design</category>
+      <category>UI/UX</category>
+      <category>Accessibility</category>
+      <category>Dark Mode</category>
+      <category>Color</category>
+    <itunes:duration>5 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>The DataStore Safety Manual: How to Prevent Player Data Loss</title>
+    <link>https://mattqdev.github.io/blog/how-to-make-datastore-more-safe-roblox-studio</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-make-datastore-more-safe-roblox-studio</guid>
+    <description>Data wipes destroy Roblox games overnight. Learn how UpdateAsync, session locking, and ProfileService protect your players — and your reputation.</description>
+    <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox</category>
+      <category>Luau</category>
+      <category>DataStore</category>
+      <category>Game Dev</category>
+      <category>Backend</category>
+    <itunes:duration>5 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Figma to Code: The Workflow for Pixel-Perfect Implementation</title>
+    <link>https://mattqdev.github.io/blog/how-to-make-your-UIs-with-figma</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-make-your-UIs-with-figma</guid>
+    <description>The gap between a beautiful Figma design and a polished coded result isn&apos;t a talent gap — it&apos;s a workflow gap. Here&apos;s the exact process I use to close it.</description>
+    <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Figma</category>
+      <category>React</category>
+      <category>Tailwind CSS</category>
+      <category>Design Systems</category>
+      <category>Web Dev</category>
+    <itunes:duration>6 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>The Clean Code Guide for Roblox: Moving Beyond Spaghetti Scripts</title>
+    <link>https://mattqdev.github.io/blog/how-to-write-code-like-a-pro-roblox-studio</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-write-code-like-a-pro-roblox-studio</guid>
+    <description>Most Roblox devs start with one giant script. Here&apos;s how to architect your game like a professional studio — using ModuleScripts, separation of concerns, and single-script frameworks.</description>
+    <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox</category>
+      <category>Luau</category>
+      <category>Game Dev</category>
+      <category>Clean Code</category>
+      <category>Architecture</category>
+    <itunes:duration>4 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Micro-Animations: The Secret to Making Your App Feel &apos;Premium&apos;</title>
+    <link>https://mattqdev.github.io/blog/make-your-player-addicted-to-your-roblox-game</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/make-your-player-addicted-to-your-roblox-game</guid>
+    <description>Your app works perfectly and still feels flat. Here&apos;s the 200ms gap between functional and delightful — and how to close it with motion design.</description>
+    <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>UI/UX</category>
+      <category>Animation</category>
+      <category>Frontend</category>
+      <category>CSS</category>
+      <category>Framer Motion</category>
+    <itunes:duration>5 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>UX for Games: Why Your Simulator&apos;s First 30 Seconds Are Failing</title>
+    <link>https://mattqdev.github.io/blog/how-to-make-good-roblox-games-with-ux</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-make-good-roblox-games-with-ux</guid>
+    <description>Players join, get confused, and leave. Here&apos;s what I learned from 3.2 million visits on a Roblox simulator about FTUE, button placement, and the kind of &apos;juice&apos; that keeps players engaged.</description>
+    <pubDate>Tue, 17 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Game Dev</category>
+      <category>Roblox</category>
+      <category>UX</category>
+      <category>Game Design</category>
+      <category>FTUE</category>
+      <category>Retention</category>
+    <itunes:duration>6 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Why Your React App is Slow: 5 Common Re-rendering Traps</title>
+    <link>https://mattqdev.github.io/blog/5-common-react-rendering-mistakes</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/5-common-react-rendering-mistakes</guid>
+    <description>Your components are re-rendering way more than they need to. Here&apos;s exactly why — and how useMemo, useCallback, and smarter Context usage will make your app feel instant.</description>
+    <pubDate>Sat, 14 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>React</category>
+      <category>Performance</category>
+      <category>JavaScript</category>
+      <category>Web Dev</category>
+      <category>Optimization</category>
+    <itunes:duration>5 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Stop Using Pixels: Making Your React Apps Truly Responsive with Tailwind CSS</title>
+    <link>https://mattqdev.github.io/blog/discover-tailwind-css</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/discover-tailwind-css</guid>
+    <description>Most developers hardcode pixel values and wonder why their UIs fall apart on mobile or ultrawide screens. Here&apos;s how rem, em, and fluid typography with clamp() fix that permanently.</description>
+    <pubDate>Tue, 10 Mar 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>React</category>
+      <category>Tailwind CSS</category>
+      <category>CSS</category>
+      <category>Responsive Design</category>
+      <category>Web Dev</category>
+    <itunes:duration>4 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>How I Got 3.2 Million Visits on a Roblox Game in 6 Months</title>
+    <link>https://mattqdev.github.io/blog/how-i-got-3m-visits</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-i-got-3m-visits</guid>
+    <description>A developer breakdown of the systems, monetization strategy, and growth tactics behind Brawl Stars Pet Simulator — from launch to DMCA takedown.</description>
+    <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox</category>
+      <category>Game Dev</category>
+      <category>Luau</category>
+      <category>Game Design</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+  </channel>
+</rss>

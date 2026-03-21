@@ -7,9 +7,10 @@
     "build": "npm run generate && next build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "generate:rss": "node scripts/rss-generator.js",
     "generate:routes": "node scripts/routes-generator.js",
     "generate:sitemap": "node scripts/sitemap-generator.js",
-    "generate": "node scripts/routes-generator.js && node scripts/sitemap-generator.js",
+    "generate": "npm run generate:rss && npm run generate:routes && npm run generate:sitemap",
     "predeploy": "npm run build",
     "deploy": "gh workflow run release.yml"
   },

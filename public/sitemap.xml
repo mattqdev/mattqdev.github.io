@@ -73,91 +73,103 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/backtothefuture-clock</loc>
+    <loc>https://mattqdev.github.io/projects</loc>
+    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/backtothefuture-clock</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/brawl-stars-pet-simulator</loc>
+    <loc>https://mattqdev.github.io/projects/brawl-stars-pet-simulator</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/brawl-stars-rng</loc>
+    <loc>https://mattqdev.github.io/projects/brawl-stars-rng</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/cube-generator</loc>
+    <loc>https://mattqdev.github.io/projects/cube-generator</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/famous-roblox-users-finder</loc>
+    <loc>https://mattqdev.github.io/projects/famous-roblox-users-finder</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/first-portfolio</loc>
+    <loc>https://mattqdev.github.io/projects/first-portfolio</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/koalaz</loc>
+    <loc>https://mattqdev.github.io/projects/koalaz</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/langrank</loc>
+    <loc>https://mattqdev.github.io/projects/langrank</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/parolora-clock</loc>
+    <loc>https://mattqdev.github.io/projects/parolora-clock</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/physicshub</loc>
+    <loc>https://mattqdev.github.io/projects/physicshub</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/plugin-heatmap</loc>
+    <loc>https://mattqdev.github.io/projects/plugin-heatmap</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/plugin-sniper</loc>
+    <loc>https://mattqdev.github.io/projects/plugin-sniper</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/plugin-ui-assistant</loc>
+    <loc>https://mattqdev.github.io/projects/plugin-ui-assistant</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/stackfingerprint</loc>
+    <loc>https://mattqdev.github.io/projects/portfolio</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/project/watermark-applier</loc>
+    <loc>https://mattqdev.github.io/projects/stackfingerprint</loc>
+    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/watermark-applier</loc>
     <lastmod>2026-03-21T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

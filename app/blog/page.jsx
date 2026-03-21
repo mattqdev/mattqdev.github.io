@@ -6,6 +6,9 @@ export const metadata = {
   title: "Blog — MattQ",
   description:
     "Articles on Roblox development, web dev, game design, Arduino, and dev tools by MattQ.",
+  alternates: {
+    types: { "application/rss+xml": "https://mattqdev.github.io/blog/rss.xml" },
+  },
   openGraph: {
     title: "Blog — MattQ",
     description:

@@ -11,21 +11,8 @@ import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import SparklesPreview from "./Particles";
 
-// Sections with scroll anchors use no `href` — Header will use the
-// scroll-anchor path. Blog uses `href` so Header renders a <Link>.
-const SECTIONS = [
-  { id: "hero", name: "Home" },
-  { id: "about", name: "About" },
-  { id: "projects", name: "Projects" },
-  { id: "skills", name: "Skills" },
-  { id: "contact", name: "Contact" },
-  { id: "blog", name: "Blog", href: "/blog" },
-];
-
 export default function SiteShell() {
   const [activeSection, setActiveSection] = useState("hero");
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -44,19 +31,6 @@ export default function SiteShell() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const close = (e) => {
-      if (
-        mobileMenuOpen &&
-        !e.target.closest(".mobile-menu") &&
-        !e.target.closest(".nav-links")
-      )
-        setMobileMenuOpen(false);
-    };
-    document.addEventListener("click", close);
-    return () => document.removeEventListener("click", close);
-  }, [mobileMenuOpen]);
-
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -68,14 +42,7 @@ export default function SiteShell() {
 
   return (
     <>
-      <Header
-        sections={SECTIONS}
-        activeSection={activeSection}
-        scrolled={scrolled}
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
-        scrollToSection={scrollToSection}
-      />
+      <Header activeSection={activeSection} />
       <main>
         <Hero scrollToSection={scrollToSection} />
         <SparklesPreview />

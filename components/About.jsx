@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { FaChartLine, FaUsers, FaUser } from "react-icons/fa";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import About3D from "./About3D";
+import GitHubHeatmap from "./GitHubHeatmap";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -68,6 +70,7 @@ export default function About() {
           </motion.h2>
           <p>Developer & designer with a love for craft across platforms.</p>
         </div>
+
         <div className="about-content">
           <motion.div className="about-text" variants={containerVariants}>
             <motion.h3 variants={fadeUp}>
@@ -86,6 +89,7 @@ export default function About() {
               full-stack thinking to build experiences players keep coming back
               to.
             </motion.p>
+
             <motion.p
               variants={fadeUp}
               style={{
@@ -99,6 +103,7 @@ export default function About() {
             >
               Roblox Stats · last update: Jun 2025
             </motion.p>
+
             <motion.div
               className="stats"
               ref={ref}
@@ -118,7 +123,13 @@ export default function About() {
                 </motion.div>
               ))}
             </motion.div>
+
+            {/* GitHub activity heatmap */}
+            <motion.div variants={fadeUp} style={{ marginTop: 32 }}>
+              <GitHubHeatmap />
+            </motion.div>
           </motion.div>
+
           <motion.div className="wrapper-3d" variants={fadeUp}>
             <About3D />
           </motion.div>

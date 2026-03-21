@@ -63,77 +63,87 @@ export const routes = [
     "priority": 0.9
   },
   {
-    "path": "/project/backtothefuture-clock",
+    "path": "/projects",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/projects/backtothefuture-clock",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/brawl-stars-pet-simulator",
+    "path": "/projects/brawl-stars-pet-simulator",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/brawl-stars-rng",
+    "path": "/projects/brawl-stars-rng",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/cube-generator",
+    "path": "/projects/cube-generator",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/famous-roblox-users-finder",
+    "path": "/projects/famous-roblox-users-finder",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/first-portfolio",
+    "path": "/projects/first-portfolio",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/koalaz",
+    "path": "/projects/koalaz",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/langrank",
+    "path": "/projects/langrank",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/parolora-clock",
+    "path": "/projects/parolora-clock",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/physicshub",
+    "path": "/projects/physicshub",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/plugin-heatmap",
+    "path": "/projects/plugin-heatmap",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/plugin-sniper",
+    "path": "/projects/plugin-sniper",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/plugin-ui-assistant",
+    "path": "/projects/plugin-ui-assistant",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/stackfingerprint",
+    "path": "/projects/portfolio",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/project/watermark-applier",
+    "path": "/projects/stackfingerprint",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/watermark-applier",
     "changefreq": "monthly",
     "priority": 0.7
   }

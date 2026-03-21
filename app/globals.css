@@ -458,6 +458,11 @@ header.scrolled {
   gap: 80px;
   align-items: center;
 }
+@media (max-width: 900px) {
+  .about-content {
+    display: block;
+  }
+}
 .about-text h3 {
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   margin-bottom: 20px;
@@ -2471,4 +2476,382 @@ footer {
   .pd-share-panel {
     width: 280px;
   }
+}
+
+/* ====================================================
+   FEATURE ADDITIONS — append to globals.css
+   Covers: RSS link, Related Posts, Projects page,
+           GitHub Heatmap, next/image fixes
+   ==================================================== */
+
+/* ── next/image compatibility ────────────────────────
+   next/image wraps in a <span> with inline styles.
+   These rules prevent layout shift on all existing image slots. */
+.project-img-placeholder span,
+.blog-card-cover span,
+.blog-featured-cover span,
+.article-cover span,
+.related-card-cover span,
+.sidebar-author-avatar span,
+.placeholder-avatar span {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+/* Ensure next/image fills its container correctly */
+.project-img-placeholder img,
+.blog-card-cover img,
+.blog-featured-cover img,
+.article-img,
+.related-card-cover img {
+  object-fit: cover;
+}
+
+/* ── Related posts ────────────────────────────────── */
+.related-posts {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+
+.related-posts-header {
+  margin-bottom: 32px;
+}
+.related-posts-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.related-posts-title {
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  letter-spacing: -0.02em;
+}
+
+.related-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+@media (max-width: 640px) {
+  .related-posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.related-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  text-decoration: none;
+}
+.related-card:hover {
+  border-color: rgba(255, 77, 90, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.related-card-cover {
+  height: 140px;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+.related-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.related-card:hover .related-card-cover img {
+  transform: scale(1.05);
+}
+
+.related-card-cover--empty {
+  background: linear-gradient(135deg, var(--bg-card-hover), var(--bg-deep));
+}
+.related-card-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 77, 90, 0.04) 0px,
+      rgba(255, 77, 90, 0.04) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(77, 121, 255, 0.04) 0px,
+      rgba(77, 121, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 16px
+    );
+}
+
+.related-card-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.related-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* Highlight shared tags */
+.blog-tag-chip--shared {
+  background: rgba(255, 77, 90, 0.12) !important;
+  color: var(--primary) !important;
+  border-color: rgba(255, 77, 90, 0.3) !important;
+}
+
+.related-card-title {
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  color: var(--text);
+  transition: var(--transition);
+  font-family: var(--font-display);
+}
+.related-card:hover .related-card-title {
+  color: var(--primary);
+}
+
+.related-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  flex: 1;
+  /* Clamp to 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.related-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Projects dedicated page ─────────────────────── */
+.projects-page-hero {
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--border);
+  padding: 120px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+.projects-page-hero::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(77, 121, 255, 0.1) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+.projects-page-hero::after {
+  content: "";
+  position: absolute;
+  bottom: -20%;
+  left: 5%;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 77, 90, 0.08) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+.projects-page-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.projects-page-title {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+.projects-page-title em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.projects-page-sub {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+/* Remove the section background override inside Projects when on /projects page
+   (the page hero replaces it). We can't target by route in CSS, but the hero
+   already provides the visual separation. */
+
+/* ── GitHub Heatmap ──────────────────────────────── */
+.heatmap-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  position: relative;
+}
+
+.heatmap-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.heatmap-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.heatmap-total {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.heatmap-scroll {
+  overflow-x: auto;
+}
+.heatmap-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+.heatmap-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.heatmap-months {
+  display: grid;
+  gap: 3px;
+  margin-bottom: 4px;
+  min-width: 560px;
+}
+.heatmap-month-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  text-align: left;
+  padding-left: 1px;
+}
+
+.heatmap-grid {
+  display: grid;
+  gap: 3px;
+  min-width: 560px;
+}
+
+/* Each week column is itself a 7-row sub-grid */
+.heatmap-grid > div {
+  /* Cells are laid out row-by-row inside each column via the flat array */
+}
+
+.heatmap-cell {
+  width: 100%;
+  aspect-ratio: 1.5;
+  border-radius: 0.2rem;
+  cursor: default;
+  transition:
+    filter 0.15s ease,
+    transform 0.15s ease;
+  min-width: 5px;
+  min-height: 5px;
+}
+.heatmap-cell:hover {
+  filter: brightness(1.4);
+  transform: scale(1.15);
+  z-index: 2;
+  position: relative;
+}
+
+/* The grid needs to be laid out as columns (weeks), not rows.
+   We use CSS subgrid trick: each column is a 7-row stack. */
+.heatmap-grid {
+  display: grid;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+.heatmap-legend-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+.heatmap-legend .heatmap-cell {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.heatmap-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  padding: 8px 0;
+}
+.heatmap-error {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.heatmap-tooltip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 9000;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+.heatmap-tooltip strong {
+  color: var(--primary);
 }

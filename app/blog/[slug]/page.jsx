@@ -1,9 +1,9 @@
 // app/blog/[slug]/page.jsx  — Server Component
-import { getAllSlugs, getPostBySlug } from "@/lib/blog";
+import { getAllSlugs, getPostBySlug, getAllPosts } from "@/lib/blog";
 import BlogArticle from "@/components/blog/BlogArticle";
+import RelatedPosts from "@/components/blog/RelatedPosts";
 import { notFound } from "next/navigation";
 
-// Pre-render all posts at build time (required for static export)
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
 }
@@ -15,6 +15,12 @@ export async function generateMetadata({ params }) {
   return {
     title: `${post.title} — MattQ`,
     description: post.description,
+    alternates: {
+      // Tell Google the RSS feed exists
+      types: {
+        "application/rss+xml": "https://mattqdev.github.io/blog/rss.xml",
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.description,
@@ -37,5 +43,16 @@ export default async function ArticlePage({ params }) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) notFound();
-  return <BlogArticle post={post} />;
+
+  // Load all posts server-side for related posts calculation
+  const allPosts = getAllPosts();
+
+  return (
+    <>
+      <BlogArticle post={post} />
+      <div className="container" style={{ paddingBottom: 80 }}>
+        <RelatedPosts currentPost={post} allPosts={allPosts} />
+      </div>
+    </>
+  );
 }
