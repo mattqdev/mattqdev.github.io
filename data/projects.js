@@ -32,7 +32,8 @@ export const projects = [
       TAGS.PHYSICS,
       TAGS.REACT,
     ],
-    thumbnail: null,
+    thumbnail:
+      "https://raw.githubusercontent.com/PhysicsHub/physicshub.github.io/refs/heads/main/public/screenshots/v3.24.0/main.png",
     links: [
       {
         type: "github",
@@ -95,7 +96,7 @@ export const projects = [
     startDate: "Jun 2024",
     endDate: "Jan 2025",
     tags: [TAGS.ROBLOX, TAGS.LUAU, TAGS.UI_UX, TAGS.GAME_DESIGN],
-    thumbnail: null,
+    thumbnail: "Thumbnail3v2.png",
     links: [
       {
         type: "play",
@@ -215,7 +216,7 @@ export const projects = [
       TAGS.REACT,
       TAGS.TAILWIND_CSS,
     ],
-    thumbnail: null,
+    thumbnail: "StackFingerprintThumb.png",
     links: [
       {
         type: "github",
@@ -303,7 +304,7 @@ export const projects = [
     startDate: "Oct 2024",
     endDate: "Present",
     tags: [TAGS.PLUGIN, TAGS.ROBLOX, TAGS.LUAU, TAGS.UI_UX],
-    thumbnail: null,
+    thumbnail: "BannerPlugin.png",
     links: [
       {
         type: "devforum",
@@ -352,7 +353,7 @@ export const projects = [
     startDate: "Jan 2025",
     endDate: "Present",
     tags: [TAGS.PLUGIN, TAGS.ROBLOX, TAGS.LUAU, TAGS.UI_UX],
-    thumbnail: null,
+    thumbnail: "PerformanceHeatmapbanner.png",
     links: [
       {
         type: "devforum",
@@ -402,7 +403,7 @@ export const projects = [
     startDate: "Jun 2025",
     endDate: "Present",
     tags: [TAGS.PLUGIN, TAGS.ROBLOX, TAGS.LUAU, TAGS.UI_UX],
-    thumbnail: null,
+    thumbnail: "ThumbnailSniper.png",
     links: [
       {
         type: "devforum",
@@ -494,7 +495,7 @@ export const projects = [
     startDate: "Jul 2024",
     endDate: "Aug 2024",
     tags: [TAGS.ARDUINO, TAGS.CPP, TAGS.HTML_CSS],
-    thumbnail: null,
+    thumbnail: "thumb.jpg",
     links: [{ type: "github", url: "", label: "Soon open source" }],
     isOpenSource: false,
     features: [
@@ -538,7 +539,7 @@ export const projects = [
     startDate: "Mar 2023",
     endDate: "Jun 2023",
     tags: [TAGS.ARDUINO, TAGS.CPP],
-    thumbnail: null,
+    thumbnail: "thumb.jpg",
     links: [{ type: "github", url: "", label: "Soon open source" }],
     isOpenSource: false,
     features: [
@@ -571,7 +572,7 @@ export const projects = [
     startDate: "Aug 2024",
     endDate: "8 Hours later",
     tags: [TAGS.ROBLOX, TAGS.LUAU, TAGS.UI_UX, TAGS.GAME_DESIGN, TAGS.PHYSICS],
-    thumbnail: null,
+    thumbnail: "Thumbnail.png",
     links: [
       {
         type: "play",
@@ -654,7 +655,7 @@ export const projects = [
     startDate: "Jul 2023",
     endDate: "Aug 2023",
     tags: [TAGS.WEBSITE, TAGS.HTML_CSS, TAGS.JAVASCRIPT],
-    thumbnail: null,
+    thumbnail: "preview.png",
     links: [
       {
         type: "github",

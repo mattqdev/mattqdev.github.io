@@ -26,6 +26,20 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
+const getThumbnailPath = (thumbnail, projectTitle) => {
+  if (!thumbnail) return null;
+
+  // Se inizia con http, https o / è già un path valido o un link esterno
+  if (thumbnail.startsWith("http") || thumbnail.startsWith("/")) {
+    return thumbnail;
+  }
+
+  // Altrimenti, assume che sia un file dentro la cartella del progetto
+  // Puliamo il titolo del progetto per evitare caratteri speciali nel path (opzionale)
+  const folderName = projectTitle.toLowerCase().replace(/\s+/g, "-");
+  return `/media/projects/${folderName}/${thumbnail}`;
+};
+
 function GitHubStrip({ githubUrl }) {
   const { repo, loading } = useGitHubData(githubUrl);
   if (!githubUrl) return null;
@@ -142,6 +156,12 @@ export default function Projects() {
                 (l) => l.type === "github" && l.url?.includes("github.com")
               );
               const githubUrl = githubLink?.url || project.githubUrl;
+
+              const thumbSrc = getThumbnailPath(
+                project.thumbnail,
+                project.title
+              );
+
               return (
                 <motion.div
                   key={project.id}
@@ -157,9 +177,9 @@ export default function Projects() {
                       background: `linear-gradient(135deg, ${project.tags[0].color}30, ${project.tags[1]?.color || project.tags[0].color}18)`,
                     }}
                   >
-                    {project.thumbnail && (
+                    {thumbSrc ? (
                       <img
-                        src={project.thumbnail}
+                        src={thumbSrc}
                         alt={project.title}
                         style={{
                           position: "absolute",
@@ -169,8 +189,9 @@ export default function Projects() {
                           objectFit: "cover",
                         }}
                       />
+                    ) : (
+                      getProjectIcon(project.tags)
                     )}
-                    {getProjectIcon(project.tags)}
                     <div className="project-overlay">
                       <div className="overlay-content">
                         <h3>{project.title}</h3>
