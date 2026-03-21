@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run generate && next build",
-    "start": "next start",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generate:routes": "node scripts/routes-generator.js",

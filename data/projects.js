@@ -248,6 +248,65 @@ export const projects = [
     ],
   },
   {
+    id: "portfolio",
+    title: "MattQ Portfolio",
+    shortDescription:
+      "My personal portfolio website showcasing my projects, skills, and contact info. (It's this website btw)",
+    description:
+      "My personal portfolio website built with React. It showcases all my projects, skills, and ways to get in touch. Features a clean, responsive design with project filtering by tag, a blog section, and live Roblox stats integration.",
+    startDate: "Jul 2023",
+    endDate: "Present",
+    tags: [
+      TAGS.WEBSITE,
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.REACT,
+      TAGS.TAILWIND_CSS,
+    ],
+    thumbnail: "preview.png",
+    links: [
+      {
+        type: "live",
+        url: "https://mattqdev.github.io/",
+        label: "Live Site",
+      },
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/mattqdev.github.io",
+        label: "Repository",
+      },
+    ],
+    isOpenSource: true,
+    features: [
+      "Showcases all projects with tag-based filtering",
+      "Responsive design across all devices",
+      "Blog section at /blog",
+      "Live Roblox stats integration",
+      "Contact section with email, Discord, Twitter, and Roblox links",
+      "Skill proficiency breakdown by area",
+    ],
+    technologies: [
+      TAGS.HTML_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.REACT,
+      TAGS.TAILWIND_CSS,
+    ],
+    achievements: [
+      {
+        icon: <FaLightbulb />,
+        title: "Fun Fact",
+        description: "The site you're looking at right now.",
+        metric: "Meta",
+      },
+      {
+        icon: <FaLightbulb />,
+        title: "Open Source",
+        description: "Source available on GitHub.",
+        metric: "MIT",
+      },
+    ],
+  },
+  {
     id: "brawl-stars-rng",
     title: "Brawl Stars RNG",
     shortDescription:
