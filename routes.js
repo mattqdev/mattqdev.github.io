@@ -28,7 +28,7 @@ export const routes = [
     "priority": 0.8
   },
   {
-    "path": "/blog/how-to-handle-c++-memory-like-a-pro",
+    "path": "/blog/how-to-handle-cplusplus-memory-like-a-pro",
     "changefreq": "weekly",
     "priority": 0.9
   },

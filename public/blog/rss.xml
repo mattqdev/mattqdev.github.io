@@ -7,7 +7,7 @@
     <link>https://mattqdev.github.io/blog</link>
     <description>Articles on Roblox dev, web tooling, game design, and building things that actually ship.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Mar 2026 23:08:21 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2026 23:14:10 GMT</lastBuildDate>
     <atom:link href="https://mattqdev.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://mattqdev.github.io/icons/avatar.png</url>
@@ -17,8 +17,8 @@
 
   <item>
     <title>C++ for JavaScript Devs: Understanding Memory Management Without Panicking</title>
-    <link>https://mattqdev.github.io/blog/how-to-handle-c++-memory-like-a-pro</link>
-    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-handle-c++-memory-like-a-pro</guid>
+    <link>https://mattqdev.github.io/blog/how-to-handle-cplusplus-memory-like-a-pro</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-handle-cplusplus-memory-like-a-pro</guid>
     <description>Pointers sound terrifying until someone explains them in plain English. A web developer&apos;s guide to the C++ concepts that actually matter — without the computer science textbook.</description>
     <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
     <author>mattqdevv@gmail.com (MattQ)</author>
