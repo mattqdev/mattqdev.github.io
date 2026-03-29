@@ -33,7 +33,7 @@ export const routes = [
     "priority": 0.9
   },
   {
-    "path": "/blog/how-to-mae-a-good-dark-mode-design",
+    "path": "/blog/how-to-make-a-good-dark-mode-design",
     "changefreq": "weekly",
     "priority": 0.9
   },

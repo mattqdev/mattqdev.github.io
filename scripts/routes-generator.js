@@ -1,216 +1,168 @@
-// scripts/routes-generator.js
-// Scans the Next.js app/ directory and auto-generates routes.js at the project root.
+// scripts/sitemap-generator.js
+// Reads the already-expanded routes.js and writes:
+//   public/sitemap.xml  — copied into out/ by next build automatically
+//   public/robots.txt   — same
 //
-// Handles JSX data files: instead of importing data/projects.js (which contains
-// JSX icon components Node can't parse), it reads the file as text and extracts
-// `id` values with a regex. No transpiler needed.
+// IMPORTANT: Run routes-generator.js FIRST, then this, then next build.
+// The `npm run generate` script handles the correct order.
 //
-// Blog posts: reads content/blog/*.md and extracts slugs from filenames.
+// Why public/ only (not out/):
+//   next build with output:'export' copies everything from public/ into out/.
+//   Writing to out/ here would be overwritten anyway, and out/ doesn't exist
+//   until after the build completes.
 
-import {
-  readdirSync,
-  statSync,
-  writeFileSync,
-  readFileSync,
-  existsSync,
-} from "fs";
-import { join } from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+import { SitemapStream, streamToPromise } from "sitemap";
+import { writeFileSync, existsSync, mkdirSync } from "fs";
+import { fileURLToPath, pathToFileURL } from "url";
+import { dirname, join } from "path";
+import xmlFormat from "xml-formatter";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const APP_DIR = join(__dirname, "..", "app");
-const OUTPUT_FILE = join(__dirname, "..", "routes.js");
+const ROOT = join(__dirname, "..");
+const ROUTES_FILE = join(ROOT, "routes.js");
+const PUBLIC_DIR = join(ROOT, "public");
+const hostname = "https://mattqdev.github.io";
+const sitemapName = "sitemap";
 
-// ── Extractors ────────────────────────────────────────────────────────────────
+// Ensure public/ exists (it always should, but just in case)
+if (!existsSync(PUBLIC_DIR)) mkdirSync(PUBLIC_DIR, { recursive: true });
 
-function extractProjectIds() {
-  const file = join(__dirname, "..", "data", "projects.js");
-  if (!existsSync(file)) {
-    console.warn("⚠️  data/projects.js not found — skipping project routes");
-    return [];
+function write(filename, content) {
+  const dest = join(PUBLIC_DIR, filename);
+  writeFileSync(dest, content, "utf-8");
+  console.log("   → " + dest);
+}
+
+async function generateSitemap() {
+  console.log("\n🗺️  Sitemap generator starting...\n");
+
+  // ── 1. Load routes ──────────────────────────────────────────────────
+  let routes = [];
+  try {
+    const url = pathToFileURL(ROUTES_FILE).href + "?t=" + Date.now();
+    const mod = await import(url);
+    routes = mod.routes ?? [];
+  } catch (e) {
+    console.error(
+      "❌ Could not load routes.js — run `npm run generate:routes` first."
+    );
+    console.error(e.message);
+    process.exit(1);
   }
-  const src = readFileSync(file, "utf-8");
-  const ids = [...src.matchAll(/\bid\s*:\s*["']([^"']+)["']/g)].map(
-    (m) => m[1]
+
+  // ── 2. Separate for logging ─────────────────────────────────────────
+  // Classify routes — be explicit to avoid double-counting
+  const isRoot = (r) => r.path === "/";
+  const isBlogIndex = (r) => r.path === "/blog";
+  const isBlogPost = (r) => r.path.startsWith("/blog/");
+  const isProjectList = (r) => r.path === "/projects";
+  const isProjectPage = (r) =>
+    r.path.startsWith("/projects/") || r.path.startsWith("/project/");
+  const isOther = (r) =>
+    !isRoot(r) &&
+    !isBlogIndex(r) &&
+    !isBlogPost(r) &&
+    !isProjectList(r) &&
+    !isProjectPage(r);
+
+  const rootRoute = routes.filter(isRoot);
+  const blogIndexRoute = routes.filter(isBlogIndex);
+  const blogPosts = routes.filter(isBlogPost);
+  const projectList = routes.filter(isProjectList);
+  const projectPages = routes.filter(isProjectPage);
+  const otherRoutes = routes.filter(isOther);
+
+  console.log("✅ Loaded " + routes.length + " routes");
+  console.log(
+    "   /: 1" +
+      "  |  /blog: " +
+      (blogIndexRoute.length + blogPosts.length) +
+      "  |  /projects: " +
+      (projectList.length + projectPages.length) +
+      "  |  other: " +
+      otherRoutes.length +
+      "\n"
   );
-  if (ids.length === 0) {
-    console.warn("⚠️  No project ids found in data/projects.js");
-  }
-  return ids;
-}
 
-function extractBlogSlugs() {
-  const dir = join(__dirname, "..", "content", "blog");
-  if (!existsSync(dir)) {
-    console.warn("⚠️  content/blog/ not found — skipping blog article routes");
-    return [];
-  }
-  const slugs = readdirSync(dir)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => f.replace(/\.md$/, ""));
-  if (slugs.length === 0) {
-    console.warn("⚠️  No .md files found in content/blog/");
-  }
-  return slugs;
-}
+  // Deduplicate by path before writing (belt-and-suspenders)
+  const seen = new Set();
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
-// Blog post priority/changefreq: reads the `date:` frontmatter field.
-//   post < 30 days  → weekly  + priority 0.9
-//   post < 180 days → monthly + priority 0.8
-//   older           → yearly  + priority 0.6
-function blogPostMeta(slug) {
-  const file = join(__dirname, "..", "content", "blog", slug + ".md");
-  let changefreq = "monthly";
-  let priority = 0.8;
-  try {
-    const src = readFileSync(file, "utf-8");
-    const match = src.match(/^date\s*:\s*["']?(\d{4}-\d{2}-\d{2})["']?/m);
-    if (match) {
-      const age = (Date.now() - new Date(match[1]).getTime()) / 86_400_000;
-      if (age < 30) {
-        changefreq = "weekly";
-        priority = 0.9;
-      } else if (age < 180) {
-        changefreq = "monthly";
-        priority = 0.8;
-      } else {
-        changefreq = "yearly";
-        priority = 0.6;
-      }
-    }
-  } catch {
-    /* file unreadable — use defaults */
-  }
-  return { changefreq, priority };
-}
+  // ── 3. Build sitemap XML ────────────────────────────────────────────
+  const stream = new SitemapStream({ hostname });
 
-// ── Dynamic segment expanders ─────────────────────────────────────────────────
-const DYNAMIC_EXPANDERS = {
-  "[projectId]": () =>
-    extractProjectIds().map((id) => ({
-      value: id,
-      meta: { changefreq: "monthly", priority: 0.7 },
-    })),
+  // Priority order: homepage → /projects → /blog → blog posts → project pages → other
+  const ordered = [
+    ...rootRoute,
+    ...projectList,
+    ...blogIndexRoute,
+    ...blogPosts,
+    ...projectPages,
+    ...otherRoutes,
+  ];
 
-  "[slug]": () =>
-    extractBlogSlugs().map((slug) => ({
-      value: slug,
-      meta: blogPostMeta(slug),
-    })),
-};
-
-// ── Route helpers ─────────────────────────────────────────────────────────────
-
-function routeMeta(urlPath) {
-  if (urlPath === "/") return { changefreq: "weekly", priority: 1.0 };
-  const segments = urlPath.split("/").filter(Boolean);
-  const depth = segments.length;
-  const last = segments[depth - 1];
-  if (depth === 1) {
-    const highPriority = new Set(["projects", "work", "portfolio", "blog"]);
-    return {
-      changefreq: highPriority.has(last) ? "weekly" : "monthly",
-      priority: highPriority.has(last) ? 0.9 : 0.8,
-    };
-  }
-  return {
-    changefreq: "monthly",
-    priority: Math.max(0.4, 0.7 - (depth - 2) * 0.1),
-  };
-}
-
-const isDynamic = (s) => s.startsWith("[") && s.endsWith("]");
-const isRouteGroup = (s) => s.startsWith("(") && s.endsWith(")");
-
-function scanDir(dir, segments = []) {
-  const routes = [];
-  let entries;
-  try {
-    entries = readdirSync(dir);
-  } catch {
-    return routes;
-  }
-  if (entries.some((e) => e.match(/^page\.(jsx?|tsx?)$/))) {
-    routes.push(segments);
-  }
-  for (const entry of entries) {
-    const full = join(dir, entry);
-    if (!statSync(full).isDirectory()) continue;
-    if (entry === "api" || entry.startsWith("_")) continue;
-    routes.push(...scanDir(full, [...segments, entry]));
-  }
-  return routes;
-}
-
-function expandSegments(allSegments) {
-  const routes = [];
-  for (const segments of allSegments) {
-    const visible = segments.filter((s) => !isRouteGroup(s));
-    const dynamicIdx = visible.findIndex(isDynamic);
-
-    if (dynamicIdx === -1) {
-      const path = "/" + visible.join("/") || "/";
-      routes.push({ path, ...routeMeta(path) });
-      continue;
-    }
-
-    const dynamicSegment = visible[dynamicIdx];
-    const expander = DYNAMIC_EXPANDERS[dynamicSegment];
-
-    if (!expander) {
-      console.warn(`⚠️  No expander for "${dynamicSegment}" — route skipped`);
-      continue;
-    }
-
-    for (const { value, meta = {} } of expander()) {
-      const expanded = [...visible];
-      expanded[dynamicIdx] = value;
-      const path = "/" + expanded.join("/");
-      routes.push({ path, ...routeMeta(path), ...meta });
-    }
-  }
-  return routes;
-}
-
-function generateRoutesFile() {
-  console.log("\n📂 Scanning " + APP_DIR + " …\n");
-
-  const rawSegments = scanDir(APP_DIR);
-  const routes = expandSegments(rawSegments);
-
-  const routeMap = new Map();
-  routes.forEach((r) => routeMap.set(r.path, r));
-  const final = Array.from(routeMap.values()).sort((a, b) => {
-    if (a.path === "/") return -1;
-    if (b.path === "/") return 1;
-    return a.path.localeCompare(b.path);
+  ordered.forEach((r) => {
+    if (seen.has(r.path)) return; // skip duplicates
+    seen.add(r.path);
+    stream.write({
+      url: r.path,
+      changefreq: r.changefreq ?? "monthly",
+      priority: r.priority ?? 0.7,
+      lastmod: today, // YYYY-MM-DD format — required by Google
+    });
   });
 
-  const content = [
-    "// routes.js — AUTO-GENERATED by scripts/routes-generator.js",
-    "// Do not edit manually. Run: npm run generate:routes",
+  stream.end();
+
+  const rawXml = (await streamToPromise(stream)).toString();
+  const formatted = xmlFormat(rawXml, {
+    indentation: "  ",
+    collapseContent: true,
+  });
+
+  // ── 4. Write sitemap.xml → public/ ──────────────────────────────────
+  console.log("✅ Writing " + sitemapName + ".xml:");
+  write(sitemapName + ".xml", formatted);
+
+  // ── 5. Write robots.txt → public/ ───────────────────────────────────
+  // robots.txt with explicit Sitemap: line is required for Google Search
+  // Console to fetch the sitemap on github.io domains. Without this,
+  // GSC shows "Couldn't fetch" even when the XML is valid and accessible.
+  const robotsTxt = [
+    "User-agent: *",
+    "Allow: /",
     "",
-    "export const routes = " + JSON.stringify(final, null, 2) + ";",
+    "# Block Next.js build artifacts (not served by GitHub Pages anyway,",
+    "# but belt-and-suspenders for any proxy or CDN in front)",
+    "Disallow: /_next/",
+    "Disallow: /api/",
     "",
+    "# Sitemap — explicit declaration required for GSC on github.io",
+    "Sitemap: " + hostname + "/" + sitemapName + ".xml",
   ].join("\n");
 
-  writeFileSync(OUTPUT_FILE, content, "utf-8");
+  console.log("\n✅ Writing robots.txt:");
+  write("robots.txt", robotsTxt);
 
-  const projects = final.filter((r) => r.path.startsWith("/project/"));
-  const blog = final.filter((r) => r.path.startsWith("/blog/"));
-  const other = final.filter(
-    (r) => !r.path.startsWith("/project/") && !r.path.startsWith("/blog/")
+  console.log("\n🎉 Done — " + routes.length + " URLs in sitemap.");
+  console.log("\n📋 Next steps for Google indexing:");
+  console.log("   1. Run `npm run build` to copy public/ into out/");
+  console.log("   2. Deploy with `npm run deploy`");
+  console.log(
+    "   3. Verify sitemap is live: " + hostname + "/" + sitemapName + ".xml"
   );
-
-  console.log("✅ routes.js — " + final.length + " routes total\n");
-  console.log("   Static  (" + other.length + "):");
-  other.forEach((r) => console.log("     + " + r.path));
-  console.log("\n   /project/ (" + projects.length + "):");
-  projects.forEach((r) => console.log("     + " + r.path));
-  console.log("\n   /blog/ (" + blog.length + "):");
-  blog.forEach((r) => console.log("     + " + r.path));
-  console.log();
+  console.log(
+    "   4. In Google Search Console → Sitemaps → submit: sitemap.xml"
+  );
+  console.log(
+    "   5. If GSC shows 'Couldn't fetch', wait 12-24h then resubmit."
+  );
+  console.log(
+    "      The robots.txt Sitemap: line forces Googlebot to discover it.\n"
+  );
 }
 
-generateRoutesFile();
+generateSitemap().catch((e) => {
+  console.error("❌ Sitemap generation failed:", e);
+  process.exit(1);
+});

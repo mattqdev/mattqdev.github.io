@@ -7,7 +7,7 @@
     <link>https://mattqdev.github.io/blog</link>
     <description>Articles on Roblox dev, web tooling, game design, and building things that actually ship.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Mar 2026 23:14:10 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2026 13:14:16 GMT</lastBuildDate>
     <atom:link href="https://mattqdev.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://mattqdev.github.io/icons/avatar.png</url>
@@ -32,8 +32,8 @@
 
   <item>
     <title>Dark Mode is More Than Just #000: Designing High-Contrast Interfaces</title>
-    <link>https://mattqdev.github.io/blog/how-to-mae-a-good-dark-mode-design</link>
-    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-mae-a-good-dark-mode-design</guid>
+    <link>https://mattqdev.github.io/blog/how-to-make-a-good-dark-mode-design</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-make-a-good-dark-mode-design</guid>
     <description>Inverting colors isn&apos;t dark mode — it&apos;s eye strain with a dark background. Here&apos;s how elevation, gray scales, and WCAG ratios combine to make a genuinely accessible dark UI.</description>
     <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
     <author>mattqdevv@gmail.com (MattQ)</author>

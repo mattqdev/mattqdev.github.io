@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
 
-# Block Next.js internals
 Disallow: /_next/
 Disallow: /api/
 

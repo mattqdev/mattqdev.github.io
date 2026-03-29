@@ -2,175 +2,175 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://mattqdev.github.io/</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://mattqdev.github.io/projects</loc>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://mattqdev.github.io/blog</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/5-common-react-rendering-mistakes</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/discover-tailwind-css</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-i-got-3m-visits</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-handle-cplusplus-memory-like-a-pro</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/blog/how-to-mae-a-good-dark-mode-design</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <loc>https://mattqdev.github.io/blog/how-to-make-a-good-dark-mode-design</loc>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-make-datastore-more-safe-roblox-studio</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-make-good-roblox-games-with-ux</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-make-your-UIs-with-figma</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-write-code-like-a-pro-roblox-studio</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/make-your-player-addicted-to-your-roblox-game</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/projects</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/backtothefuture-clock</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/brawl-stars-pet-simulator</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/brawl-stars-rng</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/cube-generator</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/famous-roblox-users-finder</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/first-portfolio</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/koalaz</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/langrank</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/parolora-clock</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/physicshub</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/plugin-heatmap</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/plugin-sniper</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/plugin-ui-assistant</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/portfolio</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/stackfingerprint</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/projects/watermark-applier</loc>
-    <lastmod>2026-03-21T00:00:00.000Z</lastmod>
+    <lastmod>2026-03-29T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
