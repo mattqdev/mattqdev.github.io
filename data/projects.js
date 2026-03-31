@@ -105,7 +105,7 @@ export const projects = [
       },
       {
         type: "play",
-        url: "https://www.roblox.com/games/131894559591295",
+        url: "https://www.roblox.com/join/bx67q",
         label: "Reuploaded Version",
       },
     ],
