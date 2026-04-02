@@ -1,4 +1,4 @@
-// app/project/[projectId]/page.jsx
+// app/projects/[projectId]/page.jsx
 // Server Component — runs at build time for static export.
 // Reads the media folder here (Node fs) and passes results as props
 // to the client component, which can't use fs.

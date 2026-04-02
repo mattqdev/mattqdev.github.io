@@ -201,7 +201,7 @@ export default function Projects() {
                         <h3>{project.title}</h3>
                         <div className="overlay-buttons">
                           <Link
-                            href={`/project/${project.id}`}
+                            href={`/projects/${project.id}`}
                             className="btn-view"
                           >
                             View Details

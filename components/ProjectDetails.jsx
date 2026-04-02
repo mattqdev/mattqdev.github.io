@@ -859,14 +859,20 @@ export default function ProjectDetails({
         {/* ── Project nav ── */}
         <div className="pd-nav">
           {findPrev(project) ? (
-            <Link href={`/project/${findPrev(project)}`} className="pd-nav-btn">
+            <Link
+              href={`/projects/${findPrev(project)}`}
+              className="pd-nav-btn"
+            >
               <FaArrowLeft /> Previous
             </Link>
           ) : (
             <span />
           )}
           {findNext(project) && (
-            <Link href={`/project/${findNext(project)}`} className="pd-nav-btn">
+            <Link
+              href={`/projects/${findNext(project)}`}
+              className="pd-nav-btn"
+            >
               Next <FaArrowRight />
             </Link>
           )}
