@@ -780,18 +780,12 @@
   font-size: 0.85em;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   padding: 2px 7px;
   color: var(--teal);
 }
 
 /* Code blocks — rehype-pretty-code wraps in <figure data-rehype-pretty-code-figure> */
-[data-rehype-pretty-code-figure] {
-  margin: 24px 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-}
 [data-rehype-pretty-code-figure] figcaption {
   padding: 8px 20px;
   background: rgba(255, 255, 255, 0.04);
@@ -802,12 +796,11 @@
 }
 .article-pre {
   background: #0d0d18;
-  padding: 22px 24px;
+  margin-bottom: 1rem;
   overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 0.87rem;
   line-height: 1.7;
-  margin: 0;
   color: #c9d1d9;
 }
 /* Line numbers */
