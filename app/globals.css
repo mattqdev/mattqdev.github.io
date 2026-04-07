@@ -1609,9 +1609,6 @@ footer {
   .skills-visualization {
     padding: 24px;
   }
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
 }
 @media (max-width: 480px) {
   .hero-text h1 {

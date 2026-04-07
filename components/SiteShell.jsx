@@ -11,14 +11,26 @@ import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import SparklesPreview from "./Particles";
 
+export const SECTIONS = [
+  { id: "hero", name: "Home" },
+  { id: "about", name: "About" },
+  { id: "projects", name: "Projects", href: "/projects" },
+  { id: "skills", name: "Skills" },
+  { id: "contact", name: "Contact" },
+  { id: "blog", name: "Blog", href: "/blog" },
+];
+
 export default function SiteShell() {
   const [activeSection, setActiveSection] = useState("hero");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 80);
+      setIsScrolled(window.scrollY > 80);
+
       const pos = window.scrollY + 220;
-      // Only track scroll-anchor sections (no href)
+      // Only track sections that exist on the current page (no external href)
       for (const sec of SECTIONS.filter((s) => !s.href)) {
         const el = document.getElementById(sec.id);
         if (el && pos >= el.offsetTop && pos < el.offsetTop + el.offsetHeight) {
@@ -34,7 +46,7 @@ export default function SiteShell() {
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) {
-      window.scrollTo({ top: el.offsetTop, behavior: "smooth" });
+      window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
       setActiveSection(id);
       setMobileMenuOpen(false);
     }
@@ -42,16 +54,33 @@ export default function SiteShell() {
 
   return (
     <>
-      <Header activeSection={activeSection} />
+      <Header
+        activeSection={activeSection}
+        sections={SECTIONS}
+        scrollToSection={scrollToSection}
+        isScrolled={isScrolled}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
       <main>
-        <Hero scrollToSection={scrollToSection} />
+        <section id="hero">
+          <Hero scrollToSection={scrollToSection} />
+        </section>
         <SparklesPreview />
-        <About />
+        <section id="about">
+          <About />
+        </section>
         <SparklesPreview />
-        <Projects />
+        <section id="projects">
+          <Projects />
+        </section>
         <SparklesPreview />
-        <Skills />
-        <Contact />
+        <section id="skills">
+          <Skills />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
       </main>
       <Footer />
       <ScrollToTop />
