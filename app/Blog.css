@@ -625,10 +625,21 @@
 }
 @media (max-width: 960px) {
   .article-layout {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
   }
+
   .article-sidebar {
-    order: -1;
+    position: static;
+    order: 2;
+    width: 100%;
+  }
+
+  .article-content {
+    order: 1;
+    width: 100%;
+    min-width: 0;
   }
 }
 
