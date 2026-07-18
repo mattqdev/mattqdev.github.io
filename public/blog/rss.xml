@@ -7,13 +7,61 @@
     <link>https://mattqdev.github.io/blog</link>
     <description>Articles on Roblox dev, web tooling, game design, and building things that actually ship.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 Mar 2026 13:16:23 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 22:30:24 GMT</lastBuildDate>
     <atom:link href="https://mattqdev.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://mattqdev.github.io/icons/avatar.png</url>
       <title>MattQ — Blog</title>
       <link>https://mattqdev.github.io/blog</link>
     </image>
+
+  <item>
+    <title>How to Build a Finite State Machine in Luau (With Real Roblox NPC Examples)</title>
+    <link>https://mattqdev.github.io/blog/how-to-build-finite-state-machine-in-luau-roblox-npc</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-build-finite-state-machine-in-luau-roblox-npc</guid>
+    <description>If/else chains don&apos;t scale. Here&apos;s how to architect clean, debuggable NPC behavior using a finite state machine in Luau strict mode — with real code from a shipped multiplayer shooter.</description>
+    <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox Studio</category>
+      <category>Luau</category>
+      <category>Game Dev</category>
+      <category>AI</category>
+      <category>Architecture</category>
+      <category>NPC</category>
+    <itunes:duration>9 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>ProfileService vs DataStore2 in Roblox Studio: The 2026 Developer&apos;s Guide</title>
+    <link>https://mattqdev.github.io/blog/profileservice-datastore-in-roblox-studio-2026-developer-guide</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/profileservice-datastore-in-roblox-studio-2026-developer-guide</guid>
+    <description>Raw DataStores will lose your players&apos; data. Here&apos;s a complete, practical breakdown of ProfileService vs DataStore2 — with real Luau code, session locking explained, and how to migrate without data loss.</description>
+    <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox Studio</category>
+      <category>Luau</category>
+      <category>DataStore</category>
+      <category>ProfileService</category>
+      <category>Game Dev</category>
+      <category>Backend</category>
+    <itunes:duration>8 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>React Server Components vs. Client Components: A Practical Decision Framework</title>
+    <link>https://mattqdev.github.io/blog/server-components-vs-client-components-react-framework</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/server-components-vs-client-components-react-framework</guid>
+    <description>Not everything needs &apos;use client&apos;. Here&apos;s how to actually decide where the server/client boundary goes in your Next.js App Router app — with real patterns, tradeoffs, and a decision tree you can use today.</description>
+    <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>React</category>
+      <category>Next.js</category>
+      <category>Web Dev</category>
+      <category>Frontend</category>
+      <category>Performance</category>
+      <category>App Router</category>
+    <itunes:duration>9 min read</itunes:duration>
+  </item>
 
   <item>
     <title>C++ for JavaScript Devs: Understanding Memory Management Without Panicking</title>

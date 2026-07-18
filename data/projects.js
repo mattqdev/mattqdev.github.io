@@ -72,6 +72,61 @@ export const projects = [
     ],
   },
   {
+    id: "goalmageddon",
+    title: "GOALMAGEDDON",
+    shortDescription:
+      "A vehicular soccer/combat Roblox game — Carmageddon meets Rocket League — with 680K+ visits.",
+    description:
+      "GOALMAGEDDON is a Roblox game that blends vehicular combat with sports gameplay — think Carmageddon meets Rocket League. Players pick a vehicle, arm up, and drive, shoot, and smash their way to victory across multiple game modes. I'm the co-owner, owner is @PenninoITA81",
+    startDate: "Jun 2026",
+    endDate: "Present",
+    tags: [TAGS.ROBLOX, TAGS.LUAU, TAGS.GAME_DESIGN, TAGS.UI_UX],
+    thumbnail: "GoalmageddonThumb.png",
+    links: [
+      {
+        type: "play",
+        url: "https://www.roblox.com/games/137024130309002/GOALMAGEDDON",
+        label: "Play Game",
+      },
+    ],
+    isOpenSource: false,
+    features: [
+      "4 vehicles — Speeder, Tank, Phantom & Juggernaut (Phantom & Juggernaut unlockable through Wins & Kills)",
+      "Upgrade Speed, Acceleration, Armor & Shield up to Lv10, with realistic trailing-arm suspension",
+      "3 weapons + jump: Vulcan Cannon, Forcefield, Proximity Mines and a jump to launch over enemies",
+      "3 game modes — Soccer 2v2, Deathmatch 3v3 and Race FFA (6 players)",
+      "Cosmetics: skins, underglow, tires, rims & more",
+      "Cross-platform (PC, Console, Mobile) with a strictly no pay-to-win design",
+    ],
+    technologies: [TAGS.ROBLOX_STUDIO, TAGS.LUAU],
+    achievements: [
+      {
+        icon: <FaEye />,
+        title: "Total Visits",
+        description: "Game visits since launch",
+        metric: "680K+",
+      },
+      {
+        icon: <FaUsers />,
+        title: "Active Players",
+        description: "Peak CCU (concurrent players)",
+        metric: "693",
+      },
+      {
+        icon: <FaHeart />,
+        title: "Favorites",
+        description: "Times favorited on Roblox",
+        metric: "1.680+",
+      },
+      {
+        icon: <FaStar />,
+        title: "User Rating",
+        description: "Like ratio on Roblox",
+        metric: "68%",
+      },
+    ],
+  },
+  {
     id: "brawl-stars-pet-simulator",
     title: "Brawl Stars Pet Simulator",
     shortDescription:

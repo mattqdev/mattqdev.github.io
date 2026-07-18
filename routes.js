@@ -98,6 +98,11 @@ export const routes = [
     "priority": 0.7
   },
   {
+    "path": "/projects/goalmageddon",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
     "path": "/projects/koalaz",
     "changefreq": "monthly",
     "priority": 0.7
