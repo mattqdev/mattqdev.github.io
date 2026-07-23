@@ -479,8 +479,13 @@ export const projects = [
         url: "https://create.roblox.com/store/asset/89564204038561",
         label: "Download Plugin",
       },
+      {
+        type: "github",
+        url: "https://github.com/mattqdev/Performance-Heatmap",
+        label: "Repository",
+      },
     ],
-    isOpenSource: false,
+    isOpenSource: true,
     features: [
       "Heatmap: With just one click see the most problematic buildings with highlights.",
       "Density: Calculates a density estimate (part amount/volume).",
