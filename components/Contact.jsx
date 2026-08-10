@@ -24,7 +24,7 @@ const socials = [
     icon: <FaDiscord />,
     label: "Discord",
     value: "@mattqdev",
-    href: "https://discord.gg/ETgCMSps4c",
+    href: "https://discord.gg/PWkZyqQ7st",
   },
   {
     icon: <FaTwitter />,

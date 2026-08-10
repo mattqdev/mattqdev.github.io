@@ -623,7 +623,45 @@ header.scrolled {
    PROJECTS
    ==================================================== */
 .projects-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
   margin-bottom: 40px;
+}
+
+/* ── Grid / Timeline view switcher ─────────────────── */
+.view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 50px;
+}
+.view-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  transition: var(--transition);
+}
+.view-toggle-btn:hover {
+  color: var(--text);
+}
+.view-toggle-btn.active {
+  background: var(--primary-dim);
+  color: var(--primary);
 }
 
 /* ── Category filter dropdown (shared: projects + blog) ── */
@@ -791,6 +829,74 @@ header.scrolled {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
+}
+
+/* ── Timeline view ──────────────────────────────────── */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+}
+.timeline-line {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 5px;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-item {
+  position: relative;
+  padding-bottom: 36px;
+}
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+.timeline-dot {
+  position: absolute;
+  top: 6px;
+  left: -28px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-deep);
+  box-shadow: 0 0 0 2px var(--border);
+}
+.timeline-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  transition: var(--transition);
+}
+.timeline-content:hover {
+  border-color: rgba(255, 77, 90, 0.25);
+}
+.timeline-content h3 {
+  margin: 6px 0 8px;
+}
+.timeline-content h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+.timeline-content h3 a:hover {
+  color: var(--primary);
+}
+.timeline-date {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.timeline-duration {
+  padding: 1px 10px;
+  border-radius: 50px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
 }
 
 .project-card {
@@ -2627,7 +2733,7 @@ footer {
 /* ====================================================
    FEATURE ADDITIONS — append to globals.css
    Covers: RSS link, Related Posts, Projects page,
-           GitHub Heatmap, next/image fixes
+           next/image fixes
    ==================================================== */
 
 /* ── next/image compatibility ────────────────────────
@@ -2861,126 +2967,3 @@ footer {
 /* Remove the section background override inside Projects when on /projects page
    (the page hero replaces it). We can't target by route in CSS, but the hero
    already provides the visual separation. */
-
-/* ── GitHub Heatmap ──────────────────────────────── */
-.heatmap-wrapper {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 22px;
-  position: relative;
-}
-
-.heatmap-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.heatmap-title {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-.heatmap-total {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-muted);
-}
-
-.heatmap-stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.heatmap-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 10px 6px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  text-align: center;
-}
-.heatmap-stat-value {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--primary);
-}
-.heatmap-stat-label {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.heatmap-grid {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(7, 1fr);
-  gap: 3px;
-}
-.heatmap-grid-compact {
-  grid-template-columns: repeat(4, 1fr);
-  max-width: 220px;
-  margin-left: auto;
-}
-
-.heatmap-cell {
-  width: 100%;
-  aspect-ratio: 1.5;
-  border-radius: 0.2rem;
-  cursor: default;
-  transition:
-    filter 0.15s ease,
-    transform 0.15s ease;
-  min-width: 5px;
-  min-height: 5px;
-}
-.heatmap-cell:hover {
-  filter: brightness(1.4);
-  transform: scale(1.15);
-  z-index: 2;
-  position: relative;
-}
-
-.heatmap-loading {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-muted);
-  font-size: 0.78rem;
-  font-family: var(--font-mono);
-  padding: 8px 0;
-}
-.heatmap-error {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-}
-
-.heatmap-tooltip {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 6px 12px;
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 9000;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-}
-.heatmap-tooltip strong {
-  color: var(--primary);
-}

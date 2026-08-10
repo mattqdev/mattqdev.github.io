@@ -86,7 +86,7 @@ export default function Hero({ scrollToSection }) {
               <FaGithub />
             </a>
             <a
-              href="https://discord.gg/ETgCMSps4c"
+              href="https://discord.gg/PWkZyqQ7st"
               target="_blank"
               rel="noopener noreferrer"
               className="social-icon"

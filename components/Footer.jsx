@@ -18,7 +18,7 @@ const links = [
     label: "GitHub",
   },
   {
-    href: "https://discord.gg/ETgCMSps4c",
+    href: "https://discord.gg/PWkZyqQ7st",
     target: "_blank",
     icon: <FaDiscord />,
     label: "Discord",

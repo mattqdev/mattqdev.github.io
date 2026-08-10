@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { FaChartLine, FaLayerGroup, FaUser } from "react-icons/fa";
 import { motion, useInView } from "framer-motion";
 import About3D from "./About3D";
-import GitHubHeatmap from "./GitHubHeatmap";
 import { projects } from "@/data/projects";
 import { useRobloxFollowers, useRobloxGameStats } from "@/hooks/useRobloxStats";
 
@@ -52,7 +51,8 @@ function parseMetric(str) {
 const ROBLOX_GAMES = projects
   .map((p) => {
     const link = p.links?.find(
-      (l) => (l.type === "play" || l.type === "live") &&
+      (l) =>
+        (l.type === "play" || l.type === "live") &&
         l.url?.includes("roblox.com/games/")
     );
     const visitsAchievement = p.achievements?.find(
@@ -171,11 +171,6 @@ export default function About() {
                   <p>{s.label}</p>
                 </motion.div>
               ))}
-            </motion.div>
-
-            {/* GitHub activity heatmap */}
-            <motion.div variants={fadeUp} style={{ marginTop: 32 }}>
-              <GitHubHeatmap />
             </motion.div>
           </motion.div>
 
