@@ -6,10 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   FaCalendarAlt,
   FaClock,
-  FaTag,
   FaArrowRight,
   FaSearch,
 } from "react-icons/fa";
+import CategoryFilter from "../CategoryFilter";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -29,16 +29,29 @@ function formatDate(iso) {
   });
 }
 
-// Pull all unique tags from posts
-function allTags(posts) {
-  return ["all", ...new Set(posts.flatMap((p) => p.tags))];
+// Build filter options (all unique tags + counts) from posts
+function buildTagOptions(posts) {
+  const tagCounts = new Map();
+  for (const p of posts) {
+    for (const t of p.tags) {
+      tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+    }
+  }
+  return [
+    { value: "all", label: "All", count: posts.length },
+    ...Array.from(tagCounts.entries()).map(([tag, count]) => ({
+      value: tag,
+      label: tag,
+      count,
+    })),
+  ];
 }
 
 export default function BlogIndex({ posts }) {
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState("all");
 
-  const tags = useMemo(() => allTags(posts), [posts]);
+  const tagOptions = useMemo(() => buildTagOptions(posts), [posts]);
 
   const filtered = useMemo(() => {
     let result = posts;
@@ -109,17 +122,12 @@ export default function BlogIndex({ posts }) {
               className="blog-search-input"
             />
           </div>
-          <div className="blog-tags">
-            {tags.map((tag) => (
-              <button
-                key={tag}
-                className={`blog-tag-btn ${activeTag === tag ? "active" : ""}`}
-                onClick={() => setActiveTag(tag)}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
+          <CategoryFilter
+            options={tagOptions}
+            value={activeTag}
+            onChange={setActiveTag}
+            label="Tag"
+          />
         </motion.div>
 
         {filtered.length === 0 ? (

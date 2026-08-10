@@ -338,7 +338,6 @@ export const projects = [
       "Blog section at /blog",
       "Live Roblox stats integration",
       "Contact section with email, Discord, Twitter, and Roblox links",
-      "Skill proficiency breakdown by area",
     ],
     technologies: [
       TAGS.HTML_CSS,

@@ -17,6 +17,7 @@ import {
 import { FaStar, FaCodeFork, FaGear, FaHardDrive } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGitHubData } from "@/hooks/useGitHubData";
+import CategoryFilter from "./CategoryFilter";
 
 /* ── Animation variants ─────────────────────────────── */
 const containerVariants = {
@@ -104,11 +105,17 @@ function getProjectIcon(tags) {
 export default function Projects() {
   const [filter, setFilter] = useState("all");
 
-  const allCategories = [
-    "all",
-    ...new Set(
-      projects.flatMap((p) => p.tags.map((t) => t.name.toLowerCase()))
-    ),
+  const categoryOptions = [
+    { value: "all", label: "All", count: projects.length },
+    ...Array.from(
+      new Set(projects.flatMap((p) => p.tags.map((t) => t.name.toLowerCase())))
+    ).map((cat) => ({
+      value: cat,
+      label: cat.charAt(0).toUpperCase() + cat.slice(1),
+      count: projects.filter((p) =>
+        p.tags.some((t) => t.name.toLowerCase() === cat)
+      ).length,
+    })),
   ];
 
   const filteredProjects =
@@ -139,19 +146,14 @@ export default function Projects() {
           <p>A collection of games, tools, and websites I've shipped.</p>
         </div>
 
-        {/* Filter buttons */}
-        <motion.div className="projects-filters" variants={containerVariants}>
-          {allCategories.map((cat) => (
-            <motion.button
-              key={cat}
-              className={`filter-btn ${filter === cat ? "active" : ""}`}
-              onClick={() => setFilter(cat)}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-            >
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
-            </motion.button>
-          ))}
+        {/* Category filter */}
+        <motion.div className="projects-filters" variants={fadeUp}>
+          <CategoryFilter
+            options={categoryOptions}
+            value={filter}
+            onChange={setFilter}
+            label="Category"
+          />
         </motion.div>
 
         {/* Project grid — AnimatePresence handles enter/exit on filter change */}

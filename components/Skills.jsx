@@ -45,15 +45,6 @@ const skillCategories = [
   },
 ];
 
-const proficiency = [
-  { name: "Roblox Development", level: 95, color: "#6e44ff" },
-  { name: "Web Frontend", level: 90, color: "#ff6b6b" },
-  { name: "Graphic Design", level: 80, color: "#00d9c0" },
-  { name: "Programming", level: 75, color: "#4d79ff" },
-  { name: "Mobile Dev", level: 65, color: "#ffb74d" },
-  { name: "Web Backend", level: 60, color: "#ff6b6b" },
-];
-
 const Skills = () => {
   const [hovered, setHovered] = useState(null);
 
@@ -140,49 +131,6 @@ const Skills = () => {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-
-          {/* Progress bars */}
-          <motion.div className="progress-section" variants={containerVariants}>
-            <motion.h4 variants={fadeUp}>Skill Proficiency</motion.h4>
-            <div className="progress-bars">
-              {proficiency.map((skill, i) => (
-                <motion.div
-                  key={i}
-                  className="progress-bar-container"
-                  variants={fadeUp}
-                >
-                  <div className="progress-info">
-                    <span>{skill.name}</span>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: ".75rem",
-                      }}
-                    >
-                      {skill.level}%
-                    </span>
-                  </div>
-                  <div className="progress-background">
-                    <motion.div
-                      className="progress-fill"
-                      style={{
-                        backgroundColor: skill.color,
-                        boxShadow: `0 0 10px ${skill.color}60`,
-                      }}
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      transition={{
-                        duration: 1.2,
-                        delay: 0.1 + i * 0.12,
-                        ease: "easeOut",
-                      }}
-                      viewport={{ once: true }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
         </motion.div>
       </motion.div>

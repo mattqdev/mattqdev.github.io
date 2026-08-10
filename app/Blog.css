@@ -9,7 +9,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
+  background: var(--primary);
   z-index: 9999;
   transform-origin: 0%;
 }
@@ -35,9 +35,9 @@
   align-items: center;
   gap: 4px;
   padding: 3px 10px;
-  background: rgba(77, 121, 255, 0.1);
+  background: rgba(0, 217, 192, 0.1);
   color: var(--accent);
-  border: 1px solid rgba(77, 121, 255, 0.2);
+  border: 1px solid rgba(0, 217, 192, 0.2);
   border-radius: 50px;
   font-size: 0.7rem;
   font-weight: 600;
@@ -94,7 +94,7 @@
   height: 360px;
   background: radial-gradient(
     circle,
-    rgba(77, 121, 255, 0.1) 0%,
+    rgba(0, 217, 192, 0.1) 0%,
     transparent 65%
   );
   pointer-events: none;
@@ -133,7 +133,7 @@
 }
 .blog-hero-title em {
   font-style: normal;
-  background: linear-gradient(100deg, var(--primary) 0%, var(--accent) 100%);
+  background: var(--primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -188,34 +188,6 @@
   outline: none;
   border-color: rgba(255, 77, 90, 0.4);
   box-shadow: 0 0 0 3px rgba(255, 77, 90, 0.08);
-}
-
-.blog-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.blog-tag-btn {
-  padding: 6px 16px;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 0.78rem;
-  font-weight: 500;
-  font-family: var(--font-body);
-  transition: var(--transition);
-  text-transform: capitalize;
-}
-.blog-tag-btn:hover {
-  color: var(--text);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-.blog-tag-btn.active {
-  background: var(--primary-dim);
-  border-color: rgba(255, 77, 90, 0.4);
-  color: var(--primary);
 }
 
 /* ── Featured post ───────────────────────────────── */
@@ -404,8 +376,8 @@
     ),
     repeating-linear-gradient(
       -45deg,
-      rgba(77, 121, 255, 0.04) 0px,
-      rgba(77, 121, 255, 0.04) 1px,
+      rgba(0, 217, 192, 0.04) 0px,
+      rgba(0, 217, 192, 0.04) 1px,
       transparent 1px,
       transparent 20px
     );
@@ -463,7 +435,7 @@
   background: linear-gradient(
     135deg,
     rgba(255, 77, 90, 0.08) 0%,
-    rgba(77, 121, 255, 0.08) 100%
+    rgba(0, 217, 192, 0.08) 100%
   );
   border: 1px solid rgba(255, 77, 90, 0.15);
   padding: 2px;
@@ -888,8 +860,8 @@
   font-size: 0.9rem;
 }
 .article-callout--info {
-  background: rgba(77, 121, 255, 0.07);
-  border-color: rgba(77, 121, 255, 0.22);
+  background: rgba(0, 217, 192, 0.07);
+  border-color: rgba(0, 217, 192, 0.22);
 }
 .article-callout--tip {
   background: rgba(0, 217, 192, 0.07);

@@ -38,6 +38,7 @@ import {
 import { projects } from "@/data/projects";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGitHubData } from "@/hooks/useGitHubData";
+import { useRobloxGameStats } from "@/hooks/useRobloxStats";
 import { FloatingCluster } from "./FloatingCluster";
 
 /* ─── helpers ───────────────────────────────────────── */
@@ -46,6 +47,20 @@ function findPrev(project) {
 }
 function findNext(project) {
   return projects[projects.indexOf(project) + 1]?.id;
+}
+
+// Achievement titles that map 1:1 onto a live Roblox game-stats field.
+// "Active Players" is deliberately excluded — it tracks peak concurrent
+// users, which the live API can't report (only current concurrent).
+const LIVE_ACHIEVEMENT_FIELDS = {
+  "Total Visits": "visits",
+  Favorites: "favorites",
+  "User Rating": "likeRatio",
+  "User Satisfaction": "likeRatio",
+};
+
+function formatLiveMetric(field, value) {
+  return field === "likeRatio" ? `${value}%` : `${value.toLocaleString()}+`;
 }
 
 const LANG_COLORS = {
@@ -468,8 +483,8 @@ function BookmarkBtn({ projectId, projectTitle }) {
     };
 
     const embed = {
-      title: "📌 Project Saved!",
-      description: `A user bookmarked **${projectTitle}**`,
+      title: "❤️ Project Liked!",
+      description: `A user liked **${projectTitle}**`,
       color: 0x00ffcc,
       fields: [
         { name: "Project ID", value: projectId, inline: true },
@@ -537,7 +552,7 @@ function BookmarkBtn({ projectId, projectTitle }) {
         opacity: isCooldown ? 0.7 : 1,
       }}
       whileTap={{ scale: isCooldown ? 1 : 0.88 }}
-      aria-label={saved ? "Remove bookmark" : "Bookmark project"}
+      aria-label={saved ? "Unlike project" : "Like project"}
     >
       <motion.span
         animate={{ scale: saved && !isCooldown ? [1, 1.35, 1] : 1 }}
@@ -545,7 +560,7 @@ function BookmarkBtn({ projectId, projectTitle }) {
       >
         {saved ? <FaHeart /> : <FaRegHeart />}
       </motion.span>
-      {isCooldown ? "Processing..." : saved ? "Saved" : "Save"}
+      {isCooldown ? "Processing..." : saved ? "Liked" : "Like"}
     </motion.button>
   );
 }
@@ -557,6 +572,12 @@ export default function ProjectDetails({
   videos = [],
 }) {
   const project = projects.find((p) => p.id === projectId);
+  const robloxLink = project?.links?.find(
+    (l) =>
+      (l.type === "play" || l.type === "live") &&
+      l.url?.includes("roblox.com/games/")
+  );
+  const { stats: robloxStats } = useRobloxGameStats(robloxLink?.url);
   const [activeTab, setActiveTab] = useState("overview");
   const [activeSection, setActiveSection] = useState("overview");
   const [shareOpen, setShareOpen] = useState(false);
@@ -827,28 +848,49 @@ export default function ProjectDetails({
                 <div>
                   <h2 className="pd-section-title">Project Achievements</h2>
                   <div className="pd-achievements-grid">
-                    {project.achievements.map((a, i) => (
-                      <motion.div
-                        key={i}
-                        className="pd-achievement"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.06 }}
-                      >
-                        <div className="pd-achievement-icon">{a.icon}</div>
-                        <div>
-                          <div className="pd-achievement-title">{a.title}</div>
-                          <div className="pd-achievement-desc">
-                            {a.description}
-                          </div>
-                          {a.metric && (
-                            <div className="pd-achievement-metric">
-                              {a.metric}
+                    {project.achievements.map((a, i) => {
+                      // A live value of 0 means the game is banned/delisted
+                      // (Roblox's API zeroes those out) rather than a real
+                      // stat, so treat it as unavailable and keep the
+                      // static fallback instead of overwriting real history.
+                      const liveField = LIVE_ACHIEVEMENT_FIELDS[a.title];
+                      const liveValue =
+                        liveField && robloxStats?.[liveField] > 0
+                          ? robloxStats[liveField]
+                          : null;
+                      const displayMetric =
+                        liveValue != null
+                          ? formatLiveMetric(liveField, liveValue)
+                          : a.metric;
+
+                      return (
+                        <motion.div
+                          key={i}
+                          className="pd-achievement"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.06 }}
+                        >
+                          <div className="pd-achievement-icon">{a.icon}</div>
+                          <div>
+                            <div className="pd-achievement-title">
+                              {a.title}
                             </div>
-                          )}
-                        </div>
-                      </motion.div>
-                    ))}
+                            <div className="pd-achievement-desc">
+                              {a.description}
+                            </div>
+                            {displayMetric && (
+                              <div className="pd-achievement-metric">
+                                {displayMetric}
+                                {liveValue != null && (
+                                  <span className="pd-live-badge">Live</span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </div>
               )}

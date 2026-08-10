@@ -1,11 +1,12 @@
 "use client";
 // components/About.jsx
-import { useEffect, useRef, useState } from "react";
-import { FaChartLine, FaUsers, FaUser } from "react-icons/fa";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { FaChartLine, FaLayerGroup, FaUser } from "react-icons/fa";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 import About3D from "./About3D";
 import GitHubHeatmap from "./GitHubHeatmap";
+import { projects } from "@/data/projects";
+import { useRobloxFollowers, useRobloxGameStats } from "@/hooks/useRobloxStats";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -32,13 +33,69 @@ function useCounter(end, duration, trigger) {
   return value;
 }
 
+// Parses portfolio metric strings ("3.2M+", "680K+", "65,000+") into numbers.
+function parseMetric(str) {
+  const match = String(str || "")
+    .replace(/,/g, "")
+    .match(/([\d.]+)\s*([KkMm]?)/);
+  if (!match) return 0;
+  const [, num, suffix] = match;
+  const n = parseFloat(num);
+  if (suffix.toUpperCase() === "K") return Math.round(n * 1_000);
+  if (suffix.toUpperCase() === "M") return Math.round(n * 1_000_000);
+  return Math.round(n);
+}
+
+// Every Roblox game that tracks a "Total Visits" achievement, with its
+// static achievement number kept as a fallback for delisted/banned games
+// (the live API reports 0 visits for those instead of their real history).
+const ROBLOX_GAMES = projects
+  .map((p) => {
+    const link = p.links?.find(
+      (l) => (l.type === "play" || l.type === "live") &&
+        l.url?.includes("roblox.com/games/")
+    );
+    const visitsAchievement = p.achievements?.find(
+      (a) => a.title === "Total Visits"
+    );
+    if (!link || !visitsAchievement) return null;
+    return { url: link.url, fallback: parseMetric(visitsAchievement.metric) };
+  })
+  .filter(Boolean);
+
+// Renders nothing — just resolves one game's live visit count (or its
+// static fallback) and reports it up via onUpdate. Kept as its own
+// component so each call site owns a single, rules-of-hooks-safe hook call.
+function GameVisitsFetcher({ url, fallback, index, onUpdate }) {
+  const { stats } = useRobloxGameStats(url);
+  useEffect(() => {
+    onUpdate(index, stats?.visits > 0 ? stats.visits : fallback);
+  }, [stats, fallback, index, onUpdate]);
+  return null;
+}
+
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-  const visits = useCounter(3400000, 2200, isInView);
-  const members = useCounter(88000, 2000, isInView);
-  const followers = useCounter(15200, 1800, isInView);
+  const [gameVisits, setGameVisits] = useState(() =>
+    ROBLOX_GAMES.map((g) => g.fallback)
+  );
+  const handleVisitsUpdate = useCallback((index, value) => {
+    setGameVisits((prev) => {
+      const next = [...prev];
+      next[index] = value;
+      return next;
+    });
+  }, []);
+  const totalVisits = gameVisits.reduce((a, b) => a + b, 0);
+
+  const { count: liveFollowers } = useRobloxFollowers();
+  const followerCount = liveFollowers ?? 15200;
+
+  const visits = useCounter(totalVisits, 2200, isInView);
+  const followers = useCounter(followerCount, 1800, isInView);
+  const shipped = useCounter(projects.length, 1200, isInView);
 
   const stats = [
     {
@@ -47,9 +104,9 @@ export default function About() {
       label: "Game Visits",
     },
     {
-      icon: <FaUsers />,
-      value: members.toLocaleString() + "+",
-      label: "Group Members",
+      icon: <FaLayerGroup />,
+      value: shipped.toLocaleString() + "+",
+      label: "Projects Shipped",
     },
     { icon: <FaUser />, value: followers.toLocaleString(), label: "Followers" },
   ];
@@ -77,38 +134,30 @@ export default function About() {
               {new Date().getFullYear() - 2020}+ Years Building Things That Work
             </motion.h3>
             <motion.p variants={fadeUp}>
-              I'm a passionate developer who creates innovative web applications
-              and immersive Roblox games. With expertise spanning programming
-              and visual design, I craft polished experiences from first pixel
-              to final deploy.
-            </motion.p>
-            <motion.p variants={fadeUp}>
-              My journey started with web fundamentals and grew into multiple
-              languages, platforms, and disciplines. Since 2022 I've been deep
-              in Roblox development — combining game design intuition with
-              full-stack thinking to build experiences players keep coming back
-              to.
+              I build polished web apps and Roblox games, from first pixel to
+              final deploy. Since 2022 I've focused heavily on Roblox
+              development, pairing game design with full-stack engineering.
             </motion.p>
 
-            <motion.p
-              variants={fadeUp}
-              style={{
-                color: "var(--text-muted)",
-                fontSize: ".78rem",
-                fontFamily: "var(--font-mono)",
-                letterSpacing: ".1em",
-                textTransform: "uppercase",
-                marginBottom: 0,
-              }}
-            >
-              Roblox Stats · last update: Jun 2025
-            </motion.p>
+            <motion.div className="about-highlights" variants={fadeUp}>
+              {["Web Development", "Roblox Development", "UI/UX Design"].map(
+                (h) => (
+                  <span key={h} className="about-highlight">
+                    {h}
+                  </span>
+                )
+              )}
+            </motion.div>
+
+            <motion.div className="stats-title-row" variants={fadeUp}>
+              <span className="live-dot" />
+              <span className="stats-title">Live stats</span>
+            </motion.div>
 
             <motion.div
               className="stats"
               ref={ref}
               variants={containerVariants}
-              style={{ marginTop: 12 }}
             >
               {stats.map((s, i) => (
                 <motion.div
@@ -135,6 +184,16 @@ export default function About() {
           </motion.div>
         </div>
       </motion.div>
+
+      {ROBLOX_GAMES.map((g, i) => (
+        <GameVisitsFetcher
+          key={g.url}
+          url={g.url}
+          fallback={g.fallback}
+          index={i}
+          onUpdate={handleVisitsUpdate}
+        />
+      ))}
     </section>
   );
 }
