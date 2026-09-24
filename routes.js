@@ -128,6 +128,16 @@ export const routes = [
     "priority": 0.9
   },
   {
+    "path": "/blog/datastore-lock-lost-roblox-fix",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/roblox-data-loss-what-to-do-2026",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
     "path": "/projects",
     "changefreq": "weekly",
     "priority": 0.9

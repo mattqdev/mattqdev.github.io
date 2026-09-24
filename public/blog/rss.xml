@@ -7,13 +7,45 @@
     <link>https://mattqdev.github.io/blog</link>
     <description>Articles on Roblox dev, web tooling, game design, and building things that actually ship.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Sep 2026 23:28:12 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 24 Sep 2026 23:47:55 GMT</lastBuildDate>
     <atom:link href="https://mattqdev.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://mattqdev.github.io/icons/avatar.png</url>
       <title>MattQ — Blog</title>
       <link>https://mattqdev.github.io/blog</link>
     </image>
+
+  <item>
+    <title>DataStore Lock Lost in Roblox: What It Means and How to Fix It</title>
+    <link>https://mattqdev.github.io/blog/datastore-lock-lost-roblox-fix</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/datastore-lock-lost-roblox-fix</guid>
+    <description>Kicked with &apos;DataStore lock lost, please rejoin the game&apos;? Here&apos;s what the message means, whether your progress is gone, and how developers fix it.</description>
+    <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox</category>
+      <category>Luau</category>
+      <category>DataStore</category>
+      <category>ProfileStore</category>
+      <category>Debugging</category>
+      <category>Game Dev</category>
+    <itunes:duration>7 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Roblox Data Loss: Why Your Progress Disappeared and What to Do (2026)</title>
+    <link>https://mattqdev.github.io/blog/roblox-data-loss-what-to-do-2026</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/roblox-data-loss-what-to-do-2026</guid>
+    <description>Lost your progress in a Roblox game? Learn why data loss happens, who can restore it, what to do as a player, and how developers recover data from DataStore versions.</description>
+    <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox</category>
+      <category>DataStore</category>
+      <category>Luau</category>
+      <category>Game Dev</category>
+      <category>Backend</category>
+      <category>Troubleshooting</category>
+    <itunes:duration>7 min read</itunes:duration>
+  </item>
 
   <item>
     <title>Why Does 100vh Break on Mobile? Use dvh Instead</title>
