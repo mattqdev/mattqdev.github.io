@@ -63,6 +63,71 @@ export const routes = [
     "priority": 0.9
   },
   {
+    "path": "/blog/arduino-millis-instead-of-delay",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/deploy-nextjs-to-github-pages",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/fix-100vh-mobile-browsers-css-dvh",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/fix-hydration-error-nextjs",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/fix-infinite-yield-possible-waitforchild-roblox",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/fix-memory-leaks-luau-connections-roblox",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/github-api-rate-limit-static-site",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-to-build-finite-state-machine-in-luau-roblox-npc",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-to-publish-your-first-npm-package",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/how-to-secure-remoteevents-from-exploiters-roblox",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/profileservice-datastore-in-roblox-studio-2026-developer-guide",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/server-components-vs-client-components-react-framework",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
+    "path": "/blog/why-does-useeffect-run-twice-react",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
     "path": "/projects",
     "changefreq": "weekly",
     "priority": 0.9

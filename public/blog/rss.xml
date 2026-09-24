@@ -7,13 +7,153 @@
     <link>https://mattqdev.github.io/blog</link>
     <description>Articles on Roblox dev, web tooling, game design, and building things that actually ship.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Aug 2026 12:37:26 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 23:28:12 GMT</lastBuildDate>
     <atom:link href="https://mattqdev.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://mattqdev.github.io/icons/avatar.png</url>
       <title>MattQ — Blog</title>
       <link>https://mattqdev.github.io/blog</link>
     </image>
+
+  <item>
+    <title>Why Does 100vh Break on Mobile? Use dvh Instead</title>
+    <link>https://mattqdev.github.io/blog/fix-100vh-mobile-browsers-css-dvh</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/fix-100vh-mobile-browsers-css-dvh</guid>
+    <description>Your full-screen hero is cut off by the mobile browser&apos;s address bar. Here&apos;s why 100vh misbehaves and the one-line CSS fix.</description>
+    <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>CSS</category>
+      <category>Mobile</category>
+      <category>Web Dev</category>
+      <category>Responsive Design</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Arduino: Why You Should Use millis() Instead of delay()</title>
+    <link>https://mattqdev.github.io/blog/arduino-millis-instead-of-delay</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/arduino-millis-instead-of-delay</guid>
+    <description>delay() freezes your whole Arduino. Learn the millis() pattern to blink LEDs, read buttons and update a display at the same time.</description>
+    <pubDate>Sat, 12 Sep 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Arduino</category>
+      <category>C++</category>
+      <category>Hardware</category>
+      <category>Electronics</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>How to Publish Your First npm Package (Step by Step)</title>
+    <link>https://mattqdev.github.io/blog/how-to-publish-your-first-npm-package</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-publish-your-first-npm-package</guid>
+    <description>From an empty folder to &apos;npm install my-package&apos; in 10 minutes. The minimal setup, the mistakes to avoid, and how to test before publishing.</description>
+    <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>npm</category>
+      <category>JavaScript</category>
+      <category>Node.js</category>
+      <category>Open Source</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>How to Avoid GitHub API Rate Limits on a Static Website</title>
+    <link>https://mattqdev.github.io/blog/github-api-rate-limit-static-site</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/github-api-rate-limit-static-site</guid>
+    <description>Showing your repos or stats on a portfolio? The GitHub API blocks you after 60 requests per hour. Here are 3 ways to stay under the limit.</description>
+    <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>GitHub API</category>
+      <category>JavaScript</category>
+      <category>Performance</category>
+      <category>Web Dev</category>
+    <itunes:duration>3 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>How to Deploy a Next.js Site to GitHub Pages for Free</title>
+    <link>https://mattqdev.github.io/blog/deploy-nextjs-to-github-pages</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/deploy-nextjs-to-github-pages</guid>
+    <description>Yes, Next.js works on GitHub Pages. Set up a static export and a GitHub Actions workflow in about 5 minutes.</description>
+    <pubDate>Wed, 02 Sep 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Next.js</category>
+      <category>GitHub Pages</category>
+      <category>Deployment</category>
+      <category>DevOps</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>How to Fix &apos;Hydration Failed&apos; Errors in Next.js</title>
+    <link>https://mattqdev.github.io/blog/fix-hydration-error-nextjs</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/fix-hydration-error-nextjs</guid>
+    <description>Text content does not match server-rendered HTML? Here are the 5 usual suspects behind Next.js hydration errors and the quick fix for each.</description>
+    <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Next.js</category>
+      <category>React</category>
+      <category>Debugging</category>
+      <category>SSR</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Why Does useEffect Run Twice in React? (And How to Fix It)</title>
+    <link>https://mattqdev.github.io/blog/why-does-useeffect-run-twice-react</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/why-does-useeffect-run-twice-react</guid>
+    <description>Your effect fires twice in development and you think React is broken. It isn&apos;t — here&apos;s what Strict Mode is doing and how to write effects that survive it.</description>
+    <pubDate>Thu, 27 Aug 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>React</category>
+      <category>Hooks</category>
+      <category>Debugging</category>
+      <category>JavaScript</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Why Does My Roblox Game Get Slower Over Time? Memory Leaks in Luau</title>
+    <link>https://mattqdev.github.io/blog/fix-memory-leaks-luau-connections-roblox</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/fix-memory-leaks-luau-connections-roblox</guid>
+    <description>If your server lags after 30 minutes, you probably have leaked connections. Here&apos;s how to find them and clean them up.</description>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox</category>
+      <category>Luau</category>
+      <category>Performance</category>
+      <category>Optimization</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>How to Stop Exploiters From Abusing Your RemoteEvents</title>
+    <link>https://mattqdev.github.io/blog/how-to-secure-remoteevents-from-exploiters-roblox</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/how-to-secure-remoteevents-from-exploiters-roblox</guid>
+    <description>Exploiters can fire any RemoteEvent with any arguments. Learn the 4 server-side checks that keep your Roblox game safe.</description>
+    <pubDate>Fri, 21 Aug 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox</category>
+      <category>Luau</category>
+      <category>Security</category>
+      <category>RemoteEvent</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
+
+  <item>
+    <title>Fix &apos;Infinite Yield Possible&apos; on WaitForChild in Roblox</title>
+    <link>https://mattqdev.github.io/blog/fix-infinite-yield-possible-waitforchild-roblox</link>
+    <guid isPermaLink="true">https://mattqdev.github.io/blog/fix-infinite-yield-possible-waitforchild-roblox</guid>
+    <description>Your output says &apos;Infinite yield possible on WaitForChild&apos; and your script hangs. Here are the 4 real causes and how to fix each one.</description>
+    <pubDate>Tue, 18 Aug 2026 00:00:00 GMT</pubDate>
+    <author>mattqdevv@gmail.com (MattQ)</author>
+      <category>Roblox</category>
+      <category>Luau</category>
+      <category>Debugging</category>
+      <category>Beginner</category>
+    <itunes:duration>2 min read</itunes:duration>
+  </item>
 
   <item>
     <title>How to Build a Finite State Machine in Luau (With Real Roblox NPC Examples)</title>

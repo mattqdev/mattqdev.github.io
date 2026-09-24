@@ -64,3 +64,6 @@ next-env.d.ts
 scripts/contributors/*.html
 
 ME.md
+
+# Placet local server discovery file (port + secret token) — do not commit
+.placet/
