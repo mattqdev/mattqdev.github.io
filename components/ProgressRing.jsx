@@ -1,6 +1,7 @@
 "use client";
 // components/ProgressRing.jsx
 import { useState, useEffect } from "react";
+import { scrollBehavior } from "@/lib/motion";
 
 /**
  * Self-contained scroll-to-top button with an SVG ring that fills
@@ -33,18 +34,24 @@ export function ProgressRing() {
       {/* Thin top-of-page progress bar */}
       <div
         className="pd-progress-bar"
-        style={{ width: `${scrollPct}%` }}
+        style={{ transform: `scaleX(${scrollPct / 100})` }}
         aria-hidden="true"
       />
 
       {/* Floating scroll-to-top button with ring */}
       <button
         className="pd-fab progress-fab"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: scrollBehavior() })}
         aria-label={`Scroll to top (${Math.round(scrollPct)}% read)`}
         title={`${Math.round(scrollPct)}% read — click to scroll to top`}
       >
-        <svg width={44} height={44} style={{ transform: "rotate(-90deg)" }}>
+        <svg
+          width={44}
+          height={44}
+          aria-hidden="true"
+          style={{ transform: "rotate(-90deg)" }}
+        >
           <circle
             cx={22}
             cy={22}

@@ -4,11 +4,14 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 
 const mdxOptions = {
   mdxOptions: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
+      // Heading ids (github-slugger) — BlogArticle's TOC uses the same slugger
+      rehypeSlug,
       [
         rehypePrettyCode,
         {
@@ -67,8 +70,20 @@ const components = {
   // Images with caption
   img: ({ src, alt, ...p }) => (
     <figure className="article-figure">
-      <img src={src} alt={alt} className="article-img" {...p} />
-      {alt && <figcaption className="article-figcaption">{alt}</figcaption>}
+      <img
+        src={src}
+        alt={alt}
+        className="article-img"
+        loading="lazy"
+        decoding="async"
+        {...p}
+      />
+      {/* Caption repeats the alt text, so hide it from screen readers */}
+      {alt && (
+        <figcaption className="article-figcaption" aria-hidden="true">
+          {alt}
+        </figcaption>
+      )}
     </figure>
   ),
 

@@ -2,18 +2,6 @@
    BLOG — append this entire block to globals.css
    ==================================================== */
 
-/* ── Reading progress bar ────────────────────────── */
-.reading-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--primary);
-  z-index: 9999;
-  transform-origin: 0%;
-}
-
 /* ── Shared utilities ────────────────────────────── */
 .blog-page,
 .article-page {
@@ -186,8 +174,8 @@
 }
 .blog-search-input:focus {
   outline: none;
-  border-color: rgba(255, 77, 90, 0.4);
-  box-shadow: 0 0 0 3px rgba(255, 77, 90, 0.08);
+  border-color: rgba(255, 77, 90, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 77, 90, 0.25);
 }
 
 /* ── Featured post ───────────────────────────────── */
@@ -422,10 +410,29 @@
 
 .blog-empty {
   padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   text-align: center;
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 0.85rem;
+}
+.blog-empty-reset {
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-hover);
+  background: var(--primary-dim);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.blog-empty-reset:hover {
+  background: var(--primary);
+  color: #fff;
 }
 
 /* ── Portfolio CTA ───────────────────────────────── */
@@ -666,7 +673,7 @@
   color: var(--text-secondary);
 }
 
-/* Heading anchors (added by rehype-pretty-code / remark-gfm automatically) */
+/* Heading anchors (ids added by rehype-slug) */
 .article-h1,
 .article-h2,
 .article-h3,

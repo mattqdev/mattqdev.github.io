@@ -10,6 +10,7 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import SparklesPreview from "./Particles";
+import { scrollBehavior } from "@/lib/motion";
 
 export const SECTIONS = [
   { id: "hero", name: "Home" },
@@ -22,33 +23,31 @@ export const SECTIONS = [
 
 export default function SiteShell() {
   const [activeSection, setActiveSection] = useState("hero");
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Track the section crossing the upper-middle of the viewport. Each
+  // section component renders its own <section id="…">.
   useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > 80);
-
-      const pos = window.scrollY + 220;
-      // Only track sections that exist on the current page (no external href)
-      for (const sec of SECTIONS.filter((s) => !s.href)) {
-        const el = document.getElementById(sec.id);
-        if (el && pos >= el.offsetTop && pos < el.offsetTop + el.offsetHeight) {
-          setActiveSection(sec.id);
-          break;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
         }
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+      },
+      { rootMargin: "-30% 0px -65% 0px" }
+    );
+    for (const sec of SECTIONS.filter((s) => !s.href)) {
+      const el = document.getElementById(sec.id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
   }, []);
 
+  // Offset for the fixed header comes from `scroll-padding-top` on <html>
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) {
-      window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
+      el.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
       setActiveSection(id);
-      setMobileMenuOpen(false);
     }
   };
 
@@ -58,29 +57,16 @@ export default function SiteShell() {
         activeSection={activeSection}
         sections={SECTIONS}
         scrollToSection={scrollToSection}
-        isScrolled={isScrolled}
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
       />
-      <main>
-        <section id="hero">
-          <Hero scrollToSection={scrollToSection} />
-        </section>
+      <main id="main">
+        <Hero scrollToSection={scrollToSection} />
         <SparklesPreview />
-        <section id="about">
-          <About />
-        </section>
+        <About />
         <SparklesPreview />
-        <section id="projects">
-          <Projects />
-        </section>
+        <Projects />
         <SparklesPreview />
-        <section id="skills">
-          <Skills />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
+        <Skills />
+        <Contact />
       </main>
       <Footer />
       <ScrollToTop />

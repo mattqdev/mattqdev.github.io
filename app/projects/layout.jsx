@@ -7,7 +7,7 @@ export default function ProjectsLayout({ children }) {
   return (
     <>
       <Header activeSection="projects" sections={SECTIONS} />
-      {children}
+      <main id="main">{children}</main>
       <Footer />
     </>
   );

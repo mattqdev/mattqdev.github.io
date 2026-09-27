@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, SingleOrMultiple } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useReducedMotion } from "framer-motion";
 import "./styles/Sparkles.css";
 
 function cn(...inputs: ClassValue[]) {
@@ -36,6 +36,8 @@ const SparklesCore = (props: ParticlesProps) => {
     particleDensity,
   } = props;
   const [init, setInit] = useState(false);
+  // Decorative loop — skip it entirely for "reduce motion" users
+  const reduceMotion = useReducedMotion();
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
@@ -59,7 +61,7 @@ const SparklesCore = (props: ParticlesProps) => {
   const generatedId = useId();
   return (
     <motion.div animate={controls} className={cn("opacity-0", className)}>
-      {init && (
+      {init && !reduceMotion && (
         <Particles
           id={id || generatedId}
           className={"spark"}
@@ -75,7 +77,7 @@ const SparklesCore = (props: ParticlesProps) => {
               zIndex: 1,
             },
 
-            fpsLimit: 120,
+            fpsLimit: 60,
             interactivity: {
               events: {
                 onClick: {
@@ -441,7 +443,7 @@ const SparklesCore = (props: ParticlesProps) => {
 
 export default function SparklesPreview() {
   return (
-    <div className="sparkles-container">
+    <div className="sparkles-container" aria-hidden="true">
       <div className="sparkles-relative-container">
         {/* Gradients */}
         <div className="sparkles-gradient sparkles-gradient-blur" />

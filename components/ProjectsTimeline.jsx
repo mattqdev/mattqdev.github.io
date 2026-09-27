@@ -2,6 +2,7 @@
 // components/ProjectsTimeline.jsx
 // Linear, chronological alternative to the project grid — shows when each
 // project happened and how long it ran for.
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaCalendarAlt, FaCodeBranch } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -49,7 +50,9 @@ function formatDuration(diffMonths) {
   return parts.join(" ");
 }
 
-function getTimelineInfo(project) {
+// `now` is null during prerender/hydration so the static HTML never bakes in
+// a build-time "ongoing" duration.
+function getTimelineInfo(project, now) {
   const start = parseDate(project.startDate);
   const isPresent = project.endDate === "Present";
   const end = isPresent ? null : parseDate(project.endDate);
@@ -59,14 +62,15 @@ function getTimelineInfo(project) {
 
   if (isPresent) {
     rangeLabel = `${project.startDate} — Present`;
-    if (start) {
-      const now = new Date();
+    if (start && now) {
       const diff = monthsBetween(start, {
         y: now.getFullYear(),
         m: now.getMonth(),
       });
       const duration = formatDuration(diff);
       durationLabel = duration ? `${duration} · ongoing` : "Ongoing";
+    } else {
+      durationLabel = "Ongoing";
     }
   } else if (end && start) {
     rangeLabel =
@@ -87,8 +91,11 @@ const itemVariants = {
 };
 
 export default function ProjectsTimeline({ projects }) {
+  const [now, setNow] = useState(null);
+  useEffect(() => setNow(new Date()), []);
+
   const entries = projects
-    .map((project) => ({ project, ...getTimelineInfo(project) }))
+    .map((project) => ({ project, ...getTimelineInfo(project, now) }))
     .sort((a, b) => {
       if (!a.start || !b.start) return 0;
       return monthsBetween(a.start, b.start);
@@ -96,7 +103,7 @@ export default function ProjectsTimeline({ projects }) {
 
   return (
     <div className="timeline">
-      <div className="timeline-line" />
+      <div className="timeline-line" aria-hidden="true" />
       {entries.map(({ project, rangeLabel, durationLabel }) => (
         <motion.div
           key={project.id}
@@ -107,12 +114,13 @@ export default function ProjectsTimeline({ projects }) {
           viewport={{ once: true, amount: 0.3 }}
         >
           <span
+            aria-hidden="true"
             className="timeline-dot"
             style={{ background: project.tags[0]?.color || "var(--primary)" }}
           />
           <div className="timeline-content">
             <div className="timeline-date">
-              <FaCalendarAlt className="meta-icon" />
+              <FaCalendarAlt className="meta-icon" aria-hidden="true" />
               <span>{rangeLabel}</span>
               {durationLabel && (
                 <span className="timeline-duration">{durationLabel}</span>

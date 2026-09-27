@@ -1,7 +1,7 @@
 "use client";
 // hooks/useGitHubData.js
 //
-// Static-export compatible version (output: 'export' in next.config.js).
+// Static-export compatible version (output: 'export' in next.config.mjs).
 // API Routes can't run in a static build, so we call GitHub directly from
 // the browser using a NEXT_PUBLIC_ prefixed token.
 //

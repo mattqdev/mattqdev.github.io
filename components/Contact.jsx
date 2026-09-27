@@ -1,7 +1,8 @@
 "use client";
 // components/Contact.jsx
-import { useState } from "react";
-import { FaDiscord, FaEnvelope, FaTwitter } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { FaDiscord, FaEnvelope } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 const containerVariants = {
@@ -27,7 +28,7 @@ const socials = [
     href: "https://discord.gg/PWkZyqQ7st",
   },
   {
-    icon: <FaTwitter />,
+    icon: <FaXTwitter />,
     label: "Twitter / X",
     value: "@mattqdev",
     href: "https://x.com/mattqdev",
@@ -47,6 +48,12 @@ export default function Contact() {
     succeeded: false,
     error: null,
   });
+  const successRef = useRef(null);
+
+  // Move focus to the confirmation so keyboard/screen-reader users know it worked
+  useEffect(() => {
+    if (status.succeeded) successRef.current?.focus();
+  }, [status.succeeded]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +66,8 @@ export default function Contact() {
       setStatus({
         submitting: false,
         succeeded: false,
-        error: "Configuration error.",
+        error:
+          "The contact form isn't available right now. Please email mattqdevv@gmail.com instead.",
       });
       return;
     }
@@ -107,7 +115,8 @@ export default function Contact() {
       setStatus({
         submitting: false,
         succeeded: false,
-        error: "Could not send. Check your connection or try again later.",
+        error:
+          "Couldn't send your message. Check your connection and try again, or email mattqdevv@gmail.com.",
       });
     }
   };
@@ -137,11 +146,13 @@ export default function Contact() {
           <motion.div className="contact-info" variants={containerVariants}>
             {socials.map((s, i) => (
               <motion.div key={i} className="contact-item" variants={fadeUp}>
-                <div className="contact-icon">
+                <div className="contact-icon" aria-hidden="true">
                   {s.roblox ? (
                     <img
                       src="/icons/roblox.svg"
-                      alt="Roblox"
+                      alt=""
+                      width={24}
+                      height={24}
                       draggable="false"
                       className="contact-icon-svg red-filter"
                     />
@@ -167,6 +178,9 @@ export default function Contact() {
           <motion.div className="contact-form" variants={fadeUp}>
             {status.succeeded ? (
               <div
+                ref={successRef}
+                tabIndex={-1}
+                role="status"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -180,7 +194,9 @@ export default function Contact() {
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: "2.5rem" }}>🎉</div>
+                <div style={{ fontSize: "2.5rem" }} aria-hidden="true">
+                  🎉
+                </div>
                 <h3 style={{ fontFamily: "var(--font-display)" }}>
                   Message Sent!
                 </h3>
@@ -193,37 +209,60 @@ export default function Contact() {
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
+                  <label htmlFor="contact-name" className="sr-only">
+                    Name (optional)
+                  </label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
-                    placeholder="Your Name (optional)"
+                    autoComplete="name"
+                    placeholder="Your name (optional)…"
                   />
                 </div>
                 <div className="form-group">
+                  <label htmlFor="contact-email" className="sr-only">
+                    Email
+                  </label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
-                    placeholder="Your Email"
+                    autoComplete="email"
+                    inputMode="email"
+                    spellCheck={false}
+                    placeholder="you@example.com…"
                     required
                   />
                 </div>
                 <div className="form-group">
+                  <label htmlFor="contact-subject" className="sr-only">
+                    Subject
+                  </label>
                   <input
+                    id="contact-subject"
                     type="text"
                     name="subject"
-                    placeholder="Subject"
+                    autoComplete="off"
+                    placeholder="Subject, e.g. Collab on a Roblox game…"
                     required
                   />
                 </div>
                 <div className="form-group">
+                  <label htmlFor="contact-message" className="sr-only">
+                    Message
+                  </label>
                   <textarea
+                    id="contact-message"
                     name="message"
+                    autoComplete="off"
                     placeholder="Your message — suggestions, bug reports, collabs…"
                     required
                   />
                 </div>
                 {status.error && (
                   <p
+                    role="alert"
                     style={{
                       color: "var(--primary)",
                       fontSize: ".85rem",

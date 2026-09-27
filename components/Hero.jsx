@@ -72,8 +72,10 @@ export default function Hero({ scrollToSection }) {
               {/* Put roblox.svg in /public/icons/roblox.svg */}
               <img
                 src="/icons/roblox.svg"
-                alt="Roblox"
-                style={{ width: "42%" }}
+                alt=""
+                width={24}
+                height={24}
+                style={{ width: "42%", height: "auto" }}
               />
             </a>
             <a
@@ -112,8 +114,10 @@ export default function Hero({ scrollToSection }) {
               {/* Put avatar.png in /public/icons/avatar.png */}
               <img
                 src="/icons/avatar.png"
-                title="MattQ's Roblox Avatar"
-                alt="MattQ's Avatar"
+                alt="MattQ's Roblox avatar"
+                width={720}
+                height={720}
+                fetchPriority="high"
               />
             </div>
           </div>

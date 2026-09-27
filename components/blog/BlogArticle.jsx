@@ -1,10 +1,12 @@
 "use client";
 // components/blog/BlogArticle.jsx
 // Client shell — handles all interactive UI.
-// The actual MDX rendering is delegated to ArticleRenderer (server component).
+// The rendered MDX arrives as `children` from the server page
+// (ArticleRenderer is an async Server Component and can't be imported here).
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
+import GithubSlugger from "github-slugger";
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -16,29 +18,9 @@ import {
   FaListUl,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import ArticleRenderer from "./ArticleRenderer";
 import { FloatingCluster } from "../FloatingCluster";
-
-function formatDate(iso) {
-  if (!iso) return "";
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
-
-/* ── Reading progress bar ─────────────────────────── */
-function ReadingProgress() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
-  return (
-    <motion.div
-      className="reading-progress"
-      style={{ scaleX, transformOrigin: "0%" }}
-    />
-  );
-}
+import { formatDate } from "@/lib/format";
+import { scrollBehavior } from "@/lib/motion";
 
 /* ── Table of Contents ────────────────────────────── */
 function TableOfContents({ headings, activeId }) {
@@ -46,7 +28,10 @@ function TableOfContents({ headings, activeId }) {
   return (
     <nav className="toc" aria-label="Table of contents">
       <div className="sidebar-card-label" style={{ marginBottom: 12 }}>
-        <FaListUl style={{ display: "inline", marginRight: 6 }} />
+        <FaListUl
+          aria-hidden="true"
+          style={{ display: "inline", marginRight: 6 }}
+        />
         On this page
       </div>
       <ul className="toc-list">
@@ -55,11 +40,16 @@ function TableOfContents({ headings, activeId }) {
             <a
               href={`#${h.id}`}
               className={`toc-link ${activeId === h.id ? "toc-link--active" : ""}`}
+              aria-current={activeId === h.id ? "location" : undefined}
               onClick={(e) => {
+                const el = document.getElementById(h.id);
+                if (!el) return;
                 e.preventDefault();
-                document
-                  .getElementById(h.id)
-                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                el.scrollIntoView({
+                  behavior: scrollBehavior(),
+                  block: "start",
+                });
+                history.replaceState(history.state, "", `#${h.id}`);
               }}
             >
               {h.text}
@@ -72,41 +62,71 @@ function TableOfContents({ headings, activeId }) {
 }
 
 /* ── Extract headings from markdown source ────────── */
+// Ids must match rehype-slug in ArticleRenderer: same slugger, fed every
+// heading (h1–h6) in document order so duplicate counters line up.
 function extractHeadings(content) {
-  const lines = content.split("\n");
+  const slugger = new GithubSlugger();
   const headings = [];
-  for (const line of lines) {
-    const m = line.match(/^(#{1,3})\s+(.+)$/);
-    if (m) {
-      const level = m[1].length;
-      const text = m[2].replace(/[*_`]/g, "");
-      const id = text
-        .toLowerCase()
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-");
-      headings.push({ level, text, id });
+  let inFence = false;
+  for (const line of content.split("\n")) {
+    // Skip fenced code blocks — "# comment" lines there aren't headings
+    if (/^\s*(```|~~~)/.test(line)) {
+      inFence = !inFence;
+      continue;
     }
+    if (inFence) continue;
+    const m = line.match(/^(#{1,6})\s+(.+?)(?:\s+#+)?\s*$/);
+    if (!m) continue;
+    const level = m[1].length;
+    const text = m[2]
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1") // [label](url) → label
+      .replace(/[*_`]/g, "");
+    const id = slugger.slug(text);
+    if (level <= 3) headings.push({ level, text, id });
   }
   return headings;
 }
 
 /* ── Copy link button ─────────────────────────────── */
 function CopyLinkButton({ url }) {
-  const [copied, setCopied] = useState(false);
-  const copy = () => {
-    navigator.clipboard?.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  // "idle" | "copied" | "failed"
+  const [copyState, setCopyState] = useState("idle");
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopyState("copied");
+    } catch {
+      setCopyState("failed");
+    }
+    setTimeout(() => setCopyState("idle"), 2000);
   };
   return (
-    <button className="article-share-btn" aria-label="Copy link" onClick={copy}>
-      {copied ? <FaCheck style={{ color: "var(--teal)" }} /> : <FaLink />}
-    </button>
+    <>
+      <button
+        type="button"
+        className="article-share-btn"
+        aria-label="Copy link to this article"
+        onClick={copy}
+      >
+        {copyState === "copied" ? (
+          <FaCheck aria-hidden="true" style={{ color: "var(--teal)" }} />
+        ) : (
+          <FaLink aria-hidden="true" />
+        )}
+      </button>
+      <span className="sr-only" aria-live="polite">
+        {copyState === "copied"
+          ? "Link copied to clipboard"
+          : copyState === "failed"
+            ? "Couldn't copy the link. Copy it from the address bar."
+            : ""}
+      </span>
+    </>
   );
 }
 
 /* ── Main export ──────────────────────────────────── */
-export default function BlogArticle({ post }) {
+export default function BlogArticle({ post, children }) {
   const { title, description, date, tags, cover, readingTime, content, slug } =
     post;
   const shareUrl = `https://mattqdev.github.io/blog/${slug}`;
@@ -131,8 +151,6 @@ export default function BlogArticle({ post }) {
 
   return (
     <>
-      <ReadingProgress />
-
       <div className="article-page">
         {/* ── Hero ── */}
         <div
@@ -140,8 +158,14 @@ export default function BlogArticle({ post }) {
         >
           {cover && (
             <div className="article-cover">
-              <img src={`/blog/covers/${cover}`} alt={title} />
-              <div className="article-cover-overlay" />
+              <img
+                src={`/blog/covers/${cover}`}
+                alt=""
+                width={1200}
+                height={630}
+                fetchPriority="high"
+              />
+              <div className="article-cover-overlay" aria-hidden="true" />
             </div>
           )}
 
@@ -152,16 +176,19 @@ export default function BlogArticle({ post }) {
               transition={{ duration: 0.65, ease: "easeOut" }}
             >
               <Link href="/blog" className="article-back">
-                <FaArrowLeft /> All Articles
+                <FaArrowLeft aria-hidden="true" /> All Articles
               </Link>
 
               <div className="article-meta-row">
                 <span className="article-meta-item">
-                  <FaCalendarAlt /> {formatDate(date)}
+                  <FaCalendarAlt aria-hidden="true" />{" "}
+                  <time dateTime={date}>{formatDate(date)}</time>
                 </span>
-                <span className="article-meta-sep">·</span>
+                <span className="article-meta-sep" aria-hidden="true">
+                  ·
+                </span>
                 <span className="article-meta-item">
-                  <FaClock /> {readingTime}
+                  <FaClock aria-hidden="true" /> {readingTime}
                 </span>
               </div>
 
@@ -181,15 +208,14 @@ export default function BlogArticle({ post }) {
 
         {/* ── Body: content + sidebar ── */}
         <div className="container article-layout">
-          <motion.main
+          <motion.div
             ref={contentRef}
             className="article-content"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.55 }}
           >
-            {/* ArticleRenderer is a server component imported here — Next.js handles it */}
-            <ArticleRenderer content={content} />
+            {children}
 
             {/* Share */}
             <div className="article-share">
@@ -199,13 +225,13 @@ export default function BlogArticle({ post }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="article-share-btn"
-                aria-label="Share on Twitter"
+                aria-label="Share on X (Twitter)"
               >
-                <FaXTwitter />
+                <FaXTwitter aria-hidden="true" />
               </a>
               <CopyLinkButton url={shareUrl} />
             </div>
-          </motion.main>
+          </motion.div>
 
           {/* Sidebar */}
           <aside className="article-sidebar">
@@ -217,7 +243,13 @@ export default function BlogArticle({ post }) {
             {/* Author */}
             <div className="sidebar-card">
               <div className="sidebar-author-avatar">
-                <img src="/icons/avatar.png" alt="MattQ" />
+                <img
+                  src="/icons/avatar.png"
+                  alt=""
+                  width={72}
+                  height={72}
+                  loading="lazy"
+                />
               </div>
               <div className="sidebar-author-name">MattQ</div>
               <div className="sidebar-author-bio">
@@ -229,16 +261,18 @@ export default function BlogArticle({ post }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="sidebar-social"
+                  aria-label="MattQ on GitHub"
                 >
-                  <FaGithub />
+                  <FaGithub aria-hidden="true" />
                 </a>
                 <a
                   href="https://x.com/mattqdev"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="sidebar-social"
+                  aria-label="MattQ on X (Twitter)"
                 >
-                  <FaXTwitter />
+                  <FaXTwitter aria-hidden="true" />
                 </a>
               </div>
             </div>
@@ -259,14 +293,16 @@ export default function BlogArticle({ post }) {
 
             {/* Portfolio CTA */}
             <div className="sidebar-card sidebar-cta">
-              <div className="sidebar-cta-emoji">🚀</div>
+              <div className="sidebar-cta-emoji" aria-hidden="true">
+                🚀
+              </div>
               <div className="sidebar-card-label">Portfolio</div>
               <p className="sidebar-cta-text">
                 3M+ game visits, 6K+ plugin downloads, and open‑source tools
                 used by developers worldwide.
               </p>
               <Link href="/" className="sidebar-cta-btn">
-                See my work <FaArrowRight />
+                See my work <FaArrowRight aria-hidden="true" />
               </Link>
             </div>
           </aside>
@@ -289,7 +325,7 @@ export default function BlogArticle({ post }) {
                 developer tools — see everything on my portfolio.
               </p>
               <Link href="/" className="blog-cta-btn">
-                View Portfolio <FaArrowRight />
+                View Portfolio <FaArrowRight aria-hidden="true" />
               </Link>
             </div>
           </motion.div>

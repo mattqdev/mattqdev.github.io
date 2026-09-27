@@ -35,9 +35,9 @@ export default function Footer() {
           </div>
           <p className="footer-tagline">Developer · Designer · Game Maker</p>
           <div className="footer-socials">
-            {links.map((l, i) => (
+            {links.map((l) => (
               <a
-                key={i}
+                key={l.label}
                 href={l.href}
                 target={l.target}
                 rel={l.target ? "noopener noreferrer" : undefined}
@@ -64,8 +64,10 @@ export default function Footer() {
             >
               <img
                 src="/icons/roblox.svg"
-                alt="Roblox"
-                style={{ width: "44%" }}
+                alt=""
+                width={18}
+                height={18}
+                style={{ width: "44%", height: "auto" }}
               />
             </a>
           </div>

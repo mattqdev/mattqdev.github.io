@@ -1,6 +1,5 @@
 "use client";
 // components/Projects.jsx
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/data/projects";
@@ -20,6 +19,8 @@ import { FaStar, FaCodeFork, FaGear, FaHardDrive } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGitHubData } from "@/hooks/useGitHubData";
 import CategoryFilter from "./CategoryFilter";
+import { useUrlState } from "@/hooks/useUrlState";
+import { formatNumber } from "@/lib/format";
 import ProjectsTimeline from "./ProjectsTimeline";
 
 /* ── Animation variants ─────────────────────────────── */
@@ -54,7 +55,7 @@ function GitHubStrip({ githubUrl }) {
   if (loading)
     return (
       <div className="project-github-stats">
-        <div className="github-loading">
+        <div className="github-loading" role="status">
           <div className="github-loading-dot" />
           <div className="github-loading-dot" />
           <div className="github-loading-dot" />
@@ -66,12 +67,14 @@ function GitHubStrip({ githubUrl }) {
   return (
     <div className="project-github-stats">
       <div className="github-stat">
-        <FaStar />
-        <span>{repo.stargazers_count?.toLocaleString() ?? 0}</span>
+        <FaStar aria-hidden="true" />
+        <span>{formatNumber(repo.stargazers_count)}</span>
+        <span className="sr-only">stars</span>
       </div>
       <div className="github-stat">
-        <FaCodeFork />
-        <span>{repo.forks_count?.toLocaleString() ?? 0}</span>
+        <FaCodeFork aria-hidden="true" />
+        <span>{formatNumber(repo.forks_count)}</span>
+        <span className="sr-only">forks</span>
       </div>
       {repo.language && (
         <div className="github-stat">
@@ -106,8 +109,10 @@ function getProjectIcon(tags) {
 
 /* ── Main component ───────────────────────────────── */
 export default function Projects() {
-  const [filter, setFilter] = useState("all");
-  const [view, setView] = useState("grid");
+  // Filter + view live in the URL (?category=…&view=…) so they can be shared
+  const [filterParam, setFilter] = useUrlState("category", "all");
+  const [viewParam, setView] = useUrlState("view", "grid");
+  const view = viewParam === "timeline" ? "timeline" : "grid";
 
   const categoryOptions = [
     { value: "all", label: "All", count: projects.length },
@@ -121,6 +126,11 @@ export default function Projects() {
       ).length,
     })),
   ];
+
+  // Ignore unknown ?category= values instead of rendering an empty grid
+  const filter = categoryOptions.some((o) => o.value === filterParam)
+    ? filterParam
+    : "all";
 
   const filteredProjects =
     filter === "all"
@@ -213,7 +223,7 @@ export default function Projects() {
                       }}
                     >
                       {thumbSrc ? (
-                        /* next/image with unoptimized (already set in next.config.js) */
+                        /* next/image with unoptimized (already set in next.config.mjs) */
                         <Image
                           src={thumbSrc}
                           alt={project.title}
@@ -228,11 +238,15 @@ export default function Projects() {
 
                       <div className="project-overlay">
                         <div className="overlay-content">
-                          <h3>{project.title}</h3>
+                          {/* Visual repeat of the card title — the real <h3> is below */}
+                          <div className="overlay-title" aria-hidden="true">
+                            {project.title}
+                          </div>
                           <div className="overlay-buttons">
                             <Link
                               href={`/projects/${project.id}`}
                               className="btn-view"
+                              aria-label={`View details: ${project.title}`}
                             >
                               View Details
                             </Link>
@@ -242,9 +256,9 @@ export default function Projects() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn-icon"
-                                aria-label="GitHub"
+                                aria-label={`${project.title} on GitHub`}
                               >
-                                <FaGithub />
+                                <FaGithub aria-hidden="true" />
                               </a>
                             )}
                             {project.liveUrl && (
@@ -253,9 +267,9 @@ export default function Projects() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn-icon"
-                                aria-label="Live demo"
+                                aria-label={`${project.title} live demo`}
                               >
-                                <FaExternalLinkAlt />
+                                <FaExternalLinkAlt aria-hidden="true" />
                               </a>
                             )}
                           </div>

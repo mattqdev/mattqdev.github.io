@@ -1,6 +1,7 @@
 // app/layout.jsx
-import { Syne, DM_Sans } from "next/font/google";
-import { Metadata } from "next";
+import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Metadata, Viewport } from "next";
+import Providers from "@/components/Providers";
 import "./globals.css";
 import "./Blog.css";
 
@@ -19,6 +20,20 @@ const dmSans = DM_Sans({
   variable: "--font-body",
   display: "swap",
 });
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0b0b12",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   title: "MattQ — Developer & Designer",
@@ -47,15 +62,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
+    <html
+      lang="en"
+      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
-        {/* JetBrains Mono for mono labels — loaded separately to avoid variable font issues */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="/icon.ico" />
         {/* Microsoft Clarity analytics */}
         <script
@@ -69,7 +80,12 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

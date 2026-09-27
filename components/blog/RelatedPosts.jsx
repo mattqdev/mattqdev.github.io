@@ -2,15 +2,7 @@
 // Server Component — receives all posts and current post,
 // finds up to 3 related ones by shared tag count, renders them.
 import Link from "next/link";
-
-function formatDate(iso) {
-  if (!iso) return "";
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
+import { formatDate } from "@/lib/format";
 
 function scoreRelatedness(post, current) {
   // Count shared tags
@@ -51,9 +43,11 @@ export default function RelatedPosts({ currentPost, allPosts }) {
               <div className="related-card-cover">
                 <img
                   src={`/blog/covers/${post.cover}`}
-                  alt={post.title}
+                  alt=""
                   width={400}
                   height={220}
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               </div>
@@ -77,8 +71,10 @@ export default function RelatedPosts({ currentPost, allPosts }) {
               <h3 className="related-card-title">{post.title}</h3>
               <p className="related-card-desc">{post.description}</p>
               <div className="related-card-meta">
-                <span>{formatDate(post.date)}</span>
-                <span>·</span>
+                <time dateTime={post.date}>
+                  {formatDate(post.date, "short")}
+                </time>
+                <span aria-hidden="true">·</span>
                 <span>{post.readingTime}</span>
               </div>
             </div>

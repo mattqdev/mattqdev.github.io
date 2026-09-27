@@ -40,6 +40,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGitHubData } from "@/hooks/useGitHubData";
 import { useRobloxGameStats } from "@/hooks/useRobloxStats";
 import { FloatingCluster } from "./FloatingCluster";
+import { useUrlState } from "@/hooks/useUrlState";
+import { formatNumber } from "@/lib/format";
 
 /* ─── helpers ───────────────────────────────────────── */
 function findPrev(project) {
@@ -60,7 +62,7 @@ const LIVE_ACHIEVEMENT_FIELDS = {
 };
 
 function formatLiveMetric(field, value) {
-  return field === "likeRatio" ? `${value}%` : `${value.toLocaleString()}+`;
+  return field === "likeRatio" ? `${value}%` : `${formatNumber(value)}+`;
 }
 
 const LANG_COLORS = {
@@ -157,22 +159,22 @@ function GitHubCard({ githubUrl }) {
     ? [
         {
           icon: <FaStar />,
-          value: repo.stargazers_count?.toLocaleString(),
+          value: formatNumber(repo.stargazers_count),
           label: "Stars",
         },
         {
           icon: <FaCodeBranch />,
-          value: repo.forks_count?.toLocaleString(),
+          value: formatNumber(repo.forks_count),
           label: "Forks",
         },
         {
           icon: <FaEye />,
-          value: repo.watchers_count?.toLocaleString(),
+          value: formatNumber(repo.watchers_count),
           label: "Watchers",
         },
         {
           icon: <FaExclamationCircle />,
-          value: repo.open_issues_count?.toLocaleString(),
+          value: formatNumber(repo.open_issues_count),
           label: "Issues",
         },
       ]
@@ -189,7 +191,7 @@ function GitHubCard({ githubUrl }) {
       </div>
 
       {loading && (
-        <div className="pd-github-loading">
+        <div className="pd-github-loading" role="status">
           {[0, 1, 2].map((i) => (
             <span
               key={i}
@@ -208,7 +210,16 @@ function GitHubCard({ githubUrl }) {
           <FaExclamationCircle
             style={{ color: "var(--primary)", marginRight: 6 }}
           />
-          Couldn't load repo data.
+          Couldn't load repo stats right now.{" "}
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="article-a"
+          >
+            View the repository on GitHub
+          </a>
+          .
         </p>
       )}
 
@@ -270,13 +281,16 @@ function GitHubCard({ githubUrl }) {
 }
 
 /* ── Gallery lightbox ──────────── */
-function Gallery({ images = [], videos = [] }) {
+function Gallery({ images = [], videos = [], projectTitle }) {
   const media = [
     ...images.map((src) => ({ type: "image", src })),
     ...videos.map((src) => ({ type: "video", src })),
   ];
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(false);
+  const dialogRef = useRef(null);
+  const closeRef = useRef(null);
+  const openerRef = useRef(null);
 
   const go = useCallback(
     (dir) => {
@@ -285,65 +299,109 @@ function Gallery({ images = [], videos = [] }) {
     [media.length]
   );
 
+  const openLightbox = (e) => {
+    openerRef.current = e.currentTarget;
+    setLightbox(true);
+  };
+
   useEffect(() => {
     if (!lightbox) return;
+    const opener = openerRef.current;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+
     const handler = (e) => {
       if (e.key === "ArrowRight") go(1);
       if (e.key === "ArrowLeft") go(-1);
       if (e.key === "Escape") setLightbox(false);
+      // Keep Tab inside the dialog
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll(
+          "button, video[controls]"
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
+    return () => {
+      window.removeEventListener("keydown", handler);
+      document.body.style.overflow = prevOverflow;
+      opener?.focus();
+    };
   }, [lightbox, go]);
 
   if (media.length === 0)
     return (
       <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>
-        No media available.
+        No media available yet — check the project links above.
       </p>
     );
   const cur = media[active];
+  const mediaLabel = (i) =>
+    `${projectTitle} — ${media[i].type === "video" ? "video" : "screenshot"} ${i + 1} of ${media.length}`;
 
   return (
     <>
       {/* Main viewer */}
-      <div
-        className="pd-gallery-main"
-        onClick={() => setLightbox(true)}
-        role="button"
-        aria-label="Open lightbox"
-      >
+      <div className="pd-gallery-main">
         <div className="pd-gallery-media">
           {cur.type === "image" ? (
-            <img src={cur.src} alt={`Media ${active + 1}`} />
+            <button
+              type="button"
+              className="pd-gallery-open"
+              onClick={openLightbox}
+              aria-label={`Open ${mediaLabel(active)} fullscreen`}
+            >
+              <img
+                src={cur.src}
+                alt={mediaLabel(active)}
+                width={1280}
+                height={720}
+              />
+            </button>
           ) : (
-            <video src={cur.src} controls />
+            <video
+              src={cur.src}
+              controls
+              preload="metadata"
+              aria-label={mediaLabel(active)}
+            />
           )}
         </div>
-        <div className="pd-gallery-expand">
-          <FaExpand />
-        </div>
         <button
+          type="button"
+          className="pd-gallery-expand"
+          onClick={openLightbox}
+          aria-label="Open fullscreen"
+        >
+          <FaExpand aria-hidden="true" />
+        </button>
+        <button
+          type="button"
           className="pd-gallery-nav pd-gallery-prev"
-          onClick={(e) => {
-            e.stopPropagation();
-            go(-1);
-          }}
-          aria-label="Previous"
+          onClick={() => go(-1)}
+          aria-label="Previous media"
         >
-          <FaChevronLeft />
+          <FaChevronLeft aria-hidden="true" />
         </button>
         <button
+          type="button"
           className="pd-gallery-nav pd-gallery-next"
-          onClick={(e) => {
-            e.stopPropagation();
-            go(1);
-          }}
-          aria-label="Next"
+          onClick={() => go(1)}
+          aria-label="Next media"
         >
-          <FaChevronRight />
+          <FaChevronRight aria-hidden="true" />
         </button>
-        <div className="pd-gallery-counter">
+        <div className="pd-gallery-counter" aria-live="polite">
           {active + 1} / {media.length}
         </div>
       </div>
@@ -352,22 +410,37 @@ function Gallery({ images = [], videos = [] }) {
       <div className="pd-thumbs">
         {media.map((m, i) => (
           <button
-            key={i}
+            type="button"
+            key={m.src}
             className={`pd-thumb ${i === active ? "active" : ""}`}
             onClick={() => setActive(i)}
-            aria-label={`Go to ${i + 1}`}
+            aria-label={`Show ${mediaLabel(i)}`}
+            aria-current={i === active ? "true" : undefined}
           >
             {m.type === "image" ? (
-              <img src={m.src} alt="" />
+              <img
+                src={m.src}
+                alt=""
+                width={72}
+                height={52}
+                loading="lazy"
+                decoding="async"
+              />
             ) : (
               <div
                 style={{ position: "relative", width: "100%", height: "100%" }}
               >
                 <video
                   src={m.src}
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-hidden="true"
+                  tabIndex={-1}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
                 <FaPlayCircle
+                  aria-hidden="true"
                   style={{
                     position: "absolute",
                     inset: 0,
@@ -386,28 +459,35 @@ function Gallery({ images = [], videos = [] }) {
       <AnimatePresence>
         {lightbox && (
           <motion.div
+            ref={dialogRef}
             className="pd-lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${projectTitle} gallery`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setLightbox(false)}
           >
             <button
+              ref={closeRef}
+              type="button"
               className="pd-lightbox-close"
               onClick={() => setLightbox(false)}
-              aria-label="Close"
+              aria-label="Close gallery"
             >
-              <FaTimes />
+              <FaTimes aria-hidden="true" />
             </button>
             <button
+              type="button"
               className="pd-lightbox-nav pd-lightbox-prev"
               onClick={(e) => {
                 e.stopPropagation();
                 go(-1);
               }}
-              aria-label="Previous"
+              aria-label="Previous media"
             >
-              <FaChevronLeft />
+              <FaChevronLeft aria-hidden="true" />
             </button>
             <motion.div
               className="pd-lightbox-content"
@@ -418,22 +498,33 @@ function Gallery({ images = [], videos = [] }) {
               transition={{ duration: 0.2 }}
             >
               {cur.type === "image" ? (
-                <img src={cur.src} alt={`Media ${active + 1}`} />
+                <img
+                  src={cur.src}
+                  alt={mediaLabel(active)}
+                  width={1920}
+                  height={1080}
+                />
               ) : (
-                <video src={cur.src} controls autoPlay />
+                <video
+                  src={cur.src}
+                  controls
+                  preload="metadata"
+                  aria-label={mediaLabel(active)}
+                />
               )}
             </motion.div>
             <button
+              type="button"
               className="pd-lightbox-nav pd-lightbox-next"
               onClick={(e) => {
                 e.stopPropagation();
                 go(1);
               }}
-              aria-label="Next"
+              aria-label="Next media"
             >
-              <FaChevronRight />
+              <FaChevronRight aria-hidden="true" />
             </button>
-            <div className="pd-lightbox-counter">
+            <div className="pd-lightbox-counter" aria-live="polite">
               {active + 1} / {media.length}
             </div>
           </motion.div>
@@ -473,27 +564,13 @@ function BookmarkBtn({ projectId, projectTitle }) {
       return;
     }
 
-    const clientInfo = {
-      userAgent: navigator.userAgent,
-      platform: navigator.platform,
-      language: navigator.language,
-      screen: `${window.screen.width}x${window.screen.height}`,
-      url: window.location.href,
-      time: new Date().toLocaleString(),
-    };
-
+    // Only the project is reported — no device/browser details about the visitor
     const embed = {
       title: "❤️ Project Liked!",
       description: `A user liked **${projectTitle}**`,
       color: 0x00ffcc,
-      fields: [
-        { name: "Project ID", value: projectId, inline: true },
-        { name: "Platform", value: clientInfo.platform, inline: true },
-        { name: "Language", value: clientInfo.language, inline: true },
-        { name: "Screen", value: clientInfo.screen, inline: true },
-        { name: "User Agent", value: `\`\`\`${clientInfo.userAgent}\`\`\`` },
-      ],
-      footer: { text: `Sent at ${clientInfo.time}` },
+      fields: [{ name: "Project ID", value: projectId, inline: true }],
+      footer: { text: window.location.href },
       timestamp: new Date().toISOString(),
     };
 
@@ -552,15 +629,20 @@ function BookmarkBtn({ projectId, projectTitle }) {
         opacity: isCooldown ? 0.7 : 1,
       }}
       whileTap={{ scale: isCooldown ? 1 : 0.88 }}
+      aria-pressed={saved}
       aria-label={saved ? "Unlike project" : "Like project"}
     >
       <motion.span
         animate={{ scale: saved && !isCooldown ? [1, 1.35, 1] : 1 }}
         transition={{ duration: 0.3 }}
       >
-        {saved ? <FaHeart /> : <FaRegHeart />}
+        {saved ? (
+          <FaHeart aria-hidden="true" />
+        ) : (
+          <FaRegHeart aria-hidden="true" />
+        )}
       </motion.span>
-      {isCooldown ? "Processing..." : saved ? "Liked" : "Like"}
+      {isCooldown ? "Processing…" : saved ? "Liked" : "Like"}
     </motion.button>
   );
 }
@@ -578,9 +660,8 @@ export default function ProjectDetails({
       l.url?.includes("roblox.com/games/")
   );
   const { stats: robloxStats } = useRobloxGameStats(robloxLink?.url);
-  const [activeTab, setActiveTab] = useState("overview");
-  const [activeSection, setActiveSection] = useState("overview");
-  const [shareOpen, setShareOpen] = useState(false);
+  // Active tab lives in the URL (?tab=gallery) so each tab can be linked to
+  const [tabParam, setActiveTab] = useUrlState("tab", "overview");
   const tabLineRef = useRef(null);
   const tabsRef = useRef({});
   const mainRef = useRef(null);
@@ -591,14 +672,35 @@ export default function ProjectDetails({
     { id: "tech", label: "Technologies" },
     { id: "achievements", label: "Achievements" },
   ];
+  const activeTab = tabs.some((t) => t.id === tabParam) ? tabParam : "overview";
 
-  // Tab indicator line
+  // Arrow/Home/End keys move between tabs (WAI-ARIA tabs pattern)
+  const onTabKeyDown = (e) => {
+    const i = tabs.findIndex((t) => t.id === activeTab);
+    let next = null;
+    if (e.key === "ArrowRight") next = tabs[(i + 1) % tabs.length];
+    if (e.key === "ArrowLeft") next = tabs[(i - 1 + tabs.length) % tabs.length];
+    if (e.key === "Home") next = tabs[0];
+    if (e.key === "End") next = tabs[tabs.length - 1];
+    if (!next) return;
+    e.preventDefault();
+    setActiveTab(next.id);
+    tabsRef.current[next.id]?.focus();
+  };
+
+  // Tab indicator line — re-measured when the tab bar resizes
   useEffect(() => {
     const el = tabsRef.current[activeTab];
     const line = tabLineRef.current;
     if (!el || !line) return;
-    line.style.left = `${el.offsetLeft}px`;
-    line.style.width = `${el.offsetWidth}px`;
+    const place = () => {
+      line.style.left = `${el.offsetLeft}px`;
+      line.style.width = `${el.offsetWidth}px`;
+    };
+    place();
+    const ro = new ResizeObserver(place);
+    ro.observe(el.parentElement);
+    return () => ro.disconnect();
   }, [activeTab]);
 
   if (!project) {
@@ -737,7 +839,14 @@ export default function ProjectDetails({
                 <img
                   src={thumbnailSrc}
                   alt={project.title}
-                  style={{ borderRadius: "var(--radius)", width: "100%" }}
+                  width={1280}
+                  height={720}
+                  fetchPriority="high"
+                  style={{
+                    borderRadius: "var(--radius)",
+                    width: "100%",
+                    height: "auto",
+                  }}
                 />
               ) : null}
             </motion.div>
@@ -752,13 +861,16 @@ export default function ProjectDetails({
             {tabs.map((t) => (
               <button
                 key={t.id}
+                type="button"
                 id={`tab-${t.id}`}
                 ref={(el) => (tabsRef.current[t.id] = el)}
                 role="tab"
                 aria-selected={activeTab === t.id}
                 aria-controls={`panel-${t.id}`}
+                tabIndex={activeTab === t.id ? 0 : -1}
                 className={`pd-tab-btn ${activeTab === t.id ? "active" : ""}`}
                 onClick={() => setActiveTab(t.id)}
+                onKeyDown={onTabKeyDown}
               >
                 {t.label}
               </button>
@@ -777,6 +889,7 @@ export default function ProjectDetails({
               id={`panel-${activeTab}`}
               role="tabpanel"
               aria-labelledby={`tab-${activeTab}`}
+              tabIndex={0}
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -814,7 +927,11 @@ export default function ProjectDetails({
               {activeTab === "gallery" && (
                 <div>
                   <h2 className="pd-section-title">Project Gallery</h2>
-                  <Gallery images={images} videos={videos} />
+                  <Gallery
+                    images={images}
+                    videos={videos}
+                    projectTitle={project.title}
+                  />
                 </div>
               )}
 

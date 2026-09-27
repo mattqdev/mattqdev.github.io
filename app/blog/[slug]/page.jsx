@@ -1,6 +1,7 @@
 // app/blog/[slug]/page.jsx  — Server Component
 import { getAllSlugs, getPostBySlug, getAllPosts } from "@/lib/blog";
 import BlogArticle from "@/components/blog/BlogArticle";
+import ArticleRenderer from "@/components/blog/ArticleRenderer";
 import RelatedPosts from "@/components/blog/RelatedPosts";
 import { notFound } from "next/navigation";
 
@@ -49,7 +50,10 @@ export default async function ArticlePage({ params }) {
 
   return (
     <>
-      <BlogArticle post={post} />
+      <BlogArticle post={post}>
+        {/* Rendered on the server; BlogArticle is a client component */}
+        <ArticleRenderer content={post.content} />
+      </BlogArticle>
       <div className="container" style={{ paddingBottom: 80 }}>
         <RelatedPosts currentPost={post} allPosts={allPosts} />
       </div>

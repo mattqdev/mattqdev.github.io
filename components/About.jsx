@@ -2,10 +2,11 @@
 // components/About.jsx
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FaChartLine, FaLayerGroup, FaUser } from "react-icons/fa";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import About3D from "./About3D";
 import { projects } from "@/data/projects";
 import { useRobloxFollowers, useRobloxGameStats } from "@/hooks/useRobloxStats";
+import { formatNumber } from "@/lib/format";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -18,17 +19,24 @@ const fadeUp = {
 
 function useCounter(end, duration, trigger) {
   const [value, setValue] = useState(0);
+  const reduceMotion = useReducedMotion();
   useEffect(() => {
     if (!trigger) return;
+    if (reduceMotion) {
+      setValue(end);
+      return;
+    }
     let start = null;
+    let frame;
     const step = (ts) => {
       if (!start) start = ts;
       const pct = Math.min((ts - start) / duration, 1);
       setValue(Math.floor(pct * pct * (3 - 2 * pct) * end));
-      if (pct < 1) requestAnimationFrame(step);
+      if (pct < 1) frame = requestAnimationFrame(step);
     };
-    requestAnimationFrame(step);
-  }, [trigger, end, duration]);
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [trigger, end, duration, reduceMotion]);
   return value;
 }
 
@@ -97,18 +105,24 @@ export default function About() {
   const followers = useCounter(followerCount, 1800, isInView);
   const shipped = useCounter(projects.length, 1200, isInView);
 
+  // Computed after mount so the prerendered HTML doesn't bake in the build year
+  const [yearsBuilding, setYearsBuilding] = useState(null);
+  useEffect(() => {
+    setYearsBuilding(new Date().getFullYear() - 2020);
+  }, []);
+
   const stats = [
     {
       icon: <FaChartLine />,
-      value: visits.toLocaleString() + "+",
+      value: formatNumber(visits) + "+",
       label: "Game Visits",
     },
     {
       icon: <FaLayerGroup />,
-      value: shipped.toLocaleString() + "+",
+      value: formatNumber(shipped) + "+",
       label: "Projects Shipped",
     },
-    { icon: <FaUser />, value: followers.toLocaleString(), label: "Followers" },
+    { icon: <FaUser />, value: formatNumber(followers), label: "Followers" },
   ];
 
   return (
@@ -131,7 +145,8 @@ export default function About() {
         <div className="about-content">
           <motion.div className="about-text" variants={containerVariants}>
             <motion.h3 variants={fadeUp}>
-              {new Date().getFullYear() - 2020}+ Years Building Things That Work
+              {yearsBuilding != null ? `${yearsBuilding}+ ` : ""}Years Building
+              Things That Work
             </motion.h3>
             <motion.p variants={fadeUp}>
               I build polished web apps and Roblox games, from first pixel to
@@ -150,7 +165,7 @@ export default function About() {
             </motion.div>
 
             <motion.div className="stats-title-row" variants={fadeUp}>
-              <span className="live-dot" />
+              <span className="live-dot" aria-hidden="true" />
               <span className="stats-title">Live stats</span>
             </motion.div>
 
@@ -166,7 +181,9 @@ export default function About() {
                   variants={fadeUp}
                   whileHover={{ y: -6, borderColor: "rgba(255,77,90,.35)" }}
                 >
-                  <div className="stat-icon">{s.icon}</div>
+                  <div className="stat-icon" aria-hidden="true">
+                    {s.icon}
+                  </div>
                   <h4>{s.value}</h4>
                   <p>{s.label}</p>
                 </motion.div>

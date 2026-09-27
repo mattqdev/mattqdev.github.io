@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaShare } from "react-icons/fa";
@@ -6,17 +7,18 @@ import { FaLink, FaCheck } from "react-icons/fa";
 
 /* ── Share panel ─────────────── */
 export function SharePanel({ project }) {
-  const [copied, setCopied] = useState(false);
+  // "idle" | "copied" | "failed"
+  const [copyState, setCopyState] = useState("idle");
   const url = typeof window !== "undefined" ? window.location.href : "";
 
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url);
+      setCopyState("copied");
     } catch {
-      /* fallback */
+      setCopyState("failed");
     }
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopyState("idle"), 2000);
   };
 
   return (
@@ -29,13 +31,17 @@ export function SharePanel({ project }) {
           fontFamily: "var(--font-mono)",
         }}
       >
-        SHARE THIS PROJECT
+        {project ? "SHARE THIS PROJECT" : "SHARE THIS PAGE"}
       </p>
       <div className="pd-share-url">
-        <FaLink style={{ color: "var(--text-muted)", flexShrink: 0 }} />
+        <FaLink
+          aria-hidden="true"
+          style={{ color: "var(--text-muted)", flexShrink: 0 }}
+        />
         <span
           style={{
             flex: 1,
+            minWidth: 0,
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
@@ -46,19 +52,29 @@ export function SharePanel({ project }) {
           {url}
         </span>
         <button
-          className={`pd-copy-btn ${copied ? "copied" : ""}`}
+          type="button"
+          className={`pd-copy-btn ${copyState === "copied" ? "copied" : ""}`}
           onClick={copy}
         >
-          {copied ? (
+          {copyState === "copied" ? (
             <>
-              <FaCheck /> Copied!
+              <FaCheck aria-hidden="true" /> Copied!
             </>
+          ) : copyState === "failed" ? (
+            <>Copy failed — select the link</>
           ) : (
             <>
-              <FaLink /> Copy
+              <FaLink aria-hidden="true" /> Copy
             </>
           )}
         </button>
+        <span className="sr-only" aria-live="polite">
+          {copyState === "copied"
+            ? "Link copied to clipboard"
+            : copyState === "failed"
+              ? "Couldn't copy the link. Select it and copy manually."
+              : ""}
+        </span>
       </div>
     </div>
   );
@@ -69,16 +85,17 @@ export function FloatingCluster({ project }) {
 
   return (
     /* ── Floating action cluster ── */
-    <div className="pd-fab-cluster" aria-label="Page actions">
+    <div className="pd-fab-cluster" role="group" aria-label="Page actions">
       {/* Share */}
       <div style={{ position: "relative" }}>
         <button
+          type="button"
           className="pd-fab"
           onClick={() => setShareOpen((o) => !o)}
-          aria-label="Share project"
+          aria-label={project ? "Share project" : "Share page"}
           aria-expanded={shareOpen}
         >
-          <FaShare />
+          <FaShare aria-hidden="true" />
         </button>
         <AnimatePresence>
           {shareOpen && (

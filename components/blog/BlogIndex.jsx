@@ -1,15 +1,12 @@
 "use client";
 // components/blog/BlogIndex.jsx
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaCalendarAlt,
-  FaClock,
-  FaArrowRight,
-  FaSearch,
-} from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaArrowRight, FaSearch } from "react-icons/fa";
 import CategoryFilter from "../CategoryFilter";
+import { useUrlState } from "@/hooks/useUrlState";
+import { formatDate } from "@/lib/format";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -19,15 +16,6 @@ const container = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.09 } },
 };
-
-function formatDate(iso) {
-  if (!iso) return "";
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 
 // Build filter options (all unique tags + counts) from posts
 function buildTagOptions(posts) {
@@ -48,10 +36,14 @@ function buildTagOptions(posts) {
 }
 
 export default function BlogIndex({ posts }) {
-  const [query, setQuery] = useState("");
-  const [activeTag, setActiveTag] = useState("all");
+  // Search + tag live in the URL (?q=…&tag=…) so filtered views can be shared
+  const [query, setQuery] = useUrlState("q", "");
+  const [tagParam, setActiveTag] = useUrlState("tag", "all");
 
   const tagOptions = useMemo(() => buildTagOptions(posts), [posts]);
+  const activeTag = tagOptions.some((o) => o.value === tagParam)
+    ? tagParam
+    : "all";
 
   const filtered = useMemo(() => {
     let result = posts;
@@ -83,7 +75,7 @@ export default function BlogIndex({ posts }) {
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <div className="blog-hero-label">
-              <span className="blog-label-dot" />
+              <span className="blog-label-dot" aria-hidden="true" />
               MattQ · Writing
             </div>
             <h1 className="blog-hero-title">
@@ -113,9 +105,16 @@ export default function BlogIndex({ posts }) {
           transition={{ delay: 0.25, duration: 0.5 }}
         >
           <div className="blog-search">
-            <FaSearch className="blog-search-icon" />
+            <FaSearch className="blog-search-icon" aria-hidden="true" />
+            <label htmlFor="blog-search" className="sr-only">
+              Search articles
+            </label>
             <input
-              type="text"
+              id="blog-search"
+              type="search"
+              name="q"
+              autoComplete="off"
+              spellCheck={false}
               placeholder="Search articles…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -130,9 +129,23 @@ export default function BlogIndex({ posts }) {
           />
         </motion.div>
 
+        <p className="sr-only" aria-live="polite">
+          {filtered.length === 1 ? "1 article" : `${filtered.length} articles`}
+        </p>
+
         {filtered.length === 0 ? (
           <div className="blog-empty">
-            <span>No articles found.</span>
+            <span>No articles match your search.</span>
+            <button
+              type="button"
+              className="blog-empty-reset"
+              onClick={() => {
+                setQuery("");
+                setActiveTag("all");
+              }}
+            >
+              Clear Filters
+            </button>
           </div>
         ) : (
           <>
@@ -152,7 +165,9 @@ export default function BlogIndex({ posts }) {
                     <div className="blog-featured-cover">
                       <img
                         src={`/blog/covers/${featured.cover}`}
-                        alt={featured.title}
+                        alt=""
+                        width={1200}
+                        height={630}
                       />
                     </div>
                   )}
@@ -160,10 +175,13 @@ export default function BlogIndex({ posts }) {
                     <div className="blog-featured-meta">
                       <span className="blog-featured-badge">Featured</span>
                       <span className="blog-meta-item">
-                        <FaCalendarAlt /> {formatDate(featured.date)}
+                        <FaCalendarAlt aria-hidden="true" />{" "}
+                        <time dateTime={featured.date}>
+                          {formatDate(featured.date)}
+                        </time>
                       </span>
                       <span className="blog-meta-item">
-                        <FaClock /> {featured.readingTime}
+                        <FaClock aria-hidden="true" /> {featured.readingTime}
                       </span>
                     </div>
                     <h2 className="blog-featured-title">{featured.title}</h2>
@@ -177,7 +195,7 @@ export default function BlogIndex({ posts }) {
                         ))}
                       </div>
                       <span className="blog-read-link">
-                        Read article <FaArrowRight />
+                        Read article <FaArrowRight aria-hidden="true" />
                       </span>
                     </div>
                   </div>
@@ -210,7 +228,11 @@ export default function BlogIndex({ posts }) {
                           <div className="blog-card-cover">
                             <img
                               src={`/blog/covers/${post.cover}`}
-                              alt={post.title}
+                              alt=""
+                              width={800}
+                              height={420}
+                              loading="lazy"
+                              decoding="async"
                             />
                           </div>
                         ) : (
@@ -224,10 +246,13 @@ export default function BlogIndex({ posts }) {
                         <div className="blog-card-body">
                           <div className="blog-card-meta">
                             <span className="blog-meta-item">
-                              <FaCalendarAlt /> {formatDate(post.date)}
+                              <FaCalendarAlt aria-hidden="true" />{" "}
+                              <time dateTime={post.date}>
+                                {formatDate(post.date)}
+                              </time>
                             </span>
                             <span className="blog-meta-item">
-                              <FaClock /> {post.readingTime}
+                              <FaClock aria-hidden="true" /> {post.readingTime}
                             </span>
                           </div>
                           <h3 className="blog-card-title">{post.title}</h3>
@@ -241,7 +266,7 @@ export default function BlogIndex({ posts }) {
                               ))}
                             </div>
                             <span className="blog-read-more">
-                              Read <FaArrowRight />
+                              Read <FaArrowRight aria-hidden="true" />
                             </span>
                           </div>
                         </div>
@@ -271,7 +296,7 @@ export default function BlogIndex({ posts }) {
               visits, thousands of downloads, and more.
             </p>
             <Link href="/" className="blog-cta-btn">
-              View Portfolio <FaArrowRight />
+              View Portfolio <FaArrowRight aria-hidden="true" />
             </Link>
           </div>
         </motion.section>
