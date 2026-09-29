@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MattQ Brand Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a printed manual of full-bleed "plates" that alternate between the Studio (safelight/blackout) and the person (photo paper). Deliberately single-look: the brand colours are the page. */
+:root {
+  --safelight: #8E1519;
+  --oxblood: #3B0306;
+  --blackout: #0E0B0B;
+  --blackout-2: #1A1515;
+  --silver: #8A8A8A;
+  --paper: #FFFFFF;
+  --fixer: #F3F1EF;
+  --fixer-dark: #E7E4E1;
+  --signal: #E0262C;
+  --ink-soft: #3A3636;
+  --muted-light: #6E6E6E;
+  --muted-dark: #B8B3AE;
+  --grad: linear-gradient(180deg, var(--safelight) 0%, var(--oxblood) 100%);
+
+  --f-studio: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-person: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-body: "Inter", system-ui, -apple-system, sans-serif;
+
+  --gutter: clamp(16px, 5vw, 96px);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--blackout); color: var(--paper); font-family: var(--f-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+svg { display: block; overflow: visible; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+
+/* ——— type roles ——— */
+.studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; letter-spacing: -0.03em; line-height: 0.95; text-transform: none; }
+.person { font-family: var(--f-person); font-style: italic; font-weight: 400; letter-spacing: -0.015em; line-height: 1; }
+.mono { font-family: var(--f-mono); }
+.label { font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; }
+.lede { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.6; max-width: 60ch; }
+
+/* ——— plates ——— */
+.plate { padding: clamp(56px, 8vw, 112px) var(--gutter); display: flex; flex-direction: column; gap: clamp(32px, 4vw, 56px); }
+.plate--dark { background: var(--blackout); color: var(--paper); }
+.plate--paper { background: var(--paper); color: var(--blackout); }
+.plate--red { background: var(--grad); color: var(--paper); }
+.plate--paper .label { color: var(--muted-light); }
+.plate--dark .label { color: var(--silver); }
+.plate--red .label { color: var(--fixer-dark); }
+.plate--paper .lede { color: var(--ink-soft); }
+.plate--dark .lede { color: var(--muted-dark); }
+
+.plate-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 64px; }
+.plate-head > div { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.plate-head .lede { max-width: 46ch; }
+.h-studio { font-size: clamp(40px, 5.2vw, 76px); }
+.h-person { font-size: clamp(48px, 6.4vw, 100px); }
+
+.grid { display: grid; gap: 20px; }
+.card { padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-width: 0; }
+.card .note { font-size: 15px; line-height: 1.55; }
+
+/* ——— cover ——— */
+.cover { min-height: min(100vh, 1080px); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px; padding: clamp(40px, 5vw, 96px) var(--gutter); background: var(--blackout); }
+.cover-left { display: flex; flex-direction: column; justify-content: space-between; gap: 48px; min-width: 0; }
+.cover-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--silver); }
+.cover h1 { font-size: clamp(56px, 9.4vw, 176px); line-height: 0.9; color: var(--paper); }
+.cover .kicker { font-size: clamp(28px, 2.6vw, 46px); color: var(--fixer-dark); margin-block-end: 28px; }
+.cover-names { display: flex; gap: 56px; flex-wrap: wrap; }
+.cover-names div { display: flex; flex-direction: column; gap: 4px; }
+.cover-names .who { font-size: 15px; color: var(--silver); }
+.cover-right { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; gap: 48px; }
+.tile { background: var(--grad); border-radius: 22%; aspect-ratio: 1; display: grid; place-items: center; max-width: 100%; }
+.tile svg { width: 57%; height: auto; fill: var(--paper); }
+.cover .tile { width: min(100%, 440px); }
+.line-lockup { display: flex; align-items: flex-end; gap: clamp(12px, 1.4vw, 26px); }
+.line-lockup svg { fill: none; stroke: currentColor; }
+.dot { width: 22px; height: 22px; border-radius: 50%; background: var(--signal); flex-shrink: 0; }
+
+@keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+.cursor { color: var(--signal); animation: blink 1.1s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+
+/* ——— architecture ——— */
+.split { display: grid; grid-template-columns: 1fr 1fr; }
+.split > section { padding: clamp(56px, 7vw, 96px) var(--gutter); display: flex; flex-direction: column; justify-content: space-between; gap: 64px; min-height: 760px; min-width: 0; }
+.split .top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.split .body { display: flex; flex-direction: column; gap: 32px; }
+.facts { display: flex; flex-wrap: wrap; gap: 24px 48px; }
+.facts div { display: flex; flex-direction: column; gap: 4px; }
+.facts .v-studio { font-family: var(--f-studio); font-weight: 700; font-size: 24px; line-height: 1.2; }
+.facts .v-person { font-family: var(--f-person); font-style: italic; font-size: 30px; line-height: 1.1; }
+
+/* ——— mark ——— */
+.mark-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 96px); align-items: stretch; }
+.construction { background: var(--fixer); position: relative; aspect-ratio: 1; display: grid; place-items: center; padding: 6%; max-width: 100%; }
+.construction .label { position: absolute; left: 24px; top: 20px; }
+.construction svg { width: 100%; height: auto; }
+.anatomy { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-width: 0; }
+.anatomy-list { border-top: 1px solid var(--blackout); }
+.anatomy-list > div { display: grid; grid-template-columns: 32px 1fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--blackout); }
+.anatomy-list .t-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: 18px; letter-spacing: 0.02em; }
+.anatomy-list .t-person { font-family: var(--f-person); font-style: italic; font-size: 26px; line-height: 1.1; }
+.anatomy-list .t-mono { font-family: var(--f-mono); font-weight: 500; font-size: 17px; }
+.anatomy-list p { color: var(--ink-soft); font-size: 16px; margin-block-start: 6px; }
+.key { width: 20px; height: 20px; margin-block-start: 4px; }
+.key--frame { height: 6px; background: var(--safelight); margin-block-start: 11px; }
+.key--cross { border-radius: 50%; border: 3px dashed var(--signal); }
+.key--grid { border: 1.5px solid var(--silver); }
+
+/* ——— lockups ——— */
+.lockups { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr); }
+.lockups-right { display: grid; grid-template-rows: auto auto; gap: 20px; min-width: 0; }
+.lockups-row { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: 20px; }
+.surface-dark { background: var(--blackout-2); }
+.surface-red { background: var(--grad); }
+.surface-paper { background: var(--paper); color: var(--blackout); }
+.surface-fixer { background: var(--fixer); }
+.surface-outline { background: var(--paper); border: 1.5px solid var(--blackout); }
+.surface-ink { background: var(--blackout); color: var(--paper); }
+.surface-paper .label, .surface-fixer .label, .surface-outline .label { color: var(--muted-light); }
+.surface-dark .label, .surface-ink .label { color: var(--silver); }
+.surface-red .label { color: var(--fixer-dark); }
+.clearspace { position: relative; width: min(78%, 320px); padding: 10%; outline: 1px dashed var(--silver); outline-offset: -1px; align-self: center; }
+.clearspace .tile { width: 100%; }
+.h-lockup { display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); flex-wrap: wrap; }
+.h-lockup .tile { width: clamp(64px, 7vw, 112px); flex-shrink: 0; }
+.wm { display: flex; flex-direction: column; gap: 8px; }
+.wm-top { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(36px, 4.4vw, 64px); line-height: 0.9; letter-spacing: -0.01em; }
+.wm-sub { font-family: var(--f-studio); font-stretch: 125%; font-weight: 500; font-size: clamp(13px, 1.5vw, 22px); letter-spacing: 1.02em; color: var(--muted-dark); line-height: 1; }
+.wordmark-inline { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(26px, 3vw, 44px); letter-spacing: 0.02em; line-height: 1; }
+.seal { font-family: var(--f-studio); font-stretch: 125%; font-weight: 700; font-size: 17px; letter-spacing: 0.08em; color: var(--safelight); }
+.handle { font-family: var(--f-mono); font-weight: 500; letter-spacing: -0.04em; line-height: 1; white-space: nowrap; }
+.handle-lockup { display: flex; align-items: center; gap: clamp(14px, 2vw, 32px); flex-wrap: wrap; }
+.handle-lockup .rule { width: 1.5px; align-self: stretch; background: var(--blackout); }
+.handle-lockup .handle { font-size: clamp(32px, 4.6vw, 72px); }
+.handle-lockup svg { width: clamp(56px, 6vw, 104px); height: auto; fill: none; stroke: var(--blackout); }
+.sig { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+.sig .person { font-size: clamp(44px, 4.4vw, 64px); }
+.sig .mono { font-size: 16px; color: var(--ink-soft); }
+
+/* ——— colour ——— */
+.palettes { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.palette { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.palette-title-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: 15px; letter-spacing: 0.1em; }
+.palette-title-person { font-family: var(--f-person); font-style: italic; font-size: 24px; line-height: 1; }
+.swatches-row { display: flex; min-height: 440px; }
+.swatches-col { display: flex; flex-direction: column; min-height: 440px; border: 1.5px solid var(--blackout); }
+.sw { padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; min-width: 0; }
+.sw b { font-family: var(--f-studio); font-weight: 700; font-size: 24px; line-height: 1.1; }
+.sw i { font-family: var(--f-person); font-size: 30px; line-height: 1.1; }
+.sw span { font-family: var(--f-mono); font-size: 13.5px; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.bar { min-height: 88px; display: flex; align-items: center; gap: 18px; padding: 16px 24px; font-family: var(--f-mono); font-size: 13.5px; }
+
+/* ——— type ——— */
+.specimens { grid-template-columns: 1fr 1fr; }
+.spec { padding: clamp(28px, 3.4vw, 48px); display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+.spec .glyphs-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(64px, 9vw, 140px); line-height: 0.85; letter-spacing: -0.04em; }
+.spec .glyphs-person { font-family: var(--f-person); font-style: italic; font-size: clamp(80px, 11vw, 170px); line-height: 0.8; }
+.spec .alpha { font-size: 20px; line-height: 1.4; word-break: break-all; }
+.scale { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.scale-wrap { overflow-x: auto; }
+.scale td, .scale th { text-align: left; padding: 16px 16px 16px 0; border-bottom: 1px solid color-mix(in srgb, var(--blackout) 20%, transparent); vertical-align: baseline; }
+.scale th { font-family: var(--f-mono); font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-light); border-bottom-color: var(--blackout); }
+.scale td.m { font-family: var(--f-mono); font-size: 13.5px; color: var(--ink-soft); white-space: nowrap; }
+
+/* ——— rules ——— */
+.rules { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.rule-card { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.rule-card .stage { aspect-ratio: 4 / 3; display: grid; place-items: center; background: var(--blackout-2); position: relative; max-width: 100%; overflow: hidden; }
+.rule-card .stage.paper { background: var(--fixer); }
+.rule-card .verdict { display: flex; gap: 10px; align-items: baseline; }
+.rule-card .verdict b { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; font-weight: 500; padding: 3px 8px; flex-shrink: 0; }
+.rule-card .verdict.yes b { background: var(--paper); color: var(--blackout); }
+.rule-card .verdict.no b { background: var(--signal); color: var(--paper); }
+.rule-card p { font-size: 15px; line-height: 1.5; color: var(--muted-dark); }
+.stage .tile { width: 36%; }
+.stage .x { position: absolute; inset: 0; pointer-events: none; }
+
+/* ——— applications ——— */
+.apps { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.app { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.app .cap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.app-thumb { grid-column: span 4; }
+.app-plugin { grid-column: span 2; }
+.app-gh { grid-column: span 3; }
+.app-post { grid-column: span 3; }
+.app-endorse { grid-column: span 6; }
+.thumb { aspect-ratio: 16 / 9; background: var(--grad); position: relative; overflow: hidden; padding: clamp(16px, 3vw, 40px); display: flex; flex-direction: column; justify-content: space-between; max-width: 100%; }
+.thumb .bigm { position: absolute; right: -6%; bottom: -18%; width: 58%; fill: color-mix(in srgb, var(--paper) 7%, transparent); }
+.thumb .title { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(30px, 5.6vw, 88px); line-height: 0.9; letter-spacing: -0.03em; position: relative; }
+.thumb .meta { display: flex; align-items: center; gap: 12px; position: relative; }
+.thumb .meta .tile { width: 40px; }
+.thumb .meta span { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; }
+.plugin { background: var(--blackout-2); padding: 24px; display: flex; flex-direction: column; gap: 20px; height: 100%; }
+.plugin .tile { width: 96px; }
+.plugin h3 { font-family: var(--f-studio); font-stretch: 110%; font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.01em; }
+.plugin .by { font-family: var(--f-mono); font-size: 13px; color: var(--silver); }
+.plugin .stats { display: flex; gap: 20px; font-family: var(--f-mono); font-size: 13px; color: var(--muted-dark); font-variant-numeric: tabular-nums; margin-block-start: auto; }
+.plugin .btn { background: var(--safelight); color: var(--paper); font-family: var(--f-studio); font-weight: 700; font-size: 14px; letter-spacing: 0.06em; padding: 12px 16px; text-align: center; border-radius: 6px; }
+.gh { background: var(--paper); color: var(--blackout); padding: clamp(20px, 3vw, 36px); display: flex; flex-direction: column; gap: 22px; height: 100%; }
+.gh .row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.gh .avatar { width: 84px; height: 84px; border-radius: 50%; background: var(--blackout); display: grid; place-items: center; flex-shrink: 0; position: relative; }
+.gh .avatar svg { width: 46%; fill: none; stroke: var(--paper); }
+.gh .avatar .dot { position: absolute; width: 12px; height: 12px; right: 19px; bottom: 22px; }
+.gh .handle { font-size: clamp(26px, 2.8vw, 38px); }
+.gh .bio { font-family: var(--f-person); font-style: italic; font-size: 24px; line-height: 1.25; color: var(--blackout); }
+.gh .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.gh .pills span { font-family: var(--f-mono); font-size: 12.5px; border: 1px solid var(--blackout); padding: 4px 10px; border-radius: 99px; }
+.post { background: var(--paper); color: var(--blackout); padding: clamp(20px, 3vw, 36px); display: flex; flex-direction: column; gap: 18px; height: 100%; border-inline-start: 6px solid var(--blackout); }
+.post .who { display: flex; gap: 14px; align-items: center; }
+.post .mini { width: 44px; height: 44px; border-radius: 50%; background: var(--blackout); display: grid; place-items: center; flex-shrink: 0; }
+.post .mini svg { width: 50%; fill: none; stroke: var(--paper); }
+.post .who b { font-family: var(--f-person); font-style: italic; font-weight: 400; font-size: 22px; line-height: 1; display: block; }
+.post .who span { font-family: var(--f-mono); font-size: 13px; color: var(--muted-light); }
+.post p { font-size: 17px; line-height: 1.55; color: var(--blackout); max-width: 52ch; }
+.post a { color: var(--signal); text-decoration: none; font-family: var(--f-mono); font-size: 15px; }
+.endorse { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.endorse > div { padding: clamp(24px, 3vw, 40px); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; min-width: 0; }
+.endorse .a { background: var(--grad); }
+.endorse .a .tile { width: 56px; }
+.endorse .a span { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: clamp(14px, 1.4vw, 19px); letter-spacing: 0.1em; }
+.endorse .b { background: var(--paper); color: var(--blackout); }
+.endorse .b .person { font-size: clamp(26px, 2.6vw, 36px); }
+.endorse .b .mono { font-size: 16px; }
+
+/* ——— voice ——— */
+.voice { grid-template-columns: 1fr 1fr; gap: 0; }
+.voice > div { padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+.voice .v-studio { background: var(--grad); color: var(--paper); }
+.voice .v-person { background: var(--paper); color: var(--blackout); }
+.voice .v-studio .label { color: var(--fixer-dark); }
+.voice .v-person .label { color: var(--muted-light); }
+.quote-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: clamp(24px, 2.4vw, 36px); line-height: 1.12; letter-spacing: -0.02em; }
+.quote-person { font-family: var(--f-person); font-style: italic; font-size: clamp(30px, 3vw, 44px); line-height: 1.1; }
+.traits { display: flex; flex-direction: column; border-top: 1px solid currentColor; }
+.traits div { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent); font-size: 16px; }
+.traits dt, .traits .k { font-family: var(--f-mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; padding-block-start: 3px; }
+
+.decide { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.decide > div { border-top: 2px solid var(--paper); padding-block-start: 20px; display: flex; flex-direction: column; gap: 10px; }
+.decide .q { font-family: var(--f-mono); font-size: 14px; color: var(--silver); }
+.decide .a { font-size: 17px; color: var(--muted-dark); }
+.decide .a strong { color: var(--paper); font-weight: 600; }
+
+.colophon { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; padding: 48px var(--gutter) 56px; background: var(--blackout); border-top: 1px solid var(--blackout-2); color: var(--silver); }
+.colophon .line-lockup { color: var(--paper); }
+
+/* ——— responsive ——— */
+@media (max-width: 1100px) {
+  .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .apps { grid-template-columns: 1fr; }
+  .app-thumb, .app-plugin, .app-gh, .app-post, .app-endorse { grid-column: auto; }
+  .lockups, .palettes { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .cover, .split, .mark-layout, .specimens, .voice, .decide, .endorse, .lockups-row { grid-template-columns: 1fr; }
+  .cover-right { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+  .cover .tile { width: 46%; }
+  .split > section { min-height: 0; }
+  .swatches-row { flex-direction: column; min-height: 0; }
+  .swatches-row .sw { min-height: 130px; }
+  .swatches-col { min-height: 0; }
+  .swatches-col .sw { min-height: 130px; }
+}
+@media (max-width: 520px) {
+  .rules { grid-template-columns: 1fr; }
+  .traits div { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="m" viewBox="240 255 600 570"><path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z"/></symbol>
+    <symbol id="m-line" viewBox="228 243 624 594"><path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z" stroke-width="12" stroke-linejoin="miter"/></symbol>
+    <symbol id="m-line-bold" viewBox="224 239 632 602"><path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z" stroke-width="22" stroke-linejoin="miter"/></symbol>
+  </defs>
+</svg>
+
+<!-- 00 COVER -->
+<header class="cover">
+  <div class="cover-left">
+    <div class="cover-top label"><span>Brand Manual · Vol. 01 · provisional</span><span style="text-transform:none">2026 / Firenze</span></div>
+    <div>
+      <p class="person kicker">The darkroom &amp; the developer.</p>
+      <h1 class="studio">One mark,<br>two voices.</h1>
+    </div>
+    <div class="cover-names">
+      <div><span style="font-family:var(--f-studio);font-stretch:125%;font-weight:800;font-size:17px;letter-spacing:0.12em">MATTQ STUDIOS</span><span class="who">The organisation</span></div>
+      <div><span class="mono" style="font-weight:500;font-size:17px">@mattqdev</span><span class="who">The person</span></div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="tile" role="img" aria-label="MattQ Studios app tile"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div>
+    <div class="line-lockup" style="color:var(--paper)" role="img" aria-label="MattQ personal line mark">
+      <svg width="200" height="190" viewBox="228 243 624 594"><use href="#m-line"/></svg>
+      <span class="dot"></span>
+    </div>
+  </div>
+</header>
+
+<!-- 01 ARCHITECTURE -->
+<div class="split" id="architecture">
+  <section class="plate--red">
+    <div class="top label"><span>01 · Architecture</span><span>The darkroom</span></div>
+    <div class="body">
+      <h2 class="studio" style="font-size:clamp(48px,6vw,96px)">MattQ<br>Studios</h2>
+      <p class="lede" style="color:var(--paper)">The organisation. A development studio that ships games, plugins and web products. It is the place, the system and the guarantee: what leaves the darkroom is finished.</p>
+    </div>
+    <div class="facts">
+      <div><span class="label">Speaks as</span><span class="v-studio">“We”</span></div>
+      <div><span class="label">Mark</span><span class="v-studio">Solid, in the tile</span></div>
+      <div><span class="label">Signs</span><span class="v-studio">Products, releases</span></div>
+    </div>
+  </section>
+  <section class="plate--paper">
+    <div class="top label"><span style="color:var(--blackout)">The developer</span><span>Matt · Firenze, IT</span></div>
+    <div class="body">
+      <h2 class="handle" style="font-size:clamp(44px,5.6vw,96px)">@mattqdev<span class="cursor">_</span></h2>
+      <p class="person" style="font-size:clamp(26px,2.4vw,34px);line-height:1.2;max-width:22em">The person behind it. Developer, designer, founder. The one who turns a latent idea into a visible image.</p>
+    </div>
+    <div class="facts">
+      <div><span class="label">Speaks as</span><span class="v-person">“I”</span></div>
+      <div><span class="label">Mark</span><span class="v-person">Line, never tiled</span></div>
+      <div><span class="label">Signs</span><span class="v-person">Code, posts, talks</span></div>
+    </div>
+  </section>
+</div>
+
+<!-- 02 THE MARK -->
+<section class="plate plate--paper" id="mark">
+  <div class="mark-layout">
+    <div class="construction">
+      <span class="label">Grid · 1 unit = stem width (96)</span>
+      <svg viewBox="160 160 760 760" role="img" aria-label="Construction grid of the M monogram">
+        <g stroke="#C9C4BE" stroke-width="1.5" fill="none">
+          <line x1="160" y1="263" x2="920" y2="263"/><line x1="160" y1="817" x2="920" y2="817"/><line x1="160" y1="455" x2="920" y2="455"/><line x1="160" y1="580" x2="920" y2="580"/>
+          <line x1="248" y1="160" x2="248" y2="920"/><line x1="832" y1="160" x2="832" y2="920"/><line x1="540" y1="160" x2="540" y2="920"/><line x1="344" y1="160" x2="344" y2="920"/><line x1="736" y1="160" x2="736" y2="920"/>
+        </g>
+        <path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z" fill="#0E0B0B"/>
+        <circle cx="540" cy="642" r="92" fill="none" stroke="#E0262C" stroke-width="3" stroke-dasharray="10 8"/>
+        <path d="M248 263H318L540 455L762 263H832" fill="none" stroke="#8E1519" stroke-width="7"/>
+        <g font-family="JetBrains Mono, monospace" font-size="15" fill="#6E6E6E">
+          <text x="252" y="900">96</text><text x="740" y="900">96</text><text x="548" y="900">axis</text>
+        </g>
+      </svg>
+    </div>
+    <div class="anatomy">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <span class="label">02 · The mark</span>
+        <h2 class="studio h-studio">A frame that holds a meeting.</h2>
+        <p class="lede">The monogram is one continuous shape: an M whose legs fold inward and nearly touch. That is where the brand splits in two. The frame is the Studio. The gap in the middle is the person.</p>
+      </div>
+      <div class="anatomy-list">
+        <div><span class="key key--frame"></span><div><span class="t-studio">THE FRAME · STUDIO</span><p>Two 96-unit stems and a roof. Structure, rigour, the release pipeline.</p></div></div>
+        <div><span class="key key--cross"></span><div><span class="t-person">The crossing · Matt</span><p>Two arrows, code and design, pointing at each other and not quite touching. The spark is the gap between them.</p></div></div>
+        <div><span class="key key--grid"></span><div><span class="t-mono">the grid · shared</span><p>One geometry for both identities. Never redraw, stretch or round the mark.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 STUDIO IDENTITY -->
+<section class="plate plate--dark" id="studio">
+  <div class="plate-head">
+    <div><span class="label">03 · Studio identity</span><h2 class="studio h-studio">The Studio lives in the tile.</h2></div>
+    <p class="lede">The safelight tile belongs to MattQ Studios alone. It goes on games, plugins, store listings, splash screens and anything else the studio ships.</p>
+  </div>
+  <div class="grid lockups">
+    <div class="card surface-dark">
+      <span class="label">A · Primary · app tile</span>
+      <div class="clearspace"><div class="tile" role="img" aria-label="Primary tile"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div></div>
+      <p class="note" style="color:var(--muted-dark)">Corner radius = 22% of the side. Clear space = ½ stem on every side. Minimum size 24 px / 6 mm.</p>
+    </div>
+    <div class="lockups-right">
+      <div class="card surface-dark">
+        <span class="label">B · Horizontal lockup</span>
+        <div class="h-lockup">
+          <div class="tile"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div>
+          <div class="wm"><span class="wm-top">MATTQ</span><span class="wm-sub">STUDIOS</span></div>
+        </div>
+      </div>
+      <div class="lockups-row">
+        <div class="card surface-red" style="min-height:220px"><span class="label">C · Wordmark on safelight</span><span class="wordmark-inline">MATTQ STUDIOS</span></div>
+        <div class="card surface-paper" style="min-height:220px"><span class="label">D · Release seal</span><span class="seal">@MATTQ STUDIOS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 PERSONAL IDENTITY -->
+<section class="plate plate--paper" id="person">
+  <div class="plate-head">
+    <div><span class="label">04 · Personal identity</span><h2 class="person h-person">Matt draws the line.</h2></div>
+    <p class="lede">The person never uses the tile. The mark is drawn as an outline, like a sketch before the print, and it is always followed by the Signal: one red dot, the blinking cursor.</p>
+  </div>
+  <div class="grid lockups">
+    <div class="card surface-fixer" style="color:var(--blackout)">
+      <span class="label">A · Primary · line mark + signal</span>
+      <div class="line-lockup" style="align-self:center" role="img" aria-label="Line mark with signal dot">
+        <svg width="240" height="228" viewBox="228 243 624 594"><use href="#m-line"/></svg>
+        <span class="dot" style="width:26px;height:26px"></span>
+      </div>
+      <p class="note" style="color:var(--ink-soft)">Stroke = ⅛ of the stem. Signal dot = ¼ stem, sitting on the baseline, one stem-gap to the right.</p>
+    </div>
+    <div class="lockups-right">
+      <div class="card surface-fixer" style="color:var(--blackout)">
+        <span class="label">B · Handle lockup</span>
+        <div class="handle-lockup">
+          <svg viewBox="224 239 632 602"><use href="#m-line-bold"/></svg>
+          <span class="rule"></span>
+          <span class="handle">@mattqdev<span class="cursor">_</span></span>
+        </div>
+      </div>
+      <div class="lockups-row">
+        <div class="card surface-outline" style="min-height:220px"><span class="label">C · Signature · posts, blog, email</span><div class="sig"><span class="person">Matt</span><span class="mono">— dev &amp; designer, Firenze</span></div></div>
+        <div class="card surface-ink" style="min-height:220px"><span class="label">D · Reversed</span><div class="line-lockup" style="color:var(--paper)"><svg width="96" height="91" viewBox="224 239 632 602"><use href="#m-line-bold"/></svg><span class="dot" style="width:12px;height:12px"></span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 COLOUR -->
+<section class="plate plate--paper" id="colour" style="padding-block-start:0">
+  <div class="plate-head" style="border-top:1px solid var(--blackout);padding-block-start:clamp(48px,6vw,88px)">
+    <div><span class="label">05 · Colour</span><h2 class="studio h-studio">Safelight &amp; Signal.</h2></div>
+    <p class="lede">Both reds come from the same room. The Studio lives inside the red: a field, a gradient, a surface. The person uses red only as a point: one dot, one cursor, one link.</p>
+  </div>
+  <div class="grid palettes">
+    <div class="palette">
+      <span class="palette-title-studio">STUDIO · THE DARKROOM</span>
+      <div class="swatches-row">
+        <div class="sw" style="flex:5;background:var(--safelight);color:var(--paper)"><b>Safelight</b><span>#8E1519<br>RGB 142 21 25<br>Primary field</span></div>
+        <div class="sw" style="flex:3;background:var(--oxblood);color:var(--paper)"><b>Oxblood</b><span style="color:var(--fixer-dark)">#3B0306<br>RGB 59 3 6<br>Gradient floor</span></div>
+        <div class="sw" style="flex:3;background:var(--blackout);color:var(--paper)"><b>Blackout</b><span style="color:var(--muted-dark)">#0E0B0B<br>RGB 14 11 11<br>Stage</span></div>
+        <div class="sw" style="flex:2;background:var(--silver);color:var(--blackout)"><b>Silver</b><span>#8A8A8A<br>RGB 138 138 138<br>Keyline</span></div>
+      </div>
+      <div class="bar" style="background:linear-gradient(90deg,var(--safelight),var(--oxblood));color:var(--paper)">SIGNATURE GRADIENT · 180° · SAFELIGHT → OXBLOOD · Studio only</div>
+    </div>
+    <div class="palette">
+      <span class="palette-title-person">Matt · the developer</span>
+      <div class="swatches-col">
+        <div class="sw" style="flex:5;background:var(--paper);color:var(--blackout)"><i>Photo Paper</i><span style="color:var(--ink-soft)">#FFFFFF · ground</span></div>
+        <div class="sw" style="flex:3;background:var(--blackout);color:var(--paper)"><i>Ink</i><span style="color:var(--muted-dark)">#0E0B0B · line &amp; text</span></div>
+        <div class="sw" style="flex:2;background:var(--fixer);color:var(--blackout)"><i>Fixer</i><span style="color:var(--ink-soft)">#F3F1EF · quiet surface</span></div>
+      </div>
+      <div class="bar" style="background:var(--paper);border:1.5px solid var(--blackout);color:var(--blackout)"><span class="dot" style="width:32px;height:32px"></span><span>SIGNAL #E0262C · RGB 224 38 44<br>At most one per view. Never a fill.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 TYPOGRAPHY -->
+<section class="plate plate--paper" id="type" style="padding-block-start:0">
+  <div class="plate-head" style="border-top:1px solid var(--blackout);padding-block-start:clamp(48px,6vw,88px)">
+    <div><span class="label">06 · Typography</span><h2 class="studio h-studio">Wide for the room, <span class="person" style="font-size:1.12em;letter-spacing:-0.01em">cursive for the hand.</span></h2></div>
+    <p class="lede">The Studio speaks in Archivo Expanded: broad, heavy and uppercase, like a label on a box. Matt writes in Instrument Serif Italic and signs in JetBrains Mono. Inter carries body text for both, so long reading stays neutral.</p>
+  </div>
+  <div class="grid specimens">
+    <div class="spec surface-red" style="color:var(--paper)">
+      <span class="label">Studio · Archivo · wdth 125 · 800–900</span>
+      <span class="glyphs-studio">Aa Qq</span>
+      <span class="alpha" style="font-family:var(--f-studio);font-stretch:125%;font-weight:800">ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789</span>
+      <p style="font-size:15px;color:var(--fixer-dark)">Headlines, product names, UI labels on Studio surfaces. Tracking −3% at display sizes, +10% on small caps.</p>
+    </div>
+    <div class="spec surface-fixer" style="color:var(--blackout)">
+      <span class="label">Person · Instrument Serif Italic + JetBrains Mono</span>
+      <span class="glyphs-person">Aa Qq</span>
+      <span class="alpha mono">@mattqdev · const idea = develop(latent);</span>
+      <p style="font-size:15px;color:var(--ink-soft)">Serif for headlines and voice, mono for the handle, code, dates and metadata. No uppercase serif, ever.</p>
+    </div>
+  </div>
+  <div class="scale-wrap">
+    <table class="scale">
+      <thead><tr><th>Role</th><th>Sample</th><th>Face</th><th>Size / leading</th></tr></thead>
+      <tbody>
+        <tr><td class="m">Display · Studio</td><td><span class="studio" style="font-size:48px">SHIP IT.</span></td><td class="m">Archivo 900 · wdth 125</td><td class="m">168 / 150 · −3.5%</td></tr>
+        <tr><td class="m">Display · Person</td><td><span class="person" style="font-size:54px">Hello, I'm Matt.</span></td><td class="m">Instrument Serif Italic</td><td class="m">96 / 92 · −2%</td></tr>
+        <tr><td class="m">Heading</td><td><span style="font-family:var(--f-studio);font-stretch:125%;font-weight:800;font-size:28px">Release notes</span></td><td class="m">Archivo 800 · wdth 125</td><td class="m">72 / 72</td></tr>
+        <tr><td class="m">Handle / code</td><td><span class="mono" style="font-size:22px;font-weight:500">@mattqdev</span></td><td class="m">JetBrains Mono 500</td><td class="m">18–96 · −4% large</td></tr>
+        <tr><td class="m">Body</td><td><span style="font-size:18px">Built from the first pixel to the final deploy.</span></td><td class="m">Inter 400</td><td class="m">18–20 / 1.6</td></tr>
+        <tr><td class="m">Label</td><td><span class="label" style="color:var(--blackout)">Vol. 01 · Firenze</span></td><td class="m">JetBrains Mono 400 · caps</td><td class="m">13–15 · +8–10%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 07 USAGE RULES -->
+<section class="plate plate--dark" id="rules">
+  <div class="plate-head">
+    <div><span class="label">07 · Usage</span><h2 class="studio h-studio">Keep the two rooms apart.</h2></div>
+    <p class="lede">Most mistakes come from mixing the two identities. If a piece looks like it could belong to either one, it's wrong.</p>
+  </div>
+  <div class="grid rules">
+    <div class="rule-card">
+      <div class="stage"><div class="tile"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div></div>
+      <div class="verdict yes"><b>DO</b><p>Studio: solid white mark inside the safelight tile.</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="stage paper"><div class="line-lockup" style="color:var(--blackout)"><svg width="110" height="105" viewBox="228 243 624 594"><use href="#m-line"/></svg><span class="dot" style="width:14px;height:14px"></span></div></div>
+      <div class="verdict yes"><b>DO</b><p>Person: line mark on paper, followed by one Signal dot.</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="stage"><div class="tile"><svg viewBox="228 243 624 594" style="fill:none;stroke:var(--paper)"><use href="#m-line"/></svg></div></div>
+      <div class="verdict no"><b>DON'T</b><p>Put the line mark in the tile. That mixes the person with the studio.</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="stage"><div style="display:flex;align-items:flex-end;gap:10px;width:42%"><div class="tile" style="width:100%"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div><span class="dot" style="width:14px;height:14px"></span></div></div>
+      <div class="verdict no"><b>DON'T</b><p>Add the Signal dot to the Studio tile. The dot is Matt's alone.</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="stage"><div class="tile" style="width:52%;aspect-ratio:1.6;border-radius:20px"><svg viewBox="240 255 600 570" preserveAspectRatio="none" style="width:70%;height:60%"><path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z"/></svg></div></div>
+      <div class="verdict no"><b>DON'T</b><p>Stretch, squash or change the tile's corner radius.</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="stage"><div class="tile" style="background:linear-gradient(180deg,#2E5BD8,#0C1E5A)"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div></div>
+      <div class="verdict no"><b>DON'T</b><p>Recolour the tile. Game key art can change; the tile stays safelight.</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="stage paper"><div class="line-lockup" style="color:var(--blackout);gap:8px"><svg width="96" height="91" viewBox="228 243 624 594"><use href="#m-line"/></svg><span class="dot" style="width:12px;height:12px"></span><span class="dot" style="width:12px;height:12px"></span><span class="dot" style="width:12px;height:12px"></span></div></div>
+      <div class="verdict no"><b>DON'T</b><p>Use more than one Signal per view, or use it as a fill or background.</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="stage"><span class="person" style="font-size:clamp(28px,2.6vw,40px);color:var(--paper);text-transform:uppercase">Mattq Studios</span></div>
+      <div class="verdict no"><b>DON'T</b><p>Set the Studio name in the serif, or Matt's voice in Archivo Expanded.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 APPLICATIONS -->
+<section class="plate plate--dark" id="applications" style="padding-block-start:0">
+  <div class="plate-head" style="border-top:1px solid var(--blackout-2);padding-block-start:clamp(48px,6vw,88px)">
+    <div><span class="label">08 · Applications</span><h2 class="studio h-studio">What leaves the darkroom.</h2></div>
+    <p class="lede">The Studio signs products. Matt signs his work, his opinions and his code. When both appear, the Studio leads and Matt is credited.</p>
+  </div>
+  <div class="grid apps">
+    <div class="app app-thumb">
+      <div class="thumb">
+        <svg class="bigm" viewBox="240 255 600 570" aria-hidden="true"><use href="#m"/></svg>
+        <span class="label" style="position:relative;color:var(--fixer-dark)">Now in beta · Roblox</span>
+        <span class="title">GOAL<br>MAGEDDON</span>
+        <div class="meta"><div class="tile"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div><span>MATTQ STUDIOS</span></div>
+      </div>
+      <div class="cap label"><span>Studio · game thumbnail 16:9</span><span>Key art may vary · tile never does</span></div>
+    </div>
+    <div class="app app-plugin">
+      <div class="plugin">
+        <div class="tile"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div>
+        <div><h3>Plugin UI Assistant</h3><span class="by">by MattQ Studios</span></div>
+        <div class="stats"><span>3,500+ installs</span><span>Studio plugin</span></div>
+        <div class="btn">INSTALL</div>
+      </div>
+      <div class="cap label"><span>Studio · plugin listing</span></div>
+    </div>
+    <div class="app app-gh">
+      <div class="gh">
+        <div class="row">
+          <div class="avatar"><svg viewBox="224 239 632 602"><use href="#m-line-bold"/></svg><span class="dot"></span></div>
+          <div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="handle">@mattqdev</span><span class="mono" style="font-size:14px;color:var(--muted-light)">Matt · Firenze, IT</span></div>
+        </div>
+        <p class="bio">I build web apps and Roblox games, from the first pixel to the final deploy.</p>
+        <div class="pills"><span>React</span><span>Luau</span><span>UI/UX</span><span>open source</span></div>
+      </div>
+      <div class="cap label"><span>Person · GitHub profile</span><span>Avatar = line mark on ink</span></div>
+    </div>
+    <div class="app app-post">
+      <div class="post">
+        <div class="who"><div class="mini"><svg viewBox="224 239 632 602"><use href="#m-line-bold"/></svg></div><div><b>Matt</b><span>@mattqdev · 2h</span></div></div>
+        <p>I lost a week to a DataStore lock bug, so I wrote down everything I learned. If your Roblox saves randomly vanish, this is probably why.</p>
+        <a href="https://mattqdev.github.io/blog" target="_blank" rel="noopener">mattqdev.github.io/blog →</a>
+      </div>
+      <div class="cap label"><span>Person · social post / blog share</span><span>First person · one red link</span></div>
+    </div>
+    <div class="app app-endorse">
+      <div class="endorse">
+        <div class="a"><div class="tile"><svg viewBox="240 255 600 570"><use href="#m"/></svg></div><span>A MATTQ STUDIOS GAME</span></div>
+        <div class="b"><span class="person">Designed &amp; built by</span><span class="handle mono" style="font-size:clamp(20px,2vw,28px)">@mattqdev<span class="cursor">_</span></span></div>
+      </div>
+      <div class="cap label"><span>Co-branding · credits, trailers, store descriptions</span><span>Studio first, person second</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 VOICE -->
+<section class="plate plate--dark" id="voice" style="padding-block-start:0">
+  <div class="plate-head" style="border-top:1px solid var(--blackout-2);padding-block-start:clamp(48px,6vw,88px)">
+    <div><span class="label">09 · Voice</span><h2 class="studio h-studio">We ship. <span class="person" style="font-size:1.12em">I tinker.</span></h2></div>
+    <p class="lede">Same values, different distance. The Studio talks about the product. Matt talks about the process.</p>
+  </div>
+  <div class="grid voice">
+    <div class="v-studio">
+      <span class="label">MattQ Studios · “we”</span>
+      <p class="quote-studio">“GOALMAGEDDON update 1.4 is live. New arena, rebuilt physics, zero lag spikes.”</p>
+      <div class="traits">
+        <div><span class="k">Tone</span><span>Confident, short, declarative</span></div>
+        <div><span class="k">Talks about</span><span>Releases, features, players, numbers</span></div>
+        <div><span class="k">Avoid</span><span>Jokes at the product's expense, “I think”</span></div>
+        <div><span class="k">Channels</span><span>Game pages, store, Studio Discord, press</span></div>
+      </div>
+    </div>
+    <div class="v-person">
+      <span class="label">Matt · “I”</span>
+      <p class="quote-person">“I rewrote the ball physics three times. The third one finally felt like a car hitting a ball. Here's why.”</p>
+      <div class="traits">
+        <div><span class="k">Tone</span><span>Curious, candid, a little nerdy</span></div>
+        <div><span class="k">Talks about</span><span>How and why: code, design choices, failures</span></div>
+        <div><span class="k">Avoid</span><span>Corporate “we”, marketing superlatives</span></div>
+        <div><span class="k">Channels</span><span>Blog, GitHub, DevForum, Reddit, personal socials</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid decide">
+    <div><span class="q">Is it something people install, play or buy?</span><span class="a"><strong>MattQ Studios.</strong> Tile, Archivo, “we”.</span></div>
+    <div><span class="q">Is it an opinion, a lesson, or open-source code?</span><span class="a"><strong>@mattqdev.</strong> Line mark, serif and mono, “I”.</span></div>
+    <div><span class="q">Did Matt make a Studio product?</span><span class="a"><strong>Both.</strong> The Studio leads the lockup and Matt gets the credit line.</span></div>
+  </div>
+</section>
+
+<footer class="colophon">
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <span class="label">Provisional HTML edition · the Paper file stays the source of truth</span>
+    <span class="label" style="text-transform:none">mattqdev.github.io · Firenze · 2026</span>
+  </div>
+  <div class="line-lockup"><svg width="56" height="53" viewBox="224 239 632 602"><use href="#m-line-bold"/></svg><span class="dot" style="width:9px;height:9px"></span></div>
+</footer>
+</body>
+</html>
