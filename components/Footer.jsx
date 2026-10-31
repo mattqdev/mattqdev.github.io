@@ -1,87 +1,81 @@
 // components/Footer.jsx
-// No 'use client' needed — no hooks or browser APIs
-import { FaDiscord, FaEnvelope, FaGithub } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+// No 'use client' needed — no hooks or browser APIs.
+// Charcoal plate: the line mark, link columns, and the Studio credit line.
+import Link from "next/link";
+import { MarkLine, StudioTile } from "./brand/Mark";
 
-const links = [
-  { href: "mailto:mattqdevv@gmail.com", icon: <FaEnvelope />, label: "Email" },
-  {
-    href: "https://x.com/mattqdev",
-    target: "_blank",
-    icon: <FaXTwitter />,
-    label: "Twitter",
-  },
-  {
-    href: "https://github.com/mattqdev",
-    target: "_blank",
-    icon: <FaGithub />,
-    label: "GitHub",
-  },
-  {
-    href: "https://discord.gg/PWkZyqQ7st",
-    target: "_blank",
-    icon: <FaDiscord />,
-    label: "Discord",
-  },
+const siteLinks = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/blog", label: "Blog" },
+  { href: "/blog/rss.xml", label: "RSS feed" },
+];
+
+const elsewhere = [
+  { href: "https://github.com/mattqdev", label: "GitHub" },
+  { href: "https://x.com/mattqdev", label: "X / Twitter" },
+  { href: "https://www.roblox.com/users/2992118050", label: "Roblox" },
+  { href: "https://discord.gg/PWkZyqQ7st", label: "Discord" },
+  { href: "mailto:mattqdevv@gmail.com", label: "Email" },
 ];
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="site-footer">
       <div className="container">
-        <div className="footer-content">
-          <div className="footer-logo">
-            Matt<span>Q</span>
+        <div className="footer-top">
+          <div className="footer-sign">
+            <MarkLine className="footer-mark" weight={22} />
+            <p className="footer-claim">Developer · Designer · Game Maker</p>
           </div>
-          <p className="footer-tagline">Developer · Designer · Game Maker</p>
-          <div className="footer-socials">
-            {links.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                target={l.target}
-                rel={l.target ? "noopener noreferrer" : undefined}
-                aria-label={l.label}
-              >
-                {l.icon}
-              </a>
-            ))}
-            <a
-              href="https://www.roblox.com/users/2992118050"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Roblox"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 40,
-                height: 40,
-                background: "var(--bg-card)",
-                border: "1px solid var(--border)",
-                borderRadius: "50%",
-              }}
-            >
-              <img
-                src="/icons/roblox.svg"
-                alt=""
-                width={18}
-                height={18}
-                style={{ width: "44%", height: "auto" }}
-              />
-            </a>
-          </div>
+
+          <nav className="footer-cols" aria-label="Footer">
+            <div>
+              <span className="label">Site</span>
+              <ul>
+                {siteLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href}>{l.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <span className="label">Elsewhere</span>
+              <ul>
+                {elsewhere.map((l) => (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      target={l.href.startsWith("http") ? "_blank" : undefined}
+                      rel={
+                        l.href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </nav>
         </div>
-        <div className="copyright">
-          © {new Date().getFullYear()} MattQ · Built with ❤️ by MattQ · view
-          source on{" "}
+
+        <div className="footer-endorse">
+          <StudioTile className="footer-tile" />
+          <span className="footer-endorse-name">MattQ Studios</span>
+        </div>
+
+        <div className="copyright label">
+          <span>© {new Date().getFullYear()} MattQ</span>
           <a
             href="https://github.com/mattqdev/mattqdev.github.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="article-a"
           >
-            GitHub
+            View source on GitHub
           </a>
         </div>
       </div>

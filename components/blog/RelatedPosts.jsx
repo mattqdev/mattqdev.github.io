@@ -28,36 +28,22 @@ export default function RelatedPosts({ currentPost, allPosts }) {
   return (
     <section className="related-posts">
       <div className="related-posts-header">
-        <span className="related-posts-label">Continue reading</span>
-        <h2 className="related-posts-title">Related Articles</h2>
+        <span className="label">Continue reading</span>
+        <h2 className="related-posts-title">Related articles.</h2>
       </div>
 
-      <div className="related-posts-grid">
+      <ol className="related-posts-grid">
         {related.map((post) => (
-          <Link
-            key={post.slug}
-            href={`/blog/${post.slug}`}
-            className="related-card"
-          >
-            {post.cover ? (
-              <div className="related-card-cover">
-                <img
-                  src={`/blog/covers/${post.cover}`}
-                  alt=""
-                  width={400}
-                  height={220}
-                  loading="lazy"
-                  decoding="async"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
+          <li key={post.slug}>
+            <Link href={`/blog/${post.slug}`} className="related-card">
+              <div className="related-card-meta mono">
+                <time dateTime={post.date}>
+                  {formatDate(post.date, "short")}
+                </time>
+                <span>{post.readingTime}</span>
               </div>
-            ) : (
-              <div className="related-card-cover related-card-cover--empty">
-                <div className="related-card-pattern" aria-hidden="true" />
-              </div>
-            )}
-
-            <div className="related-card-body">
+              <h3 className="related-card-title">{post.title}</h3>
+              <p className="related-card-desc">{post.description}</p>
               <div className="related-card-tags">
                 {post.tags.slice(0, 2).map((t) => (
                   <span
@@ -68,19 +54,10 @@ export default function RelatedPosts({ currentPost, allPosts }) {
                   </span>
                 ))}
               </div>
-              <h3 className="related-card-title">{post.title}</h3>
-              <p className="related-card-desc">{post.description}</p>
-              <div className="related-card-meta">
-                <time dateTime={post.date}>
-                  {formatDate(post.date, "short")}
-                </time>
-                <span aria-hidden="true">·</span>
-                <span>{post.readingTime}</span>
-              </div>
-            </div>
-          </Link>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   );
 }

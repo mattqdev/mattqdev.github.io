@@ -3,26 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MattQ Brand Manual</title>
+<title>MattQ Brand Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a printed manual of full-bleed "plates" that alternate between the Studio (safelight/blackout) and the person (charcoal ink). Dark edition: the whole manual sits in the darkroom. */
+/* Layout: a standards book of full-bleed plates on the darkroom ground.
+   Each tier owns a treatment — Person (ink + line), Studio (safelight), Tools (product colour + blueprint grid).
+   Dark edition only: every value below is the canonical dark value. */
 :root {
+  /* core */
   --safelight: #8E1519;
   --oxblood: #3B0306;
-  --blackout: #0E0B0B;
-  --blackout-2: #1A1515;
+  --signal: #E0262C;
+  --ink: #0E0B0B;
+  --charcoal: #151212;
+  --charcoal-2: #1F1A1A;
+  --charcoal-3: #2A2323;
   --silver: #8A8A8A;
   --paper: #FFFFFF;
   --fixer: #F3F1EF;
-  --fixer-dark: #E7E4E1;
-  --signal: #E0262C;
-  --ink-soft: #3A3636;
-  --muted-light: #6E6E6E;
-  --muted-dark: #B8B3AE;
-  --grad: linear-gradient(180deg, var(--safelight) 0%, var(--oxblood) 100%);
+  --text-2: #C9C4BF;
+  --text-3: #9A9591;
+  --rule: #3A3333;
+  --rule-strong: #E7E4E1;
+  --grad-studio: linear-gradient(180deg, var(--safelight) 0%, var(--oxblood) 100%);
 
   --f-studio: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --f-person: "Instrument Serif", "Iowan Old Style", Georgia, serif;
@@ -32,265 +37,246 @@
   --gutter: clamp(16px, 5vw, 96px);
   color-scheme: dark;
 }
-/* Dark edition: every "paper" surface of the personal identity is turned
-   into charcoal by redefining the tokens it reads. Inside these scopes
-   --paper is the ground and --blackout is the line/text colour. */
-.plate--paper, .surface-paper, .surface-fixer, .surface-outline, .surface-ink,
-.gh, .post, .endorse .b, .voice .v-person, .rule-card .stage.paper {
-  --paper: #151212;
-  --blackout: #F3F1EF;
-  --fixer: #1F1A1A;
-  --ink-soft: #C9C4BF;
-  --muted-light: #9A9591;
-}
-/* Studio red surfaces always keep true white on safelight */
-.surface-red, .plate--red, .spec.surface-red {
-  --paper: #FFFFFF;
-  --blackout: #0E0B0B;
-  --fixer-dark: #E7E4E1;
-}
-/* "Reversed" is now the light version of the personal mark */
-.surface-ink { --paper: #F3F1EF; --blackout: #151212; --muted-light: #6E6E6E; }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--blackout); color: var(--paper); font-family: var(--f-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--ink); color: var(--paper); font-family: var(--f-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 svg { display: block; overflow: visible; }
-h1, h2, h3, p { margin: 0; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
 h1, h2, h3 { text-wrap: balance; }
+a { color: inherit; }
+code, pre { font-family: var(--f-mono); }
 
 /* ——— type roles ——— */
-.studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; letter-spacing: -0.03em; line-height: 0.95; text-transform: none; }
-.person { font-family: var(--f-person); font-style: italic; font-weight: 400; letter-spacing: -0.015em; line-height: 1; }
+.studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; letter-spacing: -0.03em; line-height: 0.95; }
+.tools { font-family: var(--f-studio); font-stretch: 110%; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+.person { font-family: var(--f-person); font-style: normal; font-weight: 400; letter-spacing: -0.015em; line-height: 1; }
 .mono { font-family: var(--f-mono); }
-.label { font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; }
-.lede { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.6; max-width: 60ch; }
+.label { font-family: var(--f-mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; color: var(--text-3); }
+.lede { font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: var(--text-2); max-width: 60ch; }
 
 /* ——— plates ——— */
-.plate { padding: clamp(56px, 8vw, 112px) var(--gutter); display: flex; flex-direction: column; gap: clamp(32px, 4vw, 56px); }
-.plate--dark { background: var(--blackout); color: var(--paper); }
-.plate--paper { background: var(--paper); color: var(--blackout); }
-.plate--red { background: var(--grad); color: var(--paper); }
-.plate--paper .label { color: var(--muted-light); }
-.plate--dark .label { color: var(--silver); }
-.plate--red .label { color: var(--fixer-dark); }
-.plate--paper .lede { color: var(--ink-soft); }
-.plate--dark .lede { color: var(--muted-dark); }
+.plate { padding: clamp(56px, 7vw, 104px) var(--gutter); display: flex; flex-direction: column; gap: clamp(32px, 4vw, 52px); border-top: 1px solid var(--rule); }
+.plate--ink { background: var(--ink); }
+.plate--charcoal { background: var(--charcoal); }
+.plate-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 64px; }
+.plate-head > div { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.plate-head .lede { max-width: 48ch; }
+.h-studio { font-size: clamp(38px, 5vw, 72px); }
+.h-person { font-size: clamp(44px, 6vw, 92px); }
+.h-tools { font-size: clamp(36px, 4.6vw, 64px); }
+.tier-pill { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--rule-strong); }
+.tier-pill i { width: 8px; height: 8px; display: inline-block; }
 
-.plate-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 64px; }
-.plate-head > div { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
-.plate-head .lede { max-width: 46ch; }
-.h-studio { font-size: clamp(40px, 5.2vw, 76px); }
-.h-person { font-size: clamp(48px, 6.4vw, 100px); }
+.grid { display: grid; gap: 16px; }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.card { background: var(--charcoal-2); padding: clamp(20px, 2.4vw, 32px); display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.plate--charcoal .card { background: var(--ink); }
+.card h3 { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.card p, .card li { font-size: 14.5px; line-height: 1.55; color: var(--text-2); }
+.rules-list { display: flex; flex-direction: column; border-top: 1px solid var(--rule); counter-reset: r; }
+.rules-list li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; line-height: 1.5; color: var(--text-2); }
+.rules-list li::before { content: counter(r, decimal-leading-zero); counter-increment: r; font-family: var(--f-mono); font-size: 11.5px; color: var(--text-3); padding-top: 2px; }
+.rules-list b { color: var(--paper); font-weight: 600; }
 
-.grid { display: grid; gap: 20px; }
-.card { padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-width: 0; }
-.card .note { font-size: 15px; line-height: 1.55; }
+/* spec tables */
+.spec-wrap { overflow-x: auto; }
+.spec { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; min-width: 640px; }
+.spec th, .spec td { text-align: left; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--rule); vertical-align: top; font-size: 14.5px; line-height: 1.45; }
+.spec th { font-family: var(--f-mono); font-size: 11.5px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); border-bottom: 1px solid var(--rule-strong); }
+.spec td { color: var(--text-2); }
+.spec td:first-child { color: var(--paper); font-weight: 500; }
+.spec td.m { font-family: var(--f-mono); font-size: 13px; white-space: nowrap; }
 
-/* ——— cover ——— */
-.cover { min-height: min(100vh, 1080px); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px; padding: clamp(40px, 5vw, 96px) var(--gutter); background: var(--blackout); }
-.cover-left { display: flex; flex-direction: column; justify-content: space-between; gap: 48px; min-width: 0; }
-.cover-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--silver); }
-.cover h1 { font-size: clamp(56px, 9.4vw, 176px); line-height: 0.9; color: var(--paper); }
-.cover .kicker { font-size: clamp(28px, 2.6vw, 46px); color: var(--fixer-dark); margin-block-end: 28px; }
-.cover-names { display: flex; gap: 56px; flex-wrap: wrap; }
-.cover-names div { display: flex; flex-direction: column; gap: 4px; }
-.cover-names .who { font-size: 15px; color: var(--silver); }
-.cover-right { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; gap: 48px; }
-.tile { background: var(--grad); border-radius: 22%; aspect-ratio: 1; display: grid; place-items: center; max-width: 100%; }
+/* ——— brand atoms ——— */
+.tile { border-radius: 22%; aspect-ratio: 1; display: grid; place-items: center; max-width: 100%; flex-shrink: 0; background: var(--grad-studio); }
 .tile svg { width: 57%; height: auto; fill: #FFFFFF; }
-.cover .tile { width: min(100%, 440px); }
-.line-lockup { display: flex; align-items: flex-end; gap: clamp(12px, 1.4vw, 26px); }
-.line-lockup svg { fill: none; stroke: currentColor; }
+.line { fill: none; stroke: currentColor; }
 .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--signal); flex-shrink: 0; }
-
+.lockup-line { display: flex; align-items: flex-end; }
 @keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
 .cursor { color: var(--signal); animation: blink 1.1s steps(1) infinite; }
 @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
 
+/* Tools tile: product gradient, blueprint grid, corner brackets */
+.ttile { --p7: #225899; --p9: #091F3B;
+  position: relative; border-radius: 22%; aspect-ratio: 1; flex-shrink: 0; max-width: 100%; overflow: hidden;
+  background:
+    linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px) 0 0 / 12.5% 12.5%,
+    linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px) 0 0 / 12.5% 12.5%,
+    linear-gradient(180deg, var(--p7) 0%, var(--p9) 100%);
+  display: grid; place-items: center; }
+.ttile.small { background: linear-gradient(180deg, var(--p7) 0%, var(--p9) 100%); }
+.ttile .glyph { width: 50%; height: 50%; stroke: #FFFFFF; fill: none; stroke-linecap: square; stroke-linejoin: miter; }
+.ttile .br { position: absolute; width: 18%; height: 18%; border-color: rgba(255,255,255,0.85); border-style: solid; border-width: 0; }
+.ttile .br.tl { top: 11%; left: 11%; border-top-width: var(--bw, 4px); border-left-width: var(--bw, 4px); }
+.ttile .br.bra { bottom: 11%; right: 11%; border-bottom-width: var(--bw, 4px); border-right-width: var(--bw, 4px); }
+
+/* ——— cover ——— */
+.cover { min-height: min(100vh, 1000px); display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; padding: clamp(40px, 5vw, 88px) var(--gutter); }
+.cover-left { display: flex; flex-direction: column; justify-content: space-between; gap: 48px; min-width: 0; }
+.cover-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.cover h1 { font-size: clamp(56px, 9vw, 168px); line-height: 0.9; }
+.cover .kicker { font-size: clamp(26px, 2.4vw, 42px); color: var(--text-2); margin-bottom: 24px; }
+.cover-tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
+.cover-tiers div { padding: 16px 16px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.cover-tiers b { font-size: 15px; font-weight: 600; }
+.cover-tiers span { font-size: 13.5px; color: var(--text-3); line-height: 1.45; }
+.cover-right { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: end; }
+.cover-right .big { grid-column: 1 / -1; aspect-ratio: 2 / 1; }
+.cover-cell { background: var(--charcoal); aspect-ratio: 1; display: grid; place-items: center; }
+
 /* ——— architecture ——— */
-.split { display: grid; grid-template-columns: 1fr 1fr; }
-.split > section { padding: clamp(56px, 7vw, 96px) var(--gutter); display: flex; flex-direction: column; justify-content: space-between; gap: 64px; min-height: 760px; min-width: 0; }
-.split .top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-.split .body { display: flex; flex-direction: column; gap: 32px; }
-.facts { display: flex; flex-wrap: wrap; gap: 24px 48px; }
-.facts div { display: flex; flex-direction: column; gap: 4px; }
-.facts .v-studio { font-family: var(--f-studio); font-weight: 700; font-size: 24px; line-height: 1.2; }
-.facts .v-person { font-family: var(--f-person); font-style: italic; font-size: 30px; line-height: 1.1; }
+.tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.tier { display: flex; flex-direction: column; min-width: 0; }
+.tier-top { padding: 28px; min-height: 240px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+.tier-top.person { background: var(--charcoal-2); }
+.tier-top.studio { background: var(--grad-studio); }
+.tier-name-person { font-family: var(--f-mono); font-weight: 500; font-size: clamp(28px, 2.6vw, 40px); letter-spacing: -0.04em; }
+.tier-name-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(26px, 2.4vw, 36px); letter-spacing: -0.02em; line-height: 0.95; text-transform: uppercase; }
+.tier-name-tools { font-family: var(--f-studio); font-stretch: 110%; font-weight: 800; font-size: clamp(26px, 2.4vw, 36px); letter-spacing: -0.02em; line-height: 1; }
+.tier dl { display: flex; flex-direction: column; }
+.tier dl div { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14px; line-height: 1.45; }
+.tier dt { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); padding-top: 2px; }
+.tier dd { color: var(--text-2); }
+.hierarchy { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 20px 24px; background: var(--charcoal-2); font-size: 14.5px; color: var(--text-2); }
+.hierarchy .arrow { font-family: var(--f-mono); color: var(--text-3); }
 
 /* ——— mark ——— */
-.mark-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 96px); align-items: stretch; }
-.construction { background: var(--fixer); position: relative; aspect-ratio: 1; display: grid; place-items: center; padding: 6%; max-width: 100%; }
-.construction .label { position: absolute; left: 24px; top: 20px; }
+.mark-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 72px); align-items: start; }
+.construction { background: var(--charcoal-2); position: relative; aspect-ratio: 1; display: grid; place-items: center; padding: 7%; max-width: 100%; }
+.construction .label { position: absolute; left: 20px; top: 18px; }
 .construction svg { width: 100%; height: auto; }
-.anatomy { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-width: 0; }
-.anatomy-list { border-top: 1px solid var(--blackout); }
-.anatomy-list > div { display: grid; grid-template-columns: 32px 1fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--blackout); }
-.anatomy-list .t-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: 18px; letter-spacing: 0.02em; }
-.anatomy-list .t-person { font-family: var(--f-person); font-style: italic; font-size: 26px; line-height: 1.1; }
-.anatomy-list .t-mono { font-family: var(--f-mono); font-weight: 500; font-size: 17px; }
-.anatomy-list p { color: var(--ink-soft); font-size: 16px; margin-block-start: 6px; }
-.key { width: 20px; height: 20px; margin-block-start: 4px; }
-.key--frame { height: 6px; background: #C4262B; margin-block-start: 11px; }
-.key--cross { border-radius: 50%; border: 3px dashed var(--signal); }
-.key--grid { border: 1.5px solid var(--silver); }
-
-/* ——— lockups ——— */
-.lockups { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr); }
-.lockups-right { display: grid; grid-template-rows: auto auto; gap: 20px; min-width: 0; }
-.lockups-row { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: 20px; }
-.surface-dark { background: var(--blackout-2); }
-.surface-red { background: var(--grad); }
-.surface-paper { background: var(--paper); color: var(--blackout); }
-.surface-fixer { background: var(--fixer); }
-.surface-outline { background: var(--paper); border: 1.5px solid var(--blackout); }
-.surface-ink { background: var(--blackout); color: var(--paper); }
-.surface-paper .label, .surface-fixer .label, .surface-outline .label { color: var(--muted-light); }
-.surface-dark .label, .surface-ink .label { color: var(--silver); }
-.surface-red .label { color: var(--fixer-dark); }
-.clearspace { position: relative; width: min(78%, 320px); padding: 10%; outline: 1px dashed var(--silver); outline-offset: -1px; align-self: center; }
-.clearspace .tile { width: 100%; }
-.h-lockup { display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); flex-wrap: wrap; }
-.h-lockup .tile { width: clamp(64px, 7vw, 112px); flex-shrink: 0; }
-.wm { display: flex; flex-direction: column; gap: 8px; }
-.wm-top { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(36px, 4.4vw, 64px); line-height: 0.9; letter-spacing: -0.01em; }
-.wm-sub { font-family: var(--f-studio); font-stretch: 125%; font-weight: 500; font-size: clamp(13px, 1.5vw, 22px); letter-spacing: 1.02em; color: var(--muted-dark); line-height: 1; }
-.wordmark-inline { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(26px, 3vw, 44px); letter-spacing: 0.02em; line-height: 1; }
-.seal { font-family: var(--f-studio); font-stretch: 125%; font-weight: 700; font-size: 17px; letter-spacing: 0.08em; color: var(--blackout); }
-.handle { font-family: var(--f-mono); font-weight: 500; letter-spacing: -0.04em; line-height: 1; white-space: nowrap; }
-.handle-lockup { display: flex; align-items: center; gap: clamp(14px, 2vw, 32px); flex-wrap: wrap; }
-.handle-lockup .rule { width: 1.5px; align-self: stretch; background: var(--blackout); }
-.handle-lockup .handle { font-size: clamp(32px, 4.6vw, 72px); }
-.handle-lockup svg { width: clamp(56px, 6vw, 104px); height: auto; fill: none; stroke: var(--blackout); }
-.sig { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
-.sig .person { font-size: clamp(44px, 4.4vw, 64px); }
-.sig .mono { font-size: 16px; color: var(--ink-soft); }
+.variants { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.variant { background: var(--ink); display: flex; flex-direction: column; gap: 14px; padding: 18px; }
+.variant .stage { aspect-ratio: 1; display: grid; place-items: center; background: var(--charcoal-2); }
+.variant .stage.paper { background: var(--fixer); color: var(--ink); }
+.variant p { font-size: 13.5px; line-height: 1.45; color: var(--text-2); }
+.size-row { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; padding: 24px; background: var(--ink); }
+.size-row figure { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.size-row figcaption, .ladder figcaption { font-family: var(--f-mono); font-size: 11.5px; color: var(--text-3); }
 
 /* ——— colour ——— */
-.palettes { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
-.palette { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.palette-title-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: 15px; letter-spacing: 0.1em; }
-.palette-title-person { font-family: var(--f-person); font-style: italic; font-size: 24px; line-height: 1; }
-.swatches-row { display: flex; min-height: 440px; }
-.swatches-col { display: flex; flex-direction: column; min-height: 440px; border: 1.5px solid var(--blackout); }
-.sw { padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; min-width: 0; }
-.sw b { font-family: var(--f-studio); font-weight: 700; font-size: 24px; line-height: 1.1; }
-.sw i { font-family: var(--f-person); font-size: 30px; line-height: 1.1; }
-.sw span { font-family: var(--f-mono); font-size: 13.5px; line-height: 1.6; font-variant-numeric: tabular-nums; }
-.bar { min-height: 88px; display: flex; align-items: center; gap: 18px; padding: 16px 24px; font-family: var(--f-mono); font-size: 13.5px; }
+.swatches { display: flex; min-height: 300px; }
+.sw { padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; min-width: 0; }
+.sw b { font-size: 17px; font-weight: 600; line-height: 1.2; }
+.sw span { font-family: var(--f-mono); font-size: 12.5px; line-height: 1.55; }
+.ratio { display: flex; height: 44px; }
+.ratio span { display: flex; align-items: center; padding: 0 12px; font-family: var(--f-mono); font-size: 11.5px; white-space: nowrap; overflow: hidden; }
+.pairs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.pair { padding: 18px; display: flex; flex-direction: column; gap: 6px; min-height: 120px; justify-content: space-between; }
+.pair b { font-size: 22px; font-weight: 600; }
+.pair span { font-family: var(--f-mono); font-size: 11.5px; }
+
+/* product slots */
+.slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.slot { background: var(--ink); display: flex; flex-direction: column; min-width: 0; }
+.slot-head { display: flex; align-items: center; gap: 14px; padding: 16px; }
+.slot-head div:last-child { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.slot-head b { font-size: 15px; font-weight: 600; }
+.slot-head span { font-family: var(--f-mono); font-size: 11.5px; color: var(--text-3); }
+.ramp { display: grid; grid-template-columns: repeat(4, 1fr); }
+.ramp span { height: 56px; display: flex; align-items: flex-end; padding: 6px; font-family: var(--f-mono); font-size: 10px; line-height: 1.2; }
+.ramp-legend { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.ramp-legend div { border-top: 2px solid var(--rule-strong); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.ramp-legend b { font-family: var(--f-mono); font-size: 13px; font-weight: 500; }
+.ramp-legend p { font-size: 13.5px; color: var(--text-2); line-height: 1.45; }
 
 /* ——— type ——— */
-.specimens { grid-template-columns: 1fr 1fr; }
-.spec { padding: clamp(28px, 3.4vw, 48px); display: flex; flex-direction: column; gap: 28px; min-width: 0; }
-.spec .glyphs-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(64px, 9vw, 140px); line-height: 0.85; letter-spacing: -0.04em; }
-.spec .glyphs-person { font-family: var(--f-person); font-style: italic; font-size: clamp(80px, 11vw, 170px); line-height: 0.8; }
-.spec .alpha { font-size: 20px; line-height: 1.4; word-break: break-all; }
-.scale { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-.scale-wrap { overflow-x: auto; }
-.scale td, .scale th { text-align: left; padding: 16px 16px 16px 0; border-bottom: 1px solid color-mix(in srgb, var(--blackout) 20%, transparent); vertical-align: baseline; }
-.scale th { font-family: var(--f-mono); font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-light); border-bottom-color: var(--blackout); }
-.scale td.m { font-family: var(--f-mono); font-size: 13.5px; color: var(--ink-soft); white-space: nowrap; }
+.type-tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.type-card { background: var(--charcoal-2); padding: 28px; display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.type-card .glyphs { font-size: clamp(64px, 7vw, 112px); line-height: 0.85; }
+.type-card .roles { display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
+.type-card .roles div { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; color: var(--text-2); line-height: 1.4; }
+.type-card .roles dt { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); padding-top: 2px; }
+.type-card.on-color .roles, .type-card.on-color .roles div { border-color: rgba(255,255,255,.3); }
+.type-card.on-color .roles dt { color: #E7E4E1; }
+.type-card.on-color .roles dd { color: #FFFFFF; }
 
-/* ——— rules ——— */
-.rules { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.rule-card { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.rule-card .stage { aspect-ratio: 4 / 3; display: grid; place-items: center; background: var(--blackout-2); position: relative; max-width: 100%; overflow: hidden; }
-.rule-card .stage.paper { background: var(--fixer); }
-.rule-card .verdict { display: flex; gap: 10px; align-items: baseline; }
-.rule-card .verdict b { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; font-weight: 500; padding: 3px 8px; flex-shrink: 0; }
-.rule-card .verdict.yes b { background: var(--paper); color: var(--blackout); }
-.rule-card .verdict.no b { background: var(--signal); color: var(--paper); }
-.rule-card p { font-size: 15px; line-height: 1.5; color: var(--muted-dark); }
-.stage .tile { width: 36%; }
-.stage .x { position: absolute; inset: 0; pointer-events: none; }
+/* ——— layout / spacing ——— */
+.space-scale { display: flex; flex-direction: column; gap: 10px; }
+.space-scale div { display: grid; grid-template-columns: 72px 48px minmax(0, 1fr); align-items: center; gap: 16px; font-family: var(--f-mono); font-size: 12.5px; color: var(--text-2); }
+.space-scale i { display: block; height: 12px; background: var(--rule-strong); }
+.canvas-demo { position: relative; aspect-ratio: 16 / 9; background: var(--charcoal-2); max-width: 100%; }
+.canvas-demo .cols { position: absolute; top: 0; bottom: 0; left: 3.5%; right: 3.5%; display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.8%; }
+.canvas-demo .cols i { background: rgba(224, 38, 44, 0.12); }
+.canvas-demo .safe { position: absolute; inset: 6.25% 3.5%; border: 1px dashed var(--text-3); }
+.canvas-demo .tag { position: absolute; font-family: var(--f-mono); font-size: 11px; color: var(--text-3); }
 
-/* ——— applications ——— */
-.apps { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.app { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.app .cap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.app-thumb { grid-column: span 4; }
-.app-plugin { grid-column: span 2; }
-.app-gh { grid-column: span 3; }
-.app-post { grid-column: span 3; }
-.app-endorse { grid-column: span 6; }
-.thumb { aspect-ratio: 16 / 9; background: var(--grad); position: relative; overflow: hidden; padding: clamp(16px, 3vw, 40px); display: flex; flex-direction: column; justify-content: space-between; max-width: 100%; }
-.thumb .bigm { position: absolute; right: -6%; bottom: -18%; width: 58%; fill: color-mix(in srgb, var(--paper) 7%, transparent); }
-.thumb .title { font-family: var(--f-studio); font-stretch: 125%; font-weight: 900; font-size: clamp(30px, 5.6vw, 88px); line-height: 0.9; letter-spacing: -0.03em; position: relative; }
-.thumb .meta { display: flex; align-items: center; gap: 12px; position: relative; }
-.thumb .meta .tile { width: 40px; }
-.thumb .meta span { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; }
-.plugin { background: var(--blackout-2); padding: 24px; display: flex; flex-direction: column; gap: 20px; height: 100%; }
-.plugin .tile { width: 96px; }
-.plugin h3 { font-family: var(--f-studio); font-stretch: 110%; font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.01em; }
-.plugin .by { font-family: var(--f-mono); font-size: 13px; color: var(--silver); }
-.plugin .stats { display: flex; gap: 20px; font-family: var(--f-mono); font-size: 13px; color: var(--muted-dark); font-variant-numeric: tabular-nums; margin-block-start: auto; }
-.plugin .btn { background: var(--safelight); color: var(--paper); font-family: var(--f-studio); font-weight: 700; font-size: 14px; letter-spacing: 0.06em; padding: 12px 16px; text-align: center; border-radius: 6px; }
-.gh { background: var(--paper); color: var(--blackout); padding: clamp(20px, 3vw, 36px); display: flex; flex-direction: column; gap: 22px; height: 100%; }
-.gh .row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.gh .avatar { width: 84px; height: 84px; border-radius: 50%; background: var(--blackout); display: grid; place-items: center; flex-shrink: 0; position: relative; }
-.gh .avatar svg { width: 46%; fill: none; stroke: var(--paper); }
-.gh .avatar .dot { position: absolute; width: 12px; height: 12px; right: 19px; bottom: 22px; }
-.gh .handle { font-size: clamp(26px, 2.8vw, 38px); }
-.gh .bio { font-family: var(--f-person); font-style: italic; font-size: 24px; line-height: 1.25; color: var(--blackout); }
-.gh .pills { display: flex; gap: 8px; flex-wrap: wrap; }
-.gh .pills span { font-family: var(--f-mono); font-size: 12.5px; border: 1px solid var(--blackout); padding: 4px 10px; border-radius: 99px; }
-.post { background: var(--paper); color: var(--blackout); padding: clamp(20px, 3vw, 36px); display: flex; flex-direction: column; gap: 18px; height: 100%; border-inline-start: 6px solid var(--blackout); }
-.post .who { display: flex; gap: 14px; align-items: center; }
-.post .mini { width: 44px; height: 44px; border-radius: 50%; background: var(--blackout); display: grid; place-items: center; flex-shrink: 0; }
-.post .mini svg { width: 50%; fill: none; stroke: var(--paper); }
-.post .who b { font-family: var(--f-person); font-style: italic; font-weight: 400; font-size: 22px; line-height: 1; display: block; }
-.post .who span { font-family: var(--f-mono); font-size: 13px; color: var(--muted-light); }
-.post p { font-size: 17px; line-height: 1.55; color: var(--blackout); max-width: 52ch; }
-.post a { color: var(--signal); text-decoration: none; font-family: var(--f-mono); font-size: 15px; }
-.endorse { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-.endorse > div { padding: clamp(24px, 3vw, 40px); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; min-width: 0; }
-.endorse .a { background: var(--grad); }
-.endorse .a .tile { width: 56px; }
-.endorse .a span { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: clamp(14px, 1.4vw, 19px); letter-spacing: 0.1em; }
-.endorse .b { background: var(--paper); color: var(--blackout); }
-.endorse .b .person { font-size: clamp(26px, 2.6vw, 36px); }
-.endorse .b .mono { font-size: 16px; }
+/* ——— asset templates ——— */
+.templates { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px 16px; }
+.tpl { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tpl .cap { display: flex; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; }
+.tpl .cap b { font-size: 14.5px; font-weight: 600; }
+.tpl .cap span { font-family: var(--f-mono); font-size: 11.5px; color: var(--text-3); }
+.tpl > p { font-size: 13.5px; line-height: 1.5; color: var(--text-2); }
+.c3 { grid-column: span 3; } .c4 { grid-column: span 4; } .c5 { grid-column: span 5; } .c6 { grid-column: span 6; } .c7 { grid-column: span 7; } .c8 { grid-column: span 8; } .c9 { grid-column: span 9; } .c12 { grid-column: span 12; }
+.frame { position: relative; overflow: hidden; max-width: 100%; }
+.zone { position: absolute; border: 1px dashed rgba(255,255,255,0.45); padding: 5px 7px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.3; color: rgba(255,255,255,0.75); overflow: hidden; }
+.zone.band { border: 0; background: rgba(14,11,11,.55); }
+.zone.danger { border-color: rgba(224, 38, 44, 0.9); color: #FF9A9D; background: rgba(224, 38, 44, 0.1); }
+.bg-person { background: var(--ink); box-shadow: inset 0 0 0 1px var(--rule); }
+.bg-studio { background: var(--grad-studio); }
+.bg-tools, .tier-top.tools { background:
+  linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px) 0 0 / 24px 24px,
+  linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px) 0 0 / 24px 24px,
+  linear-gradient(180deg, #225899 0%, #091F3B 100%); }
+.wm { position: absolute; fill: rgba(255,255,255,0.07); }
+.mark-abs { position: absolute; color: #fff; }
+.mark-abs svg { width: 100%; height: auto; }
+.story-row { display: flex; gap: 16px; align-items: flex-start; }
+.story-row .frame { width: 52%; aspect-ratio: 9 / 16; flex-shrink: 0; }
 
-/* ——— voice ——— */
-.voice { grid-template-columns: 1fr 1fr; gap: 0; }
-.voice > div { padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; gap: 28px; min-width: 0; }
-.voice .v-studio { background: var(--grad); color: var(--paper); }
-.voice .v-person { background: var(--paper); color: var(--blackout); }
-.voice .v-studio .label { color: var(--fixer-dark); }
-.voice .v-person .label { color: var(--muted-light); }
-.quote-studio { font-family: var(--f-studio); font-stretch: 125%; font-weight: 800; font-size: clamp(24px, 2.4vw, 36px); line-height: 1.12; letter-spacing: -0.02em; }
-.quote-person { font-family: var(--f-person); font-style: italic; font-size: clamp(30px, 3vw, 44px); line-height: 1.1; }
-.traits { display: flex; flex-direction: column; border-top: 1px solid currentColor; }
-.traits div { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent); font-size: 16px; }
-.traits dt, .traits .k { font-family: var(--f-mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; padding-block-start: 3px; }
+/* message structure */
+.msg { background: var(--charcoal-2); padding: 24px; display: flex; flex-direction: column; min-width: 0; }
+.plate--charcoal .msg { background: var(--ink); }
+.msg-line { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14px; line-height: 1.55; color: var(--text-2); }
+.msg-head + .msg-line { border-top: 1px solid var(--rule); }
+.msg-line code { font-size: 12.5px; color: var(--paper); background: var(--charcoal-3); padding: 1px 6px; white-space: nowrap; }
+.msg-line .k { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); padding-top: 3px; }
+.msg-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
 
-.decide { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.decide > div { border-top: 2px solid var(--paper); padding-block-start: 20px; display: flex; flex-direction: column; gap: 10px; }
-.decide .q { font-family: var(--f-mono); font-size: 14px; color: var(--silver); }
-.decide .a { font-size: 17px; color: var(--muted-dark); }
-.decide .a strong { color: var(--paper); font-weight: 600; }
+/* do / don't */
+.rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.rule-card { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.rule-card .stage { aspect-ratio: 4 / 3; display: grid; place-items: center; background: var(--charcoal-2); position: relative; overflow: hidden; max-width: 100%; }
+.verdict { display: flex; gap: 10px; align-items: baseline; }
+.verdict b { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; font-weight: 500; padding: 3px 8px; flex-shrink: 0; }
+.verdict.yes b { background: var(--paper); color: var(--ink); }
+.verdict.no b { background: var(--signal); color: var(--paper); }
+.verdict p { font-size: 14px; line-height: 1.5; color: var(--text-2); }
 
-.colophon { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; padding: 48px var(--gutter) 56px; background: var(--blackout); border-top: 1px solid var(--blackout-2); color: var(--silver); }
-.colophon .line-lockup { color: var(--paper); }
+/* tokens */
+.code { margin: 0; background: var(--ink); border: 1px solid var(--rule); padding: 20px 24px; overflow-x: auto; font-size: 13px; line-height: 1.7; color: var(--fixer); white-space: pre; tab-size: 2; min-width: 0; }
+.code .c { color: var(--text-3); }
+
+.ladder { display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; padding: 20px; background: var(--charcoal); }
+.ladder figure { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+
+.colophon { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; padding: 40px var(--gutter) 48px; border-top: 1px solid var(--rule); }
 
 /* ——— responsive ——— */
 @media (max-width: 1100px) {
-  .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .apps { grid-template-columns: 1fr; }
-  .app-thumb, .app-plugin, .app-gh, .app-post, .app-endorse { grid-column: auto; }
-  .lockups, .palettes { grid-template-columns: 1fr; }
+  .slots, .rules, .pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tiers, .type-tiers, .g3 { grid-template-columns: minmax(0, 1fr); }
+  .templates { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .c3, .c4, .c5 { grid-column: span 3; } .c6, .c7, .c8, .c9, .c12 { grid-column: span 6; }
+  .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 860px) {
-  .cover, .split, .mark-layout, .specimens, .voice, .decide, .endorse, .lockups-row { grid-template-columns: 1fr; }
-  .cover-right { flex-direction: row; align-items: flex-end; justify-content: space-between; }
-  .cover .tile { width: 46%; }
-  .split > section { min-height: 0; }
-  .swatches-row { flex-direction: column; min-height: 0; }
-  .swatches-row .sw { min-height: 130px; }
-  .swatches-col { min-height: 0; }
-  .swatches-col .sw { min-height: 130px; }
+@media (max-width: 800px) {
+  .cover, .mark-layout, .g2 { grid-template-columns: minmax(0, 1fr); }
+  .templates { grid-template-columns: minmax(0, 1fr); }
+  .c3, .c4, .c5, .c6, .c7, .c8, .c9, .c12 { grid-column: auto; }
+  .swatches { flex-direction: column; min-height: 0; }
+  .swatches .sw { min-height: 96px; }
+  .ramp-legend, .variants { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 520px) {
-  .rules { grid-template-columns: 1fr; }
-  .traits div { grid-template-columns: 1fr; gap: 4px; }
+  .slots, .rules, .pairs, .g4, .ramp-legend { grid-template-columns: minmax(0, 1fr); }
+  .cover-tiers { grid-template-columns: minmax(0, 1fr); }
+  .tier dl div, .msg-line { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
 </style>
 </head>
@@ -301,353 +287,661 @@ h1, h2, h3 { text-wrap: balance; }
     <symbol id="m" viewBox="240 255 600 570"><path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z"/></symbol>
     <symbol id="m-line" viewBox="228 243 624 594"><path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z" stroke-width="12" stroke-linejoin="miter"/></symbol>
     <symbol id="m-line-bold" viewBox="224 239 632 602"><path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z" stroke-width="22" stroke-linejoin="miter"/></symbol>
+    <!-- placeholder product glyph on the 24-unit tools grid, 2-unit stroke -->
+    <symbol id="glyph" viewBox="0 0 24 24"><path d="M4 4H14L20 10V20H4Z M14 4V10H20 M8 14H16 M8 17H13" stroke-width="2"/></symbol>
   </defs>
 </svg>
 
 <!-- 00 COVER -->
 <header class="cover">
   <div class="cover-left">
-    <div class="cover-top label"><span>Brand Manual · Vol. 01 · dark edition</span><span style="text-transform:none">2026 / Firenze</span></div>
+    <div class="cover-top label"><span>Brand Standards · Dark edition</span><span>v2.0</span></div>
     <div>
       <p class="person kicker">The darkroom &amp; the developer.</p>
-      <h1 class="studio">One mark,<br>two voices.</h1>
+      <h1 class="studio">One mark,<br>three tiers.</h1>
     </div>
-    <div class="cover-names">
-      <div><span style="font-family:var(--f-studio);font-stretch:125%;font-weight:800;font-size:17px;letter-spacing:0.12em">MATTQ STUDIOS</span><span class="who">The organisation</span></div>
-      <div><span class="mono" style="font-weight:500;font-size:17px">@mattqdev</span><span class="who">The person</span></div>
+    <div class="cover-tiers">
+      <div><b>@mattqdev</b><span>Tier A · Person. Website, personal socials, open source.</span></div>
+      <div><b>MattQ Studios</b><span>Tier B · Studio. Studio profiles, games, communication.</span></div>
+      <div><b>Studio Tools</b><span>Tier C · Product line. Developer tools, one theme colour each.</span></div>
     </div>
   </div>
   <div class="cover-right">
-    <div class="tile" role="img" aria-label="MattQ Studios app tile"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div>
-    <div class="line-lockup" style="color:var(--paper)" role="img" aria-label="MattQ personal line mark">
-      <svg width="200" height="190" viewBox="0 0 624 594"><use href="#m-line"/></svg>
-      <span class="dot"></span>
-    </div>
+    <div class="cover-cell big bg-studio"><div class="tile" style="width:34%;box-shadow:0 0 0 1px rgba(255,255,255,0.2)"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div></div>
+    <div class="cover-cell"><div class="lockup-line" style="gap:12px;color:#fff"><svg class="line" width="120" height="114" viewBox="0 0 624 594"><use href="#m-line"/></svg><span class="dot" style="width:14px;height:14px"></span></div></div>
+    <div class="cover-cell"><div class="ttile" style="width:52%"><span class="br tl"></span><span class="br bra"></span><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div></div>
   </div>
 </header>
 
 <!-- 01 ARCHITECTURE -->
-<div class="split" id="architecture">
-  <section class="plate--red">
-    <div class="top label"><span>01 · Architecture</span><span>The darkroom</span></div>
-    <div class="body">
-      <h2 class="studio" style="font-size:clamp(48px,6vw,96px)">MattQ<br>Studios</h2>
-      <p class="lede" style="color:var(--paper)">The organisation. A development studio that ships games, plugins and web products. It is the place, the system and the guarantee: what leaves the darkroom is finished.</p>
+<section class="plate plate--ink" id="architecture">
+  <div class="plate-head">
+    <div><span class="label">01 · Architecture</span><h2 class="studio h-studio">Three tiers, one geometry.</h2></div>
+    <p class="lede">Every asset belongs to exactly one tier. The tier decides the mark, the ground, the typeface and the voice. If you can't tell which tier an asset belongs to, the asset is wrong.</p>
+  </div>
+  <div class="tiers">
+    <div class="tier">
+      <div class="tier-top person">
+        <span class="tier-pill"><i style="background:var(--signal);border-radius:50%"></i>Tier A · Person</span>
+        <span class="tier-name-person">@mattqdev<span class="cursor">_</span></span>
+      </div>
+      <dl>
+        <div><dt>Used on</dt><dd>Website, personal social profiles, blog, GitHub, talks.</dd></div>
+        <div><dt>Mark</dt><dd>Line mark + Signal dot. Never the tile.</dd></div>
+        <div><dt>Ground</dt><dd>Ink and Charcoal. No gradients, no texture.</dd></div>
+        <div><dt>Display</dt><dd>Instrument Serif, roman only. Handle in JetBrains Mono.</dd></div>
+        <div><dt>Accent</dt><dd>Red is the second colour: Signal for marks and active states, Signal Deep for filled actions. Max ~10% of a view.</dd></div>
+        <div><dt>Voice</dt><dd>First person singular.</dd></div>
+      </dl>
     </div>
-    <div class="facts">
-      <div><span class="label">Speaks as</span><span class="v-studio">“We”</span></div>
-      <div><span class="label">Mark</span><span class="v-studio">Solid, in the tile</span></div>
-      <div><span class="label">Signs</span><span class="v-studio">Products, releases</span></div>
+    <div class="tier">
+      <div class="tier-top studio">
+        <span class="tier-pill" style="border-color:rgba(255,255,255,.7)"><i style="background:#fff"></i>Tier B · Studio</span>
+        <span class="tier-name-studio">MattQ<br>Studios</span>
+      </div>
+      <dl>
+        <div><dt>Used on</dt><dd>Studio profiles, games, announcements, store pages, press.</dd></div>
+        <div><dt>Mark</dt><dd>Solid white mark inside the safelight tile.</dd></div>
+        <div><dt>Ground</dt><dd>Safelight → Oxblood gradient. Ink for long reading.</dd></div>
+        <div><dt>Display</dt><dd>Archivo Expanded (wdth 125) 800–900, uppercase for names.</dd></div>
+        <div><dt>Accent</dt><dd>White on red. No second hue.</dd></div>
+        <div><dt>Voice</dt><dd>First person plural.</dd></div>
+      </dl>
     </div>
-  </section>
-  <section class="plate--paper">
-    <div class="top label"><span style="color:var(--blackout)">The developer</span><span>Matt · Firenze, IT</span></div>
-    <div class="body">
-      <h2 class="handle" style="font-size:clamp(44px,5.6vw,96px)">@mattqdev<span class="cursor">_</span></h2>
-      <p class="person" style="font-size:clamp(26px,2.4vw,34px);line-height:1.2;max-width:22em">The person behind it. Developer, designer, founder. The one who turns a latent idea into a visible image.</p>
+    <div class="tier">
+      <div class="tier-top tools">
+        <span class="tier-pill" style="border-color:rgba(255,255,255,.7)"><i style="background:#83C1FF"></i>Tier C · Tools</span>
+        <span class="tier-name-tools">Product Name</span>
+      </div>
+      <dl>
+        <div><dt>Used on</dt><dd>Developer tools (plugins, packages, CLIs) and their communication.</dd></div>
+        <div><dt>Mark</dt><dd>Product tile: slot gradient, glyph, corner brackets.</dd></div>
+        <div><dt>Ground</dt><dd>Product Field → Floor with the blueprint grid.</dd></div>
+        <div><dt>Display</dt><dd>Archivo semi-expanded (wdth 110) 800, sentence case.</dd></div>
+        <div><dt>Accent</dt><dd>One product hue from the slot table. Never red.</dd></div>
+        <div><dt>Voice</dt><dd>Imperative and precise. The product speaks, "we" signs.</dd></div>
+      </dl>
     </div>
-    <div class="facts">
-      <div><span class="label">Speaks as</span><span class="v-person">“I”</span></div>
-      <div><span class="label">Mark</span><span class="v-person">Line, never tiled</span></div>
-      <div><span class="label">Signs</span><span class="v-person">Code, posts, talks</span></div>
-    </div>
-  </section>
-</div>
+  </div>
+  <div class="hierarchy">
+    <span class="label" style="color:var(--paper)">Endorsement</span>
+    <span>Person</span><span class="arrow">credits →</span><span>Studio</span><span class="arrow">endorses →</span><span>Tools product</span>
+    <span style="margin-left:auto;color:var(--text-3)">A tier may show the tier that owns it as a small endorsement line. Never the reverse.</span>
+  </div>
+</section>
 
 <!-- 02 THE MARK -->
-<section class="plate plate--paper" id="mark">
+<section class="plate plate--charcoal" id="mark">
+  <div class="plate-head">
+    <div><span class="label">02 · The mark</span><h2 class="studio h-studio">Geometry is shared. Treatment is not.</h2></div>
+    <p class="lede">One continuous monogram built on a 96-unit stem. Tiers A and B use the mark directly. Tier C never shows the M on a product tile; the Studio appears only in the endorsement line.</p>
+  </div>
   <div class="mark-layout">
     <div class="construction">
-      <span class="label">Grid · 1 unit = stem width (96)</span>
+      <span class="label">Grid · 1 unit = stem (96)</span>
       <svg viewBox="160 160 760 760" role="img" aria-label="Construction grid of the M monogram">
         <g stroke="#3A3333" stroke-width="1.5" fill="none">
           <line x1="160" y1="263" x2="920" y2="263"/><line x1="160" y1="817" x2="920" y2="817"/><line x1="160" y1="455" x2="920" y2="455"/><line x1="160" y1="580" x2="920" y2="580"/>
           <line x1="248" y1="160" x2="248" y2="920"/><line x1="832" y1="160" x2="832" y2="920"/><line x1="540" y1="160" x2="540" y2="920"/><line x1="344" y1="160" x2="344" y2="920"/><line x1="736" y1="160" x2="736" y2="920"/>
         </g>
+        <rect x="200" y="215" width="680" height="650" fill="none" stroke="#9A9591" stroke-width="1.5" stroke-dasharray="8 8"/>
         <path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z" fill="#F3F1EF"/>
-        <circle cx="540" cy="642" r="92" fill="none" stroke="#E0262C" stroke-width="3" stroke-dasharray="10 8"/>
-        <path d="M248 263H318L540 455L762 263H832" fill="none" stroke="#C4262B" stroke-width="7"/>
         <g font-family="JetBrains Mono, monospace" font-size="15" fill="#9A9591">
-          <text x="252" y="900">96</text><text x="740" y="900">96</text><text x="548" y="900">axis</text>
+          <text x="252" y="900">96</text><text x="740" y="900">96</text><text x="548" y="900">axis</text><text x="204" y="206">clear space = ½ stem</text>
         </g>
       </svg>
     </div>
-    <div class="anatomy">
-      <div style="display:flex;flex-direction:column;gap:24px">
-        <span class="label">02 · The mark</span>
-        <h2 class="studio h-studio">A frame that holds a meeting.</h2>
-        <p class="lede">The monogram is one continuous shape: an M whose legs fold inward and nearly touch. That is where the brand splits in two. The frame is the Studio. The gap in the middle is the person.</p>
+    <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+      <div class="variants">
+        <div class="variant"><div class="stage"><div class="tile" style="width:60%"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div></div><p><b style="color:#fff">Solid in tile</b><br>Tier B only.</p></div>
+        <div class="variant"><div class="stage" style="color:#fff"><div class="lockup-line" style="gap:8px"><svg class="line" width="96" height="91" viewBox="0 0 624 594"><use href="#m-line"/></svg><span class="dot" style="width:11px;height:11px"></span></div></div><p><b style="color:#fff">Line + Signal</b><br>Tier A, dark grounds.</p></div>
+        <div class="variant"><div class="stage paper"><div class="lockup-line" style="gap:8px"><svg class="line" width="96" height="91" viewBox="0 0 624 594"><use href="#m-line"/></svg><span class="dot" style="width:11px;height:11px"></span></div></div><p><b style="color:#fff">Line on paper</b><br>Tier A, only where the ground is forced light.</p></div>
       </div>
-      <div class="anatomy-list">
-        <div><span class="key key--frame"></span><div><span class="t-studio">THE FRAME · STUDIO</span><p>Two 96-unit stems and a roof. Structure, rigour, the release pipeline.</p></div></div>
-        <div><span class="key key--cross"></span><div><span class="t-person">The crossing · Matt</span><p>Two arrows, code and design, pointing at each other and not quite touching. The spark is the gap between them.</p></div></div>
-        <div><span class="key key--grid"></span><div><span class="t-mono">the grid · shared</span><p>One geometry for both identities. Never redraw, stretch or round the mark.</p></div></div>
-      </div>
+      <ul class="rules-list">
+        <li><span><b>Stroke weight by size.</b> Line mark: 12 units above 96 px, 22 units (bold) from 24 to 96 px. Below 24 px use the solid mark.</span></li>
+        <li><span><b>Clear space</b> is ½ stem on every side, measured from the outer edge of the mark or tile.</span></li>
+        <li><span><b>Minimum sizes.</b> Tile 24 px / 6 mm. Line mark 24 px. Lockups with text 120 px wide.</span></li>
+        <li><span><b>Tile radius</b> is always 22% of the side. The mark sits at 57% of the tile width, optically centred.</span></li>
+        <li><span><b>Signal dot</b> = ¼ stem, on the baseline, one stem-gap to the right of the line mark.</span></li>
+      </ul>
     </div>
+  </div>
+  <div class="size-row">
+    <span class="label" style="align-self:center;margin-right:8px">Scale ladder</span>
+    <figure><div class="tile" style="width:128px"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><figcaption>128</figcaption></figure>
+    <figure><div class="tile" style="width:64px"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><figcaption>64</figcaption></figure>
+    <figure><div class="tile" style="width:32px"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><figcaption>32</figcaption></figure>
+    <figure><div class="tile" style="width:24px"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><figcaption>24 min</figcaption></figure>
+    <span style="width:1px;align-self:stretch;background:var(--rule)"></span>
+    <figure style="color:#fff"><svg class="line" width="128" height="122" viewBox="0 0 624 594"><use href="#m-line"/></svg><figcaption>128 · 12u</figcaption></figure>
+    <figure style="color:#fff"><svg class="line" width="64" height="61" viewBox="0 0 632 602"><use href="#m-line-bold"/></svg><figcaption>64 · 22u</figcaption></figure>
+    <figure style="color:#fff"><svg class="line" width="32" height="30" viewBox="0 0 632 602"><use href="#m-line-bold"/></svg><figcaption>32 · 22u</figcaption></figure>
+    <figure><svg width="24" height="23" viewBox="0 0 600 570" style="fill:#fff"><use href="#m"/></svg><figcaption>&lt;24 solid</figcaption></figure>
   </div>
 </section>
 
-<!-- 03 STUDIO IDENTITY -->
-<section class="plate plate--dark" id="studio">
+<!-- 03 COLOUR · CORE -->
+<section class="plate plate--ink" id="colour">
   <div class="plate-head">
-    <div><span class="label">03 · Studio identity</span><h2 class="studio h-studio">The Studio lives in the tile.</h2></div>
-    <p class="lede">The safelight tile belongs to MattQ Studios alone. It goes on games, plugins, store listings, splash screens and anything else the studio ships.</p>
+    <div><span class="label">03 · Colour · core</span><h2 class="studio h-studio">A darkroom with one light.</h2></div>
+    <p class="lede">The core palette is shared by Tiers A and B. Red has two roles: Safelight is a field (Studio); Signal is the Person's secondary colour, used for marks, rules, active states and primary actions. Product hues live only in Tier C.</p>
   </div>
-  <div class="grid lockups">
-    <div class="card surface-dark">
-      <span class="label">A · Primary · app tile</span>
-      <div class="clearspace"><div class="tile" role="img" aria-label="Primary tile"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div></div>
-      <p class="note" style="color:var(--muted-dark)">Corner radius = 22% of the side. Clear space = ½ stem on every side. Minimum size 24 px / 6 mm.</p>
+  <div class="swatches">
+    <div class="sw" style="flex:3;background:#8E1519"><b>Safelight</b><span>#8E1519<br>oklch .42 .155 26<br>Studio field</span></div>
+    <div class="sw" style="flex:2;background:#3B0306"><b>Oxblood</b><span>#3B0306<br>oklch .23 .086 24<br>Studio floor</span></div>
+    <div class="sw" style="flex:1.3;background:#E0262C"><b>Signal</b><span>#E0262C<br>Marks, lines</span></div><div class="sw" style="flex:1;background:#B81C22"><b>Signal Deep</b><span>#B81C22<br>Filled actions</span></div><div class="sw" style="flex:1;background:#FF5A5F;color:#0E0B0B"><b>Signal Tint</b><span>#FF5A5F<br>Red text</span></div>
+    <div class="sw" style="flex:2.4;background:#0E0B0B;box-shadow:inset 0 0 0 1px #3A3333"><b>Ink</b><span style="color:#C9C4BF">#0E0B0B<br>Ground</span></div>
+    <div class="sw" style="flex:1.6;background:#1F1A1A"><b>Charcoal</b><span style="color:#C9C4BF">#151212<br>#1F1A1A<br>Surfaces</span></div>
+    <div class="sw" style="flex:1.1;background:#8A8A8A;color:#0E0B0B"><b>Silver</b><span>#8A8A8A<br>Keyline</span></div>
+    <div class="sw" style="flex:1.6;background:#FFFFFF;color:#0E0B0B"><b>Paper</b><span>#FFFFFF<br>Line &amp; text</span></div>
+  </div>
+  <div class="grid g2">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span class="label">Usage ratio · Tier A</span>
+      <div class="ratio"><span style="flex:64;background:#0E0B0B;box-shadow:inset 0 0 0 1px #3A3333">Ink 64</span><span style="flex:18;background:#1F1A1A">Charcoal 18</span><span style="flex:10;background:#fff;color:#0E0B0B">Paper 10</span><span style="flex:8;background:#E0262C">Red 8</span></div>
     </div>
-    <div class="lockups-right">
-      <div class="card surface-dark">
-        <span class="label">B · Horizontal lockup</span>
-        <div class="h-lockup">
-          <div class="tile"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div>
-          <div class="wm"><span class="wm-top">MATTQ</span><span class="wm-sub">STUDIOS</span></div>
-        </div>
-      </div>
-      <div class="lockups-row">
-        <div class="card surface-red" style="min-height:220px"><span class="label">C · Wordmark on safelight</span><span class="wordmark-inline">MATTQ STUDIOS</span></div>
-        <div class="card surface-paper" style="min-height:220px"><span class="label">D · Release seal</span><span class="seal">@MATTQ STUDIOS</span></div>
-      </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span class="label">Usage ratio · Tier B</span>
+      <div class="ratio"><span style="flex:55;background:linear-gradient(90deg,#8E1519,#3B0306)">Safelight → Oxblood 55</span><span style="flex:30;background:#0E0B0B;box-shadow:inset 0 0 0 1px #3A3333">Ink 30</span><span style="flex:15;background:#fff;color:#0E0B0B">Paper 15</span></div>
     </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="label">Approved text pairs · WCAG AA minimum</span>
+    <div class="pairs">
+      <div class="pair" style="background:#0E0B0B;box-shadow:inset 0 0 0 1px #3A3333"><b>Aa</b><span>Paper on Ink · 19.6:1</span></div>
+      <div class="pair" style="background:#1F1A1A;color:#C9C4BF"><b>Aa</b><span>#C9C4BF on Charcoal · 9.9:1</span></div>
+      <div class="pair" style="background:#8E1519"><b>Aa</b><span>Paper on Safelight · 9.2:1</span></div>
+      <div class="pair" style="background:#0E0B0B;color:#9A9591;box-shadow:inset 0 0 0 1px #3A3333"><b>Aa</b><span>#9A9591 on Ink · 6.6:1 · labels only</span></div>
+    </div>
+    <p class="lede" style="font-size:14.5px">Never set Signal or Safelight as text on Ink below 24 px. Keep text smaller than 14 px off the Oxblood half of the gradient.</p>
   </div>
 </section>
 
-<!-- 04 PERSONAL IDENTITY -->
-<section class="plate plate--paper" id="person">
+<!-- 04 COLOUR · PRODUCT THEMES -->
+<section class="plate plate--charcoal" id="product-colour">
   <div class="plate-head">
-    <div><span class="label">04 · Personal identity</span><h2 class="person h-person">Matt draws the line.</h2></div>
-    <p class="lede">The person never uses the tile. The mark is drawn as a white outline on ink, like a sketch before the print, and it is always followed by the Signal: one red dot, the blinking cursor.</p>
+    <div><span class="tier-pill"><i style="background:#83C1FF"></i>Tier C</span><span class="label">04 · Colour · product themes</span><h2 class="tools h-tools">One product, one hue.</h2></div>
+    <p class="lede">Every developer tool gets a theme colour from a fixed set of eight slots. Slots share the same lightness and chroma in OKLCH, so products read as one family and differ only by hue. The red zone is reserved for the Studio.</p>
   </div>
-  <div class="grid lockups">
-    <div class="card surface-fixer" style="color:var(--blackout)">
-      <span class="label">A · Primary · line mark + signal</span>
-      <div class="line-lockup" style="align-self:center" role="img" aria-label="Line mark with signal dot">
-        <svg width="240" height="228" viewBox="0 0 624 594"><use href="#m-line"/></svg>
-        <span class="dot" style="width:26px;height:26px"></span>
-      </div>
-      <p class="note" style="color:var(--ink-soft)">Stroke = ⅛ of the stem. Signal dot = ¼ stem, sitting on the baseline, one stem-gap to the right.</p>
-    </div>
-    <div class="lockups-right">
-      <div class="card surface-fixer" style="color:var(--blackout)">
-        <span class="label">B · Handle lockup</span>
-        <div class="handle-lockup">
-          <svg viewBox="0 0 632 602"><use href="#m-line-bold"/></svg>
-          <span class="rule"></span>
-          <span class="handle">@mattqdev<span class="cursor">_</span></span>
-        </div>
-      </div>
-      <div class="lockups-row">
-        <div class="card surface-outline" style="min-height:220px"><span class="label">C · Signature · posts, blog, email</span><div class="sig"><span class="person">Matt</span><span class="mono">— dev &amp; designer, Firenze</span></div></div>
-        <div class="card surface-ink" style="min-height:220px"><span class="label">D · On paper (light contexts)</span><div class="line-lockup" style="color:var(--paper)"><svg width="96" height="91" viewBox="0 0 632 602"><use href="#m-line-bold"/></svg><span class="dot" style="width:12px;height:12px"></span></div></div>
-      </div>
-    </div>
+  <div class="ramp-legend">
+    <div><b>300 · Glow</b><p>oklch(.80 .13 H). Text and icons on Floor, highlights, toolbar glyph.</p></div>
+    <div><b>500 · Accent</b><p>oklch(.66 .15 H). Buttons, links, progress, charts inside the product UI.</p></div>
+    <div><b>700 · Field</b><p>oklch(.46 .12 H). Top of tile and banner gradients. Mirrors Safelight.</p></div>
+    <div><b>900 · Floor</b><p>oklch(.24 .06 H). Bottom of gradients, product backgrounds. Mirrors Oxblood.</p></div>
   </div>
+  <div class="slots">
+    <div class="slot"><div class="slot-head"><div class="ttile small" style="width:56px;--p7:#814900;--p9:#311900"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div><b>T1 · Amber</b><span>H 70°</span></div></div><div class="ramp"><span style="background:#F3AE58;color:#311900">#F3AE58</span><span style="background:#CB7F00;color:#311900">#CB7F00</span><span style="background:#814900">#814900</span><span style="background:#311900">#311900</span></div></div>
+    <div class="slot"><div class="slot-head"><div class="ttile small" style="width:56px;--p7:#635A00;--p9:#242000"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div><b>T2 · Citron</b><span>H 105°</span></div></div><div class="ramp"><span style="background:#CAC256;color:#242000">#CAC256</span><span style="background:#A19600;color:#242000">#A19600</span><span style="background:#635A00">#635A00</span><span style="background:#242000">#242000</span></div></div>
+    <div class="slot"><div class="slot-head"><div class="ttile small" style="width:56px;--p7:#2E6720;--p9:#0E2608"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div><b>T3 · Moss</b><span>H 140°</span></div></div><div class="ramp"><span style="background:#90D281;color:#0E2608">#90D281</span><span style="background:#5BA84A;color:#0E2608">#5BA84A</span><span style="background:#2E6720">#2E6720</span><span style="background:#0E2608">#0E2608</span></div></div>
+    <div class="slot"><div class="slot-head"><div class="ttile small" style="width:56px;--p7:#006C47;--p9:#002818"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div><b>T4 · Jade</b><span>H 165°</span></div></div><div class="ramp"><span style="background:#5ED8A9;color:#002818">#5ED8A9</span><span style="background:#00AE7B;color:#002818">#00AE7B</span><span style="background:#006C47">#006C47</span><span style="background:#002818">#002818</span></div></div>
+    <div class="slot"><div class="slot-head"><div class="ttile small" style="width:56px;--p7:#006A72;--p9:#00272A"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div><b>T5 · Lagoon</b><span>H 200°</span></div></div><div class="ramp"><span style="background:#28D6DF;color:#00272A">#28D6DF</span><span style="background:#00ACB6;color:#00272A">#00ACB6</span><span style="background:#006A72">#006A72</span><span style="background:#00272A">#00272A</span></div></div>
+    <div class="slot"><div class="slot-head"><div class="ttile small" style="width:56px;--p7:#225899;--p9:#091F3B"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div><b>T6 · Cobalt</b><span>H 255°</span></div></div><div class="ramp"><span style="background:#83C1FF;color:#091F3B">#83C1FF</span><span style="background:#4C94EC;color:#091F3B">#4C94EC</span><span style="background:#225899">#225899</span><span style="background:#091F3B">#091F3B</span></div></div>
+    <div class="slot"><div class="slot-head"><div class="ttile small" style="width:56px;--p7:#534B97;--p9:#1D1A3A"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div><b>T7 · Iris</b><span>H 285°</span></div></div><div class="ramp"><span style="background:#B5B1FF;color:#1D1A3A">#B5B1FF</span><span style="background:#8A82E9;color:#1D1A3A">#8A82E9</span><span style="background:#534B97">#534B97</span><span style="background:#1D1A3A">#1D1A3A</span></div></div>
+    <div class="slot"><div class="slot-head"><div class="ttile small" style="width:56px;--p7:#783D7C;--p9:#2D142F"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div><b>T8 · Orchid</b><span>H 325°</span></div></div><div class="ramp"><span style="background:#E8A0EC;color:#2D142F">#E8A0EC</span><span style="background:#BF6FC4;color:#2D142F">#BF6FC4</span><span style="background:#783D7C">#783D7C</span><span style="background:#2D142F">#2D142F</span></div></div>
+  </div>
+  <ul class="rules-list">
+    <li><span><b>Reserved zone.</b> Hues from 345° to 50° belong to Safelight and Signal. No product may use them, not even as a secondary colour.</span></li>
+    <li><span><b>One slot per active product.</b> A slot is assigned once and kept for the life of the product. A retired product frees its slot after 12 months.</span></li>
+    <li><span><b>Products shown together</b> (side by side, or sharing a toolbar) must be at least two slots apart.</span></li>
+    <li><span><b>Product UI</b> uses Ink and Charcoal for surfaces, 500 for the primary action and 300 for focus and selection. Semantic states stay neutral: a Paper icon plus a label, never a second hue.</span></li>
+    <li><span><b>A ninth product</b> adds a slot halfway between two existing hues, at the same L and C. Never change L or C.</span></li>
+  </ul>
 </section>
 
-<!-- 05 COLOUR -->
-<section class="plate plate--paper" id="colour" style="padding-block-start:0">
-  <div class="plate-head" style="border-top:1px solid var(--blackout);padding-block-start:clamp(48px,6vw,88px)">
-    <div><span class="label">05 · Colour</span><h2 class="studio h-studio">Safelight &amp; Signal.</h2></div>
-    <p class="lede">Both reds come from the same room. The Studio lives inside the red: a field, a gradient, a surface. The person uses red only as a point: one dot, one cursor, one link.</p>
+<!-- 05 TYPOGRAPHY -->
+<section class="plate plate--ink" id="type">
+  <div class="plate-head">
+    <div><span class="label">05 · Typography</span><h2 class="studio h-studio">Four faces, three voices.</h2></div>
+    <p class="lede">Inter carries body text everywhere so long reading stays neutral. The display face is what tells the tiers apart.</p>
   </div>
-  <div class="grid palettes">
-    <div class="palette">
-      <span class="palette-title-studio">STUDIO · THE DARKROOM</span>
-      <div class="swatches-row">
-        <div class="sw" style="flex:5;background:#8E1519;color:#FFFFFF"><b>Safelight</b><span>#8E1519<br>RGB 142 21 25<br>Primary field</span></div>
-        <div class="sw" style="flex:3;background:#3B0306;color:#FFFFFF"><b>Oxblood</b><span style="color:#E7E4E1">#3B0306<br>RGB 59 3 6<br>Gradient floor</span></div>
-        <div class="sw" style="flex:3;background:#0E0B0B;color:#FFFFFF;box-shadow:inset 0 0 0 1px #3A3333"><b>Blackout</b><span style="color:#B8B3AE">#0E0B0B<br>RGB 14 11 11<br>Stage</span></div>
-        <div class="sw" style="flex:2;background:#8A8A8A;color:#0E0B0B"><b>Silver</b><span>#8A8A8A<br>RGB 138 138 138<br>Keyline</span></div>
-      </div>
-      <div class="bar" style="background:linear-gradient(90deg,#8E1519,#3B0306);color:#FFFFFF">SIGNATURE GRADIENT · 180° · SAFELIGHT → OXBLOOD · Studio only</div>
+  <div class="type-tiers">
+    <div class="type-card">
+      <span class="tier-pill"><i style="background:var(--signal);border-radius:50%"></i>Tier A</span>
+      <span class="glyphs person">Aa Qq</span>
+      <dl class="roles">
+        <div><dt>Display</dt><dd>Instrument Serif · roman 400 · −2% · lh 0.95</dd></div>
+        <div><dt>Handle</dt><dd>JetBrains Mono 500 · −4% at display size</dd></div>
+        <div><dt>Label</dt><dd>JetBrains Mono 400 · caps · +10%</dd></div>
+        <div><dt>Body</dt><dd>Inter 400/500 · lh 1.6</dd></div>
+        <div><dt>Never</dt><dd>Italic (hard to read on screen). Serif in uppercase. Serif below 20 px: use Inter 600.</dd></div>
+      </dl>
     </div>
-    <div class="palette">
-      <span class="palette-title-person">Matt · the developer</span>
-      <div class="swatches-col">
-        <div class="sw" style="flex:5;background:#0E0B0B;color:#FFFFFF"><i>Ink</i><span style="color:#B8B3AE">#0E0B0B · ground</span></div>
-        <div class="sw" style="flex:2;background:#1F1A1A;color:#FFFFFF"><i>Charcoal</i><span style="color:#B8B3AE">#1F1A1A · quiet surface</span></div>
-        <div class="sw" style="flex:3;background:#FFFFFF;color:#0E0B0B"><i>Photo Paper</i><span style="color:#3A3636">#FFFFFF · line &amp; text</span></div>
-      </div>
-      <div class="bar" style="background:var(--paper);border:1.5px solid var(--blackout);color:var(--blackout)"><span class="dot" style="width:32px;height:32px"></span><span>SIGNAL #E0262C · RGB 224 38 44<br>At most one per view. Never a fill.</span></div>
+    <div class="type-card on-color" style="background:var(--grad-studio)">
+      <span class="tier-pill" style="border-color:rgba(255,255,255,.7)"><i style="background:#fff"></i>Tier B</span>
+      <span class="glyphs studio">Aa Qq</span>
+      <dl class="roles">
+        <div><dt>Display</dt><dd>Archivo · wdth 125 · 900 · −3% · lh 0.95</dd></div>
+        <div><dt>Names</dt><dd>Archivo · wdth 125 · 800 · caps · +12%</dd></div>
+        <div><dt>Label</dt><dd>JetBrains Mono 400 · caps · +10%</dd></div>
+        <div><dt>Body</dt><dd>Inter 400/500 · lh 1.55</dd></div>
+        <div><dt>Never</dt><dd>Italic. Condensed widths.</dd></div>
+      </dl>
     </div>
-  </div>
-</section>
-
-<!-- 06 TYPOGRAPHY -->
-<section class="plate plate--paper" id="type" style="padding-block-start:0">
-  <div class="plate-head" style="border-top:1px solid var(--blackout);padding-block-start:clamp(48px,6vw,88px)">
-    <div><span class="label">06 · Typography</span><h2 class="studio h-studio">Wide for the room, <span class="person" style="font-size:1.12em;letter-spacing:-0.01em">cursive for the hand.</span></h2></div>
-    <p class="lede">The Studio speaks in Archivo Expanded: broad, heavy and uppercase, like a label on a box. Matt writes in Instrument Serif Italic and signs in JetBrains Mono. Inter carries body text for both, so long reading stays neutral.</p>
-  </div>
-  <div class="grid specimens">
-    <div class="spec surface-red" style="color:var(--paper)">
-      <span class="label">Studio · Archivo · wdth 125 · 800–900</span>
-      <span class="glyphs-studio">Aa Qq</span>
-      <span class="alpha" style="font-family:var(--f-studio);font-stretch:125%;font-weight:800">ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789</span>
-      <p style="font-size:15px;color:var(--fixer-dark)">Headlines, product names, UI labels on Studio surfaces. Tracking −3% at display sizes, +10% on small caps.</p>
-    </div>
-    <div class="spec surface-fixer" style="color:var(--blackout)">
-      <span class="label">Person · Instrument Serif Italic + JetBrains Mono</span>
-      <span class="glyphs-person">Aa Qq</span>
-      <span class="alpha mono">@mattqdev · const idea = develop(latent);</span>
-      <p style="font-size:15px;color:var(--ink-soft)">Serif for headlines and voice, mono for the handle, code, dates and metadata. No uppercase serif, ever.</p>
+    <div class="type-card on-color bg-tools">
+      <span class="tier-pill" style="border-color:rgba(255,255,255,.7)"><i style="background:#83C1FF"></i>Tier C</span>
+      <span class="glyphs tools">Aa Qq</span>
+      <dl class="roles">
+        <div><dt>Display</dt><dd>Archivo · wdth 110 · 800 · −2% · sentence case</dd></div>
+        <div><dt>Meta</dt><dd>JetBrains Mono 500 · versions, commands, paths</dd></div>
+        <div><dt>Label</dt><dd>JetBrains Mono 400 · caps · +10%</dd></div>
+        <div><dt>Body</dt><dd>Inter 400/500 · lh 1.55</dd></div>
+        <div><dt>Never</dt><dd>wdth 125 (Studio only). The serif.</dd></div>
+      </dl>
     </div>
   </div>
-  <div class="scale-wrap">
-    <table class="scale">
-      <thead><tr><th>Role</th><th>Sample</th><th>Face</th><th>Size / leading</th></tr></thead>
+  <div class="spec-wrap">
+    <table class="spec">
+      <thead><tr><th>Token</th><th>Size / leading</th><th>Tier A</th><th>Tier B</th><th>Tier C</th></tr></thead>
       <tbody>
-        <tr><td class="m">Display · Studio</td><td><span class="studio" style="font-size:48px">SHIP IT.</span></td><td class="m">Archivo 900 · wdth 125</td><td class="m">168 / 150 · −3.5%</td></tr>
-        <tr><td class="m">Display · Person</td><td><span class="person" style="font-size:54px">Hello, I'm Matt.</span></td><td class="m">Instrument Serif Italic</td><td class="m">96 / 92 · −2%</td></tr>
-        <tr><td class="m">Heading</td><td><span style="font-family:var(--f-studio);font-stretch:125%;font-weight:800;font-size:28px">Release notes</span></td><td class="m">Archivo 800 · wdth 125</td><td class="m">72 / 72</td></tr>
-        <tr><td class="m">Handle / code</td><td><span class="mono" style="font-size:22px;font-weight:500">@mattqdev</span></td><td class="m">JetBrains Mono 500</td><td class="m">18–96 · −4% large</td></tr>
-        <tr><td class="m">Body</td><td><span style="font-size:18px">Built from the first pixel to the final deploy.</span></td><td class="m">Inter 400</td><td class="m">18–20 / 1.6</td></tr>
-        <tr><td class="m">Label</td><td><span class="label" style="color:var(--blackout)">Vol. 01 · Firenze</span></td><td class="m">JetBrains Mono 400 · caps</td><td class="m">13–15 · +8–10%</td></tr>
+        <tr><td>display-xl</td><td class="m">160 / 144</td><td>Covers, website hero</td><td>Key art titles</td><td>—</td></tr>
+        <tr><td>display-l</td><td class="m">96 / 92</td><td>Page titles, thumbnails</td><td>Banners</td><td>Banners, store media</td></tr>
+        <tr><td>display-m</td><td class="m">64 / 64</td><td>Section titles</td><td>Post headlines</td><td>Post headlines</td></tr>
+        <tr><td>heading</td><td class="m">32 / 36</td><td>Serif</td><td>Archivo 800</td><td>Archivo 800 · wdth 110</td></tr>
+        <tr><td>title</td><td class="m">22 / 28</td><td colspan="3">Inter 600 in all tiers</td></tr>
+        <tr><td>body</td><td class="m">16–18 / 1.6</td><td colspan="3">Inter 400, max 68 characters per line</td></tr>
+        <tr><td>label</td><td class="m">12–14 / 1.4</td><td colspan="3">JetBrains Mono 400, uppercase, +8–10% tracking</td></tr>
+        <tr><td>code</td><td class="m">13–15 / 1.7</td><td colspan="3">JetBrains Mono 400 on Ink</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- 07 USAGE RULES -->
-<section class="plate plate--dark" id="rules">
+<!-- 06 LAYOUT, SPACING & ELEMENTS -->
+<section class="plate plate--charcoal" id="layout">
   <div class="plate-head">
-    <div><span class="label">07 · Usage</span><h2 class="studio h-studio">Keep the two rooms apart.</h2></div>
-    <p class="lede">Most mistakes come from mixing the two identities. If a piece looks like it could belong to either one, it's wrong.</p>
+    <div><span class="label">06 · Layout, spacing &amp; elements</span><h2 class="studio h-studio">A 4-point world.</h2></div>
+    <p class="lede">All spacing, sizes and radii come from one scale. Canvases use a 12-column grid with margins set as a percentage of the short side, so every format scales the same way.</p>
   </div>
-  <div class="grid rules">
-    <div class="rule-card">
-      <div class="stage"><div class="tile"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div></div>
-      <div class="verdict yes"><b>DO</b><p>Studio: solid white mark inside the safelight tile.</p></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Spacing scale</h3>
+      <div class="space-scale">
+        <div><span>space-1</span><span>4</span><i style="width:4px"></i></div>
+        <div><span>space-2</span><span>8</span><i style="width:8px"></i></div>
+        <div><span>space-3</span><span>12</span><i style="width:12px"></i></div>
+        <div><span>space-4</span><span>16</span><i style="width:16px"></i></div>
+        <div><span>space-5</span><span>24</span><i style="width:24px"></i></div>
+        <div><span>space-6</span><span>32</span><i style="width:32px"></i></div>
+        <div><span>space-7</span><span>48</span><i style="width:48px"></i></div>
+        <div><span>space-8</span><span>64</span><i style="width:64px"></i></div>
+        <div><span>space-9</span><span>96</span><i style="width:96px"></i></div>
+        <div><span>space-10</span><span>128</span><i style="width:128px"></i></div>
+      </div>
+      <p>Group related items with 8–16, separate groups with 32–48, separate sections with 96–128.</p>
     </div>
-    <div class="rule-card">
-      <div class="stage paper"><div class="line-lockup" style="color:var(--blackout)"><svg width="110" height="105" viewBox="0 0 624 594"><use href="#m-line"/></svg><span class="dot" style="width:14px;height:14px"></span></div></div>
-      <div class="verdict yes"><b>DO</b><p>Person: white line mark on ink, followed by one Signal dot.</p></div>
+    <div class="card">
+      <h3>Canvas grid · any format</h3>
+      <div class="canvas-demo">
+        <div class="cols"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="safe"></div>
+        <span class="tag" style="left:3.5%;top:0.5%">margin = 6.25% of short side</span>
+        <span class="tag" style="right:3.5%;bottom:0.5%">12 columns · gutter 1.8%</span>
+      </div>
+      <ul class="rules-list">
+        <li><span><b>Margin</b> = 6.25% of the canvas short side (45 px on 720, 68 px on 1080), applied on all four sides.</span></li>
+        <li><span><b>Text</b> starts on column 1 and never spans more than 8 columns.</span></li>
+        <li><span><b>The mark or tile</b> always snaps to a margin corner, never floats.</span></li>
+      </ul>
     </div>
-    <div class="rule-card">
-      <div class="stage"><div class="tile"><svg viewBox="0 0 624 594" style="fill:none;stroke:var(--paper)"><use href="#m-line"/></svg></div></div>
-      <div class="verdict no"><b>DON'T</b><p>Put the line mark in the tile. That mixes the person with the studio.</p></div>
+  </div>
+  <div class="spec-wrap">
+    <table class="spec">
+      <thead><tr><th>Element</th><th>Rule</th><th>Tier A</th><th>Tier B</th><th>Tier C</th></tr></thead>
+      <tbody>
+        <tr><td>Corner radius</td><td>UI is square. Only tiles are rounded.</td><td class="m">0 · avatar circle</td><td class="m">0 · tile 22%</td><td class="m">UI 2 · tile 22%</td></tr>
+        <tr><td>Rules &amp; borders</td><td>Hairlines separate. Boxes are rare.</td><td class="m">1 px #3A3333</td><td class="m">1 px white 25%</td><td class="m">1 px white 16%</td></tr>
+        <tr><td>Primary button</td><td>48 px high, 22 px side padding, Inter 600.</td><td>Paper fill, Ink text</td><td>Paper fill, Ink text</td><td>500 fill, 900 text</td></tr>
+        <tr><td>Secondary button</td><td>Same size, 1.5 px outline.</td><td>Paper outline</td><td>White 45% outline</td><td>300 outline</td></tr>
+        <tr><td>Chips / tags</td><td>Mono 11–12 px, 1 px border, square.</td><td>#3A3333 border</td><td>White 35% border</td><td>300 at 40% border</td></tr>
+        <tr><td>Elevation</td><td>No soft shadows. Floating panels use a hard offset.</td><td class="m">8 8 0 · Ink 40%</td><td class="m">none</td><td class="m">8 8 0 · 900</td></tr>
+        <tr><td>Icons</td><td>24-unit grid, 2-unit stroke, square caps, 45°/90° angles only.</td><td>Paper</td><td>Paper</td><td>Paper or 300</td></tr>
+        <tr><td>Texture</td><td>Each tier has one texture, and only one.</td><td>None</td><td>Mark watermark 6–8%</td><td>Blueprint grid 6–8%</td></tr>
+        <tr><td>Motion</td><td>200–300 ms, ease (.2,.7,.2,1). No bounce.</td><td>Cursor blink 1.1 s</td><td>Fades, slides</td><td>Fades, grid draw-in</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 07 ASSETS · TIER A -->
+<section class="plate plate--ink" id="assets-person">
+  <div class="plate-head">
+    <div><span class="tier-pill"><i style="background:var(--signal);border-radius:50%"></i>Tier A</span><span class="label">07 · Assets · @mattqdev</span><h2 class="person h-person">Website &amp; personal profiles.</h2></div>
+    <p class="lede">Ink ground, line mark, serif display. Dashed boxes are zones, not content. Red boxes are platform crop or overlay areas that must stay empty.</p>
+  </div>
+  <div class="templates">
+    <div class="tpl c3">
+      <div class="frame bg-person" style="aspect-ratio:1;border-radius:50%;display:grid;place-items:center;color:#fff">
+        <div class="lockup-line" style="gap:6%;width:54%"><svg class="line" style="width:88%;height:auto" viewBox="0 0 632 602"><use href="#m-line-bold"/></svg><span class="dot" style="width:9%;height:auto;aspect-ratio:1"></span></div>
+      </div>
+      <div class="cap"><b>Avatar / icon</b><span>1:1 · master 1024</span></div>
+      <p>Bold line mark + Signal at 54% of the width, centred. Survives circle and squircle crops. Export 400, 460 and 512.</p>
     </div>
-    <div class="rule-card">
-      <div class="stage"><div style="display:flex;align-items:flex-end;gap:10px;width:42%"><div class="tile" style="width:100%"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><span class="dot" style="width:14px;height:14px"></span></div></div>
-      <div class="verdict no"><b>DON'T</b><p>Add the Signal dot to the Studio tile. The dot is Matt's alone.</p></div>
+    <div class="tpl c9">
+      <div class="frame bg-person" style="aspect-ratio:3/1">
+        <div class="zone danger" style="left:4%;bottom:0;width:22%;height:42%">Avatar overlap</div>
+        <div class="zone" style="left:32%;top:18%;width:44%;height:40%">Display · serif · 1–2 lines</div>
+        <div class="zone" style="left:32%;top:64%;width:30%;height:14%">Handle · mono</div>
+        <div class="mark-abs" style="right:4%;top:18%;width:13%"><svg class="line" viewBox="0 0 624 594"><use href="#m-line"/></svg></div>
+      </div>
+      <div class="cap"><b>Profile banner</b><span>3:1 · 1500×500 · also 2560×1440, safe 1546×423</span></div>
+      <p>Content lives in the right two-thirds. Line mark top-right at 13% of the width. Keep the bottom-left quarter empty for the avatar overlap. On 16:9 formats, keep everything inside the central safe band.</p>
     </div>
-    <div class="rule-card">
-      <div class="stage"><div class="tile" style="width:52%;aspect-ratio:1.6;border-radius:20px"><svg viewBox="240 255 600 570" preserveAspectRatio="none" style="width:70%;height:60%"><path d="M248 263H318L540 455L762 263H832V817H764L572 640L674 555V618L736 670V410L540 580L344 410V670L406 618V555L508 640L316 817H248Z"/></svg></div></div>
-      <div class="verdict no"><b>DON'T</b><p>Stretch, squash or change the tile's corner radius.</p></div>
+    <div class="tpl c6">
+      <div class="frame bg-person" style="aspect-ratio:16/9">
+        <div class="zone" style="left:3.5%;top:6.25%;width:40%;height:7%">Label row · mono</div>
+        <div class="zone" style="left:3.5%;top:20%;width:58%;height:48%">Title · serif display-l · max 3 lines</div>
+        <div class="zone" style="left:3.5%;bottom:6.25%;width:26%;height:8%">Handle</div>
+        <div class="mark-abs" style="right:3.5%;bottom:6.25%;width:8%"><svg class="line" viewBox="0 0 632 602"><use href="#m-line-bold"/></svg></div>
+      </div>
+      <div class="cap"><b>Thumbnail / cover</b><span>16:9 · 1280×720 · blog, video</span></div>
+      <p>Title on columns 1–8. One optional visual in columns 9–12, cropped at the margin. No Signal here: the handle carries the identity.</p>
     </div>
-    <div class="rule-card">
-      <div class="stage"><div class="tile" style="background:linear-gradient(180deg,#2E5BD8,#0C1E5A)"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div></div>
-      <div class="verdict no"><b>DON'T</b><p>Recolour the tile. Game key art can change; the tile stays safelight.</p></div>
+    <div class="tpl c6">
+      <div class="frame bg-person" style="aspect-ratio:1.91/1">
+        <div class="zone" style="left:3.5%;top:10%;width:60%;height:50%">Page title · serif display-m</div>
+        <div class="zone" style="left:3.5%;bottom:10%;width:40%;height:10%">URL · mono</div>
+        <div class="mark-abs" style="right:3.5%;top:10%;width:12%"><svg class="line" viewBox="0 0 624 594"><use href="#m-line"/></svg></div>
+      </div>
+      <div class="cap"><b>Social preview (OG)</b><span>1.91:1 · 1200×630 · GitHub 1280×640</span></div>
+      <p>Generated per page from the same template. Title in serif display-m, URL in mono label, line mark top-right.</p>
     </div>
-    <div class="rule-card">
-      <div class="stage paper"><div class="line-lockup" style="color:var(--blackout);gap:8px"><svg width="96" height="91" viewBox="0 0 624 594"><use href="#m-line"/></svg><span class="dot" style="width:12px;height:12px"></span><span class="dot" style="width:12px;height:12px"></span><span class="dot" style="width:12px;height:12px"></span></div></div>
-      <div class="verdict no"><b>DON'T</b><p>Use more than one Signal per view, or use it as a fill or background.</p></div>
-    </div>
-    <div class="rule-card">
-      <div class="stage"><span class="person" style="font-size:clamp(28px,2.6vw,40px);color:var(--paper);text-transform:uppercase">Mattq Studios</span></div>
-      <div class="verdict no"><b>DON'T</b><p>Set the Studio name in the serif, or Matt's voice in Archivo Expanded.</p></div>
+    <div class="tpl c12">
+      <div class="grid g4">
+        <div class="card"><h3>Logo lockup</h3><div class="lockup-line" style="gap:12px;align-items:center;color:#fff"><svg class="line" width="44" height="42" viewBox="0 0 632 602"><use href="#m-line-bold"/></svg><span style="width:1.5px;height:36px;background:#fff"></span><span class="mono" style="font-weight:500;font-size:24px;letter-spacing:-0.04em">@handle<span class="cursor">_</span></span></div><p>Mark · 1.5 px rule · handle. Mark height = 1.5× the handle's cap height. Stacked version: mark above, handle centred below.</p></div>
+        <div class="card"><h3>Website</h3><p>Ink ground, Charcoal cards, hairline rules. Header: horizontal lockup left, mono navigation right. Red marks the active nav item, section numbers, the rule under each section head, the full stop of display titles and primary buttons.</p></div>
+        <div class="card"><h3>Showing Studio work</h3><p>Items made by the Studio carry a small tile + "MattQ Studios" label. Items in Tier C carry their product tile. The page around them stays Tier A.</p></div>
+        <div class="card"><h3>Formats checklist</h3><p>Avatar 1024 · banner 1500×500 and 2560×1440 · thumbnail 1280×720 · OG 1200×630 · favicon from the solid mark at 32, 180, 512.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 08 APPLICATIONS -->
-<section class="plate plate--dark" id="applications" style="padding-block-start:0">
-  <div class="plate-head" style="border-top:1px solid var(--blackout-2);padding-block-start:clamp(48px,6vw,88px)">
-    <div><span class="label">08 · Applications</span><h2 class="studio h-studio">What leaves the darkroom.</h2></div>
-    <p class="lede">The Studio signs products. Matt signs his work, his opinions and his code. When both appear, the Studio leads and Matt is credited.</p>
+<!-- 08 ASSETS · TIER B -->
+<section class="plate plate--charcoal" id="assets-studio">
+  <div class="plate-head">
+    <div><span class="tier-pill"><i style="background:#fff"></i>Tier B</span><span class="label">08 · Assets · MattQ Studios</span><h2 class="studio h-studio">Studio identity &amp; communication.</h2></div>
+    <p class="lede">Safelight gradient, solid tile, expanded type. Every Studio graphic ends with the same footer band, so the feed reads as one system.</p>
   </div>
-  <div class="grid apps">
-    <div class="app app-thumb">
-      <div class="thumb">
-        <svg class="bigm" viewBox="0 0 600 570" aria-hidden="true"><use href="#m"/></svg>
-        <span class="label" style="position:relative;color:var(--fixer-dark)">Now in beta · Roblox</span>
-        <span class="title">GOAL<br>MAGEDDON</span>
-        <div class="meta"><div class="tile"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><span>MATTQ STUDIOS</span></div>
-      </div>
-      <div class="cap label"><span>Studio · game thumbnail 16:9</span><span>Key art may vary · tile never does</span></div>
+  <div class="templates">
+    <div class="tpl c3">
+      <div class="frame" style="aspect-ratio:1;display:grid;place-items:center;background:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)"><div class="tile" style="width:100%"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div></div>
+      <div class="cap"><b>Icon</b><span>1:1 · master 1024</span></div>
+      <p>The tile is the icon. Export full-bleed and let the platform round it. Where the platform crops to a circle, place the tile at 78% on a Safelight ground.</p>
     </div>
-    <div class="app app-plugin">
-      <div class="plugin">
-        <div class="tile"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div>
-        <div><h3>Plugin UI Assistant</h3><span class="by">by MattQ Studios</span></div>
-        <div class="stats"><span>3,500+ installs</span><span>Studio plugin</span></div>
-        <div class="btn">INSTALL</div>
+    <div class="tpl c9">
+      <div class="frame bg-studio" style="aspect-ratio:3/1">
+        <svg class="wm" style="right:-4%;top:-30%;width:44%" viewBox="0 0 600 570"><use href="#m"/></svg>
+        <div class="zone danger" style="left:4%;bottom:0;width:22%;height:42%">Avatar overlap</div>
+        <div class="zone" style="left:32%;top:24%;width:40%;height:30%">Wordmark · Archivo 900</div>
+        <div class="zone" style="left:32%;top:62%;width:34%;height:12%">Descriptor · label</div>
       </div>
-      <div class="cap label"><span>Studio · plugin listing</span></div>
+      <div class="cap"><b>Banner</b><span>3:1 · 1500×500 · 16:9 · 960×540 and 2560×1440</span></div>
+      <p>Gradient top to bottom. The mark watermark (6–8% white) bleeds off the top-right corner. The wordmark sits on columns 5–9 and never crosses the watermark.</p>
     </div>
-    <div class="app app-gh">
-      <div class="gh">
-        <div class="row">
-          <div class="avatar"><svg viewBox="0 0 632 602"><use href="#m-line-bold"/></svg><span class="dot"></span></div>
-          <div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="handle">@mattqdev</span><span class="mono" style="font-size:14px;color:var(--muted-light)">Matt · Firenze, IT</span></div>
+    <div class="tpl c4">
+      <div class="frame bg-studio" style="aspect-ratio:1">
+        <div class="zone" style="left:6.25%;top:6.25%;width:50%;height:6%">Tag · label</div>
+        <div class="zone" style="left:6.25%;top:17%;width:87.5%;height:28%">Headline · display-m · max 3 lines</div>
+        <div class="zone" style="left:6.25%;top:49%;width:87.5%;height:31%">Key visual</div>
+        <div class="zone band" style="left:0;bottom:0;width:100%;height:13%">Footer band</div>
+      </div>
+      <div class="cap"><b>Post · square</b><span>1080×1080</span></div>
+    </div>
+    <div class="tpl c4">
+      <div class="frame bg-studio" style="aspect-ratio:4/5">
+        <div class="zone" style="left:6.25%;top:5%;width:50%;height:5%">Tag · label</div>
+        <div class="zone" style="left:6.25%;top:13%;width:87.5%;height:24%">Headline</div>
+        <div class="zone" style="left:6.25%;top:40%;width:87.5%;height:40%">Key visual</div>
+        <div class="zone band" style="left:0;bottom:0;width:100%;height:11%">Footer band</div>
+      </div>
+      <div class="cap"><b>Post · portrait</b><span>1080×1350</span></div>
+    </div>
+    <div class="tpl c4">
+      <div class="story-row">
+        <div class="frame bg-studio">
+          <div class="zone danger" style="left:0;top:0;width:100%;height:12%">UI</div>
+          <div class="zone" style="left:6.25%;top:16%;width:87.5%;height:22%">Headline</div>
+          <div class="zone" style="left:6.25%;top:41%;width:87.5%;height:26%">Key visual</div>
+          <div class="zone band" style="left:0;top:70%;width:100%;height:8%">Band</div>
+          <div class="zone danger" style="left:0;bottom:0;width:100%;height:18%">UI</div>
         </div>
-        <p class="bio">I build web apps and Roblox games, from the first pixel to the final deploy.</p>
-        <div class="pills"><span>React</span><span>Luau</span><span>UI/UX</span><span>open source</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+          <div class="cap" style="flex-direction:column"><b>Story</b><span>1080×1920</span></div>
+          <p style="font-size:13.5px;line-height:1.5;color:var(--text-2)">Top 12% and bottom 18% are covered by platform UI. The footer band moves up, just above the bottom UI zone.</p>
+        </div>
       </div>
-      <div class="cap label"><span>Person · GitHub profile</span><span>Avatar = line mark on ink</span></div>
     </div>
-    <div class="app app-post">
-      <div class="post">
-        <div class="who"><div class="mini"><svg viewBox="0 0 632 602"><use href="#m-line-bold"/></svg></div><div><b>Matt</b><span>@mattqdev · 2h</span></div></div>
-        <p>I lost a week to a DataStore lock bug, so I wrote down everything I learned. If your Roblox saves randomly vanish, this is probably why.</p>
-        <a href="https://mattqdev.github.io/blog" target="_blank" rel="noopener">mattqdev.github.io/blog →</a>
+    <div class="tpl c12">
+      <div class="grid g3">
+        <div class="card">
+          <h3>Footer band</h3>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(90deg,#5a0c0f,#2a0204)"><div class="tile" style="width:32px;box-shadow:0 0 0 1px rgba(255,255,255,.25)"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><span style="font-family:var(--f-studio);font-stretch:125%;font-weight:800;font-size:13px;letter-spacing:.12em">MATTQ STUDIOS</span><span class="mono" style="margin-left:auto;font-size:11.5px;color:#E7E4E1">handle · url</span></div>
+          <p>11–13% of the canvas height, Ink at 55% over the gradient. Tile + wordmark on the left, handle or URL in mono on the right.</p>
+        </div>
+        <div class="card">
+          <h3>Games under the Studio</h3>
+          <p>Key art is free: each game gets its own illustration and colours. Three things never change: the tile bottom-left inside the margin, the title in Archivo Expanded 900, and the footer band on announcements.</p>
+        </div>
+        <div class="card">
+          <h3>Formats checklist</h3>
+          <p>Icon 1024 (exports 512, 420, 150) · banner 1500×500, 960×540, 2560×1440 · post 1080×1080 and 1080×1350 · story 1080×1920 · landscape announcement 1920×1080 · game thumbnail 1920×1080.</p>
+        </div>
       </div>
-      <div class="cap label"><span>Person · social post / blog share</span><span>First person · one red link</span></div>
     </div>
-    <div class="app app-endorse">
-      <div class="endorse">
-        <div class="a"><div class="tile"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><span>A MATTQ STUDIOS GAME</span></div>
-        <div class="b"><span class="person">Designed &amp; built by</span><span class="handle mono" style="font-size:clamp(20px,2vw,28px)">@mattqdev<span class="cursor">_</span></span></div>
-      </div>
-      <div class="cap label"><span>Co-branding · credits, trailers, store descriptions</span><span>Studio first, person second</span></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="msg">
+      <div class="msg-head"><div class="tile" style="width:28px"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><span class="label" style="color:#fff">Message structure · Studio post</span></div>
+      <div class="msg-line"><span class="k">1 · Tag</span><span><code>[UPDATE]</code> <code>[RELEASE]</code> <code>[EVENT]</code> <code>[NEWS]</code>, uppercase in brackets, first on the line.</span></div>
+      <div class="msg-line"><span class="k">2 · Headline</span><span>One line, max 60 characters, says what shipped. No emoji.</span></div>
+      <div class="msg-line"><span class="k">3 · Body</span><span>One or two sentences in "we". Facts first, then why it matters to players.</span></div>
+      <div class="msg-line"><span class="k">4 · List</span><span>Optional. Max 4 items, each starting with <code>—</code>, one fact per line.</span></div>
+      <div class="msg-line"><span class="k">5 · CTA</span><span>One imperative verb plus a link. One CTA per post.</span></div>
+      <div class="msg-line"><span class="k">6 · Tags</span><span>Max 3 hashtags on the last line, in CamelCase.</span></div>
+    </div>
+    <div class="msg">
+      <div class="msg-head"><span class="dot" style="width:12px;height:12px"></span><span class="label" style="color:#fff">Message structure · Person post</span></div>
+      <div class="msg-line"><span class="k">1 · Hook</span><span>A first-person sentence about a problem or a discovery. No tag, no caps.</span></div>
+      <div class="msg-line"><span class="k">2 · Context</span><span>What was tried and what happened. Numbers welcome.</span></div>
+      <div class="msg-line"><span class="k">3 · Takeaway</span><span>One sentence the reader can reuse.</span></div>
+      <div class="msg-line"><span class="k">4 · Link</span><span>Blog, repo or product. One link per post.</span></div>
+      <div class="msg-line"><span class="k">5 · Credit</span><span>When the subject is a Studio game or a tool, mention the Studio account last.</span></div>
+      <div class="msg-line"><span class="k">Emoji</span><span>Max one, never as bullets.</span></div>
     </div>
   </div>
 </section>
 
-<!-- 09 VOICE -->
-<section class="plate plate--dark" id="voice" style="padding-block-start:0">
-  <div class="plate-head" style="border-top:1px solid var(--blackout-2);padding-block-start:clamp(48px,6vw,88px)">
-    <div><span class="label">09 · Voice</span><h2 class="studio h-studio">We ship. <span class="person" style="font-size:1.12em">I tinker.</span></h2></div>
-    <p class="lede">Same values, different distance. The Studio talks about the product. Matt talks about the process.</p>
+<!-- 09 ASSETS · TIER C -->
+<section class="plate plate--ink" id="assets-tools">
+  <div class="plate-head">
+    <div><span class="tier-pill"><i style="background:#83C1FF"></i>Tier C</span><span class="label">09 · Assets · Studio Tools</span><h2 class="tools h-tools">The developer tools kit.</h2></div>
+    <p class="lede">Every tool gets the same kit, rebuilt in its slot colour. The blueprint grid and corner brackets mark the family; the glyph makes each product unique. Shown here in slot T6 as the reference.</p>
   </div>
-  <div class="grid voice">
-    <div class="v-studio">
-      <span class="label">MattQ Studios · “we”</span>
-      <p class="quote-studio">“GOALMAGEDDON update 1.4 is live. New arena, rebuilt physics, zero lag spikes.”</p>
-      <div class="traits">
-        <div><span class="k">Tone</span><span>Confident, short, declarative</span></div>
-        <div><span class="k">Talks about</span><span>Releases, features, players, numbers</span></div>
-        <div><span class="k">Avoid</span><span>Jokes at the product's expense, “I think”</span></div>
-        <div><span class="k">Channels</span><span>Game pages, store, Studio Discord, press</span></div>
+  <div class="templates">
+    <div class="tpl c5">
+      <div class="frame" style="aspect-ratio:1;background:var(--charcoal);display:grid;place-items:center">
+        <div class="ttile" style="width:72%;--bw:6px"><span class="br tl"></span><span class="br bra"></span><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div>
+        <div class="zone" style="left:32%;top:32%;width:36%;height:36%;border-color:rgba(255,255,255,.3)">Glyph area · 50%</div>
+      </div>
+      <div class="cap"><b>Product icon · construction</b><span>1:1 · master 1024 · store 512</span></div>
+    </div>
+    <div class="tpl c7" style="gap:16px">
+      <ul class="rules-list">
+        <li><span><b>Tile:</b> 22% radius, gradient at 180° from 700 Field to 900 Floor, blueprint grid of 8×8 cells at 7% white.</span></li>
+        <li><span><b>Glyph:</b> Paper, drawn on a 24-unit grid with a 2-unit stroke, square caps, 45° and 90° angles only, filling 50% of the tile. One idea per glyph. No letters, no M.</span></li>
+        <li><span><b>Corner brackets:</b> top-left and bottom-right, 18% long, inset 11%, same stroke as the glyph. They echo the two arrows of the monogram and mark the tools family.</span></li>
+        <li><span><b>Below 64 px</b> drop the brackets and the grid. <b>Toolbar icons</b> (16 and 32 px) are the glyph alone in 300 Glow on a transparent ground.</span></li>
+        <li><span><b>Never</b> put the Studio M inside a product tile, and never use the safelight gradient for a tool.</span></li>
+      </ul>
+      <div class="ladder">
+        <figure><div class="ttile" style="width:128px;--bw:3px"><span class="br tl"></span><span class="br bra"></span><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><figcaption>128</figcaption></figure>
+        <figure><div class="ttile" style="width:64px;--bw:2px"><span class="br tl"></span><span class="br bra"></span><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><figcaption>64</figcaption></figure>
+        <figure><div class="ttile small" style="width:40px"><svg class="glyph" viewBox="0 0 24 24" style="width:60%;height:60%"><use href="#glyph"/></svg></div><figcaption>40</figcaption></figure>
+        <figure><svg viewBox="0 0 24 24" width="32" height="32" style="fill:none;stroke:#83C1FF;stroke-linecap:square"><use href="#glyph"/></svg><figcaption>toolbar 32</figcaption></figure>
+        <figure><svg viewBox="0 0 24 24" width="16" height="16" style="fill:none;stroke:#83C1FF;stroke-linecap:square"><use href="#glyph"/></svg><figcaption>16</figcaption></figure>
       </div>
     </div>
-    <div class="v-person">
-      <span class="label">Matt · “I”</span>
-      <p class="quote-person">“I rewrote the ball physics three times. The third one finally felt like a car hitting a ball. Here's why.”</p>
-      <div class="traits">
-        <div><span class="k">Tone</span><span>Curious, candid, a little nerdy</span></div>
-        <div><span class="k">Talks about</span><span>How and why: code, design choices, failures</span></div>
-        <div><span class="k">Avoid</span><span>Corporate “we”, marketing superlatives</span></div>
-        <div><span class="k">Channels</span><span>Blog, GitHub, DevForum, Reddit, personal socials</span></div>
+
+    <div class="tpl c7">
+      <div class="frame bg-tools" style="aspect-ratio:16/9">
+        <div class="zone" style="left:3.5%;top:6.25%;width:36%;height:7%">Label · version · mono</div>
+        <div class="zone" style="left:3.5%;top:20%;width:52%;height:34%">Product name · wdth 110 · display-l</div>
+        <div class="zone" style="left:3.5%;top:58%;width:44%;height:10%">One-line promise · Inter</div>
+        <div class="zone" style="left:3.5%;bottom:6.25%;width:32%;height:8%">Endorsement</div>
+        <div class="zone solid" style="right:3.5%;top:20%;width:36%;height:60%;border-style:solid;border-color:rgba(255,255,255,.3)">UI screenshot</div>
+      </div>
+      <div class="cap"><b>Thumbnail / store media</b><span>16:9 · 1920×1080 · first slide</span></div>
+      <p>Slide 1 follows this layout. Later slides show one UI screenshot on the product Floor with a one-line mono caption top-left. Screenshots get a 1 px white-16% frame, never rounded or tilted.</p>
+    </div>
+    <div class="tpl c5">
+      <div class="frame bg-tools" style="aspect-ratio:3/1">
+        <div class="ttile" style="position:absolute;left:6.25%;top:22%;width:17%;--bw:2px"><span class="br tl"></span><span class="br bra"></span><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div>
+        <div class="zone" style="left:28%;top:22%;width:50%;height:30%">Product name</div>
+        <div class="zone" style="left:28%;top:58%;width:36%;height:14%">Endorsement</div>
+      </div>
+      <div class="cap"><b>Banner</b><span>3:1 · 1500×500 · repo header 1280×320</span></div>
+      <p>Icon on the left, name and endorsement to its right, aligned to the icon's top and bottom edges.</p>
+    </div>
+
+    <div class="tpl c4">
+      <div class="frame bg-tools" style="aspect-ratio:4/5">
+        <div class="zone" style="left:6.25%;top:5%;width:70%;height:5%">[Tag] · product · version</div>
+        <div class="zone" style="left:6.25%;top:13%;width:87.5%;height:20%">Headline</div>
+        <div class="zone" style="left:6.25%;top:36%;width:87.5%;height:44%">UI crop or change list</div>
+        <div class="zone band" style="left:0;bottom:0;width:100%;height:11%">Footer band · Studio</div>
+      </div>
+      <div class="cap"><b>Release post</b><span>1080×1350 · also 1080×1080</span></div>
+    </div>
+    <div class="tpl c8" style="gap:16px">
+      <div class="card" style="background:var(--charcoal)">
+        <h3>Product lockup &amp; endorsement</h3>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <div class="ttile" style="width:64px;--bw:2px"><span class="br tl"></span><span class="br bra"></span><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span class="tools" style="font-size:30px">Product Name</span><span class="mono" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#83C1FF">by MattQ Studios · Tools</span></div>
+        </div>
+        <p>Name in Archivo wdth 110 800, 2× the endorsement cap height. The endorsement line is mono caps in 300 Glow. Release posts keep the Studio footer band, with the product gradient replacing Safelight.</p>
+      </div>
+      <div class="msg" style="background:var(--charcoal)">
+        <div class="msg-head"><div class="ttile small" style="width:28px"><svg class="glyph" viewBox="0 0 24 24" style="width:62%;height:62%"><use href="#glyph"/></svg></div><span class="label" style="color:#fff">Message structure · Tools release</span></div>
+        <div class="msg-line"><span class="k">1 · Header</span><span><code>Product vX.Y.Z</code> in mono, then one tag: <code>[RELEASE]</code> <code>[FIX]</code> <code>[BETA]</code>.</span></div>
+        <div class="msg-line"><span class="k">2 · Promise</span><span>One imperative line about what the user can now do.</span></div>
+        <div class="msg-line"><span class="k">3 · Changes</span><span>Max 5 items, prefixed <code>+</code> added, <code>~</code> changed, <code>−</code> removed, each under 70 characters.</span></div>
+        <div class="msg-line"><span class="k">4 · Get it</span><span>Store or repo link, plus the install command in a code span when there is one.</span></div>
+        <div class="msg-line"><span class="k">5 · Sign</span><span>Posted by the Studio. Matt reposts in Tier A voice.</span></div>
+      </div>
+    </div>
+
+    <div class="tpl c12">
+      <div class="grid g3">
+        <div class="card"><h3>Docs &amp; READMEs</h3><p>Header = repo banner 1280×320. Headings in Archivo wdth 110, body in Inter, code blocks on Ink with a 3 px left bar in 500 Accent. One product colour per document.</p></div>
+        <div class="card"><h3>Product UI</h3><p>Surfaces in Ink and Charcoal, primary action in 500, 2 px focus ring in 300, 2 px radius on inputs and buttons. The Studio tile appears only in the About panel.</p></div>
+        <div class="card"><h3>Formats checklist</h3><p>Icon 1024 (store 512) · toolbar 16 and 32 · store media 1920×1080 · banner 1500×500 · repo header 1280×320 · release post 1080×1350 · OG 1200×630.</p></div>
       </div>
     </div>
   </div>
-  <div class="grid decide">
-    <div><span class="q">Is it something people install, play or buy?</span><span class="a"><strong>MattQ Studios.</strong> Tile, Archivo, “we”.</span></div>
-    <div><span class="q">Is it an opinion, a lesson, or open-source code?</span><span class="a"><strong>@mattqdev.</strong> Line mark, serif and mono, “I”.</span></div>
-    <div><span class="q">Did Matt make a Studio product?</span><span class="a"><strong>Both.</strong> The Studio leads the lockup and Matt gets the credit line.</span></div>
+</section>
+
+<!-- 10 VOICE -->
+<section class="plate plate--charcoal" id="voice">
+  <div class="plate-head">
+    <div><span class="label">10 · Voice</span><h2 class="studio h-studio">Same values, three distances.</h2></div>
+    <p class="lede">Rules only, no stock phrasing. Every tier is plain, specific and honest. What changes is who is speaking and how close they stand.</p>
+  </div>
+  <div class="spec-wrap">
+    <table class="spec">
+      <thead><tr><th>Attribute</th><th>Tier A · Person</th><th>Tier B · Studio</th><th>Tier C · Tools</th></tr></thead>
+      <tbody>
+        <tr><td>Speaker</td><td>"I"</td><td>"We"</td><td>The product, signed by "we"</td></tr>
+        <tr><td>Distance</td><td>Close, candid</td><td>Confident, public</td><td>Precise, instructional</td></tr>
+        <tr><td>Sentences</td><td>Conversational, questions allowed</td><td>Short, declarative</td><td>Imperative, one action per sentence</td></tr>
+        <tr><td>Talks about</td><td>How and why: process, mistakes</td><td>What shipped, and for whom</td><td>What the user can do, and how</td></tr>
+        <tr><td>Numbers</td><td>Welcome as evidence</td><td>Headline material</td><td>Versions, limits, requirements</td></tr>
+        <tr><td>Humour</td><td>Yes, self-directed</td><td>Rare, never at players' expense</td><td>No</td></tr>
+        <tr><td>Emoji</td><td>Max 1 per post</td><td>None in headlines, max 1 in body</td><td>None</td></tr>
+        <tr><td>Capitalisation</td><td>Sentence case</td><td>Caps for names and tags only</td><td>Sentence case, product names as written</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 11 DO / DON'T -->
+<section class="plate plate--ink" id="rules">
+  <div class="plate-head">
+    <div><span class="label">11 · Usage</span><h2 class="studio h-studio">Keep the tiers apart.</h2></div>
+    <p class="lede">Most mistakes come from mixing tiers. Each tier's signature (Signal, tile, product colour) must never appear in another tier.</p>
+  </div>
+  <div class="rules">
+    <div class="rule-card"><div class="stage"><div class="tile" style="width:36%"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div></div><div class="verdict yes"><b>DO</b><p>Tier B: solid white mark inside the safelight tile.</p></div></div>
+    <div class="rule-card"><div class="stage" style="color:#fff"><div class="lockup-line" style="gap:8px"><svg class="line" width="100" height="95" viewBox="0 0 624 594"><use href="#m-line"/></svg><span class="dot" style="width:12px;height:12px"></span></div></div><div class="verdict yes"><b>DO</b><p>Tier A: line mark on ink, followed by one Signal.</p></div></div>
+    <div class="rule-card"><div class="stage"><div class="ttile" style="width:36%;--bw:3px"><span class="br tl"></span><span class="br bra"></span><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div></div><div class="verdict yes"><b>DO</b><p>Tier C: slot gradient, glyph, corner brackets.</p></div></div>
+    <div class="rule-card"><div class="stage"><div class="tile" style="width:36%"><svg viewBox="0 0 624 594" style="fill:none;stroke:#fff"><use href="#m-line"/></svg></div></div><div class="verdict no"><b>DON'T</b><p>Put the line mark inside the tile.</p></div></div>
+    <div class="rule-card"><div class="stage"><div style="display:flex;align-items:flex-end;gap:8px;width:42%"><div class="tile" style="width:100%"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div><span class="dot" style="width:12px;height:12px"></span></div></div><div class="verdict no"><b>DON'T</b><p>Add the Signal to the tile or to any Tier B or C asset.</p></div></div>
+    <div class="rule-card"><div class="stage"><div class="ttile" style="width:36%;--bw:3px"><span class="br tl"></span><span class="br bra"></span><svg viewBox="0 0 600 570" style="width:50%;height:auto;fill:#fff"><use href="#m"/></svg></div></div><div class="verdict no"><b>DON'T</b><p>Use the Studio M as a product glyph.</p></div></div>
+    <div class="rule-card"><div class="stage"><div class="ttile" style="width:36%;--bw:3px;--p7:#8E1519;--p9:#3B0306"><span class="br tl"></span><span class="br bra"></span><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div></div><div class="verdict no"><b>DON'T</b><p>Give a tool a hue from the reserved red zone.</p></div></div>
+    <div class="rule-card"><div class="stage"><div style="display:flex;gap:10px"><div class="ttile small" style="width:56px;--p7:#006C47;--p9:#002818"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div><div class="ttile small" style="width:56px;--p7:#006A72;--p9:#00272A"><svg class="glyph" viewBox="0 0 24 24"><use href="#glyph"/></svg></div></div></div><div class="verdict no"><b>DON'T</b><p>Show adjacent slots side by side. Keep them two slots apart.</p></div></div>
+  </div>
+</section>
+
+<!-- 12 TOKENS -->
+<section class="plate plate--charcoal" id="tokens">
+  <div class="plate-head">
+    <div><span class="label">12 · Tokens</span><h2 class="studio h-studio">Copy, don't eyeball.</h2></div>
+    <p class="lede">The same values as CSS custom properties, ready for the website and product UIs. A Tier C product overrides only the four --product-* tokens.</p>
+  </div>
+  <div class="grid g2">
+<pre class="code"><span class="c">/* core · tiers A and B */</span>
+:root {
+  --safelight:  #8E1519;
+  --oxblood:    #3B0306;
+  --signal:     #E0262C;  <span class="c">/* Tier A only */</span>
+  --ink:        #0E0B0B;
+  --charcoal:   #151212;
+  --charcoal-2: #1F1A1A;
+  --silver:     #8A8A8A;
+  --paper:      #FFFFFF;
+  --text-2:     #C9C4BF;
+  --text-3:     #9A9591;
+  --rule:       #3A3333;
+
+  --font-studio: "Archivo";          <span class="c">/* wdth 125 B · 110 C */</span>
+  --font-person: "Instrument Serif"; <span class="c">/* roman · A */</span>
+  --font-mono:   "JetBrains Mono";
+  --font-body:   "Inter";
+
+  --space: 4px;   <span class="c">/* 4 8 12 16 24 32 48 64 96 128 */</span>
+  --radius-tile: 22%;
+  --radius-ui: 0;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}</pre>
+<pre class="code"><span class="c">/* Tier C · product theme (slot T6 shown) */</span>
+[data-product] {
+  --product-300: #83C1FF; <span class="c">/* glow   · oklch(.80 .13 H) */</span>
+  --product-500: #4C94EC; <span class="c">/* accent · oklch(.66 .15 H) */</span>
+  --product-700: #225899; <span class="c">/* field  · oklch(.46 .12 H) */</span>
+  --product-900: #091F3B; <span class="c">/* floor  · oklch(.24 .06 H) */</span>
+  --radius-ui: 2px;
+  --product-grad: linear-gradient(180deg,
+    var(--product-700), var(--product-900));
+}
+
+<span class="c">/* file naming · {tier}-{asset}-{variant}-{w}x{h}.{ext} */</span>
+<span class="c">/* a-avatar-default-1024x1024.png        */</span>
+<span class="c">/* b-post-square-1080x1080.png           */</span>
+<span class="c">/* c-{product}-store-01-1920x1080.png    */</span></pre>
   </div>
 </section>
 
 <footer class="colophon">
-  <div style="display:flex;flex-direction:column;gap:8px">
-    <span class="label">Dark edition · the Paper file stays the source of truth</span>
-    <span class="label" style="text-transform:none">mattqdev.github.io · Firenze · 2026</span>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <span class="label">MattQ Brand Standards · v2.0 · dark edition</span>
+    <span class="label" style="text-transform:none">Standards only. Templates show zones, not content.</span>
   </div>
-  <div class="line-lockup"><svg width="56" height="53" viewBox="0 0 632 602"><use href="#m-line-bold"/></svg><span class="dot" style="width:9px;height:9px"></span></div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <div class="lockup-line" style="gap:6px;color:#fff"><svg class="line" width="40" height="38" viewBox="0 0 632 602"><use href="#m-line-bold"/></svg><span class="dot" style="width:7px;height:7px"></span></div>
+    <div class="tile" style="width:36px"><svg viewBox="0 0 600 570"><use href="#m"/></svg></div>
+    <div class="ttile small" style="width:36px"><svg class="glyph" viewBox="0 0 24 24" style="width:62%;height:62%"><use href="#glyph"/></svg></div>
+  </div>
 </footer>
 </body>
 </html>

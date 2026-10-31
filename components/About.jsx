@@ -1,9 +1,7 @@
 "use client";
 // components/About.jsx
 import { useCallback, useEffect, useRef, useState } from "react";
-import { FaChartLine, FaLayerGroup, FaUser } from "react-icons/fa";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import About3D from "./About3D";
 import { projects } from "@/data/projects";
 import { useRobloxFollowers, useRobloxGameStats } from "@/hooks/useRobloxStats";
 import { formatNumber } from "@/lib/format";
@@ -112,17 +110,9 @@ export default function About() {
   }, []);
 
   const stats = [
-    {
-      icon: <FaChartLine />,
-      value: formatNumber(visits) + "+",
-      label: "Game Visits",
-    },
-    {
-      icon: <FaLayerGroup />,
-      value: formatNumber(shipped) + "+",
-      label: "Projects Shipped",
-    },
-    { icon: <FaUser />, value: formatNumber(followers), label: "Followers" },
+    { value: formatNumber(visits) + "+", label: "Game Visits" },
+    { value: formatNumber(shipped) + "+", label: "Projects Shipped" },
+    { value: formatNumber(followers), label: "Followers" },
   ];
 
   return (
@@ -134,65 +124,57 @@ export default function About() {
         whileInView="show"
         viewport={{ once: true, amount: 0.15 }}
       >
-        <div className="section-title">
-          <div className="section-label">Background</div>
-          <motion.h2 variants={fadeUp}>
-            About <em>Me</em>
-          </motion.h2>
-          <p>Developer & designer with a love for craft across platforms.</p>
+        <div className="section-head">
+          <div className="section-head-main">
+            <span className="label">01 · Background</span>
+            <motion.h2 className="h-display" variants={fadeUp}>
+              About me<span className="dot-red">.</span>
+            </motion.h2>
+          </div>
+          <p className="section-lede">
+            Developer &amp; designer with a love for craft across platforms.
+          </p>
         </div>
 
-        <div className="about-content">
+        <div className="about-grid">
           <motion.div className="about-text" variants={containerVariants}>
-            <motion.h3 variants={fadeUp}>
+            <motion.h3 className="about-heading" variants={fadeUp}>
               {yearsBuilding != null ? `${yearsBuilding}+ ` : ""}Years Building
               Things That Work
             </motion.h3>
             <motion.p variants={fadeUp}>
               I build polished web apps and Roblox games, from first pixel to
-              final deploy. Since 2022 I've focused heavily on Roblox
+              final deploy. Since 2022 I&rsquo;ve focused heavily on Roblox
               development, pairing game design with full-stack engineering.
             </motion.p>
 
-            <motion.div className="about-highlights" variants={fadeUp}>
+            <motion.ul className="about-disciplines" variants={fadeUp}>
               {["Web Development", "Roblox Development", "UI/UX Design"].map(
-                (h) => (
-                  <span key={h} className="about-highlight">
+                (h, i) => (
+                  <li key={h}>
+                    <span className="mono">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     {h}
-                  </span>
+                  </li>
                 )
               )}
-            </motion.div>
-
-            <motion.div className="stats-title-row" variants={fadeUp}>
-              <span className="live-dot" aria-hidden="true" />
-              <span className="stats-title">Live stats</span>
-            </motion.div>
-
-            <motion.div
-              className="stats"
-              ref={ref}
-              variants={containerVariants}
-            >
-              {stats.map((s, i) => (
-                <motion.div
-                  key={i}
-                  className="stat-box animate"
-                  variants={fadeUp}
-                  whileHover={{ y: -6, borderColor: "rgba(255,77,90,.35)" }}
-                >
-                  <div className="stat-icon" aria-hidden="true">
-                    {s.icon}
-                  </div>
-                  <h4>{s.value}</h4>
-                  <p>{s.label}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+            </motion.ul>
           </motion.div>
 
-          <motion.div className="wrapper-3d" variants={fadeUp}>
-            <About3D />
+          <motion.div className="about-stats" ref={ref} variants={fadeUp}>
+            <div className="about-stats-head label">
+              <span className="live-ring" aria-hidden="true" />
+              Live stats
+            </div>
+            <dl className="stats">
+              {stats.map((s) => (
+                <div key={s.label} className="stat-row">
+                  <dt className="stat-label">{s.label}</dt>
+                  <dd className="stat-value">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
           </motion.div>
         </div>
       </motion.div>

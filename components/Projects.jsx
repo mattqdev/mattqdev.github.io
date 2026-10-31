@@ -4,24 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/data/projects";
 import {
-  FaGamepad,
-  FaLaptop,
-  FaPalette,
-  FaCube,
   FaGithub,
   FaExternalLinkAlt,
-  FaCalendarAlt,
-  FaCodeBranch,
   FaThLarge,
   FaStream,
+  FaArrowRight,
 } from "react-icons/fa";
-import { FaStar, FaCodeFork, FaGear, FaHardDrive } from "react-icons/fa6";
+import { FaStar, FaCodeFork } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGitHubData } from "@/hooks/useGitHubData";
 import CategoryFilter from "./CategoryFilter";
 import { useUrlState } from "@/hooks/useUrlState";
 import { formatNumber } from "@/lib/format";
 import ProjectsTimeline from "./ProjectsTimeline";
+import { MarkLine, MarkSolid } from "./brand/Mark";
+import ProjectSignature, { isStudioProject } from "./brand/ProjectSignature";
 
 /* ── Animation variants ─────────────────────────────── */
 const containerVariants = {
@@ -78,33 +75,12 @@ function GitHubStrip({ githubUrl }) {
       </div>
       {repo.language && (
         <div className="github-stat">
-          <span
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
-              background: "var(--accent)",
-              display: "inline-block",
-            }}
-          />
+          <span className="github-lang-key" aria-hidden="true" />
           <span>{repo.language}</span>
         </div>
       )}
     </div>
   );
-}
-
-/* ── Fallback icon picker ─────────────────────────── */
-function getProjectIcon(tags) {
-  if (tags.some((t) => t.name === "Game Design"))
-    return <FaGamepad className="project-main-icon" />;
-  if (tags.some((t) => t.name === "Plugin"))
-    return <FaGear className="project-main-icon" />;
-  if (tags.some((t) => t.name === "Arduino"))
-    return <FaHardDrive className="project-main-icon" />;
-  if (tags.some((t) => t.name === "Website"))
-    return <FaLaptop className="project-main-icon" />;
-  return <FaCube className="project-main-icon" />;
 }
 
 /* ── Main component ───────────────────────────────── */
@@ -140,11 +116,7 @@ export default function Projects() {
         );
 
   return (
-    <section
-      id="projects"
-      className="section"
-      style={{ background: "var(--bg-deep)" }}
-    >
+    <section id="projects" className="section section--alt">
       <motion.div
         className="container"
         variants={containerVariants}
@@ -152,12 +124,16 @@ export default function Projects() {
         whileInView="show"
         viewport={{ once: true, amount: "some" }}
       >
-        <div className="section-title">
-          <div className="section-label">Work</div>
-          <motion.h2 variants={fadeUp}>
-            My <em>Projects</em>
-          </motion.h2>
-          <p>A collection of games, tools, and websites I've shipped.</p>
+        <div className="section-head">
+          <div className="section-head-main">
+            <span className="label">02 · Work</span>
+            <motion.h2 className="h-display" variants={fadeUp}>
+              My projects<span className="dot-red">.</span>
+            </motion.h2>
+          </div>
+          <p className="section-lede">
+            A collection of games, tools, and websites I&rsquo;ve shipped.
+          </p>
         </div>
 
         {/* Category filter + view switcher */}
@@ -176,7 +152,7 @@ export default function Projects() {
               onClick={() => setView("grid")}
               aria-pressed={view === "grid"}
             >
-              <FaThLarge />
+              <FaThLarge aria-hidden="true" />
               <span>Grid</span>
             </button>
             <button
@@ -185,7 +161,7 @@ export default function Projects() {
               onClick={() => setView("timeline")}
               aria-pressed={view === "timeline"}
             >
-              <FaStream />
+              <FaStream aria-hidden="true" />
               <span>Timeline</span>
             </button>
           </div>
@@ -197,15 +173,16 @@ export default function Projects() {
           /* Project grid — AnimatePresence handles enter/exit on filter change */
           <motion.div className="projects-grid" layout>
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project) => {
+              {filteredProjects.map((project, index) => {
                 const githubLink = project.links?.find(
                   (l) => l.type === "github" && l.url?.includes("github.com")
                 );
                 const githubUrl = githubLink?.url || project.githubUrl;
                 const thumbSrc = getThumbnailPath(project);
+                const studio = isStudioProject(project);
 
                 return (
-                  <motion.div
+                  <motion.article
                     key={project.id}
                     className="project-card"
                     variants={cardVariants}
@@ -213,87 +190,45 @@ export default function Projects() {
                     animate="show"
                     exit="exit"
                     layout
-                    whileHover={{ y: -6 }}
                   >
-                    {/* Banner */}
                     <div
-                      className="project-img-placeholder"
-                      style={{
-                        background: `linear-gradient(135deg, ${project.tags[0].color}30, ${project.tags[1]?.color || project.tags[0].color}18)`,
-                      }}
+                      className={`project-media ${studio ? "is-studio" : "is-person"}`}
                     >
                       {thumbSrc ? (
-                        /* next/image with unoptimized (already set in next.config.mjs) */
                         <Image
                           src={thumbSrc}
-                          alt={project.title}
+                          alt=""
                           fill
                           unoptimized
                           style={{ objectFit: "cover" }}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
+                      ) : studio ? (
+                        <MarkSolid className="project-media-mark" />
                       ) : (
-                        getProjectIcon(project.tags)
+                        <MarkLine className="project-media-mark" weight={12} />
                       )}
-
-                      <div className="project-overlay">
-                        <div className="overlay-content">
-                          {/* Visual repeat of the card title — the real <h3> is below */}
-                          <div className="overlay-title" aria-hidden="true">
-                            {project.title}
-                          </div>
-                          <div className="overlay-buttons">
-                            <Link
-                              href={`/projects/${project.id}`}
-                              className="btn-view"
-                              aria-label={`View details: ${project.title}`}
-                            >
-                              View Details
-                            </Link>
-                            {githubUrl && (
-                              <a
-                                href={githubUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn-icon"
-                                aria-label={`${project.title} on GitHub`}
-                              >
-                                <FaGithub aria-hidden="true" />
-                              </a>
-                            )}
-                            {project.liveUrl && (
-                              <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn-icon"
-                                aria-label={`${project.title} live demo`}
-                              >
-                                <FaExternalLinkAlt aria-hidden="true" />
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+                      <span className="project-index mono" aria-hidden="true">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
                     </div>
 
-                    {/* Card body */}
                     <div className="project-content">
-                      <div className="project-header">
-                        <h3>{project.title}</h3>
-                        <div className="project-meta">
-                          <div className="project-date">
-                            <FaCalendarAlt className="meta-icon" />
-                            <span>{project.startDate}</span>
-                          </div>
-                          {project.isOpenSource && (
-                            <div className="open-source-tag">
-                              <FaCodeBranch className="meta-icon" />
-                              <span>OSS</span>
-                            </div>
-                          )}
-                        </div>
+                      <div className="project-meta mono">
+                        <span>{project.startDate}</span>
+                        {project.endDate === "Present" && (
+                          <span className="project-live">Active</span>
+                        )}
                       </div>
+
+                      <h3 className="project-title">
+                        <Link
+                          href={`/projects/${project.id}`}
+                          className="project-link"
+                        >
+                          {project.title}
+                        </Link>
+                      </h3>
 
                       <p className="project-description">
                         {project.shortDescription}
@@ -303,34 +238,46 @@ export default function Projects() {
                         <GitHubStrip githubUrl={githubUrl} />
                       )}
 
-                      <div className="project-divider">
-                        <div
-                          className="project-divider-line"
-                          style={{ width: "14%" }}
-                        />
-                        <span className="project-divider-text">tags</span>
-                        <div
-                          className="project-divider-line"
-                          style={{ width: "100%" }}
-                        />
-                      </div>
-
-                      <div className="project-tags">
-                        {project.tags.map((tag, i) => (
-                          <span
-                            key={i}
-                            className="project-tag"
-                            style={{
-                              backgroundColor: tag.color,
-                              boxShadow: `0 0 10px ${tag.color}55`,
-                            }}
-                          >
-                            {tag.icon} {tag.name}
-                          </span>
+                      <ul className="project-tags" aria-label="Tags">
+                        {project.tags.map((tag) => (
+                          <li key={tag.name} className="project-tag">
+                            {tag.name}
+                          </li>
                         ))}
+                      </ul>
+
+                      <div className="project-footer">
+                        <ProjectSignature project={project} />
+                        <div className="project-actions">
+                          {githubUrl && (
+                            <a
+                              href={githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="icon-btn"
+                              aria-label={`${project.title} on GitHub`}
+                            >
+                              <FaGithub aria-hidden="true" />
+                            </a>
+                          )}
+                          {project.liveUrl && (
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="icon-btn"
+                              aria-label={`${project.title} live demo`}
+                            >
+                              <FaExternalLinkAlt aria-hidden="true" />
+                            </a>
+                          )}
+                          <span className="project-go" aria-hidden="true">
+                            <FaArrowRight />
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </motion.article>
                 );
               })}
             </AnimatePresence>

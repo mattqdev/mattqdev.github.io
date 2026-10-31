@@ -3,7 +3,8 @@
 import { useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaCalendarAlt, FaClock, FaArrowRight, FaSearch } from "react-icons/fa";
+import { FaArrowRight, FaSearch, FaRss } from "react-icons/fa";
+import { MarkLine } from "../brand/Mark";
 import CategoryFilter from "../CategoryFilter";
 import { useUrlState } from "@/hooks/useUrlState";
 import { formatDate } from "@/lib/format";
@@ -65,23 +66,24 @@ export default function BlogIndex({ posts }) {
 
   return (
     <div className="blog-page">
-      {/* ── Hero banner ── */}
+      {/* ── Masthead ── */}
       <section className="blog-hero">
         <div className="container">
           <motion.div
             className="blog-hero-inner"
-            initial={{ opacity: 0, y: 32 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <div className="blog-hero-label">
-              <span className="blog-label-dot" aria-hidden="true" />
-              MattQ · Writing
+            <div className="blog-hero-top label">
+              <span>MattQ · Writing</span>
+              <span>{posts.length} articles</span>
+              <a href="/blog/rss.xml" className="blog-rss">
+                <FaRss aria-hidden="true" /> RSS
+              </a>
             </div>
             <h1 className="blog-hero-title">
-              Thoughts on
-              <br />
-              <em>Code & Craft</em>
+              Thoughts on code &amp; craft<span className="dot-red">.</span>
             </h1>
             <p className="blog-hero-sub">
               Deep dives on Roblox dev, web tooling, game design, and building
@@ -89,21 +91,11 @@ export default function BlogIndex({ posts }) {
             </p>
           </motion.div>
         </div>
-        <div className="blog-hero-grid" aria-hidden="true">
-          {Array.from({ length: 80 }).map((_, i) => (
-            <div key={i} className="blog-grid-cell" />
-          ))}
-        </div>
       </section>
 
       <div className="container blog-body">
         {/* ── Search + filter bar ── */}
-        <motion.div
-          className="blog-controls"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.5 }}
-        >
+        <div className="blog-controls">
           <div className="blog-search">
             <FaSearch className="blog-search-icon" aria-hidden="true" />
             <label htmlFor="blog-search" className="sr-only">
@@ -127,7 +119,7 @@ export default function BlogIndex({ posts }) {
             onChange={setActiveTag}
             label="Tag"
           />
-        </motion.div>
+        </div>
 
         <p className="sr-only" aria-live="polite">
           {filtered.length === 1 ? "1 article" : `${filtered.length} articles`}
@@ -135,25 +127,25 @@ export default function BlogIndex({ posts }) {
 
         {filtered.length === 0 ? (
           <div className="blog-empty">
-            <span>No articles match your search.</span>
+            <p>No articles match your search.</p>
             <button
               type="button"
-              className="blog-empty-reset"
+              className="btn btn-outline"
               onClick={() => {
                 setQuery("");
                 setActiveTag("all");
               }}
             >
-              Clear Filters
+              Clear filters
             </button>
           </div>
         ) : (
           <>
             {/* ── Featured post (first in filtered list) ── */}
             {featured && (
-              <motion.div
+              <motion.article
                 className="blog-featured"
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.55 }}
               >
@@ -161,145 +153,119 @@ export default function BlogIndex({ posts }) {
                   href={`/blog/${featured.slug}`}
                   className="blog-featured-link"
                 >
-                  {featured.cover && (
-                    <div className="blog-featured-cover">
+                  <div className="blog-featured-cover">
+                    {featured.cover ? (
                       <img
                         src={`/blog/covers/${featured.cover}`}
                         alt=""
                         width={1200}
                         height={630}
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <MarkLine className="blog-cover-mark" weight={12} />
+                    )}
+                  </div>
                   <div className="blog-featured-body">
-                    <div className="blog-featured-meta">
+                    <div className="blog-meta label">
                       <span className="blog-featured-badge">Featured</span>
-                      <span className="blog-meta-item">
-                        <FaCalendarAlt aria-hidden="true" />{" "}
-                        <time dateTime={featured.date}>
-                          {formatDate(featured.date)}
-                        </time>
-                      </span>
-                      <span className="blog-meta-item">
-                        <FaClock aria-hidden="true" /> {featured.readingTime}
-                      </span>
+                      <time dateTime={featured.date}>
+                        {formatDate(featured.date)}
+                      </time>
+                      <span>{featured.readingTime}</span>
                     </div>
                     <h2 className="blog-featured-title">{featured.title}</h2>
                     <p className="blog-featured-desc">{featured.description}</p>
                     <div className="blog-featured-footer">
-                      <div className="blog-post-tags">
+                      <ul className="blog-post-tags" aria-label="Tags">
                         {featured.tags.map((t) => (
-                          <span key={t} className="blog-tag-chip">
+                          <li key={t} className="blog-tag-chip">
                             {t}
-                          </span>
+                          </li>
                         ))}
-                      </div>
+                      </ul>
                       <span className="blog-read-link">
                         Read article <FaArrowRight aria-hidden="true" />
                       </span>
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </motion.article>
             )}
 
-            {/* ── Post grid ── */}
+            {/* ── Index of the rest ── */}
             {rest.length > 0 && (
-              <motion.div
-                className="blog-grid"
+              <motion.ol
+                className="blog-list"
                 variants={container}
                 initial="hidden"
                 animate="show"
               >
                 <AnimatePresence mode="popLayout">
-                  {rest.map((post) => (
-                    <motion.article
+                  {rest.map((post, i) => (
+                    <motion.li
                       key={post.slug}
-                      className="blog-card"
+                      className="blog-row"
                       variants={fadeUp}
                       layout
-                      exit={{ opacity: 0, scale: 0.95 }}
+                      exit={{ opacity: 0 }}
                     >
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="blog-card-link"
+                        className="blog-row-link"
                       >
-                        {post.cover ? (
-                          <div className="blog-card-cover">
-                            <img
-                              src={`/blog/covers/${post.cover}`}
-                              alt=""
-                              width={800}
-                              height={420}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
-                        ) : (
-                          <div className="blog-card-cover blog-card-cover--empty">
-                            <div
-                              className="blog-card-cover-pattern"
-                              aria-hidden="true"
-                            />
-                          </div>
-                        )}
-                        <div className="blog-card-body">
-                          <div className="blog-card-meta">
-                            <span className="blog-meta-item">
-                              <FaCalendarAlt aria-hidden="true" />{" "}
-                              <time dateTime={post.date}>
-                                {formatDate(post.date)}
-                              </time>
-                            </span>
-                            <span className="blog-meta-item">
-                              <FaClock aria-hidden="true" /> {post.readingTime}
-                            </span>
-                          </div>
-                          <h3 className="blog-card-title">{post.title}</h3>
-                          <p className="blog-card-desc">{post.description}</p>
-                          <div className="blog-card-footer">
-                            <div className="blog-post-tags">
-                              {post.tags.slice(0, 3).map((t) => (
-                                <span key={t} className="blog-tag-chip">
-                                  {t}
-                                </span>
-                              ))}
-                            </div>
-                            <span className="blog-read-more">
-                              Read <FaArrowRight aria-hidden="true" />
-                            </span>
-                          </div>
-                        </div>
+                        <span className="blog-row-n mono" aria-hidden="true">
+                          {String(i + 2).padStart(2, "0")}
+                        </span>
+                        <span className="blog-row-date mono">
+                          <time dateTime={post.date}>
+                            {formatDate(post.date, "short")}
+                          </time>
+                        </span>
+                        <span className="blog-row-main">
+                          <span className="blog-row-title">{post.title}</span>
+                          <span className="blog-row-desc">
+                            {post.description}
+                          </span>
+                          <span className="blog-post-tags">
+                            {post.tags.slice(0, 3).map((t) => (
+                              <span key={t} className="blog-tag-chip">
+                                {t}
+                              </span>
+                            ))}
+                          </span>
+                        </span>
+                        <span className="blog-row-time mono">
+                          {post.readingTime}
+                        </span>
+                        <FaArrowRight
+                          className="blog-row-go"
+                          aria-hidden="true"
+                        />
                       </Link>
-                    </motion.article>
+                    </motion.li>
                   ))}
                 </AnimatePresence>
-              </motion.div>
+              </motion.ol>
             )}
           </>
         )}
 
         {/* ── Portfolio CTA ── */}
-        <motion.section
-          className="blog-cta"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
+        <section className="blog-cta">
           <div className="blog-cta-inner">
-            <span className="blog-cta-label">About the author</span>
+            <span className="label">About the author</span>
             <h2 className="blog-cta-title">Want to see what I build?</h2>
             <p className="blog-cta-text">
-              I'm MattQ — I make Roblox games, web tools, and open-source
+              I&rsquo;m MattQ. I make Roblox games, web tools, and open-source
               experiments. Check out my portfolio to see projects with 3M+
               visits, thousands of downloads, and more.
             </p>
-            <Link href="/" className="blog-cta-btn">
-              View Portfolio <FaArrowRight aria-hidden="true" />
+            <Link href="/" className="btn">
+              View portfolio <FaArrowRight aria-hidden="true" />
             </Link>
           </div>
-        </motion.section>
+          <MarkLine className="blog-cta-mark" weight={12} />
+        </section>
       </div>
     </div>
   );

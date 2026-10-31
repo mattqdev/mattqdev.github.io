@@ -54,7 +54,7 @@ export default async function ArticlePage({ params }) {
         {/* Rendered on the server; BlogArticle is a client component */}
         <ArticleRenderer content={post.content} />
       </BlogArticle>
-      <div className="container" style={{ paddingBottom: 80 }}>
+      <div className="container related-wrap">
         <RelatedPosts currentPost={post} allPosts={allPosts} />
       </div>
     </>

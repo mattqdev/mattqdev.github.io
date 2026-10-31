@@ -17,8 +17,6 @@ import {
   FaArrowRight,
   FaExternalLinkAlt,
   FaGithub,
-  FaCalendarAlt,
-  FaCode,
   FaDownload,
   FaPlayCircle,
   FaExclamationCircle,
@@ -27,9 +25,6 @@ import {
   FaEye,
   FaHeart,
   FaRegHeart,
-  FaShare,
-  FaLink,
-  FaCheck,
   FaExpand,
   FaTimes,
   FaChevronLeft,
@@ -42,6 +37,8 @@ import { useRobloxGameStats } from "@/hooks/useRobloxStats";
 import { FloatingCluster } from "./FloatingCluster";
 import { useUrlState } from "@/hooks/useUrlState";
 import { formatNumber } from "@/lib/format";
+import { MarkLine, MarkSolid } from "./brand/Mark";
+import ProjectSignature, { isStudioProject } from "./brand/ProjectSignature";
 
 /* ─── helpers ───────────────────────────────────────── */
 function findPrev(project) {
@@ -65,25 +62,9 @@ function formatLiveMetric(field, value) {
   return field === "likeRatio" ? `${value}%` : `${formatNumber(value)}+`;
 }
 
-const LANG_COLORS = {
-  JavaScript: "#f7df1e",
-  TypeScript: "#3178c6",
-  Python: "#3572a5",
-  Luau: "#00a2ff",
-  Lua: "#000080",
-  HTML: "#e34c26",
-  CSS: "#563d7c",
-  "C++": "#f34b7d",
-  C: "#555555",
-  Rust: "#dea584",
-  Go: "#00add8",
-  Java: "#b07219",
-  "C#": "#178600",
-  Shell: "#89e051",
-  Ruby: "#701516",
-};
-
 /* ─── sub-components ─────────────────────────────────── */
+// Languages are ranked by share and shaded on a neutral ramp instead of
+// GitHub's rainbow, so the page keeps a single accent.
 function LanguageBar({ langs }) {
   if (!langs || Object.keys(langs).length === 0) return null;
   const total = Object.values(langs).reduce((a, b) => a + b, 0);
@@ -91,62 +72,26 @@ function LanguageBar({ langs }) {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-      <div
-        style={{
-          display: "flex",
-          height: 6,
-          borderRadius: 3,
-          overflow: "hidden",
-          gap: 2,
-        }}
-      >
-        {sorted.map(([lang, bytes]) => (
+    <div className="pd-langs">
+      <div className="pd-lang-bar" aria-hidden="true">
+        {sorted.map(([lang, bytes], i) => (
           <span
             key={lang}
+            className={`pd-lang-seg pd-lang-${i}`}
             title={`${lang} ${((bytes / total) * 100).toFixed(1)}%`}
-            style={{
-              flex: bytes / total,
-              background: LANG_COLORS[lang] || "#8888aa",
-              minWidth: 4,
-              borderRadius: 2,
-            }}
+            style={{ flex: bytes / total }}
           />
         ))}
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px" }}>
-        {sorted.map(([lang, bytes]) => (
-          <div
-            key={lang}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: "0.76rem",
-              color: "var(--text-secondary)",
-            }}
-          >
-            <span
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: LANG_COLORS[lang] || "#8888aa",
-                flexShrink: 0,
-              }}
-            />
+      <ul className="pd-lang-list">
+        {sorted.map(([lang, bytes], i) => (
+          <li key={lang}>
+            <span className={`pd-lang-key pd-lang-${i}`} aria-hidden="true" />
             <span>{lang}</span>
-            <span
-              style={{
-                color: "var(--text-muted)",
-                fontFamily: "var(--font-mono)",
-              }}
-            >
-              {((bytes / total) * 100).toFixed(1)}%
-            </span>
-          </div>
+            <span className="mono">{((bytes / total) * 100).toFixed(1)}%</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
@@ -183,7 +128,7 @@ function GitHubCard({ githubUrl }) {
   return (
     <div className="pd-github-card">
       <div className="pd-github-card-header">
-        <FaGithub style={{ fontSize: "1.1rem" }} />
+        <FaGithub aria-hidden="true" />
         <span>Repository</span>
         {repo?.private === false && (
           <span className="pd-badge pd-badge-teal">Public</span>
@@ -199,17 +144,12 @@ function GitHubCard({ githubUrl }) {
               style={{ animationDelay: `${i * 0.15}s` }}
             />
           ))}
-          <span style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
-            Fetching repo…
-          </span>
+          <span className="pd-muted">Fetching repo…</span>
         </div>
       )}
 
       {error && (
-        <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
-          <FaExclamationCircle
-            style={{ color: "var(--primary)", marginRight: 6 }}
-          />
+        <p className="pd-muted">
           Couldn't load repo stats right now.{" "}
           <a
             href={githubUrl}
@@ -226,15 +166,7 @@ function GitHubCard({ githubUrl }) {
       {repo && !loading && (
         <>
           {repo.description && (
-            <p
-              style={{
-                fontSize: "0.85rem",
-                color: "var(--text-secondary)",
-                lineHeight: 1.6,
-              }}
-            >
-              {repo.description}
-            </p>
+            <p className="pd-repo-desc">{repo.description}</p>
           )}
           <div className="pd-stat-grid">
             {stats.map((s, i) => (
@@ -247,7 +179,7 @@ function GitHubCard({ githubUrl }) {
           </div>
           {langs && <LanguageBar langs={langs} />}
           {repo.topics?.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            <div className="pd-topics">
               {repo.topics.map((t) => (
                 <span key={t} className="pd-topic">
                   {t}
@@ -256,15 +188,7 @@ function GitHubCard({ githubUrl }) {
             </div>
           )}
           {repo.license && (
-            <p
-              style={{
-                fontSize: "0.74rem",
-                color: "var(--text-muted)",
-                fontFamily: "var(--font-mono)",
-              }}
-            >
-              {repo.license.spdx_id} license
-            </p>
+            <p className="pd-license mono">{repo.license.spdx_id} license</p>
           )}
           <a
             href={githubUrl}
@@ -341,8 +265,8 @@ function Gallery({ images = [], videos = [], projectTitle }) {
 
   if (media.length === 0)
     return (
-      <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>
-        No media available yet — check the project links above.
+      <p className="pd-empty">
+        No media available yet. Check the project links above.
       </p>
     );
   const cur = media[active];
@@ -439,16 +363,7 @@ function Gallery({ images = [], videos = [], projectTitle }) {
                   tabIndex={-1}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
-                <FaPlayCircle
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    margin: "auto",
-                    color: "#fff",
-                    fontSize: "1rem",
-                  }}
-                />
+                <FaPlayCircle aria-hidden="true" className="pd-thumb-play" />
               </div>
             )}
           </button>
@@ -621,7 +536,7 @@ function BookmarkBtn({ projectId, projectTitle }) {
 
   return (
     <motion.button
-      className={`pd-bookmark-btn ${saved ? "active" : ""} ${isCooldown ? "loading" : ""}`}
+      className={`btn btn-outline pd-bookmark-btn ${saved ? "active" : ""} ${isCooldown ? "loading" : ""}`}
       onClick={toggle}
       disabled={isCooldown}
       style={{
@@ -705,11 +620,12 @@ export default function ProjectDetails({
 
   if (!project) {
     return (
-      <div className="section" style={{ paddingTop: 160 }}>
+      <div className="section pd-notfound">
         <div className="container">
-          <h2>Project not found</h2>
-          <Link href="/" className="btn" style={{ marginTop: 20 }}>
-            <FaArrowLeft /> Back to Home
+          <span className="label">404</span>
+          <h1 className="h-display">Project not found.</h1>
+          <Link href="/" className="btn">
+            <FaArrowLeft aria-hidden="true" /> Back to Home
           </Link>
         </div>
       </div>
@@ -726,54 +642,46 @@ export default function ProjectDetails({
 
   return (
     <>
-      {/* ── Hero ── */}
-      <section className="pd-hero">
-        <div className="pd-hero-orb pd-hero-orb-1" aria-hidden="true" />
-        <div className="pd-hero-orb pd-hero-orb-2" aria-hidden="true" />
+      {/* ── Hero · tier follows who signs the project ── */}
+      <section
+        className={`pd-hero ${isStudioProject(project) ? "pd-hero--studio" : "pd-hero--person"}`}
+      >
+        {isStudioProject(project) ? (
+          <MarkSolid className="pd-hero-watermark" />
+        ) : (
+          <MarkLine className="pd-hero-watermark" weight={6} />
+        )}
         <div className="container">
-          <Link
-            href="/#projects"
-            className="back-btn"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              marginBottom: 32,
-            }}
-          >
-            <FaArrowLeft /> Back to Projects
+          <Link href="/#projects" className="back-btn">
+            <FaArrowLeft aria-hidden="true" /> Back to Projects
           </Link>
 
           <div className="pd-hero-grid">
-            {/* Left */}
             <motion.div
+              className="pd-hero-main"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="pd-hero-eyebrow">Project</div>
-              <h1 className="pd-hero-title">
-                {project.title.split(" ").length > 2 ? (
-                  <>
-                    {project.title.split(" ").slice(0, -1).join(" ")}{" "}
-                    <em>{project.title.split(" ").slice(-1)}</em>
-                  </>
-                ) : (
-                  project.title
-                )}
-              </h1>
-
-              <div className="pd-meta-row">
-                <span className="pd-date-chip">
-                  <FaCalendarAlt />
+              <div className="pd-meta-row label">
+                <span>
                   {project.startDate} — {project.endDate || "Present"}
                 </span>
-                {project.isOpenSource && (
-                  <span className="pd-badge pd-badge-teal">
-                    <FaCode style={{ fontSize: "0.65rem" }} /> Open Source
-                  </span>
-                )}
+                {project.isOpenSource && <span>Open source</span>}
               </div>
+
+              {/* --fit = longest word, so the headline scales to keep
+                  single words like GOALMAGEDDON on one line */}
+              <h1
+                className="pd-hero-title"
+                style={{
+                  "--fit": Math.max(
+                    ...project.title.split(/\s+/).map((w) => w.length)
+                  ),
+                }}
+              >
+                {project.title}
+              </h1>
 
               <p className="pd-hero-desc">
                 {project.shortDescription || project.description}
@@ -786,16 +694,16 @@ export default function ProjectDetails({
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`pd-link ${i === 0 ? "pd-link-primary" : "pd-link-ghost"}`}
+                    className={`btn ${i === 0 ? "" : "btn-outline"}`}
                   >
                     {link.type === "github" ? (
-                      <FaGithub />
+                      <FaGithub aria-hidden="true" />
                     ) : link.type === "download" ? (
-                      <FaDownload />
+                      <FaDownload aria-hidden="true" />
                     ) : link.type === "play" ? (
-                      <FaPlayCircle />
+                      <FaPlayCircle aria-hidden="true" />
                     ) : (
-                      <FaExternalLinkAlt />
+                      <FaExternalLinkAlt aria-hidden="true" />
                     )}
                     {link.label}
                   </a>
@@ -806,29 +714,22 @@ export default function ProjectDetails({
                 />
               </div>
 
-              <div className="pd-tags">
-                {project.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="pd-tag"
-                    style={{
-                      backgroundColor: tag.color,
-                      boxShadow: `0 0 12px ${tag.color}45`,
-                    }}
-                  >
-                    {tag.icon} {tag.name}
-                  </span>
+              <ul className="pd-tags" aria-label="Tags">
+                {project.tags.map((tag) => (
+                  <li key={tag.name} className="pd-tag">
+                    {tag.icon}
+                    {tag.name}
+                  </li>
                 ))}
-                {project.isOpenSource && (
-                  <span className="pd-tag pd-tag-oss">
-                    <FaCode /> Open Source
-                  </span>
-                )}
+              </ul>
+
+              <div className="pd-credit">
+                <ProjectSignature project={project} />
               </div>
             </motion.div>
 
-            {/* Right */}
             <motion.div
+              className="pd-hero-side"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -837,16 +738,12 @@ export default function ProjectDetails({
                 <GitHubCard githubUrl={githubUrl} />
               ) : thumbnailSrc ? (
                 <img
+                  className="pd-hero-thumb"
                   src={thumbnailSrc}
                   alt={project.title}
                   width={1280}
                   height={720}
                   fetchPriority="high"
-                  style={{
-                    borderRadius: "var(--radius)",
-                    width: "100%",
-                    height: "auto",
-                  }}
                 />
               ) : null}
             </motion.div>
@@ -909,14 +806,9 @@ export default function ProjectDetails({
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.05 }}
                       >
-                        <FaCheck
-                          className="pd-check"
-                          style={{
-                            color: "var(--teal)",
-                            flexShrink: 0,
-                            marginTop: 2,
-                          }}
-                        />
+                        <span className="pd-feature-n mono" aria-hidden="true">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
                         <span className="pd-feature-text">{f}</span>
                       </motion.div>
                     ))}
@@ -947,10 +839,7 @@ export default function ProjectDetails({
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.04 }}
                       >
-                        <div
-                          className="pd-tech-icon"
-                          style={{ backgroundColor: tech.color }}
-                        >
+                        <div className="pd-tech-icon" aria-hidden="true">
                           {tech.icon}
                         </div>
                         <div className="pd-tech-name">{tech.name}</div>
@@ -1022,7 +911,7 @@ export default function ProjectDetails({
               href={`/projects/${findPrev(project)}`}
               className="pd-nav-btn"
             >
-              <FaArrowLeft /> Previous
+              <FaArrowLeft aria-hidden="true" /> Previous
             </Link>
           ) : (
             <span />
@@ -1032,7 +921,7 @@ export default function ProjectDetails({
               href={`/projects/${findNext(project)}`}
               className="pd-nav-btn"
             >
-              Next <FaArrowRight />
+              Next <FaArrowRight aria-hidden="true" />
             </Link>
           )}
         </div>

@@ -4,8 +4,8 @@
 // project happened and how long it ran for.
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FaCalendarAlt, FaCodeBranch } from "react-icons/fa";
 import { motion } from "framer-motion";
+import ProjectSignature from "./brand/ProjectSignature";
 
 const MONTHS = {
   jan: 0,
@@ -102,59 +102,41 @@ export default function ProjectsTimeline({ projects }) {
     });
 
   return (
-    <div className="timeline">
-      <div className="timeline-line" aria-hidden="true" />
+    <ol className="timeline">
       {entries.map(({ project, rangeLabel, durationLabel }) => (
-        <motion.div
+        <motion.li
           key={project.id}
-          className="timeline-item"
+          className={`timeline-item ${project.endDate === "Present" ? "is-active" : ""}`}
           variants={itemVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span
-            aria-hidden="true"
-            className="timeline-dot"
-            style={{ background: project.tags[0]?.color || "var(--primary)" }}
-          />
+          <div className="timeline-date mono">
+            <span>{rangeLabel}</span>
+            {durationLabel && (
+              <span className="timeline-duration">{durationLabel}</span>
+            )}
+          </div>
+          <span aria-hidden="true" className="timeline-key" />
           <div className="timeline-content">
-            <div className="timeline-date">
-              <FaCalendarAlt className="meta-icon" aria-hidden="true" />
-              <span>{rangeLabel}</span>
-              {durationLabel && (
-                <span className="timeline-duration">{durationLabel}</span>
-              )}
-              {project.isOpenSource && (
-                <span className="open-source-tag">
-                  <FaCodeBranch className="meta-icon" />
-                  <span>OSS</span>
-                </span>
-              )}
-            </div>
-
-            <h3>
+            <h3 className="timeline-title">
               <Link href={`/projects/${project.id}`}>{project.title}</Link>
             </h3>
             <p className="project-description">{project.shortDescription}</p>
-
-            <div className="project-tags">
-              {project.tags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="project-tag"
-                  style={{
-                    backgroundColor: tag.color,
-                    boxShadow: `0 0 10px ${tag.color}55`,
-                  }}
-                >
-                  {tag.icon} {tag.name}
-                </span>
-              ))}
+            <div className="timeline-foot">
+              <ProjectSignature project={project} />
+              <ul className="project-tags" aria-label="Tags">
+                {project.tags.map((tag) => (
+                  <li key={tag.name} className="project-tag">
+                    {tag.name}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </motion.div>
+        </motion.li>
       ))}
-    </div>
+    </ol>
   );
 }

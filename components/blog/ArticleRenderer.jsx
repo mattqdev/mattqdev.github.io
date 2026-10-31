@@ -24,7 +24,7 @@ const mdxOptions = {
   },
 };
 
-// Custom MDX component map — all styled to match globals.css
+// Custom MDX component map — styled in app/Blog.css
 const components = {
   h1: (p) => <h1 className="article-h1" {...p} />,
   h2: (p) => <h2 className="article-h2" {...p} />,
@@ -89,21 +89,21 @@ const components = {
 
   // Custom JSX components usable inside .md files
   Callout: ({ type = "info", title, children }) => (
-    <div className={`article-callout article-callout--${type}`}>
-      <span className="article-callout-icon" aria-hidden="true">
+    <aside className={`article-callout article-callout--${type}`}>
+      <span className="article-callout-kind">
         {type === "warning"
-          ? "⚠️"
+          ? "Warning"
           : type === "tip"
-            ? "💡"
+            ? "Tip"
             : type === "danger"
-              ? "🚨"
-              : "ℹ️"}
+              ? "Danger"
+              : "Note"}
       </span>
       <div className="article-callout-body">
         {title && <strong className="article-callout-title">{title}</strong>}
         <div>{children}</div>
       </div>
-    </div>
+    </aside>
   ),
 
   // Step component: <Step n={1}>Do this</Step>

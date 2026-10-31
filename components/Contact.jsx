@@ -1,7 +1,7 @@
 "use client";
 // components/Contact.jsx
 import { useEffect, useRef, useState } from "react";
-import { FaDiscord, FaEnvelope } from "react-icons/fa";
+import { FaArrowRight, FaDiscord, FaEnvelope } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
@@ -122,7 +122,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-footer">
+    <section id="contact" className="section section--contact">
       <motion.div
         className="container"
         variants={containerVariants}
@@ -130,155 +130,131 @@ export default function Contact() {
         whileInView="show"
         viewport={{ once: true, amount: 0.15 }}
       >
-        <div className="section-title">
-          <div className="section-label">Get in touch</div>
-          <motion.h2 variants={fadeUp}>
-            Contact <em>Me</em>
-          </motion.h2>
-          <p>
-            Whether it's a project idea, bug report, or just a hello — I'm all
-            ears.
+        <div className="section-head">
+          <div className="section-head-main">
+            <span className="label">04 · Get in touch</span>
+            <motion.h2 className="h-display" variants={fadeUp}>
+              Contact me<span className="dot-red">.</span>
+            </motion.h2>
+          </div>
+          <p className="section-lede">
+            Whether it&rsquo;s a project idea, bug report, or just a hello,
+            I&rsquo;m all ears.
           </p>
         </div>
 
-        <div className="contact-container">
-          {/* Left: social links */}
-          <motion.div className="contact-info" variants={containerVariants}>
-            {socials.map((s, i) => (
-              <motion.div key={i} className="contact-item" variants={fadeUp}>
-                <div className="contact-icon" aria-hidden="true">
-                  {s.roblox ? (
-                    <img
-                      src="/icons/roblox.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      draggable="false"
-                      className="contact-icon-svg red-filter"
-                    />
-                  ) : (
-                    s.icon
-                  )}
-                </div>
-                <div className="contact-details">
-                  <h3>{s.label}</h3>
-                  <a
-                    href={s.href}
-                    target={s.href.startsWith("http") ? "_blank" : undefined}
-                    rel="noopener noreferrer"
-                  >
-                    {s.value}
-                  </a>
-                </div>
-              </motion.div>
+        <div className="contact-grid">
+          <motion.ul className="contact-channels" variants={containerVariants}>
+            {socials.map((s) => (
+              <motion.li key={s.label} variants={fadeUp}>
+                <a
+                  href={s.href}
+                  className="contact-channel"
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    s.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                >
+                  <span className="contact-icon" aria-hidden="true">
+                    {s.roblox ? (
+                      <img
+                        src="/icons/roblox.svg"
+                        alt=""
+                        width={18}
+                        height={18}
+                        draggable="false"
+                        className="contact-icon-svg"
+                      />
+                    ) : (
+                      s.icon
+                    )}
+                  </span>
+                  <span className="contact-label mono">{s.label}</span>
+                  <span className="contact-value">{s.value}</span>
+                  <FaArrowRight className="contact-go" aria-hidden="true" />
+                </a>
+              </motion.li>
             ))}
-          </motion.div>
+          </motion.ul>
 
-          {/* Right: form */}
           <motion.div className="contact-form" variants={fadeUp}>
             {status.succeeded ? (
               <div
                 ref={successRef}
                 tabIndex={-1}
                 role="status"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 16,
-                  padding: "60px 20px",
-                  background: "var(--bg-card)",
-                  borderRadius: "var(--radius)",
-                  border: "1px solid var(--border)",
-                  textAlign: "center",
-                }}
+                className="contact-success"
               >
-                <div style={{ fontSize: "2.5rem" }} aria-hidden="true">
-                  🎉
-                </div>
-                <h3 style={{ fontFamily: "var(--font-display)" }}>
-                  Message Sent!
-                </h3>
-                <p
-                  style={{ color: "var(--text-secondary)", fontSize: ".9rem" }}
-                >
-                  Thanks for reaching out. I'll get back to you soon.
+                <span className="label">Message sent</span>
+                <p className="contact-success-title">
+                  Thanks for reaching out.
                 </p>
+                <p>I&rsquo;ll get back to you soon.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label htmlFor="contact-name" className="sr-only">
-                    Name (optional)
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    name="name"
-                    autoComplete="name"
-                    placeholder="Your name (optional)…"
-                  />
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="contact-name">
+                      Name <span>optional</span>
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      name="name"
+                      autoComplete="name"
+                      placeholder="Your name…"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="contact-email">Email</label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      spellCheck={false}
+                      placeholder="you@example.com…"
+                      required
+                    />
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="contact-email" className="sr-only">
-                    Email
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    inputMode="email"
-                    spellCheck={false}
-                    placeholder="you@example.com…"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="contact-subject" className="sr-only">
-                    Subject
-                  </label>
+                  <label htmlFor="contact-subject">Subject</label>
                   <input
                     id="contact-subject"
                     type="text"
                     name="subject"
                     autoComplete="off"
-                    placeholder="Subject, e.g. Collab on a Roblox game…"
+                    placeholder="e.g. Collab on a Roblox game…"
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="contact-message" className="sr-only">
-                    Message
-                  </label>
+                  <label htmlFor="contact-message">Message</label>
                   <textarea
                     id="contact-message"
                     name="message"
                     autoComplete="off"
-                    placeholder="Your message — suggestions, bug reports, collabs…"
+                    placeholder="Suggestions, bug reports, collabs…"
                     required
                   />
                 </div>
                 {status.error && (
-                  <p
-                    role="alert"
-                    style={{
-                      color: "var(--primary)",
-                      fontSize: ".85rem",
-                      marginBottom: 12,
-                    }}
-                  >
+                  <p role="alert" className="form-error">
                     {status.error}
                   </p>
                 )}
                 <button
                   type="submit"
-                  className="btn"
+                  className="btn btn-block"
                   disabled={status.submitting}
-                  style={{ width: "100%", justifyContent: "center" }}
                 >
-                  {status.submitting ? "Sending…" : "Send Message"}
+                  {status.submitting ? "Sending…" : "Send message"}
+                  {!status.submitting && <FaArrowRight aria-hidden="true" />}
                 </button>
               </form>
             )}

@@ -9,7 +9,6 @@ import Projects from "./Projects";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
-import SparklesPreview from "./Particles";
 import { scrollBehavior } from "@/lib/motion";
 
 export const SECTIONS = [
@@ -60,11 +59,8 @@ export default function SiteShell() {
       />
       <main id="main">
         <Hero scrollToSection={scrollToSection} />
-        <SparklesPreview />
         <About />
-        <SparklesPreview />
         <Projects />
-        <SparklesPreview />
         <Skills />
         <Contact />
       </main>

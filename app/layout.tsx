@@ -1,29 +1,44 @@
 // app/layout.jsx
-import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
+import {
+  Archivo,
+  Instrument_Serif,
+  Inter,
+  JetBrains_Mono,
+} from "next/font/google";
 import { Metadata, Viewport } from "next";
 import Providers from "@/components/Providers";
 import "./globals.css";
 import "./Blog.css";
 
-// Load fonts via next/font — zero layout shift, no external request at runtime
-const syne = Syne({
+// Brand type system (brand-manual.html §05), adapted for screen reading:
+//   Instrument Serif (roman only — no italic on the web) → large display titles
+//   Archivo Expanded → MattQ Studios names (wdth axis for font-stretch)
+//   JetBrains Mono   → handle, labels, code
+//   Inter            → body and all small headings
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-display",
+  axes: ["wdth"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-body",
+  weight: "400",
+  style: "normal",
+  variable: "--font-instrument",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400", "500"],
   variable: "--font-jetbrains",
   display: "swap",
 });
@@ -31,7 +46,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0b0b12",
+  themeColor: "#0E0B0B",
   colorScheme: "dark",
 };
 
@@ -64,7 +79,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
+      className={`${archivo.variable} ${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <link rel="icon" type="image/x-icon" href="/icon.ico" />

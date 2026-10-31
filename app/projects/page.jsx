@@ -26,17 +26,15 @@ export default function ProjectsPage() {
     <>
       {/* Standalone hero for the /projects route */}
       <div className="projects-page-hero">
-        <div className="container">
-          <div className="projects-page-hero-inner">
-            <div className="section-label">Portfolio</div>
-            <h1 className="projects-page-title">
-              All <em>Projects</em>
-            </h1>
-            <p className="projects-page-sub">
-              Roblox games · Studio plugins · Web apps · Hardware builds ·
-              Open-source tools
-            </p>
-          </div>
+        <div className="container projects-page-hero-inner">
+          <span className="label">Portfolio</span>
+          <h1 className="projects-page-title">
+            All projects<span className="dot-red">.</span>
+          </h1>
+          <p className="projects-page-sub">
+            Roblox games · Studio plugins · Web apps · Hardware builds ·
+            Open-source tools
+          </p>
         </div>
       </div>
 

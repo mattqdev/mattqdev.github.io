@@ -23,34 +23,11 @@ export function SharePanel({ project }) {
 
   return (
     <div className="pd-share-panel">
-      <p
-        style={{
-          fontSize: "0.78rem",
-          color: "var(--text-muted)",
-          marginBottom: 10,
-          fontFamily: "var(--font-mono)",
-        }}
-      >
-        {project ? "SHARE THIS PROJECT" : "SHARE THIS PAGE"}
+      <p className="label pd-share-title">
+        {project ? "Share this project" : "Share this page"}
       </p>
       <div className="pd-share-url">
-        <FaLink
-          aria-hidden="true"
-          style={{ color: "var(--text-muted)", flexShrink: 0 }}
-        />
-        <span
-          style={{
-            flex: 1,
-            minWidth: 0,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-            fontSize: "0.8rem",
-            color: "var(--text-secondary)",
-          }}
-        >
-          {url}
-        </span>
+        <span className="pd-share-link">{url}</span>
         <button
           type="button"
           className={`pd-copy-btn ${copyState === "copied" ? "copied" : ""}`}
@@ -87,7 +64,7 @@ export function FloatingCluster({ project }) {
     /* ── Floating action cluster ── */
     <div className="pd-fab-cluster" role="group" aria-label="Page actions">
       {/* Share */}
-      <div style={{ position: "relative" }}>
+      <div className="pd-fab-slot">
         <button
           type="button"
           className="pd-fab"

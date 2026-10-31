@@ -13,27 +13,19 @@ import {
   FaGithub,
   FaLink,
   FaCheck,
-  FaCalendarAlt,
-  FaClock,
-  FaListUl,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FloatingCluster } from "../FloatingCluster";
 import { formatDate } from "@/lib/format";
 import { scrollBehavior } from "@/lib/motion";
+import { MarkLine } from "../brand/Mark";
 
 /* ── Table of Contents ────────────────────────────── */
 function TableOfContents({ headings, activeId }) {
   if (!headings.length) return null;
   return (
     <nav className="toc" aria-label="Table of contents">
-      <div className="sidebar-card-label" style={{ marginBottom: 12 }}>
-        <FaListUl
-          aria-hidden="true"
-          style={{ display: "inline", marginRight: 6 }}
-        />
-        On this page
-      </div>
+      <div className="label sidebar-card-label">On this page</div>
       <ul className="toc-list">
         {headings.map((h) => (
           <li key={h.id} className={`toc-item toc-level-${h.level}`}>
@@ -104,12 +96,12 @@ function CopyLinkButton({ url }) {
     <>
       <button
         type="button"
-        className="article-share-btn"
+        className="icon-btn"
         aria-label="Copy link to this article"
         onClick={copy}
       >
         {copyState === "copied" ? (
-          <FaCheck aria-hidden="true" style={{ color: "var(--teal)" }} />
+          <FaCheck aria-hidden="true" />
         ) : (
           <FaLink aria-hidden="true" />
         )}
@@ -151,116 +143,96 @@ export default function BlogArticle({ post, children }) {
 
   return (
     <>
-      <div className="article-page">
+      <article className="article-page">
         {/* ── Hero ── */}
-        <div
-          className={`article-hero ${cover ? "article-hero--has-cover" : ""}`}
-        >
-          {cover && (
-            <div className="article-cover">
-              <img
-                src={`/blog/covers/${cover}`}
-                alt=""
-                width={1200}
-                height={630}
-                fetchPriority="high"
-              />
-              <div className="article-cover-overlay" aria-hidden="true" />
-            </div>
-          )}
-
+        <header className="article-hero">
           <div className="container article-hero-inner">
             <motion.div
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: "easeOut" }}
             >
-              <Link href="/blog" className="article-back">
+              <Link href="/blog" className="article-back label">
                 <FaArrowLeft aria-hidden="true" /> All Articles
               </Link>
 
-              <div className="article-meta-row">
-                <span className="article-meta-item">
-                  <FaCalendarAlt aria-hidden="true" />{" "}
-                  <time dateTime={date}>{formatDate(date)}</time>
-                </span>
-                <span className="article-meta-sep" aria-hidden="true">
-                  ·
-                </span>
-                <span className="article-meta-item">
-                  <FaClock aria-hidden="true" /> {readingTime}
-                </span>
+              <div className="article-meta-row label">
+                <time dateTime={date}>{formatDate(date)}</time>
+                <span>{readingTime}</span>
               </div>
 
               <h1 className="article-title">{title}</h1>
               <p className="article-lead">{description}</p>
 
-              <div className="article-tags">
+              <ul className="article-tags" aria-label="Tags">
                 {tags.map((t) => (
-                  <span key={t} className="blog-tag-chip">
+                  <li key={t} className="blog-tag-chip">
                     {t}
-                  </span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           </div>
-        </div>
+          {cover && (
+            <div className="container">
+              <div className="article-cover">
+                <img
+                  src={`/blog/covers/${cover}`}
+                  alt=""
+                  width={1200}
+                  height={630}
+                  fetchPriority="high"
+                />
+              </div>
+            </div>
+          )}
+        </header>
 
         {/* ── Body: content + sidebar ── */}
         <div className="container article-layout">
-          <motion.div
-            ref={contentRef}
-            className="article-content"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.55 }}
-          >
+          <div ref={contentRef} className="article-content">
             {children}
 
-            {/* Share */}
             <div className="article-share">
-              <span className="article-share-label">Share</span>
+              <span className="label">Share</span>
               <a
                 href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="article-share-btn"
+                className="icon-btn"
                 aria-label="Share on X (Twitter)"
               >
                 <FaXTwitter aria-hidden="true" />
               </a>
               <CopyLinkButton url={shareUrl} />
             </div>
-          </motion.div>
+          </div>
 
           {/* Sidebar */}
           <aside className="article-sidebar">
-            {/* TOC */}
-            <div className="sidebar-card">
-              <TableOfContents headings={headings} activeId={activeId} />
-            </div>
+            {headings.length > 0 && (
+              <div className="sidebar-block">
+                <TableOfContents headings={headings} activeId={activeId} />
+              </div>
+            )}
 
-            {/* Author */}
-            <div className="sidebar-card">
-              <div className="sidebar-author-avatar">
-                <img
-                  src="/icons/avatar.png"
-                  alt=""
-                  width={72}
-                  height={72}
-                  loading="lazy"
-                />
+            <div className="sidebar-block sidebar-author">
+              <div className="sidebar-author-avatar" aria-hidden="true">
+                <MarkLine weight={22} />
               </div>
-              <div className="sidebar-author-name">MattQ</div>
-              <div className="sidebar-author-bio">
-                Developer & designer — Roblox games, web tools, OSS.
+              <div>
+                <div className="sidebar-author-name">MattQ</div>
+                <div className="sidebar-author-handle mono">@mattqdev</div>
               </div>
+              <p className="sidebar-author-bio">
+                Developer &amp; designer: Roblox games, web tools, OSS.
+              </p>
               <div className="sidebar-author-links">
                 <a
                   href="https://github.com/mattqdev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sidebar-social"
+                  className="icon-btn"
                   aria-label="MattQ on GitHub"
                 >
                   <FaGithub aria-hidden="true" />
@@ -269,7 +241,7 @@ export default function BlogArticle({ post, children }) {
                   href="https://x.com/mattqdev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sidebar-social"
+                  className="icon-btn"
                   aria-label="MattQ on X (Twitter)"
                 >
                   <FaXTwitter aria-hidden="true" />
@@ -277,31 +249,13 @@ export default function BlogArticle({ post, children }) {
               </div>
             </div>
 
-            {/* Tags */}
-            {tags.length > 0 && (
-              <div className="sidebar-card">
-                <div className="sidebar-card-label">Tags</div>
-                <div className="sidebar-tags">
-                  {tags.map((t) => (
-                    <span key={t} className="blog-tag-chip">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Portfolio CTA */}
-            <div className="sidebar-card sidebar-cta">
-              <div className="sidebar-cta-emoji" aria-hidden="true">
-                🚀
-              </div>
-              <div className="sidebar-card-label">Portfolio</div>
+            <div className="sidebar-block sidebar-cta">
+              <span className="label">Portfolio</span>
               <p className="sidebar-cta-text">
-                3M+ game visits, 6K+ plugin downloads, and open‑source tools
+                3M+ game visits, 6K+ plugin downloads, and open-source tools
                 used by developers worldwide.
               </p>
-              <Link href="/" className="sidebar-cta-btn">
+              <Link href="/" className="btn btn-block">
                 See my work <FaArrowRight aria-hidden="true" />
               </Link>
             </div>
@@ -309,30 +263,27 @@ export default function BlogArticle({ post, children }) {
         </div>
 
         {/* ── Bottom CTA ── */}
-        <section className="container" style={{ paddingBottom: 80 }}>
-          <motion.div
-            className="blog-cta"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+        <section className="container article-bottom">
+          <div className="blog-cta">
             <div className="blog-cta-inner">
-              <span className="blog-cta-label">Enjoyed this article?</span>
-              <h2 className="blog-cta-title">Check out what I've built</h2>
+              <span className="label">Enjoyed this article?</span>
+              <h2 className="blog-cta-title">
+                Check out what I&rsquo;ve built.
+              </h2>
               <p className="blog-cta-text">
                 From Roblox games with millions of visits to open-source
-                developer tools — see everything on my portfolio.
+                developer tools, see everything on my portfolio.
               </p>
-              <Link href="/" className="blog-cta-btn">
-                View Portfolio <FaArrowRight aria-hidden="true" />
+              <Link href="/" className="btn">
+                View portfolio <FaArrowRight aria-hidden="true" />
               </Link>
             </div>
-          </motion.div>
+            <MarkLine className="blog-cta-mark" weight={12} />
+          </div>
         </section>
 
         <FloatingCluster />
-      </div>
+      </article>
     </>
   );
 }

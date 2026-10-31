@@ -57,19 +57,18 @@ export function ProgressRing() {
             cy={22}
             r={r}
             fill="none"
-            stroke="rgba(255,77,90,0.15)"
-            strokeWidth={3}
+            className="progress-track"
+            strokeWidth={2}
           />
           <circle
             cx={22}
             cy={22}
             r={r}
             fill="none"
-            stroke="var(--primary)"
-            strokeWidth={3}
+            className="progress-value"
+            strokeWidth={2}
             strokeDasharray={circ}
             strokeDashoffset={dash}
-            strokeLinecap="round"
             style={{ transition: "stroke-dashoffset 0.15s linear" }}
           />
         </svg>

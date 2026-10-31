@@ -1,18 +1,18 @@
 // components/Header.jsx
 "use client";
 import { useEffect, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { MarkLine } from "./brand/Mark";
 
 // Owns its own scroll + mobile-menu state so it works on every route
 // (homepage, /blog, /projects) without the layout wiring it up.
+// Tier A lockup: line mark · rule · handle. The cursor is the page's one Signal.
 export default function Header({ activeSection, sections, scrollToSection }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 80);
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -28,10 +28,16 @@ export default function Header({ activeSection, sections, scrollToSection }) {
   }, [mobileMenuOpen]);
 
   return (
-    <header className={isScrolled ? "scrolled" : ""}>
+    <header
+      className={`site-header ${isScrolled ? "scrolled" : ""} ${mobileMenuOpen ? "menu-open" : ""}`}
+    >
       <div className="container header-container">
-        <Link href="/" className="logo">
-          Matt<span>Q</span>
+        <Link href="/" className="logo" aria-label="Matt (@mattqdev), home">
+          <MarkLine className="logo-mark" weight={22} />
+          <span className="logo-rule" aria-hidden="true" />
+          <span className="logo-handle" aria-hidden="true">
+            @mattqdev<span className="cursor">_</span>
+          </span>
         </Link>
 
         <nav aria-label="Main">
@@ -39,26 +45,38 @@ export default function Header({ activeSection, sections, scrollToSection }) {
             id="main-nav"
             className={`nav-links ${mobileMenuOpen ? "active" : ""}`}
           >
-            {sections.map((section) => {
+            {sections.map((section, i) => {
               const isActive = activeSection === section.id;
+              const props = {
+                className: `nav-link ${isActive ? "active" : ""}`,
+                "aria-current": isActive
+                  ? section.href
+                    ? "page"
+                    : "true"
+                  : undefined,
+              };
+              const label = (
+                <>
+                  <span className="nav-index" aria-hidden="true">
+                    {String(i).padStart(2, "0")}
+                  </span>
+                  {section.name}
+                </>
+              );
               return (
                 <li key={section.id}>
                   {section.href ? (
-                    // Route link (like /blog)
                     <Link
                       href={section.href}
-                      className={isActive ? "active" : ""}
-                      aria-current={isActive ? "page" : undefined}
+                      {...props}
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      {section.name}
+                      {label}
                     </Link>
                   ) : (
-                    // Section on the homepage
                     <Link
                       href={`/#${section.id}`}
-                      className={isActive ? "active" : ""}
-                      aria-current={isActive ? "true" : undefined}
+                      {...props}
                       onClick={(e) => {
                         setMobileMenuOpen(false);
                         if (
@@ -70,7 +88,7 @@ export default function Header({ activeSection, sections, scrollToSection }) {
                         }
                       }}
                     >
-                      {section.name}
+                      {label}
                     </Link>
                   )}
                 </li>
@@ -86,31 +104,11 @@ export default function Header({ activeSection, sections, scrollToSection }) {
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileMenuOpen}
           aria-controls="main-nav"
-          style={{ background: "none", border: "none", cursor: "pointer" }}
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {mobileMenuOpen ? (
-              <motion.span
-                key="x"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                aria-hidden="true"
-              >
-                <FaTimes />
-              </motion.span>
-            ) : (
-              <motion.span
-                key="bars"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                aria-hidden="true"
-              >
-                <FaBars />
-              </motion.span>
-            )}
-          </AnimatePresence>
+          <span className="mobile-menu-text" aria-hidden="true">
+            {mobileMenuOpen ? "Close" : "Menu"}
+          </span>
+          <span className="mobile-menu-icon" aria-hidden="true" />
         </button>
       </div>
     </header>
