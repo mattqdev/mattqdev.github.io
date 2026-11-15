@@ -9,6 +9,7 @@ import {
   SiTailwindcss,
   SiPython,
   SiTypescript,
+  SiNextdotjs,
 } from "@icons-pack/react-simple-icons";
 import {
   FaGear,
@@ -133,5 +134,11 @@ export const TAGS = {
     icon: <SiTypescript />,
     color: "#3178c6",
     purpose: "Typed JavaScript superset",
+  },
+  NEXTJS: {
+    name: "Next.js",
+    icon: <SiNextdotjs />,
+    color: "#e5e5e5",
+    purpose: "React framework",
   },
 };

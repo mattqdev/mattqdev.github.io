@@ -306,17 +306,17 @@ export const projects = [
     id: "portfolio",
     title: "MattQ Portfolio",
     shortDescription:
-      "My personal portfolio website showcasing my projects, skills, and contact info. (It's this website btw)",
+      "My personal portfolio and blog, built with Next.js. (It's this website btw)",
     description:
-      "My personal portfolio website built with React. It showcases all my projects, skills, and ways to get in touch. Features a clean, responsive design with project filtering by tag, a blog section, and live Roblox stats integration.",
-    startDate: "Jul 2023",
+      "My personal portfolio and blog, now in its third version. It's built with Next.js and React and exported as a fully static site on GitHub Pages: project pages with live GitHub and Roblox stats, a design section, and a Markdown blog with an RSS feed. The visual identity follows my own brand manual. The previous versions are still online: v1 at /v1 and my first HTML/CSS portfolio at /v0.",
+    startDate: "Jul 2025",
     endDate: "Present",
     tags: [
       TAGS.WEBSITE,
-      TAGS.HTML_CSS,
-      TAGS.JAVASCRIPT,
+      TAGS.NEXTJS,
       TAGS.REACT,
-      TAGS.TAILWIND_CSS,
+      TAGS.JAVASCRIPT,
+      TAGS.HTML_CSS,
     ],
     thumbnail: "preview.png",
     links: [
@@ -330,21 +330,22 @@ export const projects = [
         url: "https://github.com/mattqdev/mattqdev.github.io",
         label: "Repository",
       },
+      {
+        type: "live",
+        url: "https://mattqdev.github.io/v1/",
+        label: "Previous version (v1)",
+      },
     ],
     isOpenSource: true,
     features: [
-      "Showcases all projects with tag-based filtering",
-      "Responsive design across all devices",
-      "Blog section at /blog",
-      "Live Roblox stats integration",
-      "Contact section with email, Discord, Twitter, and Roblox links",
+      "Projects with tag-based filtering and live GitHub and Roblox stats",
+      "Design section with brand and visual work",
+      "Markdown blog at /blog with an RSS feed",
+      "Contact form plus email, Discord, X and Roblox links",
+      "Fully static: prerendered at build time and hosted on GitHub Pages",
+      "Previous versions kept online at /v1 and /v0",
     ],
-    technologies: [
-      TAGS.HTML_CSS,
-      TAGS.JAVASCRIPT,
-      TAGS.REACT,
-      TAGS.TAILWIND_CSS,
-    ],
+    technologies: [TAGS.NEXTJS, TAGS.REACT, TAGS.JAVASCRIPT, TAGS.HTML_CSS],
     achievements: [
       {
         icon: <FaLightbulb />,
@@ -354,9 +355,15 @@ export const projects = [
       },
       {
         icon: <FaLightbulb />,
+        title: "Versions",
+        description: "Three designs since 2023, all still online.",
+        metric: "v0 → v2",
+      },
+      {
+        icon: <FaLightbulb />,
         title: "Open Source",
         description: "Source available on GitHub.",
-        metric: "MIT",
+        metric: "Public",
       },
     ],
   },
@@ -775,6 +782,11 @@ export const projects = [
     tags: [TAGS.WEBSITE, TAGS.HTML_CSS, TAGS.JAVASCRIPT],
     thumbnail: "preview.png",
     links: [
+      {
+        type: "live",
+        url: "https://mattqdev.github.io/v0/",
+        label: "Live Site",
+      },
       {
         type: "github",
         url: "https://github.com/mattqdev/first-portfolio",
