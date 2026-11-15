@@ -70,6 +70,8 @@ export default function Footer() {
 
         <div className="copyright label">
           <span>© {new Date().getFullYear()} MattQ</span>
+          {/* Plain <a>: /v1 is a separate Pages site (repo mattqdev/v1), not a route here */}
+          <a href="/v1/">Previous version</a>
           <a
             href="https://github.com/mattqdev/mattqdev.github.io"
             target="_blank"
