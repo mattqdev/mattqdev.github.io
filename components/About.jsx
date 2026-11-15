@@ -103,12 +103,6 @@ export default function About() {
   const followers = useCounter(followerCount, 1800, isInView);
   const shipped = useCounter(projects.length, 1200, isInView);
 
-  // Computed after mount so the prerendered HTML doesn't bake in the build year
-  const [yearsBuilding, setYearsBuilding] = useState(null);
-  useEffect(() => {
-    setYearsBuilding(new Date().getFullYear() - 2020);
-  }, []);
-
   const stats = [
     { value: formatNumber(visits) + "+", label: "Game Visits" },
     { value: formatNumber(shipped) + "+", label: "Projects Shipped" },
@@ -131,16 +125,12 @@ export default function About() {
               About me<span className="dot-red">.</span>
             </motion.h2>
           </div>
-          <p className="section-lede">
-            Developer &amp; designer with a love for craft across platforms.
-          </p>
         </div>
 
         <div className="about-grid">
           <motion.div className="about-text" variants={containerVariants}>
             <motion.h3 className="about-heading" variants={fadeUp}>
-              {yearsBuilding != null ? `${yearsBuilding}+ ` : ""}Years Building
-              Things That Work
+              Making games, tools and websites since 2020
             </motion.h3>
             <motion.p variants={fadeUp}>
               I build polished web apps and Roblox games, from first pixel to

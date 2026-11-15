@@ -24,7 +24,7 @@ const socials = [
   {
     icon: <FaDiscord />,
     label: "Discord",
-    value: "@mattqdev",
+    value: "MattQ Studios",
     href: "https://discord.gg/PWkZyqQ7st",
   },
   {
@@ -132,7 +132,7 @@ export default function Contact() {
       >
         <div className="section-head">
           <div className="section-head-main">
-            <span className="label">04 · Get in touch</span>
+            <span className="label">05 · Get in touch</span>
             <motion.h2 className="h-display" variants={fadeUp}>
               Contact me<span className="dot-red">.</span>
             </motion.h2>

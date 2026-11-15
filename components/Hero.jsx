@@ -3,7 +3,7 @@
 // Tier A: ink ground, serif display (roman), mono metadata.
 // The only Signal in view is the header cursor.
 import { motion } from "framer-motion";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaDownload } from "react-icons/fa";
 import { MarkLine } from "./brand/Mark";
 
 const fadeUp = (delay = 0) => ({
@@ -25,7 +25,11 @@ const socials = [
     value: "MattQ",
     href: "https://www.roblox.com/users/2992118050",
   },
-  { label: "Discord", value: "server", href: "https://discord.gg/PWkZyqQ7st" },
+  {
+    label: "Discord",
+    value: "MattQ Studios",
+    href: "https://discord.gg/PWkZyqQ7st",
+  },
 ];
 
 export default function Hero({ scrollToSection }) {
@@ -46,8 +50,9 @@ export default function Hero({ scrollToSection }) {
           </motion.h1>
 
           <motion.p className="hero-lede" {...fadeUp(0.22)}>
-            I love programming and designing UI/UX, specializing in web
-            development, Roblox game development and cross-platform design.
+            I take products from first sketch to launch: Roblox games with 5M+
+            visits, developer tools with 8,100+ installs and PhysicsHub, an
+            open-source platform with 67 contributors.
           </motion.p>
 
           <motion.div className="hero-btns" {...fadeUp(0.32)}>
@@ -65,6 +70,13 @@ export default function Hero({ scrollToSection }) {
             >
               Contact me
             </button>
+            <a
+              className="btn btn-outline"
+              href="/Matteo_Scarcella_Resume.pdf"
+              download
+            >
+              <FaDownload aria-hidden="true" /> Resume
+            </a>
           </motion.div>
 
           <motion.ul className="hero-socials" {...fadeUp(0.42)}>

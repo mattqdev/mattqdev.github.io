@@ -12,26 +12,85 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
+// Mirrors the skills section of the resume (Atelier, boards/resume).
 const skillCategories = [
   {
+    title: "Languages",
+    skills: [
+      "JavaScript",
+      "TypeScript",
+      "Luau",
+      "Python",
+      "C/C++ (Arduino, ESP32)",
+      "HTML/CSS",
+      "Liquid",
+    ],
+  },
+  {
     title: "Web Development",
-    skills: ["HTML/CSS", "JavaScript", "React", "Tailwind CSS", "Node.js"],
+    skills: [
+      "React",
+      "Next.js",
+      "Vite",
+      "Tailwind CSS",
+      "Node.js",
+      "p5.js",
+      "Phaser",
+      "React Native (basics)",
+      "Shopify",
+      "SEO/GEO",
+      "i18n",
+    ],
+  },
+  {
+    title: "Backend & Infra",
+    skills: ["Supabase", "REST APIs", "Vercel", "GitHub Actions", "npm"],
   },
   {
     title: "Game Development",
-    skills: ["Roblox Studio", "Luau", "Game Design", "GFX"],
+    skills: [
+      "Roblox Studio",
+      "DataStores",
+      "Networking",
+      "Anti-exploit",
+      "NPC AI",
+      "Game Design",
+      "Live Ops",
+      "Monetisation",
+    ],
+  },
+  {
+    title: "AI",
+    skills: [
+      "Claude Code",
+      "Skills, plugins & MCP",
+      "Agent workflows",
+      "Business automation",
+      "Image & video generation",
+    ],
   },
   {
     title: "Design",
-    skills: ["UI/UX Design", "Graphic Design", "Prototyping", "Figma"],
-  },
-  {
-    title: "Programming",
-    skills: ["Python", "C++ (Arduino)", "React Native", "PHP", "Swift"],
+    skills: [
+      "UI/UX Design",
+      "Brand Identity",
+      "Campaign Design",
+      "GFX",
+      "Prototyping",
+      "Figma",
+    ],
   },
   {
     title: "Tools & Platforms",
-    skills: ["VS Code", "Roblox Studio", "Creator Hub", "Figma", "Photopea"],
+    skills: [
+      "Git",
+      "VS Code",
+      "Creator Hub",
+      "Photoshop",
+      "Photopea",
+      "Trello",
+      "Discord",
+    ],
   },
 ];
 
@@ -47,7 +106,7 @@ export default function Skills() {
       >
         <div className="section-head">
           <div className="section-head-main">
-            <span className="label">03 · Expertise</span>
+            <span className="label">04 · Expertise</span>
             <motion.h2 className="h-display" variants={fadeUp}>
               My skills<span className="dot-red">.</span>
             </motion.h2>
