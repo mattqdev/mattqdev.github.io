@@ -6,6 +6,7 @@ import Hero from "./Hero";
 import About from "./About";
 import Skills from "./Skills";
 import Projects from "./Projects";
+import DesignPreview from "./DesignPreview";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
@@ -18,7 +19,6 @@ export const SECTIONS = [
   { id: "design", name: "Design", href: "/design" },
   { id: "skills", name: "Skills" },
   { id: "contact", name: "Contact" },
-  { id: "blog", name: "Blog", href: "/blog" },
 ];
 
 export default function SiteShell() {
@@ -61,7 +61,8 @@ export default function SiteShell() {
       <main id="main">
         <Hero scrollToSection={scrollToSection} />
         <About />
-        <Projects />
+        <Projects limit={9} />
+        <DesignPreview />
         <Skills />
         <Contact />
       </main>

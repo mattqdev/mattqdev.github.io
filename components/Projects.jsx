@@ -84,7 +84,8 @@ function GitHubStrip({ githubUrl }) {
 }
 
 /* ── Main component ───────────────────────────────── */
-export default function Projects() {
+// `limit` caps the grid on the homepage; /projects renders everything.
+export default function Projects({ limit }) {
   // Filter + view live in the URL (?category=…&view=…) so they can be shared
   const [filterParam, setFilter] = useUrlState("category", "all");
   const [viewParam, setView] = useUrlState("view", "grid");
@@ -114,6 +115,10 @@ export default function Projects() {
       : projects.filter((p) =>
           p.tags.some((t) => t.name.toLowerCase() === filter)
         );
+
+  const shownProjects = limit
+    ? filteredProjects.slice(0, limit)
+    : filteredProjects;
 
   return (
     <section id="projects" className="section section--alt">
@@ -173,7 +178,7 @@ export default function Projects() {
           /* Project grid — AnimatePresence handles enter/exit on filter change */
           <motion.div className="projects-grid" layout>
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, index) => {
+              {shownProjects.map((project) => {
                 const githubLink = project.links?.find(
                   (l) => l.type === "github" && l.url?.includes("github.com")
                 );
@@ -192,7 +197,7 @@ export default function Projects() {
                     layout
                   >
                     <div
-                      className={`project-media ${studio ? "is-studio" : "is-person"}`}
+                      className={`project-media ${studio ? "is-studio" : "is-person"}${project.thumbnailFit === "contain" ? " is-contain" : ""}`}
                     >
                       {thumbSrc ? (
                         <Image
@@ -200,7 +205,7 @@ export default function Projects() {
                           alt=""
                           fill
                           unoptimized
-                          style={{ objectFit: "cover" }}
+                          style={{ objectFit: project.thumbnailFit || "cover" }}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       ) : studio ? (
@@ -208,9 +213,6 @@ export default function Projects() {
                       ) : (
                         <MarkLine className="project-media-mark" weight={12} />
                       )}
-                      <span className="project-index mono" aria-hidden="true">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
                     </div>
 
                     <div className="project-content">
@@ -282,6 +284,15 @@ export default function Projects() {
               })}
             </AnimatePresence>
           </motion.div>
+        )}
+
+        {view === "grid" && shownProjects.length < filteredProjects.length && (
+          <div className="projects-more">
+            <Link href="/projects" className="btn btn-outline">
+              View all {projects.length} projects{" "}
+              <FaArrowRight aria-hidden="true" />
+            </Link>
+          </div>
         )}
       </motion.div>
     </section>

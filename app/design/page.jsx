@@ -35,6 +35,20 @@ export default function DesignPage() {
         </div>
       </div>
 
+      {/* Sticky index: jump straight to any project instead of scrolling */}
+      <nav className="design-index" aria-label="Design projects">
+        <ul className="container">
+          {DESIGN_GROUPS.map((group) => (
+            <li key={group.id}>
+              <a href={`#${group.id}`}>
+                {group.title}
+                <span className="mono">{group.images.length}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       {DESIGN_GROUPS.map((group, i) => (
         <section
           key={group.id}

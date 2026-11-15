@@ -924,15 +924,13 @@ label,
   height: auto;
   color: var(--paper);
 }
-.project-index {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 4px 8px;
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  background: var(--ink);
-  color: var(--signal-tint);
+/* Logos and banners that don't fit 16:10: shown whole on a neutral ground */
+.project-media.is-contain {
+  background: var(--charcoal-2);
+}
+.project-media.is-contain img {
+  padding: 8% 12%;
+  box-sizing: border-box;
 }
 .project-content {
   display: flex;
@@ -2460,10 +2458,49 @@ label,
   line-height: 1.6;
   color: var(--text-2);
 }
+.design-index {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 10;
+  background: rgba(14, 11, 11, 0.92);
+  backdrop-filter: blur(10px);
+  border-block: 1px solid var(--rule);
+}
+.design-index ul {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 12px;
+}
+.design-index a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  border: 1px solid var(--rule-soft);
+  transition: border-color 0.2s var(--ease);
+}
+.design-index a:hover,
+.design-index a:focus-visible {
+  border-color: var(--signal);
+}
+.design-index .mono {
+  font-size: 0.6875rem;
+  color: var(--text-2);
+}
+.design-group {
+  padding-block: clamp(48px, 5vw, 72px);
+  scroll-margin-top: calc(var(--header-h) + 62px);
+}
 /* Masonry via columns: mixed aspect ratios stack without cropping */
 .design-grid {
   list-style: none;
-  columns: 3 300px;
+  columns: 4 220px;
   column-gap: 16px;
 }
 .design-grid li {
@@ -2484,4 +2521,44 @@ label,
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* Homepage: "View all" under the project grid and the design preview */
+.projects-more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+.design-preview {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.design-preview-tile {
+  display: block;
+  border: 1px solid var(--rule-soft);
+  background: var(--charcoal);
+  transition: border-color 0.2s var(--ease);
+}
+.design-preview-tile:hover,
+.design-preview-tile:focus-visible {
+  border-color: var(--signal);
+}
+.design-preview-tile img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.design-preview-caption {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px 14px;
+  font-weight: 600;
+}
+.design-preview-caption .mono {
+  font-weight: 400;
+  font-size: 0.6875rem;
+  color: var(--text-2);
 }
