@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 // app/projects/[projectId]/page.jsx
 // Server Component — runs at build time for static export.
 // Reads the media folder here (Node fs) and passes results as props
@@ -15,8 +16,13 @@ export async function generateMetadata({ params }) {
   const project = projects.find((p) => p.id === projectId);
   if (!project) return { title: "Project Not Found" };
   return {
+    ...pageMeta({
+      title: project.title,
+      description: project.shortDescription,
+      path: `/projects/${projectId}`,
+      image: `project-${projectId}`,
+    }),
     title: `${project.title} — MattQ`,
-    description: project.shortDescription,
   };
 }
 

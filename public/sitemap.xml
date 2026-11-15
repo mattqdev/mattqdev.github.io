@@ -21,14 +21,62 @@
   <url>
     <loc>https://mattqdev.github.io/blog/5-common-react-rendering-mistakes</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/arduino-millis-instead-of-delay</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/datastore-lock-lost-roblox-fix</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/deploy-nextjs-to-github-pages</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/discover-tailwind-css</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/fix-100vh-mobile-browsers-css-dvh</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/fix-hydration-error-nextjs</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/fix-infinite-yield-possible-waitforchild-roblox</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/fix-memory-leaks-luau-connections-roblox</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/github-api-rate-limit-static-site</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-i-got-3m-visits</loc>
@@ -37,169 +85,97 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://mattqdev.github.io/blog/how-to-build-finite-state-machine-in-luau-roblox-npc</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://mattqdev.github.io/blog/how-to-handle-cplusplus-memory-like-a-pro</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-make-a-good-dark-mode-design</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-make-datastore-more-safe-roblox-studio</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-make-good-roblox-games-with-ux</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-make-your-UIs-with-figma</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/how-to-write-code-like-a-pro-roblox-studio</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/make-your-player-addicted-to-your-roblox-game</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/arduino-millis-instead-of-delay</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/deploy-nextjs-to-github-pages</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/fix-100vh-mobile-browsers-css-dvh</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/fix-hydration-error-nextjs</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/fix-infinite-yield-possible-waitforchild-roblox</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/fix-memory-leaks-luau-connections-roblox</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/github-api-rate-limit-static-site</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/how-to-build-finite-state-machine-in-luau-roblox-npc</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-publish-your-first-npm-package</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/how-to-secure-remoteevents-from-exploiters-roblox</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/how-to-write-code-like-a-pro-roblox-studio</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/make-your-player-addicted-to-your-roblox-game</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/profileservice-datastore-in-roblox-studio-2026-developer-guide</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/server-components-vs-client-components-react-framework</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/why-does-useeffect-run-twice-react</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/blog/datastore-lock-lost-roblox-fix</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mattqdev.github.io/blog/roblox-data-loss-what-to-do-2026</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/projects/backtothefuture-clock</loc>
+    <loc>https://mattqdev.github.io/blog/server-components-vs-client-components-react-framework</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/blog/why-does-useeffect-run-twice-react</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/physicshub</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/projects/brawl-stars-pet-simulator</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/projects/brawl-stars-rng</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/projects/cube-generator</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/projects/famous-roblox-users-finder</loc>
-    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mattqdev.github.io/projects/first-portfolio</loc>
+    <loc>https://mattqdev.github.io/projects/stackfingerprint</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -211,25 +187,109 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://mattqdev.github.io/projects/brawl-stars-pet-simulator</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/pantryos</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/warp-arena</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/atelier</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/globaladv</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/redline-rivals</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://mattqdev.github.io/projects/koalaz</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/projects/langrank</loc>
+    <loc>https://mattqdev.github.io/projects/site-seo-kit</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/projects/parolora-clock</loc>
+    <loc>https://mattqdev.github.io/projects/placet</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/projects/physicshub</loc>
+    <loc>https://mattqdev.github.io/projects/portfolio</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/portfolio-v1</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/paninoteca-da-tommy</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/anteo</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/brawl-stars-rng</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/starbound</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/brainrot-hatchers</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/rogames-obbies</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/plugin-ui-assistant</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -247,19 +307,37 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/projects/plugin-ui-assistant</loc>
+    <loc>https://mattqdev.github.io/projects/plugin-assets-previewer</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/projects/portfolio</loc>
+    <loc>https://mattqdev.github.io/projects/plugin-hierarchy-exporter</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mattqdev.github.io/projects/stackfingerprint</loc>
+    <loc>https://mattqdev.github.io/projects/famous-roblox-users-finder</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/parolora-clock</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/backtothefuture-clock</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/cube-generator</loc>
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -269,5 +347,23 @@
     <lastmod>2026-11-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/first-portfolio</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/projects/langrank</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mattqdev.github.io/design</loc>
+    <lastmod>2026-11-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

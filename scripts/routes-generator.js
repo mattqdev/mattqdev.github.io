@@ -1,168 +1,48 @@
-// scripts/sitemap-generator.js
-// Reads the already-expanded routes.js and writes:
-//   public/sitemap.xml  — copied into out/ by next build automatically
-//   public/robots.txt   — same
-//
-// IMPORTANT: Run routes-generator.js FIRST, then this, then next build.
-// The `npm run generate` script handles the correct order.
-//
-// Why public/ only (not out/):
-//   next build with output:'export' copies everything from public/ into out/.
-//   Writing to out/ here would be overwritten anyway, and out/ doesn't exist
-//   until after the build completes.
+// scripts/routes-generator.js
+// Writes routes.js (read by sitemap-generator.js) from the real page sources:
+//   static pages, content/blog/*.md and the project ids in data/projects.js.
+// Run via `npm run generate` (before generate:sitemap).
 
-import { SitemapStream, streamToPromise } from "sitemap";
-import { writeFileSync, existsSync, mkdirSync } from "fs";
-import { fileURLToPath, pathToFileURL } from "url";
+import { readFileSync, readdirSync, writeFileSync } from "fs";
+import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import xmlFormat from "xml-formatter";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(__dirname, "..");
-const ROUTES_FILE = join(ROOT, "routes.js");
-const PUBLIC_DIR = join(ROOT, "public");
-const hostname = "https://mattqdev.github.io";
-const sitemapName = "sitemap";
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-// Ensure public/ exists (it always should, but just in case)
-if (!existsSync(PUBLIC_DIR)) mkdirSync(PUBLIC_DIR, { recursive: true });
+const page = (path, changefreq, priority) => ({ path, changefreq, priority });
 
-function write(filename, content) {
-  const dest = join(PUBLIC_DIR, filename);
-  writeFileSync(dest, content, "utf-8");
-  console.log("   → " + dest);
-}
+const posts = readdirSync(join(ROOT, "content/blog"))
+  .filter((f) => f.endsWith(".md"))
+  .sort()
+  .map((f) => page("/blog/" + f.slice(0, -3), "monthly", 0.8));
 
-async function generateSitemap() {
-  console.log("\n🗺️  Sitemap generator starting...\n");
+// data/projects.js imports react-icons, so plain node can't import it: read the
+// top-level `id:` of each entry instead (entries are indented by 4 spaces).
+const projectIds = [
+  ...readFileSync(join(ROOT, "data/projects.js"), "utf-8").matchAll(
+    /^ {4}id:\s*"([^"]+)"/gm
+  ),
+].map((m) => m[1]);
+if (!projectIds.length)
+  throw new Error("No project ids found in data/projects.js");
 
-  // ── 1. Load routes ──────────────────────────────────────────────────
-  let routes = [];
-  try {
-    const url = pathToFileURL(ROUTES_FILE).href + "?t=" + Date.now();
-    const mod = await import(url);
-    routes = mod.routes ?? [];
-  } catch (e) {
-    console.error(
-      "❌ Could not load routes.js — run `npm run generate:routes` first."
-    );
-    console.error(e.message);
-    process.exit(1);
-  }
+const routes = [
+  page("/", "weekly", 1),
+  page("/projects", "weekly", 0.9),
+  page("/blog", "weekly", 0.9),
+  page("/design", "monthly", 0.8),
+  ...posts,
+  ...projectIds.map((id) => page("/projects/" + id, "monthly", 0.7)),
+];
 
-  // ── 2. Separate for logging ─────────────────────────────────────────
-  // Classify routes — be explicit to avoid double-counting
-  const isRoot = (r) => r.path === "/";
-  const isBlogIndex = (r) => r.path === "/blog";
-  const isBlogPost = (r) => r.path.startsWith("/blog/");
-  const isProjectList = (r) => r.path === "/projects";
-  const isProjectPage = (r) =>
-    r.path.startsWith("/projects/") || r.path.startsWith("/project/");
-  const isOther = (r) =>
-    !isRoot(r) &&
-    !isBlogIndex(r) &&
-    !isBlogPost(r) &&
-    !isProjectList(r) &&
-    !isProjectPage(r);
-
-  const rootRoute = routes.filter(isRoot);
-  const blogIndexRoute = routes.filter(isBlogIndex);
-  const blogPosts = routes.filter(isBlogPost);
-  const projectList = routes.filter(isProjectList);
-  const projectPages = routes.filter(isProjectPage);
-  const otherRoutes = routes.filter(isOther);
-
-  console.log("✅ Loaded " + routes.length + " routes");
-  console.log(
-    "   /: 1" +
-      "  |  /blog: " +
-      (blogIndexRoute.length + blogPosts.length) +
-      "  |  /projects: " +
-      (projectList.length + projectPages.length) +
-      "  |  other: " +
-      otherRoutes.length +
-      "\n"
-  );
-
-  // Deduplicate by path before writing (belt-and-suspenders)
-  const seen = new Set();
-  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-
-  // ── 3. Build sitemap XML ────────────────────────────────────────────
-  const stream = new SitemapStream({ hostname });
-
-  // Priority order: homepage → /projects → /blog → blog posts → project pages → other
-  const ordered = [
-    ...rootRoute,
-    ...projectList,
-    ...blogIndexRoute,
-    ...blogPosts,
-    ...projectPages,
-    ...otherRoutes,
-  ];
-
-  ordered.forEach((r) => {
-    if (seen.has(r.path)) return; // skip duplicates
-    seen.add(r.path);
-    stream.write({
-      url: r.path,
-      changefreq: r.changefreq ?? "monthly",
-      priority: r.priority ?? 0.7,
-      lastmod: today, // YYYY-MM-DD format — required by Google
-    });
-  });
-
-  stream.end();
-
-  const rawXml = (await streamToPromise(stream)).toString();
-  const formatted = xmlFormat(rawXml, {
-    indentation: "  ",
-    collapseContent: true,
-  });
-
-  // ── 4. Write sitemap.xml → public/ ──────────────────────────────────
-  console.log("✅ Writing " + sitemapName + ".xml:");
-  write(sitemapName + ".xml", formatted);
-
-  // ── 5. Write robots.txt → public/ ───────────────────────────────────
-  // robots.txt with explicit Sitemap: line is required for Google Search
-  // Console to fetch the sitemap on github.io domains. Without this,
-  // GSC shows "Couldn't fetch" even when the XML is valid and accessible.
-  const robotsTxt = [
-    "User-agent: *",
-    "Allow: /",
-    "",
-    "# Block Next.js build artifacts (not served by GitHub Pages anyway,",
-    "# but belt-and-suspenders for any proxy or CDN in front)",
-    "Disallow: /_next/",
-    "Disallow: /api/",
-    "",
-    "# Sitemap — explicit declaration required for GSC on github.io",
-    "Sitemap: " + hostname + "/" + sitemapName + ".xml",
-  ].join("\n");
-
-  console.log("\n✅ Writing robots.txt:");
-  write("robots.txt", robotsTxt);
-
-  console.log("\n🎉 Done — " + routes.length + " URLs in sitemap.");
-  console.log("\n📋 Next steps for Google indexing:");
-  console.log("   1. Run `npm run build` to copy public/ into out/");
-  console.log("   2. Deploy with `npm run deploy`");
-  console.log(
-    "   3. Verify sitemap is live: " + hostname + "/" + sitemapName + ".xml"
-  );
-  console.log(
-    "   4. In Google Search Console → Sitemaps → submit: sitemap.xml"
-  );
-  console.log(
-    "   5. If GSC shows 'Couldn't fetch', wait 12-24h then resubmit."
-  );
-  console.log(
-    "      The robots.txt Sitemap: line forces Googlebot to discover it.\n"
-  );
-}
-
-generateSitemap().catch((e) => {
-  console.error("❌ Sitemap generation failed:", e);
-  process.exit(1);
-});
+writeFileSync(
+  join(ROOT, "routes.js"),
+  "// routes.js — AUTO-GENERATED by scripts/routes-generator.js\n" +
+    "// Do not edit manually. Run: npm run generate:routes\n\n" +
+    "export const routes = " +
+    JSON.stringify(routes, null, 2) +
+    ";\n"
+);
+console.log(
+  `✅ routes.js: ${routes.length} routes (${posts.length} posts, ${projectIds.length} projects)`
+);

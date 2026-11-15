@@ -8,19 +8,69 @@ export const routes = [
     "priority": 1
   },
   {
+    "path": "/projects",
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  {
     "path": "/blog",
     "changefreq": "weekly",
     "priority": 0.9
   },
   {
+    "path": "/design",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
     "path": "/blog/5-common-react-rendering-mistakes",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/arduino-millis-instead-of-delay",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/datastore-lock-lost-roblox-fix",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/deploy-nextjs-to-github-pages",
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/discover-tailwind-css",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/fix-100vh-mobile-browsers-css-dvh",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/fix-hydration-error-nextjs",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/fix-infinite-yield-possible-waitforchild-roblox",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/fix-memory-leaks-luau-connections-roblox",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/github-api-rate-limit-static-site",
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/how-i-got-3m-visits",
@@ -28,147 +78,82 @@ export const routes = [
     "priority": 0.8
   },
   {
+    "path": "/blog/how-to-build-finite-state-machine-in-luau-roblox-npc",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
     "path": "/blog/how-to-handle-cplusplus-memory-like-a-pro",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/how-to-make-a-good-dark-mode-design",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/how-to-make-datastore-more-safe-roblox-studio",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/how-to-make-good-roblox-games-with-ux",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/how-to-make-your-UIs-with-figma",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/how-to-write-code-like-a-pro-roblox-studio",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/make-your-player-addicted-to-your-roblox-game",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/arduino-millis-instead-of-delay",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/deploy-nextjs-to-github-pages",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/fix-100vh-mobile-browsers-css-dvh",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/fix-hydration-error-nextjs",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/fix-infinite-yield-possible-waitforchild-roblox",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/fix-memory-leaks-luau-connections-roblox",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/github-api-rate-limit-static-site",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/how-to-build-finite-state-machine-in-luau-roblox-npc",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/how-to-publish-your-first-npm-package",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/how-to-secure-remoteevents-from-exploiters-roblox",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/how-to-write-code-like-a-pro-roblox-studio",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/blog/make-your-player-addicted-to-your-roblox-game",
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/profileservice-datastore-in-roblox-studio-2026-developer-guide",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/server-components-vs-client-components-react-framework",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/why-does-useeffect-run-twice-react",
-    "changefreq": "weekly",
-    "priority": 0.9
-  },
-  {
-    "path": "/blog/datastore-lock-lost-roblox-fix",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
     "path": "/blog/roblox-data-loss-what-to-do-2026",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
-    "path": "/projects",
-    "changefreq": "weekly",
-    "priority": 0.9
+    "path": "/blog/server-components-vs-client-components-react-framework",
+    "changefreq": "monthly",
+    "priority": 0.8
   },
   {
-    "path": "/projects/backtothefuture-clock",
+    "path": "/blog/why-does-useeffect-run-twice-react",
+    "changefreq": "monthly",
+    "priority": 0.8
+  },
+  {
+    "path": "/projects/physicshub",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/projects/brawl-stars-pet-simulator",
-    "changefreq": "monthly",
-    "priority": 0.7
-  },
-  {
-    "path": "/projects/brawl-stars-rng",
-    "changefreq": "monthly",
-    "priority": 0.7
-  },
-  {
-    "path": "/projects/cube-generator",
-    "changefreq": "monthly",
-    "priority": 0.7
-  },
-  {
-    "path": "/projects/famous-roblox-users-finder",
-    "changefreq": "monthly",
-    "priority": 0.7
-  },
-  {
-    "path": "/projects/first-portfolio",
+    "path": "/projects/stackfingerprint",
     "changefreq": "monthly",
     "priority": 0.7
   },
@@ -178,22 +163,92 @@ export const routes = [
     "priority": 0.7
   },
   {
+    "path": "/projects/brawl-stars-pet-simulator",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/pantryos",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/warp-arena",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/atelier",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/globaladv",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/redline-rivals",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
     "path": "/projects/koalaz",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/projects/langrank",
+    "path": "/projects/site-seo-kit",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/projects/parolora-clock",
+    "path": "/projects/placet",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/projects/physicshub",
+    "path": "/projects/portfolio",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/portfolio-v1",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/paninoteca-da-tommy",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/anteo",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/brawl-stars-rng",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/starbound",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/brainrot-hatchers",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/rogames-obbies",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/plugin-ui-assistant",
     "changefreq": "monthly",
     "priority": 0.7
   },
@@ -208,22 +263,47 @@ export const routes = [
     "priority": 0.7
   },
   {
-    "path": "/projects/plugin-ui-assistant",
+    "path": "/projects/plugin-assets-previewer",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/projects/portfolio",
+    "path": "/projects/plugin-hierarchy-exporter",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
-    "path": "/projects/stackfingerprint",
+    "path": "/projects/famous-roblox-users-finder",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/parolora-clock",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/backtothefuture-clock",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/cube-generator",
     "changefreq": "monthly",
     "priority": 0.7
   },
   {
     "path": "/projects/watermark-applier",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/first-portfolio",
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  {
+    "path": "/projects/langrank",
     "changefreq": "monthly",
     "priority": 0.7
   }

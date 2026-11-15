@@ -132,7 +132,6 @@ async function generateSitemap() {
     "User-agent: *",
     "Allow: /",
     "",
-    "Disallow: /_next/",
     "Disallow: /api/",
     "",
     "Sitemap: " + hostname + "/" + sitemapName + ".xml",

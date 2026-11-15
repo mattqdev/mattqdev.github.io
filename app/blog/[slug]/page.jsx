@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 // app/blog/[slug]/page.jsx  — Server Component
 import { getAllSlugs, getPostBySlug, getAllPosts } from "@/lib/blog";
 import BlogArticle from "@/components/blog/BlogArticle";
@@ -14,28 +15,20 @@ export async function generateMetadata({ params }) {
   const post = getPostBySlug(slug);
   if (!post) return { title: "Not Found" };
   return {
-    title: `${post.title} — MattQ`,
-    description: post.description,
-    alternates: {
-      // Tell Google the RSS feed exists
-      types: {
-        "application/rss+xml": "https://mattqdev.github.io/blog/rss.xml",
-      },
-    },
-    openGraph: {
+    ...pageMeta({
       title: post.title,
       description: post.description,
+      path: `/blog/${slug}`,
+      image: `blog-${slug}`,
       type: "article",
       publishedTime: post.date,
-      url: `https://mattqdev.github.io/blog/${slug}`,
-      ...(post.cover
-        ? { images: [`https://mattqdev.github.io/blog/covers/${post.cover}`] }
-        : {}),
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.description,
+      authors: ["MattQ"],
+      tags: post.tags,
+    }),
+    title: `${post.title} — MattQ`,
+    alternates: {
+      canonical: `/blog/${slug}`,
+      types: { "application/rss+xml": "/blog/rss.xml" },
     },
   };
 }

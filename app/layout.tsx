@@ -7,6 +7,7 @@ import {
 } from "next/font/google";
 import { Metadata, Viewport } from "next";
 import Providers from "@/components/Providers";
+import { SITE_URL, pageMeta } from "@/lib/seo";
 import "./globals.css";
 import "./Blog.css";
 
@@ -51,20 +52,19 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "MattQ — Developer & Designer",
-  description:
-    "Portfolio of MattQ — Web developer, Roblox game developer and UI/UX designer.",
-  openGraph: {
-    title: "MattQ — Developer & Designer",
-    description: "Web · Roblox · Design",
-    url: "https://mattqdev.github.io",
-    siteName: "MattQ Portfolio",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    creator: "@mattqdev",
+  metadataBase: new URL(SITE_URL),
+  ...pageMeta({
+    title: "MattQ — Software Developer & Designer",
+    description:
+      "Portfolio of MattQ (Matteo Scarcella): software developer and designer from Florence. Roblox games with 5M+ visits, developer tools with 8,100+ installs and open-source web apps.",
+    path: "/",
+    image: "home",
+  }),
+  authors: [{ name: "MattQ", url: SITE_URL }],
+  creator: "MattQ",
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": "/blog/rss.xml" },
   },
   robots: {
     index: true,
@@ -83,6 +83,7 @@ export default function RootLayout({ children }) {
     >
       <head>
         <link rel="icon" type="image/x-icon" href="/icon.ico" />
+        <link rel="apple-touch-icon" href="/icon.png" />
         {/* Microsoft Clarity analytics */}
         <script
           type="text/javascript"

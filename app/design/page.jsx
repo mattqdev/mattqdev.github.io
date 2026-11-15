@@ -1,24 +1,15 @@
+import { pageMeta } from "@/lib/seo";
 // app/design/page.jsx — Server Component
 // Visual portfolio: brand, campaign and game graphics. Data in data/design.js.
 import { DESIGN_GROUPS } from "@/data/design";
 
-export const metadata = {
+export const metadata = pageMeta({
   title: "Design — MattQ",
   description:
     "Brand identities, packaging, social campaigns and game graphics designed by MattQ.",
-  openGraph: {
-    title: "Design — MattQ",
-    description:
-      "Brand identities, packaging, social campaigns and game graphics.",
-    url: "https://mattqdev.github.io/design",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Design — MattQ",
-    description: "Brand identities, campaigns and game graphics.",
-  },
-};
+  path: "/design",
+  image: "design",
+});
 
 export default function DesignPage() {
   return (
