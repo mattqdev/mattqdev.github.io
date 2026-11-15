@@ -2437,3 +2437,51 @@ label,
     display: none;
   }
 }
+
+/* ── /design (visual portfolio) ───────────────────── */
+.design-group-head {
+  display: grid;
+  gap: 14px;
+  max-width: 720px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+.design-group-head .label:first-child {
+  color: var(--signal-tint);
+}
+.design-group-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.design-group-text {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+/* Masonry via columns: mixed aspect ratios stack without cropping */
+.design-grid {
+  list-style: none;
+  columns: 3 300px;
+  column-gap: 16px;
+}
+.design-grid li {
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+.design-grid a {
+  display: block;
+  border: 1px solid var(--rule-soft);
+  background: var(--charcoal);
+  transition: border-color 0.2s var(--ease);
+}
+.design-grid a:hover,
+.design-grid a:focus-visible {
+  border-color: var(--signal);
+}
+.design-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

@@ -75,7 +75,7 @@ export const projects = [
     id: "goalmageddon",
     title: "GOALMAGEDDON",
     shortDescription:
-      "A vehicular soccer/combat Roblox game — Carmageddon meets Rocket League — with 680K+ visits.",
+      "A vehicular soccer/combat Roblox game — Carmageddon meets Rocket League — with 1.5M+ visits.",
     description:
       "GOALMAGEDDON is a Roblox game that blends vehicular combat with sports gameplay — think Carmageddon meets Rocket League. Players pick a vehicle, arm up, and drive, shoot, and smash their way to victory across multiple game modes. I'm the co-owner, owner is @PenninoITA81",
     startDate: "Jun 2026",
@@ -104,7 +104,7 @@ export const projects = [
         icon: <FaEye />,
         title: "Total Visits",
         description: "Game visits since launch",
-        metric: "680K+",
+        metric: "1.5M+",
       },
       {
         icon: <FaUsers />,
@@ -184,7 +184,7 @@ export const projects = [
         icon: <FaEye />,
         title: "Total Visits",
         description: "Game visits since launch",
-        metric: "3.2M+",
+        metric: "3.4M+",
       },
       {
         icon: <FaStar />,
@@ -411,7 +411,7 @@ export const projects = [
     id: "plugin-ui-assistant",
     title: "Plugin UI Assistant",
     shortDescription:
-      "A free plugin for Roblox developers with 3.500+ downloads that simplifies UI creation in Roblox Studio.",
+      "A free plugin for Roblox developers with 1,300+ downloads that simplifies UI creation in Roblox Studio.",
     description:
       "Plugin UI Assistant is a Roblox Studio plugin that helps developers quickly create and manage UI elements. It provides quick tools to accelerate the UI development process.",
     startDate: "Oct 2024",
@@ -452,7 +452,7 @@ export const projects = [
         icon: <FaDownload />,
         title: "Downloads",
         description: "Plugin installations",
-        metric: "3.500+",
+        metric: "1,300+",
       },
     ],
   },
@@ -460,7 +460,7 @@ export const projects = [
     id: "plugin-heatmap",
     title: "Performance Heatmap",
     shortDescription:
-      "A free plugin for Roblox developers with 2.000+ downloads that help you optimize your builds in Roblox Studio.",
+      "A free plugin for Roblox developers with 6,000+ downloads that help you optimize your builds in Roblox Studio.",
     description:
       "Plugin Performance Heatmap is a Roblox Studio plugin that helps developers quickly see which builds make the game laggy and fix them. It provides quick tools to colorize Mesh, Parts, Lights, Models and more.",
     startDate: "Jan 2025",
@@ -501,7 +501,7 @@ export const projects = [
         icon: <FaDownload />,
         title: "Downloads",
         description: "Plugin installations",
-        metric: "3.000+",
+        metric: "6,000+",
       },
       {
         icon: <FaHeart />,
@@ -548,7 +548,7 @@ export const projects = [
         icon: <FaDownload />,
         title: "Downloads",
         description: "Plugin installations",
-        metric: "150+",
+        metric: "350+",
       },
       {
         icon: <FaTrophy />,

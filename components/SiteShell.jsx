@@ -15,6 +15,7 @@ export const SECTIONS = [
   { id: "hero", name: "Home" },
   { id: "about", name: "About" },
   { id: "projects", name: "Projects", href: "/projects" },
+  { id: "design", name: "Design", href: "/design" },
   { id: "skills", name: "Skills" },
   { id: "contact", name: "Contact" },
   { id: "blog", name: "Blog", href: "/blog" },
